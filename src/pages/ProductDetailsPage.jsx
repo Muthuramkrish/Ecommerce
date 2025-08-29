@@ -185,14 +185,7 @@ const ProductDetailsPage = ({
           {/* Product Images */}
           <div className="space-y-4">
             <div
-              className="aspect-square bg-white rounded-lg overflow-hidden shadow-lg cursor-pointer"
-              onClick={() => {
-                if (variants.length && variantsRef.current) {
-                  variantsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-                  setVariantsHighlighted(true);
-                  window.setTimeout(() => setVariantsHighlighted(false), 1200);
-                }
-              }}
+              className="aspect-square bg-white rounded-lg overflow-hidden shadow-lg"
             >
               <img
                 src={displayedImages[selectedImage]}
@@ -394,7 +387,7 @@ const ProductDetailsPage = ({
                           {v.images.map((img, j) => (
                             <button
                               key={j}
-                              onClick={(e) => { e.stopPropagation(); setSelectedVariantIndex(i); setSelectedImage(0); }}
+                              onClick={(e) => { e.stopPropagation(); setSelectedImage(j); }}
                               className="rounded overflow-hidden border border-gray-200 hover:border-blue-400"
                             >
                               <img src={img} alt={`${v.name}-${j}`} className="w-16 h-16 object-cover" />
