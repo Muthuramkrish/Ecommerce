@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingCart, Search, Menu, User, Heart } from 'lucide-react';
+import vLogo from '../assets/v.png';
 
 
 const Header = ({ 
@@ -43,8 +44,8 @@ const Header = ({
         <div className="flex items-center justify-between h-20">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <button onClick={onLogoClick} className="text-2xl font-bold text-white-400">
-              VIKOSHIYA
+            <button onClick={onLogoClick} className="flex items-center">
+              <img src={vLogo} alt="V Logo" className="h-12 w-auto" />
             </button>
           </div>
 
