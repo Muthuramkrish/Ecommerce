@@ -356,6 +356,189 @@ const Home = ({ products = [], onAddToCart, onAddToWishlist, onCategorySelect, o
         </div>
       </section>
 
+      {/* Professional Electrical Ecommerce Platform Section */}
+      <section className="py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 relative overflow-hidden">
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-10">
+          <div className="absolute top-0 left-0 w-full h-full" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundSize: '60px 60px'
+          }}></div>
+        </div>
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-yellow-400 rounded-full mb-6">
+              <Zap className="w-8 h-8 text-blue-900" />
+            </div>
+            <h2 className="text-4xl font-bold text-white mb-4">
+              Professional Electrical Ecommerce Platform
+            </h2>
+            <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
+              Your trusted partner for premium electrical components and solutions. From switches to complex installations, 
+              we provide professional-grade products with industry-leading support.
+            </p>
+          </div>
+
+          {/* Features Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
+            {/* Feature 1: Product Quality */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 group">
+              <div className="w-12 h-12 bg-green-400 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-6 h-6 text-green-900" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-4">Certified Quality</h3>
+              <p className="text-blue-100 leading-relaxed">
+                All products meet international standards with ISI, CE, and BIS certifications. 
+                Rigorous quality testing ensures safety and reliability.
+              </p>
+            </div>
+
+            {/* Feature 2: Technical Support */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 group">
+              <div className="w-12 h-12 bg-purple-400 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-6 h-6 text-purple-900" fill="currentColor" viewBox="0 0 20 20">
+                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-4">Expert Support</h3>
+              <p className="text-blue-100 leading-relaxed">
+                24/7 technical assistance from certified electricians. Get installation guidance, 
+                product recommendations, and troubleshooting support.
+              </p>
+            </div>
+
+            {/* Feature 3: Fast Delivery */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 group">
+              <div className="w-12 h-12 bg-orange-400 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
+                <svg className="w-6 h-6 text-orange-900" fill="currentColor" viewBox="0 0 20 20">
+                  <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+                  <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1V8a1 1 0 00-1-1h-3z" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-4">Express Delivery</h3>
+              <p className="text-blue-100 leading-relaxed">
+                Same-day delivery in major cities, next-day nationwide. Bulk orders get priority 
+                handling with dedicated logistics support.
+              </p>
+            </div>
+          </div>
+
+          {/* Stats Section */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            <div className="text-center">
+              <div className="text-3xl lg:text-4xl font-bold text-yellow-400 mb-2">5000+</div>
+              <div className="text-blue-100 font-medium">Products Available</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl lg:text-4xl font-bold text-green-400 mb-2">50+</div>
+              <div className="text-blue-100 font-medium">Trusted Brands</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl lg:text-4xl font-bold text-purple-400 mb-2">100K+</div>
+              <div className="text-blue-100 font-medium">Happy Customers</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl lg:text-4xl font-bold text-orange-400 mb-2">24/7</div>
+              <div className="text-blue-100 font-medium">Support Available</div>
+            </div>
+          </div>
+
+          {/* Professional Services */}
+          <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 lg:p-12 border border-white/20">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div>
+                <h3 className="text-3xl font-bold text-white mb-6">Professional Services</h3>
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-3 h-3 text-blue-900" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold text-white mb-1">Bulk Procurement</h4>
+                      <p className="text-blue-100">Custom pricing for contractors and large projects with dedicated account management.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-4">
+                    <div className="w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-3 h-3 text-blue-900" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold text-white mb-1">Technical Consultation</h4>
+                      <p className="text-blue-100">Free consultation with electrical engineers for project planning and product selection.</p>
+                    </div>
+                  </div>
+                  <div className="flex items-start space-x-4">
+                    <div className="w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <svg className="w-3 h-3 text-blue-900" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                      </svg>
+                    </div>
+                    <div>
+                      <h4 className="text-lg font-semibold text-white mb-1">Installation Support</h4>
+                      <p className="text-blue-100">Connect with certified electricians in your area for professional installation services.</p>
+                    </div>
+                  </div>
+                </div>
+                <div className="mt-8">
+                  <button className="bg-yellow-400 text-blue-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition-all duration-300 hover:scale-105 shadow-lg">
+                    Get Professional Quote
+                  </button>
+                </div>
+              </div>
+              <div className="relative">
+                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/30">
+                  <h4 className="text-xl font-bold text-white mb-4">Why Choose Our Platform?</h4>
+                  <div className="space-y-3">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
+                      <span className="text-blue-100">Comprehensive product catalog with detailed specifications</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="w-2 h-2 bg-green-400 rounded-full"></div>
+                      <span className="text-blue-100">Real-time inventory and pricing updates</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                      <span className="text-blue-100">Secure payment gateway with multiple options</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
+                      <span className="text-blue-100">Order tracking and delivery management</span>
+                    </div>
+                    <div className="flex items-center space-x-3">
+                      <div className="w-2 h-2 bg-red-400 rounded-full"></div>
+                      <span className="text-blue-100">Warranty management and after-sales support</span>
+                    </div>
+                  </div>
+                </div>
+                
+                {/* Floating elements */}
+                <div className="absolute -top-4 -right-4 w-24 h-24 bg-yellow-400/20 rounded-full animate-pulse"></div>
+                <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-green-400/20 rounded-full animate-bounce"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Bottom CTA */}
+        <div className="text-center mt-12">
+          <div className="inline-flex items-center space-x-4 bg-white/10 backdrop-blur-sm rounded-full px-8 py-4 border border-white/20">
+            <span className="text-white font-semibold">Ready to experience professional electrical procurement?</span>
+            <button className="bg-gradient-to-r from-yellow-400 to-orange-400 text-blue-900 px-6 py-2 rounded-full font-bold hover:from-yellow-300 hover:to-orange-300 transition-all duration-300 hover:scale-105">
+              Start Shopping
+            </button>
+          </div>
+        </div>
+      </section>
+
       {/* Product Grid Section */}
       {products && products.length > 0 && (
         <section id="products" className="py-16 bg-gray-50">
