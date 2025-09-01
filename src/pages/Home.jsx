@@ -356,185 +356,214 @@ const Home = ({ products = [], onAddToCart, onAddToWishlist, onCategorySelect, o
         </div>
       </section>
 
-      {/* Professional Electrical Ecommerce Platform Section */}
-      <section className="py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 relative overflow-hidden">
-        {/* Background Pattern */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-0 left-0 w-full h-full" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            backgroundSize: '60px 60px'
+      {/* Professional Electrical Solutions Hub */}
+      <section className="py-20 bg-gradient-to-br from-slate-900 via-gray-900 to-zinc-900 relative overflow-hidden">
+        {/* Animated Background Grid */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="absolute inset-0" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1'%3E%3Cpath d='M0 0h100v100H0z'/%3E%3Cpath d='M25 0v100M50 0v100M75 0v100M0 25h100M0 50h100M0 75h100'/%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundSize: '100px 100px'
           }}></div>
+        </div>
+
+        {/* Floating Circuit Elements */}
+        <div className="absolute top-20 left-20 w-32 h-32 opacity-10 animate-spin-slow">
+          <svg viewBox="0 0 100 100" className="w-full h-full text-blue-400">
+            <circle cx="50" cy="50" r="40" fill="none" stroke="currentColor" strokeWidth="2"/>
+            <circle cx="50" cy="50" r="6" fill="currentColor"/>
+            <line x1="10" y1="50" x2="90" y2="50" stroke="currentColor" strokeWidth="2"/>
+            <line x1="50" y1="10" x2="50" y2="90" stroke="currentColor" strokeWidth="2"/>
+          </svg>
+        </div>
+        <div className="absolute bottom-32 right-32 w-24 h-24 opacity-10 animate-pulse">
+          <Zap className="w-full h-full text-yellow-400" />
         </div>
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           {/* Section Header */}
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-yellow-400 rounded-full mb-6">
-              <Zap className="w-8 h-8 text-blue-900" />
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl mb-8 shadow-2xl">
+              <svg className="w-10 h-10 text-white" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L2 7v10c0 5.55 3.84 9.74 9 11 5.16-1.26 9-5.45 9-11V7l-10-5z"/>
+                <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2" fill="none"/>
+              </svg>
             </div>
-            <h2 className="text-4xl font-bold text-white mb-4">
-              Professional Electrical Ecommerce Platform
+            <h2 className="text-5xl font-bold text-white mb-6 tracking-tight">
+              Professional Electrical Solutions Hub
             </h2>
-            <p className="text-xl text-blue-100 max-w-3xl mx-auto leading-relaxed">
-              Your trusted partner for premium electrical components and solutions. From switches to complex installations, 
-              we provide professional-grade products with industry-leading support.
+            <p className="text-xl text-gray-300 max-w-4xl mx-auto leading-relaxed">
+              Engineered for professionals, designed for excellence. Our comprehensive electrical platform delivers 
+              enterprise-grade solutions with unmatched reliability and precision for industrial and commercial applications.
             </p>
           </div>
 
-          {/* Features Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-16">
-            {/* Feature 1: Product Quality */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 group">
-              <div className="w-12 h-12 bg-green-400 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <svg className="w-6 h-6 text-green-900" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+          {/* Enhanced Features Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-20">
+            {/* Feature 1: Industrial Grade */}
+            <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/20 hover:border-blue-400/50 transition-all duration-500 group hover:scale-105">
+              <div className="w-14 h-14 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
+                <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-white mb-4">Certified Quality</h3>
-              <p className="text-blue-100 leading-relaxed">
-                All products meet international standards with ISI, CE, and BIS certifications. 
-                Rigorous quality testing ensures safety and reliability.
+              <h3 className="text-xl font-bold text-white mb-4">Industrial Grade</h3>
+              <p className="text-gray-300 leading-relaxed text-sm">
+                IEC 61439, UL Listed, and NEMA certified components designed for demanding industrial environments.
               </p>
             </div>
 
-            {/* Feature 2: Technical Support */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 group">
-              <div className="w-12 h-12 bg-purple-400 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <svg className="w-6 h-6 text-purple-900" fill="currentColor" viewBox="0 0 20 20">
-                  <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
+            {/* Feature 2: Smart Integration */}
+            <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/20 hover:border-purple-400/50 transition-all duration-500 group hover:scale-105">
+              <div className="w-14 h-14 bg-gradient-to-r from-purple-500 to-pink-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
+                <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-white mb-4">Expert Support</h3>
-              <p className="text-blue-100 leading-relaxed">
-                24/7 technical assistance from certified electricians. Get installation guidance, 
-                product recommendations, and troubleshooting support.
+              <h3 className="text-xl font-bold text-white mb-4">Smart Integration</h3>
+              <p className="text-gray-300 leading-relaxed text-sm">
+                IoT-enabled devices with seamless integration to building management systems and automation platforms.
               </p>
             </div>
 
-            {/* Feature 3: Fast Delivery */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 border border-white/20 hover:bg-white/15 transition-all duration-300 group">
-              <div className="w-12 h-12 bg-orange-400 rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300">
-                <svg className="w-6 h-6 text-orange-900" fill="currentColor" viewBox="0 0 20 20">
-                  <path d="M8 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15 16.5a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
-                  <path d="M3 4a1 1 0 00-1 1v10a1 1 0 001 1h1.05a2.5 2.5 0 014.9 0H10a1 1 0 001-1V5a1 1 0 00-1-1H3zM14 7a1 1 0 00-1 1v6.05A2.5 2.5 0 0115.95 16H17a1 1 0 001-1V8a1 1 0 00-1-1h-3z" />
+            {/* Feature 3: Expert Engineering */}
+            <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/20 hover:border-green-400/50 transition-all duration-500 group hover:scale-105">
+              <div className="w-14 h-14 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
+                <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.94-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/>
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-white mb-4">Express Delivery</h3>
-              <p className="text-blue-100 leading-relaxed">
-                Same-day delivery in major cities, next-day nationwide. Bulk orders get priority 
-                handling with dedicated logistics support.
+              <h3 className="text-xl font-bold text-white mb-4">Expert Engineering</h3>
+              <p className="text-gray-300 leading-relaxed text-sm">
+                In-house electrical engineers provide custom solutions, load calculations, and system design consultation.
+              </p>
+            </div>
+
+            {/* Feature 4: Global Standards */}
+            <div className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-3xl p-8 border border-white/20 hover:border-orange-400/50 transition-all duration-500 group hover:scale-105">
+              <div className="w-14 h-14 bg-gradient-to-r from-orange-500 to-red-500 rounded-2xl flex items-center justify-center mb-6 group-hover:rotate-12 transition-transform duration-300">
+                <svg className="w-7 h-7 text-white" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-white mb-4">Global Standards</h3>
+              <p className="text-gray-300 leading-relaxed text-sm">
+                Compliance with international safety standards including IEEE, ANSI, and IEC specifications worldwide.
               </p>
             </div>
           </div>
 
-          {/* Stats Section */}
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
-            <div className="text-center">
-              <div className="text-3xl lg:text-4xl font-bold text-yellow-400 mb-2">5000+</div>
-              <div className="text-blue-100 font-medium">Products Available</div>
+          {/* Professional Capabilities */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-20">
+            <div>
+              <h3 className="text-4xl font-bold text-white mb-8 leading-tight">
+                Enterprise-Grade <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-400">Electrical Infrastructure</span>
+              </h3>
+              <div className="space-y-6">
+                <div className="flex items-start space-x-4">
+                  <div className="w-8 h-8 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center flex-shrink-0 mt-1">
+                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-semibold text-white mb-2">Advanced Power Distribution</h4>
+                    <p className="text-gray-300 leading-relaxed">Comprehensive switchgear, transformers, and distribution panels for critical infrastructure projects.</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <div className="w-8 h-8 bg-gradient-to-r from-purple-500 to-pink-500 rounded-xl flex items-center justify-center flex-shrink-0 mt-1">
+                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-semibold text-white mb-2">Automation & Control Systems</h4>
+                    <p className="text-gray-300 leading-relaxed">PLC systems, SCADA integration, and intelligent building automation solutions.</p>
+                  </div>
+                </div>
+                <div className="flex items-start space-x-4">
+                  <div className="w-8 h-8 bg-gradient-to-r from-green-500 to-emerald-500 rounded-xl flex items-center justify-center flex-shrink-0 mt-1">
+                    <svg className="w-4 h-4 text-white" fill="currentColor" viewBox="0 0 20 20">
+                      <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h4 className="text-xl font-semibold text-white mb-2">Safety & Protection Systems</h4>
+                    <p className="text-gray-300 leading-relaxed">Arc fault protection, surge suppressors, and emergency power systems for maximum safety.</p>
+                  </div>
+                </div>
+              </div>
             </div>
-            <div className="text-center">
-              <div className="text-3xl lg:text-4xl font-bold text-green-400 mb-2">50+</div>
-              <div className="text-blue-100 font-medium">Trusted Brands</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl lg:text-4xl font-bold text-purple-400 mb-2">100K+</div>
-              <div className="text-blue-100 font-medium">Happy Customers</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl lg:text-4xl font-bold text-orange-400 mb-2">24/7</div>
-              <div className="text-blue-100 font-medium">Support Available</div>
-            </div>
-          </div>
-
-          {/* Professional Services */}
-          <div className="bg-white/10 backdrop-blur-sm rounded-3xl p-8 lg:p-12 border border-white/20">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-              <div>
-                <h3 className="text-3xl font-bold text-white mb-6">Professional Services</h3>
+            
+            <div className="relative">
+              <div className="bg-gradient-to-br from-white/15 to-white/5 backdrop-blur-xl rounded-3xl p-8 border border-white/30 shadow-2xl">
+                <h4 className="text-2xl font-bold text-white mb-6">Professional Advantages</h4>
                 <div className="space-y-4">
-                  <div className="flex items-start space-x-4">
-                    <div className="w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <svg className="w-3 h-3 text-blue-900" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-semibold text-white mb-1">Bulk Procurement</h4>
-                      <p className="text-blue-100">Custom pricing for contractors and large projects with dedicated account management.</p>
-                    </div>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-3 h-3 bg-gradient-to-r from-blue-400 to-cyan-400 rounded-full"></div>
+                    <span className="text-gray-200">ISO 9001:2015 certified quality management</span>
                   </div>
-                  <div className="flex items-start space-x-4">
-                    <div className="w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <svg className="w-3 h-3 text-blue-900" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-semibold text-white mb-1">Technical Consultation</h4>
-                      <p className="text-blue-100">Free consultation with electrical engineers for project planning and product selection.</p>
-                    </div>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-3 h-3 bg-gradient-to-r from-green-400 to-emerald-400 rounded-full"></div>
+                    <span className="text-gray-200">Dedicated technical account managers</span>
                   </div>
-                  <div className="flex items-start space-x-4">
-                    <div className="w-6 h-6 bg-yellow-400 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <svg className="w-3 h-3 text-blue-900" fill="currentColor" viewBox="0 0 20 20">
-                        <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
-                      </svg>
-                    </div>
-                    <div>
-                      <h4 className="text-lg font-semibold text-white mb-1">Installation Support</h4>
-                      <p className="text-blue-100">Connect with certified electricians in your area for professional installation services.</p>
-                    </div>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-3 h-3 bg-gradient-to-r from-purple-400 to-pink-400 rounded-full"></div>
+                    <span className="text-gray-200">Custom engineering and design services</span>
                   </div>
-                </div>
-                <div className="mt-8">
-                  <button className="bg-yellow-400 text-blue-900 px-8 py-4 rounded-full font-bold text-lg hover:bg-yellow-300 transition-all duration-300 hover:scale-105 shadow-lg">
-                    Get Professional Quote
-                  </button>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-3 h-3 bg-gradient-to-r from-orange-400 to-red-400 rounded-full"></div>
+                    <span className="text-gray-200">Extended warranty and maintenance programs</span>
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <div className="w-3 h-3 bg-gradient-to-r from-yellow-400 to-orange-400 rounded-full"></div>
+                    <span className="text-gray-200">Priority logistics and emergency delivery</span>
+                  </div>
                 </div>
               </div>
-              <div className="relative">
-                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/30">
-                  <h4 className="text-xl font-bold text-white mb-4">Why Choose Our Platform?</h4>
-                  <div className="space-y-3">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-2 h-2 bg-yellow-400 rounded-full"></div>
-                      <span className="text-blue-100">Comprehensive product catalog with detailed specifications</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-2 h-2 bg-green-400 rounded-full"></div>
-                      <span className="text-blue-100">Real-time inventory and pricing updates</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                      <span className="text-blue-100">Secure payment gateway with multiple options</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-2 h-2 bg-orange-400 rounded-full"></div>
-                      <span className="text-blue-100">Order tracking and delivery management</span>
-                    </div>
-                    <div className="flex items-center space-x-3">
-                      <div className="w-2 h-2 bg-red-400 rounded-full"></div>
-                      <span className="text-blue-100">Warranty management and after-sales support</span>
-                    </div>
-                  </div>
-                </div>
-                
-                {/* Floating elements */}
-                <div className="absolute -top-4 -right-4 w-24 h-24 bg-yellow-400/20 rounded-full animate-pulse"></div>
-                <div className="absolute -bottom-4 -left-4 w-16 h-16 bg-green-400/20 rounded-full animate-bounce"></div>
-              </div>
+              
+              {/* Decorative Elements */}
+              <div className="absolute -top-6 -right-6 w-32 h-32 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full blur-xl"></div>
+              <div className="absolute -bottom-6 -left-6 w-24 h-24 bg-gradient-to-r from-purple-500/20 to-pink-500/20 rounded-full blur-xl"></div>
             </div>
           </div>
-        </div>
 
-        {/* Bottom CTA */}
-        <div className="text-center mt-12">
-          <div className="inline-flex items-center space-x-4 bg-white/10 backdrop-blur-sm rounded-full px-8 py-4 border border-white/20">
-            <span className="text-white font-semibold">Ready to experience professional electrical procurement?</span>
-            <button className="bg-gradient-to-r from-yellow-400 to-orange-400 text-blue-900 px-6 py-2 rounded-full font-bold hover:from-yellow-300 hover:to-orange-300 transition-all duration-300 hover:scale-105">
-              Start Shopping
-            </button>
+          {/* Enhanced Stats Section */}
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8 mb-20">
+            <div className="text-center group">
+              <div className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform duration-300">15K+</div>
+              <div className="text-gray-300 font-semibold">Professional Products</div>
+            </div>
+            <div className="text-center group">
+              <div className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform duration-300">200+</div>
+              <div className="text-gray-300 font-semibold">Global Brands</div>
+            </div>
+            <div className="text-center group">
+              <div className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform duration-300">500K+</div>
+              <div className="text-gray-300 font-semibold">Projects Completed</div>
+            </div>
+            <div className="text-center group">
+              <div className="text-4xl lg:text-5xl font-bold bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent mb-3 group-hover:scale-110 transition-transform duration-300">99.9%</div>
+              <div className="text-gray-300 font-semibold">Uptime Guarantee</div>
+            </div>
+          </div>
+
+          {/* Professional CTA Section */}
+          <div className="text-center">
+            <div className="inline-flex flex-col sm:flex-row items-center space-y-4 sm:space-y-0 sm:space-x-6 bg-gradient-to-r from-white/10 to-white/5 backdrop-blur-xl rounded-2xl px-8 py-6 border border-white/20 shadow-2xl">
+              <div className="text-center sm:text-left">
+                <h4 className="text-xl font-bold text-white mb-1">Ready for Professional-Grade Solutions?</h4>
+                <p className="text-gray-300">Join thousands of electrical professionals worldwide</p>
+              </div>
+              <div className="flex space-x-4">
+                <button className="bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-8 py-3 rounded-xl font-bold hover:from-blue-400 hover:to-cyan-400 transition-all duration-300 hover:scale-105 shadow-lg">
+                  Browse Catalog
+                </button>
+                <button className="bg-white/20 backdrop-blur-sm text-white px-8 py-3 rounded-xl font-semibold hover:bg-white/30 transition-all duration-300 border border-white/30 hover:scale-105">
+                  Contact Sales
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </section>
