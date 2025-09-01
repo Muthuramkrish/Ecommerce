@@ -9,6 +9,8 @@ import CategoryListPage from './CategoryListPage';
 import ProductCard from '../components/ProductCard';
 import ProductDetailsPage from './ProductDetailsPage';
 import FavoritesPage from './FavoritesPage';
+import About from './About'; // Add About component import
+import Contact from './Contact'; // Add Contact component import
 import productsData from '../data/product.json';
 
 function Root() {
@@ -28,6 +30,8 @@ function Root() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showProductDetailsPage, setShowProductDetailsPage] = useState(false);
   const [showFavoritesPage, setShowFavoritesPage] = useState(false);
+  const [showAboutPage, setShowAboutPage] = useState(false); // Add About page state
+  const [showContactPage, setShowContactPage] = useState(false); // Add Contact page state
   const [previousPage, setPreviousPage] = useState('home');
   const [initialCategoryFilters, setInitialCategoryFilters] = useState({ brand: [], subSubcategory: [], productType: [] });
   
@@ -74,6 +78,8 @@ function Root() {
     setSelectedCategoryForList('');
     setShowProductDetailsPage(false);
     setSelectedProduct(null);
+    setShowAboutPage(false); // Reset About page state
+    setShowContactPage(false); // Reset Contact page state
 
     switch (route) {
       case 'cart':
@@ -87,6 +93,12 @@ function Root() {
         break;
       case 'favorites':
         setShowFavoritesPage(true);
+        break;
+      case 'about': // Add About route
+        setShowAboutPage(true);
+        break;
+      case 'contact': // Add Contact route
+        setShowContactPage(true);
         break;
       case 'category': {
         const categoryParam = rest[0] || '';
@@ -334,8 +346,6 @@ function Root() {
         return [...prevItems, { ...product, quantity: 1 }];
       }
     });
-    // Optionally open cart page after adding
-    // setShowCartPage(true);
   };
 
   const handleUpdateQuantity = (index, quantity) => {
@@ -421,6 +431,31 @@ function Root() {
     scrollToTop();
   };
 
+  // Add navigation handlers for About and Contact
+  const handleAboutClick = () => {
+    setShowAboutPage(true);
+    setHash('about');
+    scrollToTop();
+  };
+
+  const handleContactClick = () => {
+    setShowContactPage(true);
+    setHash('contact');
+    scrollToTop();
+  };
+
+  const handleBackFromAbout = () => {
+    setShowAboutPage(false);
+    setHash('home');
+    scrollToTop();
+  };
+
+  const handleBackFromContact = () => {
+    setShowContactPage(false);
+    setHash('home');
+    scrollToTop();
+  };
+
   const handleSearchChange = (query) => {
     setSearchQuery(query);
     setSelectedCategory('');
@@ -448,6 +483,8 @@ function Root() {
     setShowCartPage(false);
     setShowCheckoutPage(false);
     setIsLoginOpen(false);
+    setShowAboutPage(false); // Reset About page
+    setShowContactPage(false); // Reset Contact page
     setHash('home');
     scrollToTop();
   };
@@ -521,11 +558,17 @@ function Root() {
         onFavoritesClick={handleFavoritesClick}
         onLogoClick={handleReturnToHome}
         onHomeClick={handleReturnToHome}
+        onAboutClick={handleAboutClick} // Add About handler to Header props
+        onContactClick={handleContactClick} // Add Contact handler to Header props
         isLoggedIn={!!currentUser}
         currentUser={currentUser || undefined}
       />
       <main className="pt-20">
-        {showCartPage ? (
+        {showAboutPage ? (
+          <About />
+        ) : showContactPage ? (
+          <Contact />
+        ) : showCartPage ? (
           <CartPage
           items={cartItems}
           onBack={() => setShowCartPage(false)}
