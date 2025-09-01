@@ -2,7 +2,7 @@ import { useState, useEffect, useMemo } from 'react';
 import Header from '../components/Header';
 import Home from './Home';
 import CartPage from './CartPage';
-import Checkout from './Checkout';
+import CheckoutPage from './CheckoutPage';
 import Footer from '../components/Footer';
 import LoginPage from './LoginPage';
 import CategoryListPage from './CategoryListPage';
@@ -16,7 +16,7 @@ function Root() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [cartItems, setCartItems] = useState([]);
   const [showCartPage, setShowCartPage] = useState(false);
-  const [isCheckoutOpen, setIsCheckoutOpen] = useState(false);
+  const [showCheckoutPage, setShowCheckoutPage] = useState(false);  
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -28,6 +28,8 @@ function Root() {
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [showProductDetailsPage, setShowProductDetailsPage] = useState(false);
   const [showFavoritesPage, setShowFavoritesPage] = useState(false);
+  const [previousPage, setPreviousPage] = useState('home');
+  const [initialCategoryFilters, setInitialCategoryFilters] = useState({ brand: [], subSubcategory: [], productType: [] });
   
   // --- Hash navigation helpers ---
   const slugify = (text) => {
@@ -64,9 +66,10 @@ function Root() {
 
     // Reset base UI state
     setShowCartPage(false);
-    setIsCheckoutOpen(false);
+    setShowCheckoutPage(false);
     setIsLoginOpen(false);
     setShowFavorites(false);
+    setShowFavoritesPage(false);
     setShowCategoryList(false);
     setSelectedCategoryForList('');
     setShowProductDetailsPage(false);
@@ -77,7 +80,7 @@ function Root() {
         setShowCartPage(true);
         break;
       case 'checkout':
-        setIsCheckoutOpen(true);
+        setShowCheckoutPage(true);
         break;
       case 'login':
         setIsLoginOpen(true);
@@ -86,9 +89,23 @@ function Root() {
         setShowFavoritesPage(true);
         break;
       case 'category': {
-        const categoryName = decodeURIComponent((rest[0] || '').replace(/-/g, ' '));
+        const categoryParam = rest[0] || '';
+        const categoryName = decodeURIComponent(categoryParam.replace(/-/g, ' '));
         if (categoryName) {
           setSelectedCategoryForList(categoryName);
+          // Parse optional filter segment: /filter/<type>/<value>
+          if (rest[1] === 'filter' && rest.length >= 4) {
+            const type = rest[2];
+            const valueParam = rest[3];
+            const value = decodeURIComponent(valueParam || '');
+            const next = { brand: [], subSubcategory: [], productType: [] };
+            if (type === 'brand') next.brand = [value];
+            if (type === 'sub-subcategory') next.subSubcategory = [value];
+            if (type === 'product-type') next.productType = [value];
+            setInitialCategoryFilters(next);
+          } else {
+            setInitialCategoryFilters({ brand: [], subSubcategory: [], productType: [] });
+          }
           setShowCategoryList(true);
         }
         break;
@@ -147,6 +164,7 @@ function Root() {
       case 'home':
       default:
         // Home/reset
+        setInitialCategoryFilters({ brand: [], subSubcategory: [], productType: [] });
         break;
     }
     
@@ -333,14 +351,22 @@ function Root() {
   };
 
   const handleCheckout = () => {
-    setIsCheckoutOpen(true);
+    setShowCheckoutPage(true);
     setHash('checkout');
     scrollToTop();
   };
 
   const handleOrderComplete = () => {
     setCartItems([]);
-    setIsCheckoutOpen(false);
+    setShowCheckoutPage(false);
+    setHash('home');
+    scrollToTop();
+  };
+
+  const handleBackFromCheckout = () => {
+    setShowCheckoutPage(false);
+    setShowCartPage(true);
+    setHash('cart');
   };
 
   const handleLoginSuccess = (user) => {
@@ -389,6 +415,7 @@ function Root() {
       setIsLoginOpen(true);
       return;
     }
+    setPreviousPage('home');
     setShowFavoritesPage(true);
     setHash('favorites');
     scrollToTop();
@@ -400,6 +427,7 @@ function Root() {
   };
 
   const handleCategorySelect = (category) => {
+    setPreviousPage('home');
     setSelectedCategoryForList(category);
     setShowCategoryList(true);
     setSearchQuery('');
@@ -418,7 +446,7 @@ function Root() {
     setShowFavoritesPage(false);
     setShowProductDetailsPage(false);
     setShowCartPage(false);
-    setIsCheckoutOpen(false);
+    setShowCheckoutPage(false);
     setIsLoginOpen(false);
     setHash('home');
     scrollToTop();
@@ -432,6 +460,16 @@ function Root() {
   };
 
   const handleOpenProductDetailsPage = (product) => {
+    // Track the current page before navigating to product details
+    if (showCartPage) {
+      setPreviousPage('cart');
+    } else if (showFavoritesPage) {
+      setPreviousPage('favorites');
+    } else if (showCategoryList) {
+      setPreviousPage('category');
+    } else {
+      setPreviousPage('home');
+    }
     setSelectedProduct(product);
     setShowProductDetailsPage(true);
     setHash(`product/${slugify(product['product-title'])}`);
@@ -441,7 +479,19 @@ function Root() {
   const handleBackFromProductDetails = () => {
     setShowProductDetailsPage(false);
     setSelectedProduct(null);
-    setHash('home');
+    // Navigate back to the previous page
+    if (previousPage === 'cart') {
+      setShowCartPage(true);
+      setHash('cart');
+    } else if (previousPage === 'favorites') {
+      setShowFavoritesPage(true);
+      setHash('favorites');
+    } else if (previousPage === 'category') {
+      setShowCategoryList(true);
+      setHash(`category/${encodeURIComponent(slugify(selectedCategoryForList))}`);
+    } else {
+      setHash('home');
+    }
     scrollToTop();
   };
 
@@ -477,16 +527,31 @@ function Root() {
       <main className="pt-20">
         {showCartPage ? (
           <CartPage
+          items={cartItems}
+          onBack={() => setShowCartPage(false)}
+          onUpdateQuantity={handleUpdateQuantity}
+          onRemoveItem={handleRemoveItem}
+          onCheckout={() => { 
+            setShowCartPage(false); 
+            setShowCheckoutPage(true); 
+            setHash('checkout'); 
+          }}
+          onOpenDetails={handleOpenProductDetailsPage}
+        />
+        ) : showCheckoutPage ? (
+          <CheckoutPage
             items={cartItems}
-            onBack={() => setShowCartPage(false)}
-            onUpdateQuantity={handleUpdateQuantity}
-            onRemoveItem={handleRemoveItem}
-            onCheckout={() => { setShowCartPage(false); setIsCheckoutOpen(true); }}
+            onOrderComplete={handleOrderComplete}
+            onBack={handleBackFromCheckout}
           />
         ) : showFavoritesPage ? (
           <FavoritesPage
             favorites={favorites}
-            onBack={() => setShowFavoritesPage(false)}
+            onBack={() => {
+              setShowFavoritesPage(false);
+              setHash('home');
+              scrollToTop();
+            }}
             onAddToCart={handleAddToCart}
             onAddToWishlist={handleAddToWishlist}
             onOpenDetails={handleOpenProductDetailsPage}
@@ -520,6 +585,7 @@ function Root() {
             onAddToWishlist={handleAddToWishlist}
             onOpenDetails={handleOpenProductDetailsPage}
             favorites={favorites}
+            initialFilters={initialCategoryFilters}
           />
         ) : showFavorites ? (
           <div>
@@ -614,13 +680,6 @@ function Root() {
         )}
       </main>
       <Footer />
-      {/* Sidebar cart removed in favor of full page CartPage */}
-      <Checkout
-        isOpen={isCheckoutOpen}
-        onClose={() => setIsCheckoutOpen(false)}
-        items={cartItems}
-        onOrderComplete={handleOrderComplete}
-      />
       {isLoginOpen && (
         <LoginPage
           onLoginSuccess={handleLoginSuccess}

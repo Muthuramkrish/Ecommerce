@@ -38,8 +38,11 @@ const ProductDetailsPage = ({
   };
 
   const handleQuantityChange = (newQuantity) => {
-    if (newQuantity >= 1) {
-      setQuantity(newQuantity);
+    const minQty = 1;
+    const maxQty = (product?.raw?.inventory?.availableQuantity ?? (product?.raw?.inventory?.availableQuantity === 0 ? 0 : undefined)) ?? (inventory?.availableQuantity ?? undefined);
+    const clamped = Math.max(minQty, maxQty != null ? Math.min(newQuantity, maxQty) : newQuantity);
+    if (clamped >= 1) {
+      setQuantity(clamped);
     }
   };
 
@@ -81,7 +84,16 @@ const ProductDetailsPage = ({
 
   const navigateTo = (type, value) => {
     if (!value) return;
-    const hash = `#${type}/${slugify(value)}`;
+    let hash;
+    const baseSubcategory = anchor.subcategory ? encodeURIComponent(anchor.subcategory) : '';
+    const encodedValue = encodeURIComponent(value);
+    if (type === 'subcategory' || !baseSubcategory) {
+      hash = `#category/${encodeURIComponent(value)}`;
+    } else {
+      // Deep-link to subcategory list and apply filter facet (preserve case)
+      const filterType = type === 'sub-subcategory' ? 'sub-subcategory' : (type === 'brand' ? 'brand' : (type === 'product-type' ? 'product-type' : type));
+      hash = `#category/${baseSubcategory}/filter/${filterType}/${encodedValue}`;
+    }
     if (window && window.location) {
       if (window.location.hash !== hash) {
         window.location.hash = hash;
@@ -185,7 +197,14 @@ const ProductDetailsPage = ({
           {/* Product Images */}
           <div className="space-y-4">
             <div
-              className="aspect-square bg-white rounded-lg overflow-hidden shadow-lg"
+              className="aspect-square bg-white rounded-lg overflow-hidden shadow-lg cursor-pointer"
+              onClick={() => {
+                if (variants.length && variantsRef.current) {
+                  variantsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  setVariantsHighlighted(true);
+                  window.setTimeout(() => setVariantsHighlighted(false), 1200);
+                }
+              }}
             >
               <img
                 src={displayedImages[selectedImage]}
@@ -387,7 +406,7 @@ const ProductDetailsPage = ({
                           {v.images.map((img, j) => (
                             <button
                               key={j}
-                              onClick={(e) => { e.stopPropagation(); setSelectedImage(j); }}
+                              onClick={(e) => { e.stopPropagation(); setSelectedVariantIndex(i); setSelectedImage(0); }}
                               className="rounded overflow-hidden border border-gray-200 hover:border-blue-400"
                             >
                               <img src={img} alt={`${v.name}-${j}`} className="w-16 h-16 object-cover" />
@@ -412,7 +431,20 @@ const ProductDetailsPage = ({
                   >
                     <Minus className="w-4 h-4" />
                   </button>
-                  <span className="px-4 py-2 text-lg font-medium">{quantity}</span>
+                  <input
+                    type="number"
+                    min={1}
+                    max={inventory?.availableQuantity ?? undefined}
+                    value={quantity}
+                    onChange={(e) => {
+                      const parsed = parseInt(e.target.value, 10);
+                      if (isNaN(parsed)) return;
+                      const maxQty = inventory?.availableQuantity ?? parsed;
+                      const next = Math.min(Math.max(1, parsed), maxQty);
+                      handleQuantityChange(next);
+                    }}
+                    className="w-16 text-center px-2 py-2 text-lg font-medium focus:outline-none"
+                  />
                   <button
                     onClick={() => handleQuantityChange(quantity + 1)}
                     className="p-2 hover:bg-gray-100 transition-colors"

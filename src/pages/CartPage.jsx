@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { ArrowLeft, Plus, Minus, Trash2, ShoppingBag } from 'lucide-react';
 
-const CartPage = ({ items, onBack, onUpdateQuantity, onRemoveItem, onCheckout }) => {
+const CartPage = ({ items, onBack, onUpdateQuantity, onRemoveItem, onCheckout, onOpenDetails }) => {
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo({
@@ -52,23 +52,49 @@ const CartPage = ({ items, onBack, onUpdateQuantity, onRemoveItem, onCheckout })
             <div className="lg:col-span-2 space-y-4">
               {items.map((item, index) => (
                 <div key={index} className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-sm border border-gray-100">
-                  <img
-                    src={item['image-url']}
-                    alt={item['product-title']}
-                    className="w-20 h-20 object-cover rounded-lg"
-                    onError={(e) => {
-                      const target = e.target;
-                      target.src = 'https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=100';
-                    }}
-                  />
+                  <button
+                    onClick={() => onOpenDetails && onOpenDetails(item)}
+                    className="focus:outline-none"
+                    title={item['product-title']}
+                  >
+                    <img
+                      src={item['image-url']}
+                      alt={item['product-title']}
+                      className="w-20 h-20 object-cover rounded-lg"
+                      onError={(e) => {
+                        const target = e.target;
+                        target.src = 'https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=100';
+                      }}
+                    />
+                  </button>
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-sm font-medium text-gray-900 truncate">{item['product-title']}</h3>
+                    <button
+                      onClick={() => onOpenDetails && onOpenDetails(item)}
+                      className="text-left text-sm font-medium text-gray-900 truncate hover:underline"
+                      title={item['product-title']}
+                    >
+                      {item['product-title']}
+                    </button>
                     <p className="text-sm text-gray-500">₹{parseFloat(item['new-price']).toLocaleString()}</p>
                     <div className="flex items-center space-x-2 mt-2">
                       <button onClick={() => onUpdateQuantity(index, Math.max(1, item.quantity - 1))} className="p-1 hover:bg-gray-100 rounded">
                         <Minus className="w-4 h-4" />
                       </button>
-                      <span className="text-sm font-medium w-8 text-center">{item.quantity}</span>
+                      <input
+                        type="number"
+                        min={1}
+                        value={item.quantity}
+                        onChange={(e) => {
+                          const parsed = parseInt(e.target.value, 10);
+                          if (isNaN(parsed)) return;
+                          const minQty = 1;
+                          // If availableQuantity can be part of the item, clamp to it; otherwise only enforce min
+                          const maxQty = item?.raw?.inventory?.availableQuantity ?? item?.inventory?.availableQuantity;
+                          const clamped = Math.max(minQty, maxQty != null ? Math.min(parsed, maxQty) : parsed);
+                          onUpdateQuantity(index, clamped);
+                        }}
+                        className="w-16 text-center px-2 py-1 text-sm font-medium border border-gray-200 rounded"
+                      />
                       <button onClick={() => onUpdateQuantity(index, item.quantity + 1)} className="p-1 hover:bg-gray-100 rounded">
                         <Plus className="w-4 h-4" />
                       </button>

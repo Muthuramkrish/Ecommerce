@@ -8,7 +8,8 @@ const CategoryListPage = ({
   onAddToCart, 
   onAddToWishlist, 
   onOpenDetails,
-  favorites = [] 
+  favorites = [],
+  initialFilters
 }) => {
   // Scroll to top when component mounts
   useEffect(() => {
@@ -31,7 +32,15 @@ const CategoryListPage = ({
 
   // Filter states
   const [priceRange, setPriceRange] = React.useState([minPrice, maxPrice]);
-  const [selectedBrands, setSelectedBrands] = React.useState([]);
+  const [selectedBrands, setSelectedBrands] = React.useState(initialFilters?.brand || []);
+  const [selectedProductTypes, setSelectedProductTypes] = React.useState(initialFilters?.productType || []);
+  const [selectedSubSubcategories, setSelectedSubSubcategories] = React.useState(initialFilters?.subSubcategory || []);
+  const [selectedPowerRanges, setSelectedPowerRanges] = React.useState([]);
+  const [selectedColors, setSelectedColors] = React.useState([]);
+  const [selectedSizes, setSelectedSizes] = React.useState([]);
+  const [selectedMaterials, setSelectedMaterials] = React.useState([]);
+  const [selectedCertifications, setSelectedCertifications] = React.useState([]);
+  const [selectedWarranties, setSelectedWarranties] = React.useState([]);
   const [showOnlyDiscounted, setShowOnlyDiscounted] = React.useState(false);
   const [selectedDiscountBucket, setSelectedDiscountBucket] = React.useState(0); // 0, 10, 25, 50
   const [showOnlyInStock, setShowOnlyInStock] = React.useState(false);
@@ -58,7 +67,153 @@ const CategoryListPage = ({
     return [...new Set(brands)].sort();
   };
 
+  // Get unique product types from products
+  const getUniqueProductTypes = () => {
+    const productTypes = products.map(product => {
+      const productType = product.raw?.anchor?.productType || 'Unknown Type';
+      return productType;
+    });
+    return [...new Set(productTypes)].sort();
+  };
+
+  // Get unique sub-subcategories from products
+  const getUniqueSubSubcategories = () => {
+    const subSubcategories = products.map(product => {
+      const subSubcategory = product.raw?.anchor?.subSubcategory || 'Unknown Sub-subcategory';
+      return subSubcategory;
+    });
+    return [...new Set(subSubcategories)].sort();
+  };
+
+  // Get unique power ranges from products
+  const getUniquePowerRanges = () => {
+    const powerRanges = [];
+    products.forEach(product => {
+      const specs = product.raw?.characteristics?.specifications || [];
+      const powerSpec = specs.find(spec => 
+        spec.name?.toLowerCase().includes('power') || 
+        spec.name?.toLowerCase().includes('watt') ||
+        spec.name?.toLowerCase().includes('wattage')
+      );
+      if (powerSpec && powerSpec.value) {
+        const powerValue = parseInt(powerSpec.value);
+        if (!isNaN(powerValue)) {
+          if (powerValue <= 10) powerRanges.push('0-10W');
+          else if (powerValue <= 25) powerRanges.push('11-25W');
+          else if (powerValue <= 50) powerRanges.push('26-50W');
+          else if (powerValue <= 100) powerRanges.push('51-100W');
+          else if (powerValue <= 500) powerRanges.push('101-500W');
+          else powerRanges.push('500W+');
+        }
+      }
+    });
+    return [...new Set(powerRanges)].sort();
+  };
+
+  // Get unique colors from products
+  const getUniqueColors = () => {
+    const colors = [];
+    products.forEach(product => {
+      const variants = product.raw?.classification?.variants || [];
+      variants.forEach(variant => {
+        if (variant.attributes?.color) {
+          colors.push(variant.attributes.color);
+        }
+      });
+      // Also check specifications for color info
+      const specs = product.raw?.characteristics?.specifications || [];
+      const colorSpec = specs.find(spec => 
+        spec.name?.toLowerCase().includes('color') || 
+        spec.name?.toLowerCase().includes('colour')
+      );
+      if (colorSpec && colorSpec.value) {
+        colors.push(colorSpec.value);
+      }
+    });
+    return [...new Set(colors)].sort();
+  };
+
+  // Get unique sizes from products
+  const getUniqueSizes = () => {
+    const sizes = [];
+    products.forEach(product => {
+      const variants = product.raw?.classification?.variants || [];
+      variants.forEach(variant => {
+        if (variant.attributes?.size) {
+          sizes.push(variant.attributes.size);
+        }
+      });
+      // Also check specifications for size info
+      const specs = product.raw?.characteristics?.specifications || [];
+      const sizeSpec = specs.find(spec => 
+        spec.name?.toLowerCase().includes('size') || 
+        spec.name?.toLowerCase().includes('dimension')
+      );
+      if (sizeSpec && sizeSpec.value) {
+        sizes.push(sizeSpec.value);
+      }
+    });
+    return [...new Set(sizes)].sort();
+  };
+
+  // Get unique materials from products
+  const getUniqueMaterials = () => {
+    const materials = [];
+    products.forEach(product => {
+      const specs = product.raw?.characteristics?.specifications || [];
+      const materialSpec = specs.find(spec => 
+        spec.name?.toLowerCase().includes('material') || 
+        spec.name?.toLowerCase().includes('construction')
+      );
+      if (materialSpec && materialSpec.value) {
+        materials.push(materialSpec.value);
+      }
+    });
+    return [...new Set(materials)].sort();
+  };
+
+  // Get unique certifications from products
+  const getUniqueCertifications = () => {
+    const certifications = [];
+    products.forEach(product => {
+      const specs = product.raw?.characteristics?.specifications || [];
+      const certSpec = specs.find(spec => 
+        spec.name?.toLowerCase().includes('certification') || 
+        spec.name?.toLowerCase().includes('standard') ||
+        spec.name?.toLowerCase().includes('compliance')
+      );
+      if (certSpec && certSpec.value) {
+        certifications.push(certSpec.value);
+      }
+    });
+    return [...new Set(certifications)].sort();
+  };
+
+  // Get unique warranties from products
+  const getUniqueWarranties = () => {
+    const warranties = [];
+    products.forEach(product => {
+      const specs = product.raw?.characteristics?.specifications || [];
+      const warrantySpec = specs.find(spec => 
+        spec.name?.toLowerCase().includes('warranty') || 
+        spec.name?.toLowerCase().includes('guarantee')
+      );
+      if (warrantySpec && warrantySpec.value) {
+        warranties.push(warrantySpec.value);
+      }
+    });
+    return [...new Set(warranties)].sort();
+  };
+
   const brands = getUniqueBrands();
+  const productTypes = getUniqueProductTypes();
+  const subSubcategories = getUniqueSubSubcategories();
+  const powerRanges = getUniquePowerRanges();
+  const colors = getUniqueColors();
+  const sizes = getUniqueSizes();
+  const materials = getUniqueMaterials();
+  const certifications = getUniqueCertifications();
+  const warranties = getUniqueWarranties();
 
   // Apply filters
   React.useEffect(() => {
@@ -79,6 +234,125 @@ const CategoryListPage = ({
         return selectedBrands.includes(brand);
       });
     }
+
+    // Product Type filter
+    if (selectedProductTypes.length > 0) {
+      filtered = filtered.filter(product => {
+        const productType = product.raw?.anchor?.productType || 'Unknown Type';
+        return selectedProductTypes.includes(productType);
+      });
+    }
+
+    // Sub-subcategory filter
+    if (selectedSubSubcategories.length > 0) {
+      filtered = filtered.filter(product => {
+        const subSubcategory = product.raw?.anchor?.subSubcategory || 'Unknown Sub-subcategory';
+        return selectedSubSubcategories.includes(subSubcategory);
+      });
+    }
+
+    // Power range filter
+    if (selectedPowerRanges.length > 0) {
+      filtered = filtered.filter(product => {
+        const specs = product.raw?.characteristics?.specifications || [];
+        const powerSpec = specs.find(spec => 
+          spec.name?.toLowerCase().includes('power') || 
+          spec.name?.toLowerCase().includes('watt') ||
+          spec.name?.toLowerCase().includes('wattage')
+        );
+        if (powerSpec && powerSpec.value) {
+          const powerValue = parseInt(powerSpec.value);
+          if (!isNaN(powerValue)) {
+            let powerRange = '';
+            if (powerValue <= 10) powerRange = '0-10W';
+            else if (powerValue <= 25) powerRange = '11-25W';
+            else if (powerValue <= 50) powerRange = '26-50W';
+            else if (powerValue <= 100) powerRange = '51-100W';
+            else if (powerValue <= 500) powerRange = '101-500W';
+            else powerRange = '500W+';
+            return selectedPowerRanges.includes(powerRange);
+          }
+        }
+        return false;
+      });
+    }
+
+    // Color filter
+    if (selectedColors.length > 0) {
+      filtered = filtered.filter(product => {
+        const variants = product.raw?.classification?.variants || [];
+        const hasColorVariant = variants.some(variant => 
+          variant.attributes?.color && selectedColors.includes(variant.attributes.color)
+        );
+        if (hasColorVariant) return true;
+        
+        // Also check specifications
+        const specs = product.raw?.characteristics?.specifications || [];
+        const colorSpec = specs.find(spec => 
+          spec.name?.toLowerCase().includes('color') || 
+          spec.name?.toLowerCase().includes('colour')
+        );
+        return colorSpec && colorSpec.value && selectedColors.includes(colorSpec.value);
+      });
+    }
+
+    // Size filter
+    if (selectedSizes.length > 0) {
+      filtered = filtered.filter(product => {
+        const variants = product.raw?.classification?.variants || [];
+        const hasSizeVariant = variants.some(variant => 
+          variant.attributes?.size && selectedSizes.includes(variant.attributes.size)
+        );
+        if (hasSizeVariant) return true;
+        
+        // Also check specifications
+        const specs = product.raw?.characteristics?.specifications || [];
+        const sizeSpec = specs.find(spec => 
+          spec.name?.toLowerCase().includes('size') || 
+          spec.name?.toLowerCase().includes('dimension')
+        );
+        return sizeSpec && sizeSpec.value && selectedSizes.includes(sizeSpec.value);
+      });
+    }
+
+    // Material filter
+    if (selectedMaterials.length > 0) {
+      filtered = filtered.filter(product => {
+        const specs = product.raw?.characteristics?.specifications || [];
+        const materialSpec = specs.find(spec => 
+          spec.name?.toLowerCase().includes('material') || 
+          spec.name?.toLowerCase().includes('construction')
+        );
+        return materialSpec && materialSpec.value && selectedMaterials.includes(materialSpec.value);
+      });
+    }
+
+    // Certification filter
+    if (selectedCertifications.length > 0) {
+      filtered = filtered.filter(product => {
+        const specs = product.raw?.characteristics?.specifications || [];
+        const certSpec = specs.find(spec => 
+          spec.name?.toLowerCase().includes('certification') || 
+          spec.name?.toLowerCase().includes('standard') ||
+          spec.name?.toLowerCase().includes('compliance')
+        );
+        return certSpec && certSpec.value && selectedCertifications.includes(certSpec.value);
+      });
+    }
+
+    // Warranty filter
+    if (selectedWarranties.length > 0) {
+      filtered = filtered.filter(product => {
+        const specs = product.raw?.characteristics?.specifications || [];
+        const warrantySpec = specs.find(spec => 
+          spec.name?.toLowerCase().includes('warranty') || 
+          spec.name?.toLowerCase().includes('guarantee')
+        );
+        return warrantySpec && warrantySpec.value && selectedWarranties.includes(warrantySpec.value);
+      });
+    }
+
+
 
     // Discount filters
     if (showOnlyDiscounted || selectedDiscountBucket > 0) {
@@ -102,7 +376,10 @@ const CategoryListPage = ({
 
     setFilteredProducts(filtered);
     setCurrentPage(1);
-  }, [products, priceRange, selectedBrands, showOnlyDiscounted, selectedDiscountBucket, showOnlyInStock]);
+  }, [products, priceRange, selectedBrands, selectedProductTypes, 
+      selectedSubSubcategories, selectedPowerRanges,
+      selectedColors, selectedSizes, selectedMaterials, selectedCertifications, selectedWarranties,
+      showOnlyDiscounted, selectedDiscountBucket, showOnlyInStock]);
 
   React.useEffect(() => {
     let sorted = [...filteredProducts];
@@ -147,9 +424,81 @@ const CategoryListPage = ({
     );
   };
 
+  const handleProductTypeToggle = (productType) => {
+    setSelectedProductTypes(prev => 
+      prev.includes(productType) 
+        ? prev.filter(pt => pt !== productType)
+        : [...prev, productType]
+    );
+  };
+
+  const handleSubSubcategoryToggle = (subSubcategory) => {
+    setSelectedSubSubcategories(prev => 
+      prev.includes(subSubcategory) 
+        ? prev.filter(ssc => ssc !== subSubcategory)
+        : [...prev, subSubcategory]
+    );
+  };
+
+  const handlePowerRangeToggle = (powerRange) => {
+    setSelectedPowerRanges(prev => 
+      prev.includes(powerRange) 
+        ? prev.filter(pr => pr !== powerRange)
+        : [...prev, powerRange]
+    );
+  };
+
+  const handleColorToggle = (color) => {
+    setSelectedColors(prev => 
+      prev.includes(color) 
+        ? prev.filter(c => c !== color)
+        : [...prev, color]
+    );
+  };
+
+  const handleSizeToggle = (size) => {
+    setSelectedSizes(prev => 
+      prev.includes(size) 
+        ? prev.filter(s => s !== size)
+        : [...prev, size]
+    );
+  };
+
+  const handleMaterialToggle = (material) => {
+    setSelectedMaterials(prev => 
+      prev.includes(material) 
+        ? prev.filter(m => m !== material)
+        : [...prev, material]
+    );
+  };
+
+  const handleCertificationToggle = (certification) => {
+    setSelectedCertifications(prev => 
+      prev.includes(certification) 
+        ? prev.filter(c => c !== certification)
+        : [...prev, certification]
+    );
+  };
+
+  const handleWarrantyToggle = (warranty) => {
+    setSelectedWarranties(prev => 
+      prev.includes(warranty) 
+        ? prev.filter(w => w !== warranty)
+        : [...prev, warranty]
+    );
+  };
+
   const clearAllFilters = () => {
     setPriceRange([minPrice, maxPrice]);
     setSelectedBrands([]);
+    setSelectedProductTypes([]);
+    setSelectedSubSubcategories([]);
+    setSelectedPowerRanges([]);
+    setSelectedColors([]);
+    setSelectedSizes([]);
+    setSelectedMaterials([]);
+    setSelectedCertifications([]);
+    setSelectedWarranties([]);
     setShowOnlyDiscounted(false);
     setSelectedDiscountBucket(0);
     setShowOnlyInStock(false);
@@ -172,6 +521,47 @@ const CategoryListPage = ({
     label: b,
     onRemove: () => setSelectedBrands(prev => prev.filter(x => x !== b))
   }));
+  selectedProductTypes.forEach(pt => chips.push({
+    type: 'productType',
+    label: pt,
+    onRemove: () => setSelectedProductTypes(prev => prev.filter(x => x !== pt))
+  }));
+  selectedSubSubcategories.forEach(ssc => chips.push({
+    type: 'subSubcategory',
+    label: ssc,
+    onRemove: () => setSelectedSubSubcategories(prev => prev.filter(x => x !== ssc))
+  }));
+  selectedPowerRanges.forEach(pr => chips.push({
+    type: 'powerRange',
+    label: pr,
+    onRemove: () => setSelectedPowerRanges(prev => prev.filter(x => x !== pr))
+  }));
+  selectedColors.forEach(c => chips.push({
+    type: 'color',
+    label: c,
+    onRemove: () => setSelectedColors(prev => prev.filter(x => x !== c))
+  }));
+  selectedSizes.forEach(s => chips.push({
+    type: 'size',
+    label: s,
+    onRemove: () => setSelectedSizes(prev => prev.filter(x => x !== s))
+  }));
+  selectedMaterials.forEach(m => chips.push({
+    type: 'material',
+    label: m,
+    onRemove: () => setSelectedMaterials(prev => prev.filter(x => x !== m))
+  }));
+  selectedCertifications.forEach(c => chips.push({
+    type: 'certification',
+    label: c,
+    onRemove: () => setSelectedCertifications(prev => prev.filter(x => x !== c))
+  }));
+  selectedWarranties.forEach(w => chips.push({
+    type: 'warranty',
+    label: w,
+    onRemove: () => setSelectedWarranties(prev => prev.filter(x => x !== w))
+  }));
+
   if (showOnlyDiscounted) {
     chips.push({ type: 'sale', label: 'On Sale', onRemove: () => setShowOnlyDiscounted(false) });
   }
@@ -305,6 +695,22 @@ const CategoryListPage = ({
                     handleBrandToggle={handleBrandToggle}
                     brandQuery={brandQuery}
                     setBrandQuery={setBrandQuery}
+                    selectedProductTypes={selectedProductTypes}
+                    handleProductTypeToggle={handleProductTypeToggle}
+                    selectedSubSubcategories={selectedSubSubcategories}
+                    handleSubSubcategoryToggle={handleSubSubcategoryToggle}
+                    selectedPowerRanges={selectedPowerRanges}
+                    handlePowerRangeToggle={handlePowerRangeToggle}
+                    selectedColors={selectedColors}
+                    handleColorToggle={handleColorToggle}
+                    selectedSizes={selectedSizes}
+                    handleSizeToggle={handleSizeToggle}
+                    selectedMaterials={selectedMaterials}
+                    handleMaterialToggle={handleMaterialToggle}
+                    selectedCertifications={selectedCertifications}
+                    handleCertificationToggle={handleCertificationToggle}
+                    selectedWarranties={selectedWarranties}
+                    handleWarrantyToggle={handleWarrantyToggle}
                     showOnlyDiscounted={showOnlyDiscounted}
                     setShowOnlyDiscounted={setShowOnlyDiscounted}
                     selectedDiscountBucket={selectedDiscountBucket}
@@ -312,6 +718,14 @@ const CategoryListPage = ({
                     showOnlyInStock={showOnlyInStock}
                     setShowOnlyInStock={setShowOnlyInStock}
                     brands={brands}
+                    productTypes={productTypes}
+                    subSubcategories={subSubcategories}
+                    powerRanges={powerRanges}
+                    colors={colors}
+                    sizes={sizes}
+                    materials={materials}
+                    certifications={certifications}
+                    warranties={warranties}
                     clearAllFilters={clearAllFilters}
                     activeFiltersCount={activeFiltersCount}
                   />
@@ -332,6 +746,22 @@ const CategoryListPage = ({
                 handleBrandToggle={handleBrandToggle}
                 brandQuery={brandQuery}
                 setBrandQuery={setBrandQuery}
+                selectedProductTypes={selectedProductTypes}
+                handleProductTypeToggle={handleProductTypeToggle}
+                selectedSubSubcategories={selectedSubSubcategories}
+                handleSubSubcategoryToggle={handleSubSubcategoryToggle}
+                selectedPowerRanges={selectedPowerRanges}
+                handlePowerRangeToggle={handlePowerRangeToggle}
+                selectedColors={selectedColors}
+                handleColorToggle={handleColorToggle}
+                selectedSizes={selectedSizes}
+                handleSizeToggle={handleSizeToggle}
+                selectedMaterials={selectedMaterials}
+                handleMaterialToggle={handleMaterialToggle}
+                selectedCertifications={selectedCertifications}
+                handleCertificationToggle={handleCertificationToggle}
+                selectedWarranties={selectedWarranties}
+                handleWarrantyToggle={handleWarrantyToggle}
                 showOnlyDiscounted={showOnlyDiscounted}
                 setShowOnlyDiscounted={setShowOnlyDiscounted}
                 selectedDiscountBucket={selectedDiscountBucket}
@@ -339,6 +769,14 @@ const CategoryListPage = ({
                 showOnlyInStock={showOnlyInStock}
                 setShowOnlyInStock={setShowOnlyInStock}
                 brands={brands}
+                productTypes={productTypes}
+                subSubcategories={subSubcategories}
+                powerRanges={powerRanges}
+                colors={colors}
+                sizes={sizes}
+                materials={materials}
+                certifications={certifications}
+                warranties={warranties}
                 clearAllFilters={clearAllFilters}
                 activeFiltersCount={activeFiltersCount}
               />
@@ -563,6 +1001,22 @@ const FilterPanel = ({
   handleBrandToggle,
   brandQuery,
   setBrandQuery,
+  selectedProductTypes,
+  handleProductTypeToggle,
+  selectedSubSubcategories,
+  handleSubSubcategoryToggle,
+  selectedPowerRanges,
+  handlePowerRangeToggle,
+  selectedColors,
+  handleColorToggle,
+  selectedSizes,
+  handleSizeToggle,
+  selectedMaterials,
+  handleMaterialToggle,
+  selectedCertifications,
+  handleCertificationToggle,
+  selectedWarranties,
+  handleWarrantyToggle,
   showOnlyDiscounted,
   setShowOnlyDiscounted,
   selectedDiscountBucket,
@@ -570,6 +1024,14 @@ const FilterPanel = ({
   showOnlyInStock,
   setShowOnlyInStock,
   brands,
+  productTypes,
+  subSubcategories,
+  powerRanges,
+  colors,
+  sizes,
+  materials,
+  certifications,
+  warranties,
   clearAllFilters,
   activeFiltersCount
 }) => {
@@ -672,6 +1134,240 @@ const FilterPanel = ({
           </button>
         )}
       </div>
+
+      {/* Product Type Filter */}
+      {productTypes.length > 0 && (
+        <div className="border-b border-gray-200 pb-6">
+          <h3 className="text-sm font-medium text-gray-900 mb-3">Product Type</h3>
+          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
+            {productTypes.map((productType) => (
+              <label key={productType} className="flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={selectedProductTypes.includes(productType)}
+                  onChange={() => handleProductTypeToggle(productType)}
+                  className="sr-only"
+                />
+                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${
+                  selectedProductTypes.includes(productType) 
+                    ? 'bg-blue-900 border-blue-900' 
+                    : 'border-gray-300'
+                }`}>
+                  {selectedProductTypes.includes(productType) && (
+                    <Check className="w-3 h-3 text-white" />
+                  )}
+                </div>
+                <span className="text-sm text-gray-700">{productType}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Sub-subcategory Filter */}
+      {subSubcategories.length > 0 && (
+        <div className="border-b border-gray-200 pb-6">
+          <h3 className="text-sm font-medium text-gray-900 mb-3">Sub-subcategory</h3>
+          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
+            {subSubcategories.map((subSubcategory) => (
+              <label key={subSubcategory} className="flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={selectedSubSubcategories.includes(subSubcategory)}
+                  onChange={() => handleSubSubcategoryToggle(subSubcategory)}
+                  className="sr-only"
+                />
+                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${
+                  selectedSubSubcategories.includes(subSubcategory) 
+                    ? 'bg-blue-900 border-blue-900' 
+                    : 'border-gray-300'
+                }`}>
+                  {selectedSubSubcategories.includes(subSubcategory) && (
+                    <Check className="w-3 h-3 text-white" />
+                  )}
+                </div>
+                <span className="text-sm text-gray-700">{subSubcategory}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Power Range Filter */}
+      {powerRanges.length > 0 && (
+        <div className="border-b border-gray-200 pb-6">
+          <h3 className="text-sm font-medium text-gray-900 mb-3">Power Range</h3>
+          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
+            {powerRanges.map((powerRange) => (
+              <label key={powerRange} className="flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={selectedPowerRanges.includes(powerRange)}
+                  onChange={() => handlePowerRangeToggle(powerRange)}
+                  className="sr-only"
+                />
+                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${
+                  selectedPowerRanges.includes(powerRange) 
+                    ? 'bg-blue-900 border-blue-900' 
+                    : 'border-gray-300'
+                }`}>
+                  {selectedPowerRanges.includes(powerRange) && (
+                    <Check className="w-3 h-3 text-white" />
+                  )}
+                </div>
+                <span className="text-sm text-gray-700">{powerRange}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Color Filter */}
+      {colors.length > 0 && (
+        <div className="border-b border-gray-200 pb-6">
+          <h3 className="text-sm font-medium text-gray-900 mb-3">Color</h3>
+          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
+            {colors.map((color) => (
+              <label key={color} className="flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={selectedColors.includes(color)}
+                  onChange={() => handleColorToggle(color)}
+                  className="sr-only"
+                />
+                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${
+                  selectedColors.includes(color) 
+                    ? 'bg-blue-900 border-blue-900' 
+                    : 'border-gray-300'
+                }`}>
+                  {selectedColors.includes(color) && (
+                    <Check className="w-3 h-3 text-white" />
+                  )}
+                </div>
+                <span className="text-sm text-gray-700">{color}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Size Filter */}
+      {sizes.length > 0 && (
+        <div className="border-b border-gray-200 pb-6">
+          <h3 className="text-sm font-medium text-gray-900 mb-3">Size</h3>
+          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
+            {sizes.map((size) => (
+              <label key={size} className="flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={selectedSizes.includes(size)}
+                  onChange={() => handleSizeToggle(size)}
+                  className="sr-only"
+                />
+                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${
+                  selectedSizes.includes(size) 
+                    ? 'bg-blue-900 border-blue-900' 
+                    : 'border-gray-300'
+                }`}>
+                  {selectedSizes.includes(size) && (
+                    <Check className="w-3 h-3 text-white" />
+                  )}
+                </div>
+                <span className="text-sm text-gray-700">{size}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Material Filter */}
+      {materials.length > 0 && (
+        <div className="border-b border-gray-200 pb-6">
+          <h3 className="text-sm font-medium text-gray-900 mb-3">Material</h3>
+          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
+            {materials.map((material) => (
+              <label key={material} className="flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={selectedMaterials.includes(material)}
+                  onChange={() => handleMaterialToggle(material)}
+                  className="sr-only"
+                />
+                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${
+                  selectedMaterials.includes(material) 
+                    ? 'bg-blue-900 border-blue-900' 
+                    : 'border-gray-300'
+                }`}>
+                  {selectedMaterials.includes(material) && (
+                    <Check className="w-3 h-3 text-white" />
+                  )}
+                </div>
+                <span className="text-sm text-gray-700">{material}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Certification Filter */}
+      {certifications.length > 0 && (
+        <div className="border-b border-gray-200 pb-6">
+          <h3 className="text-sm font-medium text-gray-900 mb-3">Certification</h3>
+          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
+            {certifications.map((certification) => (
+              <label key={certification} className="flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={selectedCertifications.includes(certification)}
+                  onChange={() => handleCertificationToggle(certification)}
+                  className="sr-only"
+                />
+                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${
+                  selectedCertifications.includes(certification) 
+                    ? 'bg-blue-900 border-blue-900' 
+                    : 'border-gray-300'
+                }`}>
+                  {selectedCertifications.includes(certification) && (
+                    <Check className="w-3 h-3 text-white" />
+                  )}
+                </div>
+                <span className="text-sm text-gray-700">{certification}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {/* Warranty Filter */}
+      {warranties.length > 0 && (
+        <div className="border-b border-gray-200 pb-6">
+          <h3 className="text-sm font-medium text-gray-900 mb-3">Warranty</h3>
+          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
+            {warranties.map((warranty) => (
+              <label key={warranty} className="flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={selectedWarranties.includes(warranty)}
+                  onChange={() => handleWarrantyToggle(warranty)}
+                  className="sr-only"
+                />
+                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${
+                  selectedWarranties.includes(warranty) 
+                    ? 'bg-blue-900 border-blue-900' 
+                    : 'border-gray-300'
+                }`}>
+                  {selectedWarranties.includes(warranty) && (
+                    <Check className="w-3 h-3 text-white" />
+                  )}
+                </div>
+                <span className="text-sm text-gray-700">{warranty}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+      )}
+
+
 
       {/* Discount */}
       <div className="border-b border-gray-200 pb-6">
