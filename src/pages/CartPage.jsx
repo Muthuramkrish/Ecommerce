@@ -50,6 +50,11 @@ const CartPage = ({ items, onBack, onUpdateQuantity, onRemoveItem, onCheckout, o
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             {/* Items */}
             <div className="lg:col-span-2 space-y-4">
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+                <p className="text-sm text-blue-700">
+                  <strong>Note:</strong> Minimum order quantity is 5 units per product.
+                </p>
+              </div>
               {items.map((item, index) => (
                 <div key={index} className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-sm border border-gray-100">
                   <button
@@ -77,17 +82,17 @@ const CartPage = ({ items, onBack, onUpdateQuantity, onRemoveItem, onCheckout, o
                     </button>
                     <p className="text-sm text-gray-500">₹{parseFloat(item['new-price']).toLocaleString()}</p>
                     <div className="flex items-center space-x-2 mt-2">
-                      <button onClick={() => onUpdateQuantity(index, Math.max(1, item.quantity - 1))} className="p-1 hover:bg-gray-100 rounded">
+                      <button onClick={() => onUpdateQuantity(index, Math.max(5, item.quantity - 1))} className="p-1 hover:bg-gray-100 rounded">
                         <Minus className="w-4 h-4" />
                       </button>
                       <input
                         type="number"
-                        min={1}
+                        min={5}
                         value={item.quantity}
                         onChange={(e) => {
                           const parsed = parseInt(e.target.value, 10);
                           if (isNaN(parsed)) return;
-                          const minQty = 1;
+                          const minQty = 5;
                           // If availableQuantity can be part of the item, clamp to it; otherwise only enforce min
                           const maxQty = item?.raw?.inventory?.availableQuantity ?? item?.inventory?.availableQuantity;
                           const clamped = Math.max(minQty, maxQty != null ? Math.min(parsed, maxQty) : parsed);

@@ -137,7 +137,7 @@ const Home = ({ products = [], onAddToCart, onAddToWishlist, onCategorySelect, o
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-96 overflow-hidden sm:h-screen">
+      <section className="relative h-[85vh] overflow-hidden">
         {/* Slides */}
         <div className="relative w-full h-full">
           {slides.map((slide, index) => (
@@ -155,37 +155,37 @@ const Home = ({ products = [], onAddToCart, onAddToWishlist, onCategorySelect, o
             >
               {/* Overlay */}
               <div className="absolute inset-0 bg-black/50"></div>
-              
+             
               {/* Gradient Overlay */}
               <div className={`absolute inset-0 bg-gradient-to-r ${slide.accent} opacity-20`}></div>
-              
+             
               {/* Content */}
-              <div className="relative h-full flex items-start pt-24">
+              <div className="relative h-full flex items-center">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                   <div className="max-w-3xl">
-                    
-                    <h1 className="text-4xl sm:text-5xl lg:text-7xl font-extrabold leading-tight text-white mb-6 animate-fade-in">
+                   
+                    <h1 className="text-3xl sm:text-4xl lg:text-6xl font-extrabold leading-tight text-white mb-4 animate-fade-in">
                       {slide.title}
                     </h1>
-                    
-                    <p className="text-xl sm:text-2xl text-blue-100 mb-4 font-medium">
+                   
+                    <p className="text-lg sm:text-xl text-blue-100 mb-3 font-medium">
                       {slide.subtitle}
                     </p>
-                    
-                    <p className="text-lg text-gray-200 mb-8 max-w-2xl leading-relaxed">
+                   
+                    <p className="text-base text-gray-200 mb-6 max-w-2xl leading-relaxed">
                       {slide.description}
                     </p>
-                    
-                    <div className="flex flex-wrap gap-4 mb-8">
-                      <button 
+                   
+                    <div className="flex flex-wrap gap-4 mb-6">
+                      <button
                         onClick={() => handleHeroCta1(slide)}
-                        className={`px-8 py-4 bg-gradient-to-r ${slide.accent} text-white rounded-full font-bold text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300`}
+                        className={`px-6 py-3 bg-gradient-to-r ${slide.accent} text-white rounded-full font-bold text-base hover:shadow-2xl hover:scale-105 transition-all duration-300`}
                       >
                         {slide.cta1}
                       </button>
-                      <button 
+                      <button
                         onClick={() => handleHeroCta2(slide)}
-                        className="px-8 py-4 bg-white/20 backdrop-blur-sm text-white rounded-full font-semibold text-lg hover:bg-white/30 transition-all duration-300 border border-white/30"
+                        className="px-6 py-3 bg-white/20 backdrop-blur-sm text-white rounded-full font-semibold text-base hover:bg-white/30 transition-all duration-300 border border-white/30"
                       >
                         {slide.cta2}
                       </button>
@@ -196,7 +196,7 @@ const Home = ({ products = [], onAddToCart, onAddToWishlist, onCategorySelect, o
             </div>
           ))}
         </div>
-
+ 
         {/* Navigation Arrows */}
         <button
           onClick={prevSlide}
@@ -204,45 +204,45 @@ const Home = ({ products = [], onAddToCart, onAddToWishlist, onCategorySelect, o
         >
           <ChevronLeft className="w-4 h-4" />
         </button>
-        
+       
         <button
           onClick={nextSlide}
           className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-2 rounded-l-full transition-all duration-300 hover:scale-110 z-10"
         >
           <ChevronRight className="w-4 h-4" />
         </button>
-
+ 
         {/* Slide Indicators */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-10">
+        <div className="absolute bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-3 z-10">
           {slides.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
               className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentSlide 
-                  ? 'bg-white scale-125' 
+                index === currentSlide
+                  ? 'bg-white scale-125'
                   : 'bg-white/50 hover:bg-white/70'
               }`}
             />
           ))}
         </div>
-
+ 
         {/* Progress Bar */}
         <div className="absolute bottom-0 left-0 w-full h-1 bg-white/20 z-10">
-          <div 
+          <div
             className="h-full bg-gradient-to-r from-blue-400 to-purple-400 transition-all duration-4000 ease-linear"
             style={{
               width: `${((currentSlide + 1) / slides.length) * 100}%`
             }}
           />
         </div>
-
+ 
         {/* Floating Elements */}
-        <div className="absolute top-20 right-20 animate-bounce opacity-20">
-          <Zap className="w-16 h-16 text-yellow-300" />
+        <div className="absolute top-16 right-16 animate-bounce opacity-20">
+          <Zap className="w-12 h-12 text-yellow-300" />
         </div>
-        <div className="absolute bottom-32 left-20 animate-pulse opacity-10">
-          <div className="w-32 h-32 rounded-full bg-gradient-to-r from-blue-400 to-purple-400" />
+        <div className="absolute bottom-24 left-16 animate-pulse opacity-10">
+          <div className="w-24 h-24 rounded-full bg-gradient-to-r from-blue-400 to-purple-400" />
         </div>
       </section>
 

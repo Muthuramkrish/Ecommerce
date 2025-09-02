@@ -339,17 +339,17 @@ function Root() {
     return Array.from(summaries.values()).sort((a, b) => a.name.localeCompare(b.name));
   }, [rawSource]);
 
-  const handleAddToCart = (product) => {
+  const handleAddToCart = (product, quantity = 5) => {
     setCartItems(prevItems => {
       const existingItem = prevItems.find(item => item['product-title'] === product['product-title']);
       if (existingItem) {
         return prevItems.map(item =>
           item['product-title'] === product['product-title']
-            ? { ...item, quantity: item.quantity + 1 }
+            ? { ...item, quantity: Math.max(5, item.quantity + (quantity || 1)) }
             : item
         );
       } else {
-        return [...prevItems, { ...product, quantity: 1 }];
+        return [...prevItems, { ...product, quantity: Math.max(5, quantity || 5) }];
       }
     });
   };
@@ -357,7 +357,7 @@ function Root() {
   const handleUpdateQuantity = (index, quantity) => {
     setCartItems(prevItems =>
       prevItems.map((item, i) =>
-        i === index ? { ...item, quantity: Math.max(1, quantity) } : item
+        i === index ? { ...item, quantity: Math.max(5, quantity) } : item
       )
     );
   };
@@ -441,7 +441,7 @@ function Root() {
     scrollToTop();
   };
 
-  // Add navigation handlers for About and Contact
+  // Add navigation handlers for About, Contact, and Bulk Order
   const handleAboutClick = () => {
     setShowAboutPage(true);
     setHash('about');
@@ -451,6 +451,12 @@ function Root() {
   const handleContactClick = () => {
     setShowContactPage(true);
     setHash('contact');
+    scrollToTop();
+  };
+
+  const handleBulkOrderClick = () => {
+    setShowBulkOrderPage(true);
+    setHash('bulk-order');
     scrollToTop();
   };
 
@@ -572,6 +578,7 @@ function Root() {
           onHomeClick={handleReturnToHome}
           onAboutClick={handleAboutClick} // Add About handler to Header props
           onContactClick={handleContactClick} // Add Contact handler to Header props
+          onBulkOrderClick={handleBulkOrderClick} // Add Bulk Order handler to Header props
           isLoggedIn={!!currentUser}
           currentUser={currentUser || undefined}
         />
