@@ -1,4 +1,5 @@
 import React, { useState, useRef, useEffect } from 'react';
+import './LoginPage.css';
 
 const initialForm = {
   signUp: { name: '', email: '', password: '', terms: false },
@@ -7,7 +8,7 @@ const initialForm = {
 
 function getStoredUsers() {
   try {
-    return JSON.parse(localStorage.getItem('users') || '[]');
+    return JSON.parse(localStorage.getItem('users')) || [];
   } catch {
     return [];
   }
@@ -38,7 +39,7 @@ function getLastUser() {
     const lastUserEmail = localStorage.getItem('lastUser');
     if (lastUserEmail) {
       const users = getStoredUsers();
-      return users.find((user) => user.email === lastUserEmail) || null;
+      return users.find((user) => user.email === lastUserEmail);
     }
     return null;
   } catch {
@@ -46,18 +47,16 @@ function getLastUser() {
   }
 }
 
-function isValidEmail(email) {
-  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  return re.test(String(email).toLowerCase());
-}
-
-const LoginPage = ({ onLoginSuccess, onClose }) => {
+const LoginPage = ({ onLoginSuccess }) => {
   const [active, setActive] = useState(false);
   const [form, setForm] = useState(initialForm);
   const [signUpMsg, setSignUpMsg] = useState({ msg: '', error: false });
   const [signInMsg, setSignInMsg] = useState({ msg: '', error: false });
   const [showSignUpPwd, setShowSignUpPwd] = useState(false);
   const [showSignInPwd, setShowSignInPwd] = useState(false);
+  const [emailSuggestions, setEmailSuggestions] = useState([]);
+  const signInEmailRef = useRef();
+  const signInPwdRef = useRef();
 
   useEffect(() => {
     const lastUser = getLastUser();
@@ -66,13 +65,22 @@ const LoginPage = ({ onLoginSuccess, onClose }) => {
     }
   }, []);
 
+  // Email suggestions
   useEffect(() => {
-    const onKeyDown = (e) => {
-      if (e.key === 'Escape') onClose();
-    };
-    document.addEventListener('keydown', onKeyDown);
-    return () => document.removeEventListener('keydown', onKeyDown);
-  }, [onClose]);
+    const query = form.signIn.email.trim();
+    if (query.length >= 2) {
+      const users = getStoredUsers();
+      setEmailSuggestions(
+        users.filter(
+          (user) =>
+            user.email.toLowerCase().includes(query.toLowerCase()) ||
+            user.name.toLowerCase().includes(query.toLowerCase())
+        )
+      );
+    } else {
+      setEmailSuggestions([]);
+    }
+  }, [form.signIn.email]);
 
   const handleSignUpChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -90,17 +98,10 @@ const LoginPage = ({ onLoginSuccess, onClose }) => {
   const handleSignUp = (e) => {
     e.preventDefault();
     const { name, email, password, terms } = form.signUp;
-    
     if (!name.trim() || !email.trim() || !password.trim()) {
       setSignUpMsg({ msg: 'All fields are required.', error: true });
       return;
     }
-
-    if (!isValidEmail(email)) {
-      setSignUpMsg({ msg: 'Please enter a valid email address.', error: true });
-      return;
-    }
-    
     // Password validation
     const passwordRules = [
       { regex: /.{8,}/, message: 'Password must be at least 8 characters.' },
@@ -109,25 +110,23 @@ const LoginPage = ({ onLoginSuccess, onClose }) => {
       { regex: /[0-9]/, message: 'Password must contain at least one number.' },
       { regex: /[^A-Za-z0-9]/, message: 'Password must contain at least one special character.' },
     ];
-    
     for (const rule of passwordRules) {
       if (!rule.regex.test(password)) {
         setSignUpMsg({ msg: rule.message, error: true });
         return;
       }
     }
-    
     if (!terms) {
       setSignUpMsg({ msg: 'Please accept the terms and conditions', error: true });
       return;
     }
-    
     if (saveUser(name, email, password)) {
       setSignUpMsg({ msg: 'Registration successful! You can now sign in.', error: false });
       setForm((f) => ({ ...f, signUp: initialForm.signUp }));
       setTimeout(() => {
         setActive(false);
         setForm((f) => ({ ...f, signIn: { ...f.signIn, email } }));
+        signInEmailRef.current && signInEmailRef.current.focus();
       }, 1500);
     } else {
       setSignUpMsg({ msg: 'User with this email already exists!', error: true });
@@ -137,369 +136,133 @@ const LoginPage = ({ onLoginSuccess, onClose }) => {
   const handleSignIn = (e) => {
     e.preventDefault();
     const { email, password } = form.signIn;
-    
     if (!email.trim() || !password.trim()) {
       setSignInMsg({ msg: 'Email and password are required.', error: true });
       return;
     }
-
-    if (!isValidEmail(email)) {
-      setSignInMsg({ msg: 'Please enter a valid email address.', error: true });
-      return;
-    }
-    
     const user = authenticateUser(email, password);
     if (user) {
       setSignInMsg({ msg: 'Login successful! Welcome back.', error: false });
       setTimeout(() => {
-        onLoginSuccess(user);
+        if (onLoginSuccess) {
+          onLoginSuccess(user);
+        }
       }, 1000);
     } else {
       setSignInMsg({ msg: 'Invalid email or password. Please try again.', error: true });
     }
   };
 
+  const handleSuggestionClick = (user) => {
+    setForm((f) => ({ ...f, signIn: { email: user.email, password: user.password } }));
+    setEmailSuggestions([]);
+    signInPwdRef.current && signInPwdRef.current.focus();
+  };
+
   return (
-    <div style={{
-      position: 'fixed',
-      top: 0,
-      left: 0,
-      right: 0,
-      bottom: 0,
-      backgroundColor: 'rgba(0, 0, 0, 0.5)',
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      zIndex: 9999
-    }}>
-      <div style={{
-        backgroundColor: 'white',
-        padding: '40px',
-        borderRadius: '15px',
-        minWidth: '450px',
-        position: 'relative',
-        maxHeight: '90vh',
-        overflow: 'auto',
-        boxShadow: '0 20px 40px rgba(0,0,0,0.3)'
-      }}>
-        <a 
-          href="#home"
-          onClick={(e) => {
-            e.preventDefault();
-            onClose();
-          }}
-          style={{
-            position: 'absolute',
-            top: '15px',
-            right: '15px',
-            background: '#ef4444',
-            color: 'white',
-            border: 'none',
-            borderRadius: '50%',
-            width: '35px',
-            height: '35px',
-            cursor: 'pointer',
-            fontSize: '20px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            textDecoration: 'none'
-          }}
-        >
-          ×
-        </a>
-
-        {/* Toggle Buttons */}
-        <div style={{ display: 'flex', marginBottom: '30px', borderBottom: '2px solid #e5e7eb' }}>
-          <button
-            onClick={() => setActive(false)}
-            style={{
-              flex: 1,
-              padding: '15px',
-              border: 'none',
-              background: active ? 'transparent' : '#1e3a8a',
-              color: active ? '#374151' : 'white',
-              fontSize: '16px',
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              borderBottom: active ? 'none' : '3px solid #1e3a8a'
-            }}
-          >
-            Sign In
-          </button>
-          <button
-            onClick={() => setActive(true)}
-            style={{
-              flex: 1,
-              padding: '15px',
-              border: 'none',
-              background: active ? '#1e3a8a' : 'transparent',
-              color: active ? 'white' : '#374151',
-              fontSize: '16px',
-              fontWeight: 'bold',
-              cursor: 'pointer',
-              borderBottom: active ? '3px solid #1e3a8a' : 'none'
-            }}
-          >
-            Sign Up
-          </button>
+    <div className="main-wrapper">
+      <div className="image-section">
+        <img src="/src/assets/login.png" alt="Template"/>
+      </div>
+      <div className={`container${active ? ' active' : ''}`} id="container">
+        {/* SIGN UP PANEL */}
+        <div className="sign-up">
+          <form autoComplete="off" noValidate onSubmit={handleSignUp}>
+            <h2>Create Account</h2>
+            <div className="icons">
+              <a href="#" className="icon"><i className="fa-brands fa-facebook"></i></a>
+              <a href="#" className="icon"><i className="fa-brands fa-instagram"></i></a>
+              <a href="#" className="icon"><i className="fa-brands fa-google"></i></a>
+              <a href="#" className="icon"><i className="fa-brands fa-github"></i></a>
+            </div>
+            <span>or use email for registration</span>
+            <input type="text" name="name" placeholder="Full Name" value={form.signUp.name} onChange={handleSignUpChange} required />
+            <input type="email" name="email" placeholder="Email" value={form.signUp.email} onChange={handleSignUpChange} required />
+            <div className="password-wrapper">
+              <input type={showSignUpPwd ? 'text' : 'password'} name="password" placeholder="Password" value={form.signUp.password} onChange={handleSignUpChange} required />
+              <span className="toggle-password" onClick={() => setShowSignUpPwd((v) => !v)}><i className={`fa-regular ${showSignUpPwd ? 'fa-eye-slash' : 'fa-eye'}`}></i></span>
+            </div>
+            <div className="terms">
+              <input type="checkbox" id="signup-terms" name="terms" checked={form.signUp.terms} onChange={handleSignUpChange} required />
+              <label htmlFor="signup-terms">I accept the terms and conditions</label>
+            </div>
+            <div className={`message${signUpMsg.error ? ' error-message' : ' success-message'}`} aria-live="polite" style={{ display: signUpMsg.msg ? 'block' : 'none' }}>{signUpMsg.msg}</div>
+            <button type="submit">Sign Up</button>
+          </form>
         </div>
-
-        {/* Sign In Form */}
-        {!active && (
-          <div>
-            <h2 style={{ textAlign: 'center', marginBottom: '25px', color: '#1f2937', fontSize: '24px' }}>
-              Welcome Back
-            </h2>
-            <form onSubmit={handleSignIn} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              <div>
-                <label style={{ display: 'block', marginBottom: '8px', color: '#374151', fontWeight: '500' }}>
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={form.signIn.email}
-                  onChange={handleSignInChange}
-                  name="email"
-                  style={{
-                    width: '100%',
-                    padding: '12px 16px',
-                    border: '2px solid #e5e7eb',
-                    borderRadius: '8px',
-                    fontSize: '16px',
-                    transition: 'border-color 0.2s'
-                  }}
-                  onFocus={(e) => e.target.style.borderColor = '#1e3a8a'}
-                  onBlur={(e) => e.target.style.borderColor = '#e5e7eb'}
-                />
-              </div>
-              
-              <div>
-                <label style={{ display: 'block', marginBottom: '8px', color: '#374151', fontWeight: '500' }}>
-                  Password
-                </label>
-                <div style={{ position: 'relative' }}>
-                  <input
-                    type={showSignInPwd ? 'text' : 'password'}
-                    placeholder="Enter your password"
-                    value={form.signIn.password}
-                    onChange={handleSignInChange}
-                    name="password"
-                    style={{
-                      width: '100%',
-                      padding: '12px 16px',
-                      paddingRight: '50px',
-                      border: '2px solid #e5e7eb',
-                      borderRadius: '8px',
-                      fontSize: '16px',
-                      transition: 'border-color 0.2s'
-                    }}
-                    onFocus={(e) => e.target.style.borderColor = '#1e3a8a'}
-                    onBlur={(e) => e.target.style.borderColor = '#e5e7eb'}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowSignInPwd(!showSignInPwd)}
-                    style={{
-                      position: 'absolute',
-                      right: '12px',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      background: 'none',
-                      border: 'none',
-                      cursor: 'pointer',
-                      color: '#6b7280'
-                    }}
-                  >
-                    {showSignInPwd ? '🙈' : '👁️'}
-                  </button>
-                </div>
-              </div>
-
-              <button
-                type="submit"
-                style={{
-                  background: '#1e3a8a',
-                  color: 'white',
-                  padding: '14px',
-                  border: 'none',
-                  borderRadius: '8px',
-                  fontSize: '16px',
-                  fontWeight: 'bold',
-                  cursor: 'pointer',
-                  transition: 'background-color 0.2s'
+        {/* SIGN IN PANEL */}
+        <div className="sign-in">
+          <form autoComplete="off" noValidate onSubmit={handleSignIn}>
+            <h2>Sign In</h2>
+            <div className="icons">
+              <a href="#" className="icon"><i className="fa-brands fa-facebook"></i></a>
+              <a href="#" className="icon"><i className="fa-brands fa-instagram"></i></a>
+              <a href="#" className="icon"><i className="fa-brands fa-google"></i></a>
+              <a href="#" className="icon"><i className="fa-brands fa-github"></i></a>
+            </div>
+            <span>or use email password</span>
+            <div className="email-wrapper">
+              <input
+                type="email"
+                name="email"
+                placeholder="Email"
+                value={form.signIn.email}
+                onChange={handleSignInChange}
+                required
+                autoComplete="username"
+                ref={signInEmailRef}
+                onFocus={() => {
+                  if (form.signIn.email.trim().length >= 2) {
+                    // show suggestions
+                  }
                 }}
-                onMouseEnter={(e) => e.target.style.backgroundColor = '#1e40af'}
-                onMouseLeave={(e) => e.target.style.backgroundColor = '#1e3a8a'}
-              >
-                Sign In
-              </button>
-            </form>
-
-            {signInMsg.msg && (
-              <div style={{
-                marginTop: '20px',
-                padding: '12px',
-                borderRadius: '8px',
-                backgroundColor: signInMsg.error ? '#fef2f2' : '#f0fdf4',
-                color: signInMsg.error ? '#dc2626' : '#16a34a',
-                textAlign: 'center',
-                border: `1px solid ${signInMsg.error ? '#fecaca' : '#bbf7d0'}`
-              }}>
-                {signInMsg.msg}
-              </div>
-            )}
-          </div>
-        )}
-
-        {/* Sign Up Form */}
-        {active && (
-          <div>
-            <h2 style={{ textAlign: 'center', marginBottom: '25px', color: '#1f2937', fontSize: '24px' }}>
-              Create Account
-            </h2>
-            <form onSubmit={handleSignUp} style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-              <div>
-                <label style={{ display: 'block', marginBottom: '8px', color: '#374151', fontWeight: '500' }}>
-                  Full Name
-                </label>
-                <input
-                  type="text"
-                  placeholder="Enter your full name"
-                  value={form.signUp.name}
-                  onChange={handleSignUpChange}
-                  name="name"
-                  style={{
-                    width: '100%',
-                    padding: '12px 16px',
-                    border: '2px solid #e5e7eb',
-                    borderRadius: '8px',
-                    fontSize: '16px',
-                    transition: 'border-color 0.2s'
-                  }}
-                  onFocus={(e) => e.target.style.borderColor = '#1e3a8a'}
-                  onBlur={(e) => e.target.style.borderColor = '#e5e7eb'}
-                />
-              </div>
-
-              <div>
-                <label style={{ display: 'block', marginBottom: '8px', color: '#374151', fontWeight: '500' }}>
-                  Email Address
-                </label>
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  value={form.signUp.email}
-                  onChange={handleSignUpChange}
-                  name="email"
-                  style={{
-                    width: '100%',
-                    padding: '12px 16px',
-                    border: '2px solid #e5e7eb',
-                    borderRadius: '8px',
-                    fontSize: '16px',
-                    transition: 'border-color 0.2s'
-                  }}
-                  onFocus={(e) => e.target.style.borderColor = '#1e3a8a'}
-                  onBlur={(e) => e.target.style.borderColor = '#e5e7eb'}
-                />
-              </div>
-              
-              <div>
-                <label style={{ display: 'block', marginBottom: '8px', color: '#374151', fontWeight: '500' }}>
-                  Password
-                </label>
-                <div style={{ position: 'relative' }}>
-                  <input
-                    type={showSignUpPwd ? 'text' : 'password'}
-                    placeholder="Create a strong password"
-                    value={form.signUp.password}
-                    onChange={handleSignUpChange}
-                    name="password"
-                    style={{
-                      width: '100%',
-                      padding: '12px 16px',
-                      paddingRight: '50px',
-                      border: '2px solid #e5e7eb',
-                      borderRadius: '8px',
-                      fontSize: '16px',
-                      transition: 'border-color 0.2s'
-                    }}
-                    onFocus={(e) => e.target.style.borderColor = '#1e3a8a'}
-                    onBlur={(e) => e.target.style.borderColor = '#e5e7eb'}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => setShowSignUpPwd(!showSignUpPwd)}
-                    style={{
-                      position: 'absolute',
-                      right: '12px',
-                      top: '50%',
-                      transform: 'translateY(-50%)',
-                      background: 'none',
-                      border: 'none',
-                      cursor: 'pointer',
-                      color: '#6b7280'
-                    }}
-                  >
-                    {showSignUpPwd ? '🙈' : '👁️'}
-                  </button>
+              />
+              {emailSuggestions.length > 0 && (
+                <div className="email-suggestions">
+                  {emailSuggestions.map((user) => (
+                    <div className="suggestion-item" key={user.email} onClick={() => handleSuggestionClick(user)}>
+                      <div>
+                        <div className="suggestion-email">{user.email}</div>
+                        <div className="suggestion-name">{user.name}</div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <p style={{ fontSize: '12px', color: '#6b7280', marginTop: '5px' }}>
-                  Password must be at least 8 characters with uppercase, lowercase, number, and special character
-                </p>
-              </div>
-
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-                <input
-                  type="checkbox"
-                  id="terms"
-                  name="terms"
-                  checked={form.signUp.terms}
-                  onChange={handleSignUpChange}
-                  style={{ width: '18px', height: '18px' }}
-                />
-                <label htmlFor="terms" style={{ fontSize: '14px', color: '#374151' }}>
-                  I accept the terms and conditions
-                </label>
-              </div>
-
-              <button
-                type="submit"
-                style={{
-                  background: '#1e3a8a',
-                  color: 'white',
-                  padding: '14px',
-                  border: 'none',
-                  borderRadius: '8px',
-                  fontSize: '16px',
-                  fontWeight: 'bold',
-                  cursor: 'pointer',
-                  transition: 'background-color 0.2s'
-                }}
-                onMouseEnter={(e) => e.target.style.backgroundColor = '#1e40af'}
-                onMouseLeave={(e) => e.target.style.backgroundColor = '#1e3a8a'}
-              >
-                Create Account
-              </button>
-            </form>
-
-            {signUpMsg.msg && (
-              <div style={{
-                marginTop: '20px',
-                padding: '12px',
-                borderRadius: '8px',
-                backgroundColor: signUpMsg.error ? '#fef2f2' : '#f0fdf4',
-                color: signUpMsg.error ? '#dc2626' : '#16a34a',
-                textAlign: 'center',
-                border: `1px solid ${signUpMsg.error ? '#fecaca' : '#bbf7d0'}`
-              }}>
-                {signUpMsg.msg}
-              </div>
-            )}
+              )}
+            </div>
+            <div className="password-wrapper">
+              <input
+                type={showSignInPwd ? 'text' : 'password'}
+                name="password"
+                placeholder="Password"
+                value={form.signIn.password}
+                onChange={handleSignInChange}
+                required
+                autoComplete="current-password"
+                ref={signInPwdRef}
+              />
+              <span className="toggle-password" onClick={() => setShowSignInPwd((v) => !v)}><i className={`fa-regular ${showSignInPwd ? 'fa-eye-slash' : 'fa-eye'}`}></i></span>
+            </div>
+            <a href="#">Forgot password</a>
+            <div className={`message${signInMsg.error ? ' error-message' : ' success-message'}`} aria-live="polite" style={{ display: signInMsg.msg ? 'block' : 'none' }}>{signInMsg.msg}</div>
+            <button type="submit">Sign In</button>
+          </form>
+        </div>
+        {/* SIDE TOGGLE PANELS */}
+        <div className="toggle-container">
+          <div className="toggle">
+            <div className="toggle-panel toggle-left">
+              <h1>Hello again!</h1>
+              <p>Please log in to pick up where you left off.</p>
+              <button id="login" type="button" onClick={() => setActive(false)}>Sign In</button>
+            </div>
+            <div className="toggle-panel toggle-right">
+              <h1>Hi there! New here?</h1>
+              <p>Create an account to get started.</p>
+              <button id="register" type="button" onClick={() => setActive(true)}>Sign Up</button>
+            </div>
           </div>
-        )}
+        </div>
       </div>
     </div>
   );

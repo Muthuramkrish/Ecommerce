@@ -11,6 +11,7 @@ import ProductDetailsPage from './ProductDetailsPage';
 import FavoritesPage from './FavoritesPage';
 import About from './About'; // Add About component import
 import Contact from './Contact'; // Add Contact component import
+import BulkOrderPage from './BulkOrderPage'; // Add BulkOrderPage component import
 import productsData from '../data/product.json';
 
 function Root() {
@@ -32,6 +33,7 @@ function Root() {
   const [showFavoritesPage, setShowFavoritesPage] = useState(false);
   const [showAboutPage, setShowAboutPage] = useState(false); // Add About page state
   const [showContactPage, setShowContactPage] = useState(false); // Add Contact page state
+  const [showBulkOrderPage, setShowBulkOrderPage] = useState(false); // Add BulkOrderPage state
   const [previousPage, setPreviousPage] = useState('home');
   const [initialCategoryFilters, setInitialCategoryFilters] = useState({ brand: [], subSubcategory: [], productType: [] });
   
@@ -80,6 +82,7 @@ function Root() {
     setSelectedProduct(null);
     setShowAboutPage(false); // Reset About page state
     setShowContactPage(false); // Reset Contact page state
+    setShowBulkOrderPage(false); // Reset BulkOrderPage state
 
     switch (route) {
       case 'cart':
@@ -99,6 +102,9 @@ function Root() {
         break;
       case 'contact': // Add Contact route
         setShowContactPage(true);
+        break;
+      case 'bulk-order': // Add Bulk Order route
+        setShowBulkOrderPage(true);
         break;
       case 'category': {
         const categoryParam = rest[0] || '';
@@ -361,9 +367,13 @@ function Root() {
   };
 
   const handleCheckout = () => {
-    setShowCheckoutPage(true);
-    setHash('checkout');
-    scrollToTop();
+    if(currentUser) {
+      setShowCheckoutPage(true);
+      setHash('checkout');
+      scrollToTop();
+    } else {
+      setIsLoginOpen(true);
+    }
   };
 
   const handleOrderComplete = () => {
@@ -485,6 +495,7 @@ function Root() {
     setIsLoginOpen(false);
     setShowAboutPage(false); // Reset About page
     setShowContactPage(false); // Reset Contact page
+    setShowBulkOrderPage(false); // Reset BulkOrderPage
     setHash('home');
     scrollToTop();
   };
@@ -548,37 +559,42 @@ function Root() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <Header
-        cartItemCount={getTotalCartItems()}
-        favoritesCount={favorites.length}
-        onCartClick={() => { setShowCartPage(true); setHash('cart'); scrollToTop(); }}
-        onSearchChange={handleSearchChange}
-        onLoginClick={handleLoginClick}
-        onLogout={handleLogout}
-        onFavoritesClick={handleFavoritesClick}
-        onLogoClick={handleReturnToHome}
-        onHomeClick={handleReturnToHome}
-        onAboutClick={handleAboutClick} // Add About handler to Header props
-        onContactClick={handleContactClick} // Add Contact handler to Header props
-        isLoggedIn={!!currentUser}
-        currentUser={currentUser || undefined}
-      />
-      <main className="pt-20">
-        {showAboutPage ? (
+      {!isLoginOpen && (
+        <Header
+          cartItemCount={getTotalCartItems()}
+          favoritesCount={favorites.length}
+          onCartClick={() => { setShowCartPage(true); setHash('cart'); scrollToTop(); }}
+          onSearchChange={handleSearchChange}
+          onLoginClick={handleLoginClick}
+          onLogout={handleLogout}
+          onFavoritesClick={handleFavoritesClick}
+          onLogoClick={handleReturnToHome}
+          onHomeClick={handleReturnToHome}
+          onAboutClick={handleAboutClick} // Add About handler to Header props
+          onContactClick={handleContactClick} // Add Contact handler to Header props
+          isLoggedIn={!!currentUser}
+          currentUser={currentUser || undefined}
+        />
+      )}
+              <main className={isLoginOpen ? "" : "pt-20"}>
+          {isLoginOpen ? (
+            <LoginPage
+              onLoginSuccess={handleLoginSuccess}
+            />
+          ) : showAboutPage ? (
           <About />
         ) : showContactPage ? (
           <Contact />
+        ) : showBulkOrderPage ? (
+          <BulkOrderPage />
         ) : showCartPage ? (
           <CartPage
           items={cartItems}
           onBack={() => setShowCartPage(false)}
           onUpdateQuantity={handleUpdateQuantity}
           onRemoveItem={handleRemoveItem}
-          onCheckout={() => { 
-            setShowCartPage(false); 
-            setShowCheckoutPage(true); 
-            setHash('checkout'); 
-          }}
+          onLoginClick={handleLoginClick}
+          onCheckout={handleCheckout}
           onOpenDetails={handleOpenProductDetailsPage}
         />
         ) : showCheckoutPage ? (
@@ -722,13 +738,7 @@ function Root() {
           </>
         )}
       </main>
-      <Footer />
-      {isLoginOpen && (
-        <LoginPage
-          onLoginSuccess={handleLoginSuccess}
-          onClose={handleLoginClose}
-        />
-      )}
+      {!isLoginOpen && <Footer />}
     </div>
   );
 }

@@ -3,9 +3,19 @@ import { Users, Award, Clock, Shield, Zap, Target, Eye, Heart } from 'lucide-rea
 
 const About = () => {
   return (
-    <div className="pt-20"> {/* Account for fixed header */}
+    <div>
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 text-white overflow-hidden">
+      <section 
+        className="relative h-screen text-white overflow-hidden flex items-center"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=1200&q=80')`,
+          backgroundSize: 'contain',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-indigo-900/70 to-purple-900/80"></div>
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-full h-full" style={{
@@ -22,8 +32,8 @@ const About = () => {
           <div className="w-32 h-32 rounded-full bg-gradient-to-r from-blue-400 to-purple-400" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center">
+                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative w-full">
+           <div className="text-center">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-yellow-400 rounded-full mb-8">
               <Users className="w-10 h-10 text-blue-900" />
             </div>
@@ -42,7 +52,7 @@ const About = () => {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
+           <div className="order-2 lg:order-1">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">Our Story</h2>
               <div className="space-y-6 text-gray-600 leading-relaxed">
                 <p>
@@ -67,8 +77,8 @@ const About = () => {
                 </p>
               </div>
             </div>
-            <div className="relative">
-              <div className="aspect-w-4 aspect-h-3 rounded-2xl overflow-hidden shadow-2xl">
+            <div className="relative order-1 lg:order-2">
+              <div className="rounded-2xl overflow-hidden shadow-2xl">
                 <img
                   src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=800&q=80"
                   alt="Our workshop and team"
@@ -206,70 +216,7 @@ const About = () => {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Meet Our Team</h2>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              Dedicated professionals committed to providing you with the best electrical solutions and service experience.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {/* Team Member 1 */}
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-              <div className="h-64 bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center">
-                <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center">
-                  <Users className="w-12 h-12 text-blue-600" />
-                </div>
-              </div>
-              <div className="p-6 text-center">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Founder & CEO</h3>
-                <p className="text-blue-600 font-medium mb-3">Leadership</p>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  Visionary leader with extensive experience in electrical industry, 
-                  driving innovation and customer satisfaction.
-                </p>
-              </div>
-            </div>
-
-            {/* Team Member 2 */}
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-              <div className="h-64 bg-gradient-to-br from-green-500 to-teal-600 flex items-center justify-center">
-                <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center">
-                  <Zap className="w-12 h-12 text-green-600" />
-                </div>
-              </div>
-              <div className="p-6 text-center">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Technical Director</h3>
-                <p className="text-green-600 font-medium mb-3">Engineering</p>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  Expert electrical engineer ensuring all products meet the highest 
-                  technical standards and safety requirements.
-                </p>
-              </div>
-            </div>
-
-            {/* Team Member 3 */}
-            <div className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300">
-              <div className="h-64 bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
-                <div className="w-24 h-24 bg-white rounded-full flex items-center justify-center">
-                  <Heart className="w-12 h-12 text-orange-600" />
-                </div>
-              </div>
-              <div className="p-6 text-center">
-                <h3 className="text-xl font-bold text-gray-900 mb-2">Customer Success Manager</h3>
-                <p className="text-orange-600 font-medium mb-3">Customer Relations</p>
-                <p className="text-gray-600 text-sm leading-relaxed">
-                  Dedicated to ensuring every customer receives exceptional service 
-                  and support throughout their journey with us.
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+     
 
       {/* Call to Action */}
       <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">

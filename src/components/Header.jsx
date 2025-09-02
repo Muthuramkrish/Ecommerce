@@ -44,12 +44,12 @@ const Header = ({
           {/* Logo */}
           <div className="flex-shrink-0">
             <button onClick={onLogoClick} className="flex items-center">
-              <img src={vLogo} alt="V Logo" className="h-12 w-auto" />
+              <img src={vLogo} alt="V Logo" className="h-10 w-auto" />
             </button>
           </div>
 
           {/* Search Bar - Desktop */}
-          <div className="hidden md:flex flex-1 max-w-2xl mx-8">
+          <div className="hidden md:flex flex-1 max-w-xl mx-8">
             <div className="relative w-full">
               <input
                 type="text"
@@ -64,21 +64,16 @@ const Header = ({
 
           {/* Navigation Icons */}
           <div className="flex items-center space-x-4">
+            {/* Bulk Order Button - Now First */}
             <button 
-              onClick={(e) => {
-                console.log('Header wishlist button clicked!');
-                e.preventDefault();
-                onFavoritesClick();
-              }}
-              className="relative p-2 hover:bg-blue-800 rounded-full transition-colors"
+              onClick={() => window.location.href = '/bulk-order'}
+              className="px-4 py-2 bg-green-600 text-white rounded-full font-semibold hover:bg-green-700 transition-colors flex items-center space-x-2"
             >
-              <Heart className="w-6 h-6" />
-              {favoritesCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
-                  {favoritesCount}
-                </span>
-              )}
+              <span>📦</span>
+              <span>Bulk Order</span>
             </button>
+            
+            {/* Login/User Menu - Now Second */}
             {isLoggedIn ? (
               <div className="relative user-menu">
                 <button 
@@ -111,11 +106,13 @@ const Header = ({
             ) : (
               <button 
                 onClick={onLoginClick}
-                className="px-4 py-2 bg-white-400 text-black-500 rounded-full font-semibold hover:bg-blue-00 transition-colors"
+                className="px-4 py-2 bg-white text-blue-900 rounded-full font-semibold hover:bg-blue-50 transition-colors"
               >
                 Login
               </button>
             )}
+            
+            {/* Cart - Now Second */}
             <button
               onClick={onCartClick}
               className="relative p-2 hover:bg-blue-800 rounded-full transition-colors"
@@ -127,6 +124,25 @@ const Header = ({
                 </span>
               )}
             </button>
+            
+            {/* Favorites - Now Third */}
+            <button 
+              onClick={(e) => {
+                console.log('Header wishlist button clicked!');
+                e.preventDefault();
+                onFavoritesClick();
+              }}
+              className="relative p-2 hover:bg-blue-800 rounded-full transition-colors"
+            >
+              <Heart className="w-6 h-6" />
+              {favoritesCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                  {favoritesCount}
+                </span>
+              )}
+            </button>
+            
+            {/* Mobile Menu Button - Last */}
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               className="md:hidden p-2 hover:bg-blue-800 rounded-full transition-colors"

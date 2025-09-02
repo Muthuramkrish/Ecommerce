@@ -41,9 +41,19 @@ const Contact = () => {
   };
 
   return (
-    <div className="pt-20"> {/* Account for fixed header */}
+    <div>
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 text-white overflow-hidden">
+      <section 
+        className="relative h-screen text-white overflow-hidden flex items-center"
+        style={{
+          backgroundImage: `url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1200&q=80')`,
+          backgroundSize: 'contain',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
+        {/* Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-blue-900/80 via-indigo-900/70 to-purple-900/80"></div>
         {/* Background Pattern */}
         <div className="absolute inset-0 opacity-10">
           <div className="absolute top-0 left-0 w-full h-full" style={{
@@ -60,8 +70,8 @@ const Contact = () => {
           <div className="w-32 h-32 rounded-full bg-gradient-to-r from-blue-400 to-purple-400" />
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center">
+                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative w-full">
+           <div className="text-center">
             <div className="inline-flex items-center justify-center w-20 h-20 bg-yellow-400 rounded-full mb-8">
               <MessageSquare className="w-10 h-10 text-blue-900" />
             </div>
@@ -81,49 +91,49 @@ const Contact = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Phone */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col justify-center">
+              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Phone className="w-8 h-8 text-green-600" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Call Us</h3>
-              <p className="text-gray-600 text-sm mb-3">Mon - Sat: 9:00 AM - 6:00 PM</p>
-              <a href="tel:+911234567890" className="text-green-600 font-semibold hover:text-green-700 transition-colors">
+              <h3 className="text-lg font-bold text-gray-900 mb-3">Call Us</h3>
+              <p className="text-gray-600 text-sm mb-4">Mon - Sat: 9:00 AM - 6:00 PM</p>
+              <a href="tel:+911234567890" className="text-green-600 font-semibold hover:text-green-700 transition-colors text-lg">
                 +91 1234567890
               </a>
             </div>
 
             {/* Email */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col justify-center">
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Mail className="w-8 h-8 text-blue-600" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Email Us</h3>
-              <p className="text-gray-600 text-sm mb-3">We'll respond within 24 hours</p>
-              <a href="mailto:support@vikoshiya.com" className="text-blue-600 font-semibold hover:text-blue-700 transition-colors">
+              <h3 className="text-lg font-bold text-gray-900 mb-3">Email Us</h3>
+              <p className="text-gray-600 text-sm mb-4">We'll respond within 24 hours</p>
+              <a href="mailto:support@vikoshiya.com" className="text-blue-600 font-semibold hover:text-blue-700 transition-colors text-lg">
                 support@vikoshiya.com
               </a>
             </div>
 
             {/* Location */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col justify-center">
+              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <MapPin className="w-8 h-8 text-purple-600" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Visit Us</h3>
-              <p className="text-gray-600 text-sm mb-3">Come see our showroom</p>
-              <p className="text-purple-600 font-semibold text-sm">
+              <h3 className="text-lg font-bold text-gray-900 mb-3">Visit Us</h3>
+              <p className="text-gray-600 text-sm mb-4">Come see our showroom</p>
+              <p className="text-purple-600 font-semibold text-lg">
                 Virudhunagar, Tamil Nadu, India
               </p>
             </div>
 
             {/* Support */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2">
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+            <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col justify-center">
+              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
                 <Headphones className="w-8 h-8 text-orange-600" />
               </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">Live Support</h3>
-              <p className="text-gray-600 text-sm mb-3">Chat with our experts</p>
-              <button className="text-orange-600 font-semibold hover:text-orange-700 transition-colors">
+              <h3 className="text-lg font-bold text-gray-900 mb-3">Live Support</h3>
+              <p className="text-gray-600 text-sm mb-4">Chat with our experts</p>
+              <button className="text-orange-600 font-semibold hover:text-orange-700 transition-colors text-lg">
                 Start Chat
               </button>
             </div>
@@ -134,9 +144,9 @@ const Contact = () => {
       {/* Contact Form & Map Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
             {/* Contact Form */}
-            <div>
+            <div className="order-2 lg:order-1">
               <div className="mb-8">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Send us a Message</h2>
                 <p className="text-gray-600">
@@ -266,7 +276,7 @@ const Contact = () => {
             </div>
 
             {/* Map & Additional Info */}
-            <div>
+            <div className="order-1 lg:order-2">
               <div className="mb-8">
                 <h2 className="text-3xl font-bold text-gray-900 mb-4">Find Our Location</h2>
                 <p className="text-gray-600">
@@ -378,35 +388,6 @@ const Contact = () => {
         </div>
       </section>
 
-      {/* Emergency Contact Section */}
-      <section className="py-16 bg-gradient-to-r from-red-600 to-orange-600 text-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-white rounded-full mb-6">
-              <Phone className="w-8 h-8 text-red-600" />
-            </div>
-            <h2 className="text-3xl font-bold mb-4">Emergency Technical Support</h2>
-            <p className="text-xl text-red-100 mb-8 max-w-2xl mx-auto">
-              Need urgent technical assistance? Our emergency support line is available 24/7 
-              for critical electrical issues and safety concerns.
-            </p>
-            <div className="flex flex-wrap justify-center gap-4">
-              <a 
-                href="tel:+911234567890" 
-                className="px-8 py-4 bg-white text-red-600 rounded-full font-bold text-lg hover:shadow-xl hover:scale-105 transition-all duration-300"
-              >
-                Call Emergency Line
-              </a>
-              <a 
-                href="mailto:emergency@vikoshiya.com" 
-                className="px-8 py-4 bg-white/20 backdrop-blur-sm text-white rounded-full font-semibold text-lg hover:bg-white/30 transition-all duration-300 border border-white/30"
-              >
-                Emergency Email
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Call to Action */}
       <section className="py-16 bg-gradient-to-br from-blue-900 via-indigo-900 to-purple-900 text-white">

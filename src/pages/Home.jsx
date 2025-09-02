@@ -137,7 +137,7 @@ const Home = ({ products = [], onAddToCart, onAddToWishlist, onCategorySelect, o
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden">
+      <section className="relative h-96 overflow-hidden sm:h-screen">
         {/* Slides */}
         <div className="relative w-full h-full">
           {slides.map((slide, index) => (
