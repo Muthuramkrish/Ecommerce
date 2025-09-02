@@ -441,7 +441,7 @@ function Root() {
     scrollToTop();
   };
 
-  // Add navigation handlers for About and Contact
+  // Add navigation handlers for About, Contact, and Bulk Order
   const handleAboutClick = () => {
     setShowAboutPage(true);
     setHash('about');
@@ -451,6 +451,12 @@ function Root() {
   const handleContactClick = () => {
     setShowContactPage(true);
     setHash('contact');
+    scrollToTop();
+  };
+
+  const handleBulkOrderClick = () => {
+    setShowBulkOrderPage(true);
+    setHash('bulk-order');
     scrollToTop();
   };
 
@@ -572,6 +578,7 @@ function Root() {
           onHomeClick={handleReturnToHome}
           onAboutClick={handleAboutClick} // Add About handler to Header props
           onContactClick={handleContactClick} // Add Contact handler to Header props
+          onBulkOrderClick={handleBulkOrderClick} // Add Bulk Order handler to Header props
           isLoggedIn={!!currentUser}
           currentUser={currentUser || undefined}
         />
