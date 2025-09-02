@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Plus, Trash2, Package, Users, DollarSign, Truck } from 'lucide-react';
+import { ArrowLeft, Plus, Minus, Trash2, Package, Users, DollarSign, Truck } from 'lucide-react';
 
 const BulkOrderPage = () => {
   const [formData, setFormData] = useState({
@@ -18,7 +18,7 @@ const BulkOrderPage = () => {
     items: [
       {
         productName: '',
-        quantity: '',
+        quantity: '10',
         unitPrice: '',
         totalPrice: ''
       }
@@ -37,6 +37,15 @@ const BulkOrderPage = () => {
 
   const handleItemChange = (index, field, value) => {
     const newItems = [...formData.items];
+    
+    // Validate quantity to ensure it's at least 1
+    if (field === 'quantity') {
+      const numValue = parseInt(value);
+      if (numValue < 1 && value !== '') {
+        value = '1';
+      }
+    }
+    
     newItems[index][field] = value;
     
     // Calculate total price for this item
@@ -57,7 +66,7 @@ const BulkOrderPage = () => {
       ...prev,
       items: [...prev.items, {
         productName: '',
-        quantity: '',
+        quantity: '10',
         unitPrice: '',
         totalPrice: ''
       }]
@@ -70,6 +79,18 @@ const BulkOrderPage = () => {
         ...prev,
         items: prev.items.filter((_, i) => i !== index)
       }));
+    }
+  };
+
+  const increaseQuantity = (index) => {
+    const currentQuantity = parseInt(formData.items[index].quantity) || 0;
+    handleItemChange(index, 'quantity', (currentQuantity + 1).toString());
+  };
+
+  const decreaseQuantity = (index) => {
+    const currentQuantity = parseInt(formData.items[index].quantity) || 0;
+    if (currentQuantity > 1) {
+      handleItemChange(index, 'quantity', (currentQuantity - 1).toString());
     }
   };
 
@@ -363,15 +384,32 @@ const BulkOrderPage = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Quantity *
                       </label>
-                      <input
-                        type="number"
-                        value={item.quantity}
-                        onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
-                        required
-                        min="1"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        placeholder="Qty"
-                      />
+                      <div className="flex items-center space-x-2">
+                        <button
+                          type="button"
+                          onClick={() => decreaseQuantity(index)}
+                          className="flex items-center justify-center w-8 h-8 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg transition-colors"
+                          disabled={parseInt(item.quantity) <= 1}
+                        >
+                          <Minus className="w-4 h-4" />
+                        </button>
+                        <input
+                          type="number"
+                          value={item.quantity}
+                          onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
+                          required
+                          min="1"
+                          className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center"
+                          placeholder="Qty"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => increaseQuantity(index)}
+                          className="flex items-center justify-center w-8 h-8 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg transition-colors"
+                        >
+                          <Plus className="w-4 h-4" />
+                        </button>
+                      </div>
                     </div>
                     
                     <div>
