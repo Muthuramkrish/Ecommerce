@@ -17,7 +17,7 @@ const ProductDetailsPage = ({
       behavior: 'smooth'
     });
   }, []);
-  const [quantity, setQuantity] = React.useState(1);
+  const [quantity, setQuantity] = React.useState(5);
   const [selectedImage, setSelectedImage] = React.useState(0);
   const [selectedSize, setSelectedSize] = React.useState('');
   const [selectedColor, setSelectedColor] = React.useState('');
@@ -38,10 +38,10 @@ const ProductDetailsPage = ({
   };
 
   const handleQuantityChange = (newQuantity) => {
-    const minQty = 1;
+    const minQty = 5;
     const maxQty = (product?.raw?.inventory?.availableQuantity ?? (product?.raw?.inventory?.availableQuantity === 0 ? 0 : undefined)) ?? (inventory?.availableQuantity ?? undefined);
     const clamped = Math.max(minQty, maxQty != null ? Math.min(newQuantity, maxQty) : newQuantity);
-    if (clamped >= 1) {
+    if (clamped >= 5) {
       setQuantity(clamped);
     }
   };
@@ -423,6 +423,11 @@ const ProductDetailsPage = ({
             {/* Quantity Selector */}
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-3">Quantity</h3>
+              <div className="mb-2">
+                <span className="text-sm text-blue-600 bg-blue-50 px-2 py-1 rounded">
+                  Minimum order quantity: 5 units
+                </span>
+              </div>
               <div className="flex items-center space-x-4">
                 <div className="flex items-center border border-gray-300 rounded-lg">
                   <button
@@ -433,14 +438,14 @@ const ProductDetailsPage = ({
                   </button>
                   <input
                     type="number"
-                    min={1}
+                    min={5}
                     max={inventory?.availableQuantity ?? undefined}
                     value={quantity}
                     onChange={(e) => {
                       const parsed = parseInt(e.target.value, 10);
                       if (isNaN(parsed)) return;
                       const maxQty = inventory?.availableQuantity ?? parsed;
-                      const next = Math.min(Math.max(1, parsed), maxQty);
+                      const next = Math.min(Math.max(5, parsed), maxQty);
                       handleQuantityChange(next);
                     }}
                     className="w-16 text-center px-2 py-2 text-lg font-medium focus:outline-none"
