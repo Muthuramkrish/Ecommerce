@@ -38,11 +38,11 @@ const BulkOrderPage = () => {
   const handleItemChange = (index, field, value) => {
     const newItems = [...formData.items];
     
-    // Validate quantity to ensure it's at least 1
+    // Validate quantity to ensure it's at least 5
     if (field === 'quantity') {
       const numValue = parseInt(value);
-      if (numValue < 1 && value !== '') {
-        value = '1';
+      if (numValue < 5 && value !== '') {
+        value = '5';
       }
     }
     
@@ -89,7 +89,7 @@ const BulkOrderPage = () => {
 
   const decreaseQuantity = (index) => {
     const currentQuantity = parseInt(formData.items[index].quantity) || 0;
-    if (currentQuantity > 1) {
+    if (currentQuantity > 5) {
       handleItemChange(index, 'quantity', (currentQuantity - 1).toString());
     }
   };
@@ -389,7 +389,7 @@ const BulkOrderPage = () => {
                           type="button"
                           onClick={() => decreaseQuantity(index)}
                           className="flex items-center justify-center w-8 h-8 bg-gray-100 hover:bg-gray-200 text-gray-600 rounded-lg transition-colors"
-                          disabled={parseInt(item.quantity) <= 1}
+                          disabled={parseInt(item.quantity) <= 5}
                         >
                           <Minus className="w-4 h-4" />
                         </button>
@@ -398,7 +398,7 @@ const BulkOrderPage = () => {
                           value={item.quantity}
                           onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
                           required
-                          min="1"
+                          min="5"
                           className="flex-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center"
                           placeholder="Qty"
                         />
