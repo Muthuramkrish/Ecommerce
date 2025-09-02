@@ -13,7 +13,8 @@ const Header = ({
   onFavoritesClick, 
   isLoggedIn, 
   currentUser,
-  onHomeClick
+  onHomeClick,
+  onBulkOrderClick
 }) => {
   const [searchQuery, setSearchQuery] = useState('');
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -66,7 +67,7 @@ const Header = ({
           <div className="flex items-center space-x-4">
             {/* Bulk Order Button - Now First */}
             <button 
-              onClick={() => window.location.href = '/bulk-order'}
+              onClick={onBulkOrderClick}
               className="px-4 py-2 bg-green-600 text-white rounded-full font-semibold hover:bg-green-700 transition-colors flex items-center space-x-2"
             >
               <span>📦</span>
