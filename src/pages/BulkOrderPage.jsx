@@ -1,7 +1,23 @@
-import React, { useState } from 'react';
-import { ArrowLeft, Plus, Trash2, Package, Users, DollarSign, Truck } from 'lucide-react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { ArrowLeft, Plus, Trash2, Package, Users, DollarSign, Truck, Search, ChevronDown } from 'lucide-react';
+import productsData from '../data/product.json';
 
 const BulkOrderPage = () => {
+  // Process products data
+  const products = useMemo(() => {
+    const rawSource = Array.isArray(productsData)
+      ? productsData
+      : (productsData && Array.isArray(productsData.products) ? productsData.products : []);
+    
+    return rawSource.map(p => ({
+      id: p?.identifiers?.productId || '',
+      title: p?.characteristics?.title || 'Untitled Product',
+      price: p?.pricing?.basePrice || 0,
+      image: p?.characteristics?.images?.primary?.[0] || '',
+      category: p?.anchor?.subcategory || p?.anchor?.category || 'General'
+    }));
+  }, []);
+
   const [formData, setFormData] = useState({
     companyName: '',
     contactPerson: '',
@@ -18,14 +34,32 @@ const BulkOrderPage = () => {
     items: [
       {
         productName: '',
+        productId: '',
         quantity: '',
         unitPrice: '',
-        totalPrice: ''
+        totalPrice: '',
+        searchQuery: '',
+        showDropdown: false
       }
     ]
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Close dropdowns when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (!event.target.closest('.product-search-container')) {
+        setFormData(prev => ({
+          ...prev,
+          items: prev.items.map(item => ({ ...item, showDropdown: false }))
+        }));
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -52,14 +86,60 @@ const BulkOrderPage = () => {
     }));
   };
 
+  const handleProductSearch = (index, searchQuery) => {
+    const newItems = [...formData.items];
+    newItems[index].searchQuery = searchQuery;
+    newItems[index].showDropdown = searchQuery.length > 0;
+    
+    setFormData(prev => ({
+      ...prev,
+      items: newItems
+    }));
+  };
+
+  const handleProductSelect = (index, product) => {
+    const newItems = [...formData.items];
+    newItems[index].productName = product.title;
+    newItems[index].productId = product.id;
+    newItems[index].unitPrice = product.price.toString();
+    newItems[index].searchQuery = product.title;
+    newItems[index].showDropdown = false;
+    
+    // Calculate total price if quantity is already entered
+    if (newItems[index].quantity) {
+      const quantity = parseFloat(newItems[index].quantity);
+      const unitPrice = parseFloat(product.price);
+      newItems[index].totalPrice = (quantity * unitPrice).toFixed(2);
+    }
+    
+    setFormData(prev => ({
+      ...prev,
+      items: newItems
+    }));
+  };
+
+  const getFilteredProducts = (searchQuery) => {
+    if (!searchQuery || searchQuery.length < 2) return [];
+    
+    return products
+      .filter(product => 
+        product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.category.toLowerCase().includes(searchQuery.toLowerCase())
+      )
+      .slice(0, 10); // Limit to 10 results for performance
+  };
+
   const addItem = () => {
     setFormData(prev => ({
       ...prev,
       items: [...prev.items, {
         productName: '',
+        productId: '',
         quantity: '',
         unitPrice: '',
-        totalPrice: ''
+        totalPrice: '',
+        searchQuery: '',
+        showDropdown: false
       }]
     }));
   };
@@ -345,17 +425,70 @@ const BulkOrderPage = () => {
               {formData.items.map((item, index) => (
                 <div key={index} className="border border-gray-200 rounded-lg p-4 mb-4">
                   <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-                    <div>
+                    <div className="relative product-search-container">
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Product Name *
                       </label>
+                      <div className="relative">
+                        <input
+                          type="text"
+                          value={item.searchQuery}
+                          onChange={(e) => handleProductSearch(index, e.target.value)}
+                          required
+                          className="w-full px-3 py-2 pr-8 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                          placeholder="Search for products..."
+                        />
+                        <Search className="absolute right-2 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+                        
+                        {/* Search Dropdown */}
+                        {item.showDropdown && (
+                          <div className="absolute top-full left-0 right-0 z-50 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto mt-1">
+                            {getFilteredProducts(item.searchQuery).length > 0 ? (
+                              getFilteredProducts(item.searchQuery).map((product) => (
+                                <div
+                                  key={product.id}
+                                  onClick={() => handleProductSelect(index, product)}
+                                  className="flex items-center p-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0"
+                                >
+                                  <img
+                                    src={product.image}
+                                    alt={product.title}
+                                    className="w-10 h-10 object-cover rounded mr-3"
+                                    onError={(e) => {
+                                      e.target.src = 'https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=100';
+                                    }}
+                                  />
+                                  <div className="flex-1">
+                                    <div className="font-medium text-gray-900 text-sm">{product.title}</div>
+                                    <div className="text-gray-500 text-xs">{product.category}</div>
+                                  </div>
+                                  <div className="text-blue-600 font-semibold text-sm">
+                                    ₹{product.price}
+                                  </div>
+                                </div>
+                              ))
+                            ) : (
+                              <div className="p-3 text-gray-500 text-center">
+                                No products found
+                              </div>
+                            )}
+                          </div>
+                        )}
+                      </div>
+                      
+                      {/* Selected Product Display */}
+                      {item.productName && (
+                        <div className="mt-2 p-2 bg-blue-50 border border-blue-200 rounded text-sm">
+                          <span className="text-blue-800 font-medium">Selected: </span>
+                          <span className="text-blue-600">{item.productName}</span>
+                        </div>
+                      )}
+                      
+                      {/* Hidden input for form validation */}
                       <input
-                        type="text"
+                        type="hidden"
                         value={item.productName}
-                        onChange={(e) => handleItemChange(index, 'productName', e.target.value)}
                         required
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        placeholder="Enter product name"
                       />
                     </div>
                     
@@ -376,7 +509,7 @@ const BulkOrderPage = () => {
                     
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Unit Price ($)
+                        Unit Price (₹) {item.productId && <span className="text-green-600 text-xs">(Auto-filled)</span>}
                       </label>
                       <input
                         type="number"
@@ -384,7 +517,9 @@ const BulkOrderPage = () => {
                         onChange={(e) => handleItemChange(index, 'unitPrice', e.target.value)}
                         step="0.01"
                         min="0"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
+                          item.productId ? 'bg-green-50' : ''
+                        }`}
                         placeholder="0.00"
                       />
                     </div>
@@ -392,7 +527,7 @@ const BulkOrderPage = () => {
                     <div className="flex items-end space-x-2">
                       <div className="flex-1">
                         <label className="block text-sm font-medium text-gray-700 mb-2">
-                          Total Price ($)
+                          Total Price (₹)
                         </label>
                         <input
                           type="text"
@@ -423,7 +558,7 @@ const BulkOrderPage = () => {
               <div className="flex justify-end">
                 <div className="text-right">
                   <div className="text-2xl font-bold text-gray-900">
-                    Total: ${calculateTotal()}
+                    Total: ₹{calculateTotal()}
                   </div>
                   <p className="text-sm text-gray-600">Estimated total based on entered prices</p>
                 </div>
