@@ -18,7 +18,7 @@ const BulkOrderPage = () => {
     items: [
       {
         productName: '',
-        quantity: '',
+        quantity: '5',
         unitPrice: '',
         totalPrice: ''
       }
@@ -37,6 +37,15 @@ const BulkOrderPage = () => {
 
   const handleItemChange = (index, field, value) => {
     const newItems = [...formData.items];
+    
+    // Enforce minimum quantity of 5
+    if (field === 'quantity') {
+      const parsedValue = parseInt(value, 10);
+      if (!isNaN(parsedValue) && parsedValue < 5) {
+        value = '5';
+      }
+    }
+    
     newItems[index][field] = value;
     
     // Calculate total price for this item
@@ -57,7 +66,7 @@ const BulkOrderPage = () => {
       ...prev,
       items: [...prev.items, {
         productName: '',
-        quantity: '',
+        quantity: '5',
         unitPrice: '',
         totalPrice: ''
       }]
@@ -330,6 +339,11 @@ const BulkOrderPage = () => {
 
             {/* Product Items */}
             <div className="border-t pt-6">
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4">
+                <p className="text-sm text-blue-700">
+                  <strong>Note:</strong> Minimum order quantity is 5 units per product for bulk orders.
+                </p>
+              </div>
               <div className="flex items-center justify-between mb-4">
                 <h3 className="text-lg font-semibold text-gray-900">Product Items</h3>
                 <button
@@ -368,9 +382,9 @@ const BulkOrderPage = () => {
                         value={item.quantity}
                         onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
                         required
-                        min="1"
+                        min="5"
                         className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        placeholder="Qty"
+                        placeholder="Qty (min 5)"
                       />
                     </div>
                     
