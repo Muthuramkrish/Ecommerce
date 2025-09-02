@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ArrowLeft, Plus, Trash2, Package, Users, DollarSign, Truck } from 'lucide-react';
+import { ArrowLeft, Plus, Trash2, Package, Users, DollarSign, Truck, Minus } from 'lucide-react';
 
 const BulkOrderPage = () => {
   const [formData, setFormData] = useState({
@@ -18,7 +18,7 @@ const BulkOrderPage = () => {
     items: [
       {
         productName: '',
-        quantity: '',
+        quantity: '10',
         unitPrice: '',
         totalPrice: ''
       }
@@ -57,11 +57,23 @@ const BulkOrderPage = () => {
       ...prev,
       items: [...prev.items, {
         productName: '',
-        quantity: '',
+        quantity: '10',
         unitPrice: '',
         totalPrice: ''
       }]
     }));
+  };
+
+  const increaseQuantity = (index) => {
+    const currentQuantity = parseInt(formData.items[index].quantity) || 0;
+    handleItemChange(index, 'quantity', (currentQuantity + 1).toString());
+  };
+
+  const decreaseQuantity = (index) => {
+    const currentQuantity = parseInt(formData.items[index].quantity) || 0;
+    if (currentQuantity > 1) {
+      handleItemChange(index, 'quantity', (currentQuantity - 1).toString());
+    }
   };
 
   const removeItem = (index) => {
@@ -363,13 +375,29 @@ const BulkOrderPage = () => {
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Quantity *
                       </label>
+                      <div className="flex items-center justify-center space-x-2 mb-2">
+                        <button
+                          type="button"
+                          onClick={() => decreaseQuantity(index)}
+                          className="w-8 h-8 flex items-center justify-center bg-gray-200 hover:bg-gray-300 rounded-full transition-colors"
+                        >
+                          <Minus className="w-4 h-4 text-gray-600" />
+                        </button>
+                        <button
+                          type="button"
+                          onClick={() => increaseQuantity(index)}
+                          className="w-8 h-8 flex items-center justify-center bg-blue-600 hover:bg-blue-700 text-white rounded-full transition-colors"
+                        >
+                          <Plus className="w-4 h-4" />
+                        </button>
+                      </div>
                       <input
                         type="number"
                         value={item.quantity}
                         onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
                         required
                         min="1"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-center"
                         placeholder="Qty"
                       />
                     </div>
