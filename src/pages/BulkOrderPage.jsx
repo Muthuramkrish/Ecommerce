@@ -389,29 +389,30 @@ const BulkOrderPage = () => {
                       />
                     </div>
                     
-                    <div className="flex items-end space-x-2">
+                    <div className="flex flex-col">
                       <div className="flex-1">
                         <label className="block text-sm font-medium text-gray-700 mb-2">
                           Total Price ($)
                         </label>
-                        <input
-                          type="text"
-                          value={item.totalPrice}
-                          readOnly
-                          className="w-full px-3 py-2 border border-gray-300 rounded-lg bg-gray-50"
-                          placeholder="0.00"
-                        />
+                        <div className="flex items-center space-x-2">
+                          <input
+                            type="text"
+                            value={item.totalPrice}
+                            readOnly
+                            className="flex-1 px-3 py-2 border border-gray-300 rounded-lg bg-gray-50"
+                            placeholder="0.00"
+                          />
+                          {formData.items.length > 1 && (
+                            <button
+                              type="button"
+                              onClick={() => removeItem(index)}
+                              className="px-3 py-2 text-red-600 hover:text-red-800 transition-colors flex-shrink-0"
+                            >
+                              <Trash2 className="w-5 h-5" />
+                            </button>
+                          )}
+                        </div>
                       </div>
-                      
-                      {formData.items.length > 1 && (
-                        <button
-                          type="button"
-                          onClick={() => removeItem(index)}
-                          className="px-3 py-2 text-red-600 hover:text-red-800 transition-colors"
-                        >
-                          <Trash2 className="w-5 h-5" />
-                        </button>
-                      )}
                     </div>
                   </div>
                 </div>
