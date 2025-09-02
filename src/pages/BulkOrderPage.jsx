@@ -442,34 +442,43 @@ const BulkOrderPage = () => {
                         
                         {/* Search Dropdown */}
                         {item.showDropdown && (
-                          <div className="absolute top-full left-0 right-0 z-50 bg-white border border-gray-300 rounded-lg shadow-lg max-h-60 overflow-y-auto mt-1">
+                          <div className="absolute top-full left-0 right-0 z-50 bg-white border border-gray-300 rounded-lg shadow-xl max-h-64 overflow-y-auto mt-1 border-t-2 border-t-blue-500">
                             {getFilteredProducts(item.searchQuery).length > 0 ? (
-                              getFilteredProducts(item.searchQuery).map((product) => (
+                              <>
+                                <div className="sticky top-0 bg-gray-50 px-3 py-2 border-b border-gray-200 text-xs text-gray-600 font-medium">
+                                  {getFilteredProducts(item.searchQuery).length} product{getFilteredProducts(item.searchQuery).length !== 1 ? 's' : ''} found
+                                </div>
+                                {getFilteredProducts(item.searchQuery).map((product) => (
                                 <div
                                   key={product.id}
                                   onClick={() => handleProductSelect(index, product)}
-                                  className="flex items-center p-3 hover:bg-gray-50 cursor-pointer border-b border-gray-100 last:border-b-0"
+                                  className="flex items-center p-3 hover:bg-blue-50 cursor-pointer border-b border-gray-100 last:border-b-0 transition-colors"
                                 >
                                   <img
                                     src={product.image}
                                     alt={product.title}
-                                    className="w-10 h-10 object-cover rounded mr-3"
+                                    className="w-12 h-12 object-cover rounded-lg mr-3 border border-gray-200"
                                     onError={(e) => {
                                       e.target.src = 'https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=100';
                                     }}
                                   />
-                                  <div className="flex-1">
-                                    <div className="font-medium text-gray-900 text-sm">{product.title}</div>
-                                    <div className="text-gray-500 text-xs">{product.category}</div>
+                                  <div className="flex-1 min-w-0 pr-3">
+                                    <div className="font-medium text-gray-900 text-sm truncate">{product.title}</div>
+                                    <div className="text-gray-500 text-xs mt-1">{product.category}</div>
                                   </div>
-                                  <div className="text-blue-600 font-semibold text-sm">
-                                    ₹{product.price}
+                                  <div className="flex-shrink-0 text-right">
+                                    <div className="bg-green-100 text-green-800 font-bold text-sm px-3 py-1 rounded-full">
+                                      ₹{product.price.toLocaleString()}
+                                    </div>
                                   </div>
                                 </div>
-                              ))
+                                ))}
+                              </>
                             ) : (
-                              <div className="p-3 text-gray-500 text-center">
-                                No products found
+                              <div className="p-4 text-gray-500 text-center">
+                                <Search className="w-6 h-6 mx-auto mb-2 text-gray-400" />
+                                <div className="text-sm">No products found</div>
+                                <div className="text-xs text-gray-400 mt-1">Try searching with different keywords</div>
                               </div>
                             )}
                           </div>
@@ -478,9 +487,18 @@ const BulkOrderPage = () => {
                       
                       {/* Selected Product Display */}
                       {item.productName && (
-                        <div className="mt-2 p-2 bg-blue-50 border border-blue-200 rounded text-sm">
-                          <span className="text-blue-800 font-medium">Selected: </span>
-                          <span className="text-blue-600">{item.productName}</span>
+                        <div className="mt-2 p-3 bg-blue-50 border border-blue-200 rounded-lg">
+                          <div className="flex items-center justify-between">
+                            <div>
+                              <span className="text-blue-800 font-medium text-sm">Selected: </span>
+                              <span className="text-blue-600 text-sm">{item.productName}</span>
+                            </div>
+                            {item.unitPrice && (
+                              <div className="bg-green-100 text-green-800 font-semibold text-xs px-2 py-1 rounded">
+                                ₹{parseFloat(item.unitPrice).toLocaleString()}
+                              </div>
+                            )}
+                          </div>
                         </div>
                       )}
                       
