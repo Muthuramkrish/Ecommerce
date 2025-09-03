@@ -45,7 +45,6 @@ const BulkOrderPage = () => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-
   // Close dropdowns when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -171,20 +170,29 @@ const BulkOrderPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 pt-20">
+    <div className="min-h-screen bg-gray-50">
+      {/* Header */}
+      <div className="bg-white shadow-sm border-b">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <button 
+              onClick={() => window.history.back()}
+              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors"
+            >
+              <ArrowLeft className="w-5 h-5 mr-2" />
+              Back
+            </button>
+            <h1 className="text-lg font-semibold text-gray-900">Bulk Order Form</h1>
+            <div className="w-32" />
+          </div>
+        </div>
+      </div>
+
+      {/* Content */}
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        {/* Header */}
+        {/* Header Description */}
         <div className="mb-8">
-          <button 
-            onClick={() => window.history.back()}
-            className="flex items-center text-blue-600 hover:text-blue-800 mb-4 transition-colors"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Home
-          </button>
-          
           <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-900 mb-4">Bulk Order Form</h1>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
               Submit your bulk order request for electrical products. Our team will review and get back to you with competitive pricing and delivery options.
             </p>

@@ -65,12 +65,11 @@ const Header = ({
 
           {/* Navigation Icons */}
           <div className="flex items-center space-x-4">
-            {/* Bulk Order Button - Now First */}
-            <button 
+              {/* Bulk Order Button - Now First */}
+              <button 
               onClick={onBulkOrderClick}
-              className="px-4 py-2 bg-white-900 text-blue-200 rounded-full font-semibold transition-colors flex items-center space-x-2"
+              className="px-4 py-2 bg-white text-blue-900 rounded-full font-semibold hover:bg-blue-50 transition-colors flex items-center space-x-2"
             >
-              <span>📦</span>
               <span>Bulk Order</span>
             </button>
             
