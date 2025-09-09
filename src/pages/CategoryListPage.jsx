@@ -24,6 +24,13 @@ const CategoryListPage = ({
   const [sortBy, setSortBy] = React.useState('name');
   const [sortedProducts, setSortedProducts] = React.useState(products);
   const [showFilters, setShowFilters] = React.useState(false);
+  const [isDesktop, setIsDesktop] = React.useState(typeof window !== 'undefined' ? window.innerWidth >= 1024 : false);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   
   // Derived prices
   const allPrices = React.useMemo(() => products.map(p => parseInt(p['new-price']) || 0).filter(n => !isNaN(n)), [products]);
@@ -583,35 +590,31 @@ const CategoryListPage = ({
 
   return (
     <div className="min-h-screen bg-gray-50">
-      {/* Header Section */}
+      {/* Header */}
       <div className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-4">
-              <a
-                href="#home"
-                onClick={(e) => {
-                  e.preventDefault();
-                  onBack();
-                }}
-                className="flex items-center space-x-2 text-blue-900 hover:text-blue-700 transition-colors"
-              >
-                <ArrowLeft className="w-5 h-5" />
-                <span className="font-medium">Back</span>
-              </a>
-              <div className="h-6 w-px bg-gray-300"></div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-6">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-0">
+            <div className="flex items-center space-x-3 md:space-x-4">
+            <button 
+              onClick={() => window.history.back()}
+              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors text-sm md:text-base"
+            >
+              <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 mr-2" />
+              <span>Back</span>
+            </button>
+              <div className="h-5 md:h-6 w-px bg-gray-300"></div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900">{category}</h1>
-                <p className="text-gray-600 mt-1">{sortedProducts.length} products available</p>
+                <h1 className="text-xl md:text-2xl font-bold text-gray-900">{category}</h1>
+                <p className="text-sm md:text-base text-gray-600 mt-0.5 md:mt-1">{sortedProducts.length} products available</p>
               </div>
             </div>
 
             {/* View Controls */}
-            <div className="flex items-center space-x-4">
+            <div className="flex items-center space-x-3 md:space-x-4">
               {/* Mobile Filter Button */}
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="lg:hidden flex items-center space-x-2 bg-blue-900 text-white px-4 py-2 rounded-lg hover:bg-blue-800 transition-colors"
+                className="lg:hidden flex items-center space-x-2 bg-blue-900 text-white px-3 py-2 rounded-lg hover:bg-blue-800 transition-colors text-sm"
               >
                 <Filter className="w-4 h-4" />
                 <span>Filters</span>
@@ -622,7 +625,7 @@ const CategoryListPage = ({
                 )}
               </button>
 
-              <div className="flex items-center space-x-2">
+              <div className="hidden sm:flex items-center space-x-2">
                 <span className="text-sm text-gray-600">Sort by:</span>
                 <select
                   value={sortBy}
@@ -635,7 +638,7 @@ const CategoryListPage = ({
                 </select>
               </div>
               
-              <div className="flex border border-gray-300 rounded-lg overflow-hidden">
+              <div className="hidden sm:flex border border-gray-300 rounded-lg overflow-hidden">
                 <button
                   onClick={() => setViewMode('grid')}
                   className={`p-2 ${viewMode === 'grid' ? 'bg-blue-900 text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
@@ -670,15 +673,14 @@ const CategoryListPage = ({
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="flex gap-8">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
+        <div className="flex gap-6 md:gap-8">
           {/* Mobile Filter Overlay */}
           {showFilters && (
             <div className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-50">
-              <div className="absolute right-0 top-0 h-full w-80 bg-white shadow-xl overflow-y-auto">
+              <div className="absolute right-0 top-0 h-full w-72 sm:w-80 bg-white shadow-xl overflow-y-auto">
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-6">
-                    <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
                     <button
                       onClick={() => setShowFilters(false)}
                       className="text-gray-400 hover:text-gray-600"
@@ -734,54 +736,56 @@ const CategoryListPage = ({
             </div>
           )}
 
-          {/* Desktop Filter Sidebar */}
-          <div className="hidden lg:block w-80 flex-shrink-0">
-            <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-8">
-              <FilterPanel
-                priceRange={priceRange}
-                setPriceRange={setPriceRange}
-                minPrice={minPrice}
-                maxPrice={maxPrice}
-                selectedBrands={selectedBrands}
-                handleBrandToggle={handleBrandToggle}
-                brandQuery={brandQuery}
-                setBrandQuery={setBrandQuery}
-                selectedProductTypes={selectedProductTypes}
-                handleProductTypeToggle={handleProductTypeToggle}
-                selectedSubSubcategories={selectedSubSubcategories}
-                handleSubSubcategoryToggle={handleSubSubcategoryToggle}
-                selectedPowerRanges={selectedPowerRanges}
-                handlePowerRangeToggle={handlePowerRangeToggle}
-                selectedColors={selectedColors}
-                handleColorToggle={handleColorToggle}
-                selectedSizes={selectedSizes}
-                handleSizeToggle={handleSizeToggle}
-                selectedMaterials={selectedMaterials}
-                handleMaterialToggle={handleMaterialToggle}
-                selectedCertifications={selectedCertifications}
-                handleCertificationToggle={handleCertificationToggle}
-                selectedWarranties={selectedWarranties}
-                handleWarrantyToggle={handleWarrantyToggle}
-                showOnlyDiscounted={showOnlyDiscounted}
-                setShowOnlyDiscounted={setShowOnlyDiscounted}
-                selectedDiscountBucket={selectedDiscountBucket}
-                setSelectedDiscountBucket={setSelectedDiscountBucket}
-                showOnlyInStock={showOnlyInStock}
-                setShowOnlyInStock={setShowOnlyInStock}
-                brands={brands}
-                productTypes={productTypes}
-                subSubcategories={subSubcategories}
-                powerRanges={powerRanges}
-                colors={colors}
-                sizes={sizes}
-                materials={materials}
-                certifications={certifications}
-                warranties={warranties}
-                clearAllFilters={clearAllFilters}
-                activeFiltersCount={activeFiltersCount}
-              />
+          {/* Desktop Filter Sidebar (render only on desktop to avoid duplicate on mobile) */}
+          {isDesktop && (
+            <div className="hidden lg:block w-80 flex-shrink-0">
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-8">
+                <FilterPanel
+                  priceRange={priceRange}
+                  setPriceRange={setPriceRange}
+                  minPrice={minPrice}
+                  maxPrice={maxPrice}
+                  selectedBrands={selectedBrands}
+                  handleBrandToggle={handleBrandToggle}
+                  brandQuery={brandQuery}
+                  setBrandQuery={setBrandQuery}
+                  selectedProductTypes={selectedProductTypes}
+                  handleProductTypeToggle={handleProductTypeToggle}
+                  selectedSubSubcategories={selectedSubSubcategories}
+                  handleSubSubcategoryToggle={handleSubSubcategoryToggle}
+                  selectedPowerRanges={selectedPowerRanges}
+                  handlePowerRangeToggle={handlePowerRangeToggle}
+                  selectedColors={selectedColors}
+                  handleColorToggle={handleColorToggle}
+                  selectedSizes={selectedSizes}
+                  handleSizeToggle={handleSizeToggle}
+                  selectedMaterials={selectedMaterials}
+                  handleMaterialToggle={handleMaterialToggle}
+                  selectedCertifications={selectedCertifications}
+                  handleCertificationToggle={handleCertificationToggle}
+                  selectedWarranties={selectedWarranties}
+                  handleWarrantyToggle={handleWarrantyToggle}
+                  showOnlyDiscounted={showOnlyDiscounted}
+                  setShowOnlyDiscounted={setShowOnlyDiscounted}
+                  selectedDiscountBucket={selectedDiscountBucket}
+                  setSelectedDiscountBucket={setSelectedDiscountBucket}
+                  showOnlyInStock={showOnlyInStock}
+                  setShowOnlyInStock={setShowOnlyInStock}
+                  brands={brands}
+                  productTypes={productTypes}
+                  subSubcategories={subSubcategories}
+                  powerRanges={powerRanges}
+                  colors={colors}
+                  sizes={sizes}
+                  materials={materials}
+                  certifications={certifications}
+                  warranties={warranties}
+                  clearAllFilters={clearAllFilters}
+                  activeFiltersCount={activeFiltersCount}
+                />
+              </div>
             </div>
-          </div>
+          )}
 
           {/* Products Section */}
           <div className="flex-1">

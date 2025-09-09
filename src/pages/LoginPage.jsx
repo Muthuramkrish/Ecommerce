@@ -54,7 +54,6 @@ const LoginPage = ({ onLoginSuccess }) => {
   const [signInMsg, setSignInMsg] = useState({ msg: '', error: false });
   const [showSignUpPwd, setShowSignUpPwd] = useState(false);
   const [showSignInPwd, setShowSignInPwd] = useState(false);
-  const [emailSuggestions, setEmailSuggestions] = useState([]);
   const signInEmailRef = useRef();
   const signInPwdRef = useRef();
 
@@ -65,22 +64,19 @@ const LoginPage = ({ onLoginSuccess }) => {
     }
   }, []);
 
-  // Email suggestions
+  // On mobile, allow deep-linking to the Sign Up panel via #signup or ?mode=signup
   useEffect(() => {
-    const query = form.signIn.email.trim();
-    if (query.length >= 2) {
-      const users = getStoredUsers();
-      setEmailSuggestions(
-        users.filter(
-          (user) =>
-            user.email.toLowerCase().includes(query.toLowerCase()) ||
-            user.name.toLowerCase().includes(query.toLowerCase())
-        )
-      );
-    } else {
-      setEmailSuggestions([]);
-    }
-  }, [form.signIn.email]);
+    try {
+      const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+      const hash = window.location.hash;
+      const searchParams = new URLSearchParams(window.location.search);
+      if (isMobile && (hash === '#signup' || searchParams.get('mode') === 'signup')) {
+        setActive(true);
+      }
+    } catch {}
+  }, []);
+
+  // Email suggestions removed on request
 
   const handleSignUpChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -153,11 +149,7 @@ const LoginPage = ({ onLoginSuccess }) => {
     }
   };
 
-  const handleSuggestionClick = (user) => {
-    setForm((f) => ({ ...f, signIn: { email: user.email, password: user.password } }));
-    setEmailSuggestions([]);
-    signInPwdRef.current && signInPwdRef.current.focus();
-  };
+  // Suggestion click handler removed
 
   return (
     <div className="main-wrapper">
@@ -211,24 +203,7 @@ const LoginPage = ({ onLoginSuccess }) => {
                 required
                 autoComplete="username"
                 ref={signInEmailRef}
-                onFocus={() => {
-                  if (form.signIn.email.trim().length >= 2) {
-                    // show suggestions
-                  }
-                }}
               />
-              {emailSuggestions.length > 0 && (
-                <div className="email-suggestions">
-                  {emailSuggestions.map((user) => (
-                    <div className="suggestion-item" key={user.email} onClick={() => handleSuggestionClick(user)}>
-                      <div>
-                        <div className="suggestion-email">{user.email}</div>
-                        <div className="suggestion-name">{user.name}</div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              )}
             </div>
             <div className="password-wrapper">
               <input

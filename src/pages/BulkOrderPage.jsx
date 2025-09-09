@@ -174,22 +174,22 @@ const BulkOrderPage = () => {
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+          <div className="flex items-center justify-between h-14 md:h-16">
             <button 
               onClick={() => window.history.back()}
-              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors"
+              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors text-sm md:text-base"
             >
-              <ArrowLeft className="w-5 h-5 mr-2" />
-              Back
+              <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 mr-2" />
+              <span>Back</span>
             </button>
-            <h1 className="text-lg font-semibold text-gray-900">Bulk Order Form</h1>
+            <h1 className="text-base md:text-lg font-semibold text-gray-900">Bulk Order Form</h1>
             <div className="w-32" />
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
         {/* Header Description */}
         <div className="mb-8">
           <div className="text-center">
@@ -200,7 +200,7 @@ const BulkOrderPage = () => {
         </div>
 
         {/* Benefits Section */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 mb-6 md:mb-8">
           <div className="bg-white p-6 rounded-lg shadow-sm border border-gray-200 text-center">
             <Package className="w-12 h-12 text-blue-600 mx-auto mb-4" />
             <h3 className="text-lg font-semibold text-gray-900 mb-2">Bulk Pricing</h3>

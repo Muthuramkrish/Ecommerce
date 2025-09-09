@@ -44,10 +44,10 @@ const Contact = () => {
     <div>
       {/* Hero Section */}
       <section 
-        className="relative h-screen text-white overflow-hidden flex items-center"
+        className="relative h-[85vh] text-white overflow-hidden flex items-center"
         style={{
           backgroundImage: `url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&w=1200&q=80')`,
-          backgroundSize: 'contain',
+          backgroundSize: 'cover',
           backgroundPosition: 'center',
           backgroundRepeat: 'no-repeat'
         }}

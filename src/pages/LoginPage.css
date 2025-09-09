@@ -354,3 +354,140 @@
   font-size: 11px;
   color: #888;
 }
+
+/* Mobile responsiveness (CSS-only, no markup changes) */
+@media (max-width: 768px) {
+  .main-wrapper {
+    height: auto;
+    min-height: 100vh;
+    align-items: stretch;
+    padding: 16px;
+    overflow-x: hidden;
+  }
+
+  .image-section {
+    display: none;
+  }
+
+  .container {
+    width: 100%;
+    margin: 0;
+    border-radius: 16px;
+    min-height: auto;
+    padding-top: 72px;
+    overflow: visible;
+  }
+  /* Keep desktop heading scale on mobile for visual parity */
+
+  .container form {
+    padding: 16px 16px 20px 16px;
+    height: auto;
+  }
+
+  /* Stack panels, show only one at a time */
+  .sign-in, .sign-up {
+    position: static;
+    width: 100%;
+    height: auto;
+    opacity: 1;
+    transform: none;
+    transition: none;
+    background: #fff;
+  }
+
+  /* Explicitly override desktop's higher-specificity translate on active sign-up */
+  .container.active .sign-up {
+    transform: none !important;
+    left: auto;
+    right: auto;
+    opacity: 1;
+    z-index: auto;
+  }
+
+  /* Default: show sign-in, hide sign-up */
+  .container:not(.active) .sign-up {
+    display: none;
+  }
+
+  /* When active: show sign-up, hide sign-in */
+  .container.active .sign-in {
+    display: none;
+  }
+  .container.active .sign-up {
+    display: block;
+  }
+
+  /* Mobile-friendly toggle pinned to top */
+  .toggle-container {
+    position: absolute;
+    top: 8px;
+    left: 12px;
+    right: 12px;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    border-radius: 12px;
+    transform: none !important;
+    z-index: 10;
+  }
+  .toggle {
+    position: static;
+    left: 0;
+    width: 100%;
+    transform: none !important;
+    background: #eef2ff;
+    background-image: none;
+    color: inherit;
+    height: auto;
+    display: flex;
+    gap: 8px;
+    padding: 4px;
+    border-radius: 10px;
+  }
+  .toggle-panel {
+    position: static;
+    width: 50%;
+    height: auto;
+    padding: 0;
+  }
+  .toggle-panel h1,
+  .toggle-panel p {
+    display: none;
+  }
+  .toggle-panel button {
+    width: 100%;
+    background-color: #fff;
+    color: #1e3a8a;
+    border-radius: 8px;
+    padding: 10px 0;
+  }
+  .container:not(.active) .toggle-left button { background: #1e3a8a; color: #fff; }
+  .container:not(.active) .toggle-right button { background: #fff; color: #1e3a8a; }
+  .container.active .toggle-right button { background: #1e3a8a; color: #fff; }
+  .container.active .toggle-left button { background: #fff; color: #1e3a8a; }
+
+  .container input {
+    font-size: 16px;
+    padding: 14px 16px;
+  }
+
+  .container button {
+    width: 100%;
+    padding: 12px 16px;
+    font-size: 14px;
+  }
+
+  .email-suggestions {
+    max-height: 200px;
+  }
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+  .container h2 {
+    font-size: 18px;
+  }
+  .container form {
+    padding: 12px;
+  }
+}

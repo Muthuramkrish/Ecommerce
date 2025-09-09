@@ -7,7 +7,7 @@ import Footer from '../components/Footer';
 import LoginPage from './LoginPage';
 import CategoryListPage from './CategoryListPage';
 import ProductCard from '../components/ProductCard';
-import ProductDetailsPage from './ProductDetailsPage';
+import ProductDetailsPage from './ProductDetails/ProductDetailsPage';
 import FavoritesPage from './FavoritesPage';
 import About from './About'; // Add About component import
 import Contact from './Contact'; // Add Contact component import
@@ -339,17 +339,58 @@ function Root() {
     return Array.from(summaries.values()).sort((a, b) => a.name.localeCompare(b.name));
   }, [rawSource]);
 
-  const handleAddToCart = (product, quantity = 5) => {
+  const menuTree = useMemo(() => {
+    const categoryMap = new Map();
+    for (const p of rawSource) {
+      const a = (p && p.anchor) || {};
+      const categoryName = a.category || 'Other';
+      const subcategoryName = a.subcategory || null;
+      const subSubcategoryName = a.subSubcategory || null;
+
+      if (!categoryMap.has(categoryName)) {
+        categoryMap.set(categoryName, new Map());
+      }
+      const subMap = categoryMap.get(categoryName);
+      if (subcategoryName) {
+        if (!subMap.has(subcategoryName)) {
+          subMap.set(subcategoryName, new Set());
+        }
+        if (subSubcategoryName) {
+          subMap.get(subcategoryName).add(subSubcategoryName);
+        }
+      }
+    }
+
+    // Convert to arrays for easier rendering
+    return Array.from(categoryMap.entries()).map(([category, subMap]) => ({
+      name: category,
+      children: Array.from(subMap.entries()).map(([subcategory, subSubs]) => ({
+        name: subcategory,
+        children: Array.from(subSubs.values()).map((n) => ({ name: n }))
+      }))
+    }));
+  }, [rawSource]);
+
+  const handleNavigateTaxonomy = (level, value) => {
+    const allowed = new Set(['category', 'subcategory', 'sub-subcategory']);
+    if (!allowed.has(level) || !value) return;
+    setPreviousPage('home');
+    setSelectedCategoryForList(value);
+    setHash(`${level}/${encodeURIComponent(slugify(value))}`);
+    scrollToTop();
+  };
+
+  const handleAddToCart = (product, quantity = 1) => {
     setCartItems(prevItems => {
       const existingItem = prevItems.find(item => item['product-title'] === product['product-title']);
       if (existingItem) {
         return prevItems.map(item =>
           item['product-title'] === product['product-title']
-            ? { ...item, quantity: Math.max(5, item.quantity + (quantity || 1)) }
+            ? { ...item, quantity: Math.max(1, item.quantity + (quantity || 1)) }
             : item
         );
       } else {
-        return [...prevItems, { ...product, quantity: Math.max(5, quantity || 5) }];
+        return [...prevItems, { ...product, quantity: Math.max(1, quantity || 1) }];
       }
     });
   };
@@ -357,7 +398,7 @@ function Root() {
   const handleUpdateQuantity = (index, quantity) => {
     setCartItems(prevItems =>
       prevItems.map((item, i) =>
-        i === index ? { ...item, quantity: Math.max(5, quantity) } : item
+        i === index ? { ...item, quantity: Math.max(1, quantity) } : item
       )
     );
   };
@@ -579,11 +620,13 @@ function Root() {
           onAboutClick={handleAboutClick} // Add About handler to Header props
           onContactClick={handleContactClick} // Add Contact handler to Header props
           onBulkOrderClick={handleBulkOrderClick} // Add Bulk Order handler to Header props
+          menuTree={menuTree}
+          onNavigateTaxonomy={handleNavigateTaxonomy}
           isLoggedIn={!!currentUser}
           currentUser={currentUser || undefined}
         />
       )}
-              <main className={isLoginOpen ? "" : "pt-20"}>
+              <main className={isLoginOpen ? "" : "pt-16 md:pt-20"}>
           {isLoginOpen ? (
             <LoginPage
               onLoginSuccess={handleLoginSuccess}
