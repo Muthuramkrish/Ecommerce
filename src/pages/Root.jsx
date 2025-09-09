@@ -169,14 +169,8 @@ function Root() {
         break;
       }
       case 'product': {
-        const productSlug = rest[0] || '';
-        if (productSlug && products.length) {
-          const found = products.find(p => slugify(p['product-title']) === productSlug);
-          if (found) {
-            setSelectedProduct(found);
-            setShowProductDetailsPage(true);
-          }
-        }
+        // Product navigation is handled in a separate useEffect
+        // to avoid dependency on products array
         break;
       }
       case 'home':
@@ -254,7 +248,25 @@ function Root() {
     window.addEventListener('hashchange', handler);
     return () => window.removeEventListener('hashchange', handler);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [products]);
+  }, []);
+
+  // Handle product-specific navigation when products are loaded
+  useEffect(() => {
+    const hash = window.location.hash || '';
+    const [route, ...rest] = hash.replace(/^#/, '').split('/');
+    
+    // Only handle product navigation when products are available
+    if (route === 'product' && products.length > 0) {
+      const productSlug = rest[0] || '';
+      if (productSlug) {
+        const found = products.find(p => slugify(p['product-title']) === productSlug);
+        if (found && !showProductDetailsPage) {
+          setSelectedProduct(found);
+          setShowProductDetailsPage(true);
+        }
+      }
+    }
+  }, [products, showProductDetailsPage]);
 
   useEffect(() => {
     try {
