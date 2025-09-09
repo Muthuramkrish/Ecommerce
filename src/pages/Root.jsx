@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react';
+import { useState, useEffect } from 'react';
 import Header from '../components/Header';
 import Home from './Home';
 import CartPage from './CartPage';
@@ -12,77 +12,75 @@ import FavoritesPage from './FavoritesPage';
 import About from './About'; // Add About component import
 import Contact from './Contact'; // Add Contact component import
 import BulkOrderPage from './BulkOrderPage'; // Add BulkOrderPage component import
-import productsData from '../data/product.json';
+import {
+  useHashNavigation,
+  useProductData,
+  useNavigationState,
+  useCartManagement,
+  useUserAuth,
+  useFavoritesManagement,
+  useSearchAndFilter,
+  useCategoriesAndMenu
+} from './Root.load.js';
 
 function Root() {
+  // Initialize custom hooks from Root.load.js
+  const { slugify, scrollToTop, setHash } = useHashNavigation();
+  const { rawSource, mapRawToDisplayProduct } = useProductData();
+  const {
+    showCartPage, setShowCartPage,
+    showCheckoutPage, setShowCheckoutPage,
+    isLoginOpen, setIsLoginOpen,
+    showFavorites, setShowFavorites,
+    showFavoritesPage, setShowFavoritesPage,
+    showCategoryList, setShowCategoryList,
+    showProductDetailsPage, setShowProductDetailsPage,
+    showAboutPage, setShowAboutPage,
+    showContactPage, setShowContactPage,
+    showBulkOrderPage, setShowBulkOrderPage,
+    resetNavigationState
+  } = useNavigationState();
+
+  const {
+    cartItems,
+    setCartItems,
+    handleAddToCart,
+    handleUpdateQuantity,
+    handleRemoveItem,
+    getTotalCartItems
+  } = useCartManagement();
+
+  const { currentUser, setCurrentUser, handleLoginSuccess, handleLogout } = useUserAuth();
+  const { favorites, setFavorites, handleAddToWishlist } = useFavoritesManagement();
+
+  // Local state that doesn't fit in the hooks
   const [products, setProducts] = useState([]);
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
-  const [showCartPage, setShowCartPage] = useState(false);
-  const [showCheckoutPage, setShowCheckoutPage] = useState(false);  
-  const [searchQuery, setSearchQuery] = useState('');
-  const [selectedCategory, setSelectedCategory] = useState('');
-  const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [currentUser, setCurrentUser] = useState(null);
-  const [favorites, setFavorites] = useState([]);
-  const [showFavorites, setShowFavorites] = useState(false);
-  const [showCategoryList, setShowCategoryList] = useState(false);
   const [selectedCategoryForList, setSelectedCategoryForList] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
-  const [showProductDetailsPage, setShowProductDetailsPage] = useState(false);
-  const [showFavoritesPage, setShowFavoritesPage] = useState(false);
-  const [showAboutPage, setShowAboutPage] = useState(false); // Add About page state
-  const [showContactPage, setShowContactPage] = useState(false); // Add Contact page state
-  const [showBulkOrderPage, setShowBulkOrderPage] = useState(false); // Add BulkOrderPage state
   const [previousPage, setPreviousPage] = useState('home');
   const [initialCategoryFilters, setInitialCategoryFilters] = useState({ brand: [], subSubcategory: [], productType: [] });
-  
-  // --- Hash navigation helpers ---
-  const slugify = (text) => {
-    return String(text || '')
-      .toLowerCase()
-      .replace(/[^a-z0-9]+/g, '-')
-      .replace(/(^-|-$)/g, '');
-  };
 
-  // Scroll to top function
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
-    });
-  };
+  // Search and filter functionality
+  const {
+    searchQuery,
+    setSearchQuery,
+    selectedCategory,
+    setSelectedCategory,
+    filteredProducts,
+    getGridTitle
+  } = useSearchAndFilter(products);
 
-  const setHash = (hash) => {
-    if (window && window.location) {
-      const newHash = hash.startsWith('#') ? hash : `#${hash}`;
-      if (window.location.hash !== newHash) {
-        window.location.hash = newHash;
-      } else {
-        // Force navigation on same-hash actions (optional: dispatch event)
-        window.dispatchEvent(new HashChangeEvent('hashchange'));
-      }
-    }
-  };
+  // Categories and menu
+  const { subcategories, menuTree } = useCategoriesAndMenu(rawSource);
 
   const navigateFromHash = () => {
     const raw = (window.location.hash || '').replace(/^#/, '');
     const [route, ...rest] = raw.split('/');
 
-    // Reset base UI state
-    setShowCartPage(false);
-    setShowCheckoutPage(false);
-    setIsLoginOpen(false);
-    setShowFavorites(false);
-    setShowFavoritesPage(false);
-    setShowCategoryList(false);
+    // Reset base UI state using the hook
+    resetNavigationState();
     setSelectedCategoryForList('');
-    setShowProductDetailsPage(false);
     setSelectedProduct(null);
-    setShowAboutPage(false); // Reset About page state
-    setShowContactPage(false); // Reset Contact page state
-    setShowBulkOrderPage(false); // Reset BulkOrderPage state
 
     switch (route) {
       case 'cart':
@@ -169,14 +167,8 @@ function Root() {
         break;
       }
       case 'product': {
-        const productSlug = rest[0] || '';
-        if (productSlug && products.length) {
-          const found = products.find(p => slugify(p['product-title']) === productSlug);
-          if (found) {
-            setSelectedProduct(found);
-            setShowProductDetailsPage(true);
-          }
-        }
+        // Product navigation is handled in a separate useEffect
+        // to avoid dependency on products array
         break;
       }
       case 'home':
@@ -190,62 +182,16 @@ function Root() {
     scrollToTop();
   };
 
-  const rawSource = useMemo(() => {
-    return Array.isArray(productsData)
-      ? productsData
-      : (productsData && Array.isArray(productsData.products) ? productsData.products : []);
-  }, []);
-
-  const getProductCategory = (title) => {
-    const titleLower = title.toLowerCase();
-    if (titleLower.includes('led') || titleLower.includes('bulb') || titleLower.includes('light')) {
-      return 'LED Lighting';
-    }
-    if (titleLower.includes('wire') || titleLower.includes('cable')) {
-      return 'Wires & Cables';
-    }
-    if (titleLower.includes('switch') || titleLower.includes('regulator')) {
-      return 'Switches & Sockets';
-    }
-    if (titleLower.includes('drill') || titleLower.includes('kettle') || titleLower.includes('heater')) {
-      return 'Home Appliances';
-    }
-    if (titleLower.includes('extension') || titleLower.includes('board')) {
-      return 'Circuit Protection';
-    }
-    return 'General';
-  };
-
-  const mapRawToDisplayProduct = (p) => {
-    const title = p?.characteristics?.title || 'Untitled Product';
-    const imageUrl = p?.characteristics?.images?.primary?.[0]
-      || 'https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=400';
-    const basePrice = p?.pricing?.basePrice ?? 0;
-    const comparePrice = p?.pricing?.comparePrice ?? basePrice;
-    const categoryFromData = p?.anchor?.subcategory || p?.anchor?.category || getProductCategory(title);
-    return {
-      'product-title': title,
-      'image-url': imageUrl,
-      'old-price': String(comparePrice),
-      'new-price': String(basePrice),
-      category: categoryFromData,
-      rating: Math.floor(Math.random() * 2) + 4,
-      reviews: Math.floor(Math.random() * 100) + 10,
-      raw: p
-    };
-  };
 
   useEffect(() => {
     try {
       const loadedProducts = rawSource.map(mapRawToDisplayProduct);
       setProducts(loadedProducts);
-      setFilteredProducts(loadedProducts);
     } catch (error) {
       console.error('Failed to load products:', error);
       setProducts([]);
-      setFilteredProducts([]);
     }
-  }, []);
+  }, [rawSource, mapRawToDisplayProduct]);
 
   // React to hash on first load and when it changes
   useEffect(() => {
@@ -254,122 +200,27 @@ function Root() {
     window.addEventListener('hashchange', handler);
     return () => window.removeEventListener('hashchange', handler);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [products]);
-
-  useEffect(() => {
-    try {
-      const storedCart = localStorage.getItem('cart');
-      if (storedCart) {
-        const parsed = JSON.parse(storedCart);
-        if (Array.isArray(parsed)) {
-          setCartItems(parsed);
-        }
-      }
-    } catch (error) {
-      console.error('Error parsing stored cart:', error);
-    }
   }, []);
 
+  // Handle product-specific navigation when products are loaded
   useEffect(() => {
-    try {
-      localStorage.setItem('cart', JSON.stringify(cartItems));
-    } catch (error) {
-      console.error('Error saving cart to localStorage:', error);
-    }
-  }, [cartItems]);
-
-  useEffect(() => {
-    const storedUser = localStorage.getItem('currentUser');
-    if (storedUser) {
-      try {
-        setCurrentUser(JSON.parse(storedUser));
-      } catch (error) {
-        console.error('Error parsing stored user:', error);
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    const storedFavorites = localStorage.getItem('favorites');
-    if (storedFavorites) {
-      try {
-        setFavorites(JSON.parse(storedFavorites));
-      } catch (error) {
-        console.error('Error parsing stored favorites:', error);
-      }
-    }
-  }, []);
-
-  useEffect(() => {
-    let filtered = products;
-
-    if (searchQuery) {
-      filtered = filtered.filter(product =>
-        product['product-title'].toLowerCase().includes(searchQuery.toLowerCase()) ||
-        (product.category && product.category.toLowerCase().includes(searchQuery.toLowerCase()))
-      );
-    }
-
-    if (selectedCategory) {
-      filtered = filtered.filter(product =>
-        product.category && product.category.toLowerCase().includes(selectedCategory.toLowerCase())
-      );
-    }
-
-    setFilteredProducts(filtered);
-  }, [products, searchQuery, selectedCategory]);
-
-  const subcategories = useMemo(() => {
-    const summaries = new Map();
-    for (const p of rawSource) {
-      const sub = p?.anchor?.subcategory || 'Other';
-      const firstImage = p?.characteristics?.images?.primary?.[0]
-        || 'https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=300';
-      if (!summaries.has(sub)) {
-        summaries.set(sub, {
-          id: sub.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, ''),
-          name: sub,
-          image: firstImage,
-          productCount: 0
-        });
-      }
-      const s = summaries.get(sub);
-      s.productCount += 1;
-    }
-    return Array.from(summaries.values()).sort((a, b) => a.name.localeCompare(b.name));
-  }, [rawSource]);
-
-  const menuTree = useMemo(() => {
-    const categoryMap = new Map();
-    for (const p of rawSource) {
-      const a = (p && p.anchor) || {};
-      const categoryName = a.category || 'Other';
-      const subcategoryName = a.subcategory || null;
-      const subSubcategoryName = a.subSubcategory || null;
-
-      if (!categoryMap.has(categoryName)) {
-        categoryMap.set(categoryName, new Map());
-      }
-      const subMap = categoryMap.get(categoryName);
-      if (subcategoryName) {
-        if (!subMap.has(subcategoryName)) {
-          subMap.set(subcategoryName, new Set());
-        }
-        if (subSubcategoryName) {
-          subMap.get(subcategoryName).add(subSubcategoryName);
+    const hash = window.location.hash || '';
+    const [route, ...rest] = hash.replace(/^#/, '').split('/');
+    
+    // Only handle product navigation when products are available
+    if (route === 'product' && products.length > 0) {
+      const productSlug = rest[0] || '';
+      if (productSlug) {
+        const found = products.find(p => slugify(p['product-title']) === productSlug);
+        if (found && !showProductDetailsPage) {
+          setSelectedProduct(found);
+          setShowProductDetailsPage(true);
         }
       }
     }
+  }, [products, showProductDetailsPage]);
 
-    // Convert to arrays for easier rendering
-    return Array.from(categoryMap.entries()).map(([category, subMap]) => ({
-      name: category,
-      children: Array.from(subMap.entries()).map(([subcategory, subSubs]) => ({
-        name: subcategory,
-        children: Array.from(subSubs.values()).map((n) => ({ name: n }))
-      }))
-    }));
-  }, [rawSource]);
+
 
   const handleNavigateTaxonomy = (level, value) => {
     const allowed = new Set(['category', 'subcategory', 'sub-subcategory']);
@@ -380,32 +231,6 @@ function Root() {
     scrollToTop();
   };
 
-  const handleAddToCart = (product, quantity = 1) => {
-    setCartItems(prevItems => {
-      const existingItem = prevItems.find(item => item['product-title'] === product['product-title']);
-      if (existingItem) {
-        return prevItems.map(item =>
-          item['product-title'] === product['product-title']
-            ? { ...item, quantity: Math.max(1, item.quantity + (quantity || 1)) }
-            : item
-        );
-      } else {
-        return [...prevItems, { ...product, quantity: Math.max(1, quantity || 1) }];
-      }
-    });
-  };
-
-  const handleUpdateQuantity = (index, quantity) => {
-    setCartItems(prevItems =>
-      prevItems.map((item, i) =>
-        i === index ? { ...item, quantity: Math.max(1, quantity) } : item
-      )
-    );
-  };
-
-  const handleRemoveItem = (index) => {
-    setCartItems(prevItems => prevItems.filter((_, i) => i !== index));
-  };
 
   const handleCheckout = () => {
     if(currentUser) {
@@ -430,45 +255,10 @@ function Root() {
     setHash('cart');
   };
 
-  const handleLoginSuccess = (user) => {
-    setCurrentUser(user);
-    setIsLoginOpen(false);
-    setHash('home');
-    scrollToTop();
-  };
-
-  const handleLoginClose = () => {
-    setIsLoginOpen(false);
-  };
-
   const handleLoginClick = () => {
     setIsLoginOpen(true);
     setHash('login');
     scrollToTop();
-  };
-
-  const handleLogout = () => {
-    setCurrentUser(null);
-    localStorage.removeItem('currentUser');
-  };
-
-  const handleAddToWishlist = (product) => {
-    if (!currentUser) {
-      setIsLoginOpen(true);
-      return;
-    }
-    setFavorites(prevFavorites => {
-      const isAlreadyFavorite = prevFavorites.find(fav => fav['product-title'] === product['product-title']);
-      if (isAlreadyFavorite) {
-        const newFavorites = prevFavorites.filter(fav => fav['product-title'] !== product['product-title']);
-        localStorage.setItem('favorites', JSON.stringify(newFavorites));
-        return newFavorites;
-      } else {
-        const newFavorites = [...prevFavorites, product];
-        localStorage.setItem('favorites', JSON.stringify(newFavorites));
-        return newFavorites;
-      }
-    });
   };
 
   const handleFavoritesClick = () => {
@@ -590,19 +380,6 @@ function Root() {
     scrollToTop();
   };
 
-  const getTotalCartItems = () => {
-    return cartItems.reduce((total, item) => total + item.quantity, 0);
-  };
-
-  const getGridTitle = () => {
-    if (searchQuery) {
-      return `Search Results for "${searchQuery}"`;
-    }
-    if (selectedCategory) {
-      return selectedCategory;
-    }
-    return 'Featured Products';
-  };
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -629,7 +406,12 @@ function Root() {
               <main className={isLoginOpen ? "" : "pt-16 md:pt-20"}>
           {isLoginOpen ? (
             <LoginPage
-              onLoginSuccess={handleLoginSuccess}
+              onLoginSuccess={(user) => {
+                handleLoginSuccess(user);
+                setIsLoginOpen(false);
+                setHash('home');
+                scrollToTop();
+              }}
             />
           ) : showAboutPage ? (
           <About />
@@ -662,7 +444,7 @@ function Root() {
               scrollToTop();
             }}
             onAddToCart={handleAddToCart}
-            onAddToWishlist={handleAddToWishlist}
+            onAddToWishlist={(product) => handleAddToWishlist(product, currentUser, setIsLoginOpen)}
             onOpenDetails={handleOpenProductDetailsPage}
           />
         ) : showProductDetailsPage && selectedProduct ? (
@@ -670,7 +452,7 @@ function Root() {
             product={selectedProduct}
             onBack={handleBackFromProductDetails}
             onAddToCart={handleAddToCart}
-            onAddToWishlist={handleAddToWishlist}
+            onAddToWishlist={(product) => handleAddToWishlist(product, currentUser, setIsLoginOpen)}
             favorites={favorites}
             cartItems={cartItems}
           />
@@ -691,7 +473,7 @@ function Root() {
             })}
             onBack={handleBackFromCategoryList}
             onAddToCart={handleAddToCart}
-            onAddToWishlist={handleAddToWishlist}
+            onAddToWishlist={(product) => handleAddToWishlist(product, currentUser, setIsLoginOpen)}
             onOpenDetails={handleOpenProductDetailsPage}
             favorites={favorites}
             initialFilters={initialCategoryFilters}
@@ -719,7 +501,7 @@ function Root() {
                       <ProductCard
                         product={product}
                         onAddToCart={handleAddToCart}
-                        onAddToWishlist={handleAddToWishlist}
+                        onAddToWishlist={(product) => handleAddToWishlist(product, currentUser, setIsLoginOpen)}
                         isFavorite={favorites.some((fav) => fav['product-title'] === product['product-title'])}
                         onOpenDetails={handleOpenProductDetailsPage}
                       />
@@ -744,7 +526,7 @@ function Root() {
                   })
                   .slice(0, 8)}
                 onAddToCart={handleAddToCart}
-                onAddToWishlist={handleAddToWishlist}
+                onAddToWishlist={(product) => handleAddToWishlist(product, currentUser, setIsLoginOpen)}
                 onCategorySelect={handleCategorySelect}
                 onOpenDetails={handleOpenProductDetailsPage}
                 favorites={favorites}
@@ -775,7 +557,7 @@ function Root() {
                         <ProductCard
                           product={product}
                           onAddToCart={handleAddToCart}
-                          onAddToWishlist={handleAddToWishlist}
+                          onAddToWishlist={(product) => handleAddToWishlist(product, currentUser, setIsLoginOpen)}
                           isFavorite={favorites.some((fav) => fav['product-title'] === product['product-title'])}
                           onOpenDetails={handleOpenProductDetailsPage}
                         />
