@@ -9,13 +9,17 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
   // State for managing selected variant and image
   const [selectedVariantIndex, setSelectedVariantIndex] = useState(null);
   
-  // Get variants and determine displayed image
+  // Get variants and determine displayed image and price
   const variants = Array.isArray(product.raw?.classification?.variants) ? product.raw.classification.variants : [];
   const selectedVariant = selectedVariantIndex !== null && variants[selectedVariantIndex] ? variants[selectedVariantIndex] : null;
   
   const displayedImage = (selectedVariant && Array.isArray(selectedVariant.images) && selectedVariant.images.length > 0)
     ? selectedVariant.images[0]
     : product['image-url'];
+    
+  const displayedPrice = (selectedVariant && selectedVariant.price != null)
+    ? selectedVariant.price
+    : newPrice;
 
   return (
     <div
@@ -123,9 +127,9 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center space-x-2">
             <span className="text-lg font-bold text-blue-900">
-              ₹{newPrice.toLocaleString()}
+              ₹{parseFloat(displayedPrice).toLocaleString()}
             </span>
-            {oldPrice > newPrice && (
+            {oldPrice > displayedPrice && (
               <span className="text-sm text-gray-500 line-through">
                 ₹{oldPrice.toLocaleString()}
               </span>

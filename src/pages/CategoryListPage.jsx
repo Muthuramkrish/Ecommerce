@@ -916,6 +916,10 @@ const CategoryListPage = ({
                     const displayedImage = (selectedVariant && Array.isArray(selectedVariant.images) && selectedVariant.images.length > 0)
                       ? selectedVariant.images[0]
                       : product['image-url'];
+                      
+                    const displayedPrice = (selectedVariant && selectedVariant.price != null)
+                      ? selectedVariant.price
+                      : product['new-price'];
 
                     return (
                     <div
@@ -1032,9 +1036,9 @@ const CategoryListPage = ({
                             <div className="flex items-center justify-between mb-2 mt-1.5">
                               <div className="flex items-center space-x-2">
                                 <span className="text-lg font-bold text-gray-900">
-                                  {formatPrice(product["new-price"])}
+                                  {formatPrice(displayedPrice)}
                                 </span>
-                                {product["old-price"] !== product["new-price"] && (
+                                {product["old-price"] !== displayedPrice && parseFloat(product["old-price"]) > parseFloat(displayedPrice) && (
                                   <span className="text-sm text-gray-500 line-through">
                                     {formatPrice(product["old-price"])}
                                   </span>
@@ -1128,9 +1132,9 @@ const CategoryListPage = ({
                               )}
                             <div className="flex items-center space-x-3 mb-2">
                               <span className="text-lg font-bold text-gray-900">
-                                {formatPrice(product["new-price"])}
+                                {formatPrice(displayedPrice)}
                               </span>
-                              {product["old-price"] !== product["new-price"] && (
+                              {product["old-price"] !== displayedPrice && parseFloat(product["old-price"]) > parseFloat(displayedPrice) && (
                                 <span className="text-sm text-gray-500 line-through">
                                   {formatPrice(product["old-price"])}
                                 </span>
