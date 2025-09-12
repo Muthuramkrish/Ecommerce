@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { ArrowLeft, Grid, List, Filter, X, Check } from 'lucide-react';
+import VariantImageSelector from '../components/VariantImageSelector';
 
 const CategoryListPage = ({
   category,
@@ -70,6 +71,7 @@ const CategoryListPage = ({
   const [selectedDiscountBucket, setSelectedDiscountBucket] = React.useState(0); // 0, 10, 25, 50
   const [showOnlyInStock, setShowOnlyInStock] = React.useState(false);
   const [filteredProducts, setFilteredProducts] = React.useState(products);
+  const [productVariantSelections, setProductVariantSelections] = React.useState({});
 
   // Sync selected filters when route-provided initialFilters or category changes
   React.useEffect(() => {
@@ -648,6 +650,30 @@ const CategoryListPage = ({
 
   const activeFiltersCount = chips.length;
 
+  // Helper function to get display data for a product considering variant selection
+  const getProductDisplayData = (product, productIndex) => {
+    const variantSelection = productVariantSelections[`${productIndex}-${product['product-title']}`];
+    if (variantSelection) {
+      const { variant } = variantSelection;
+      return {
+        ...product,
+        'image-url': variant.images && variant.images.length > 0 ? variant.images[0] : product['image-url'],
+        'new-price': variant.price != null ? variant.price : product['new-price'],
+        displayVariant: variant
+      };
+    }
+    return product;
+  };
+
+  // Handle variant selection
+  const handleVariantSelect = (productIndex, product, variant, variantIndex) => {
+    const key = `${productIndex}-${product['product-title']}`;
+    setProductVariantSelections(prev => ({
+      ...prev,
+      [key]: { variant, variantIndex }
+    }));
+  };
+
   // Pagination derived
   const totalResults = sortedProducts.length;
   const totalPages = Math.max(1, Math.ceil(totalResults / pageSize));
@@ -905,9 +931,13 @@ const CategoryListPage = ({
                       : "space-y-4"
                   }
                 >
-                  {pageProducts.map((product, index) => (
+                  {pageProducts.map((product, index) => {
+                    const actualIndex = currentStart + index; // Get actual index in the full list
+                    const displayProduct = getProductDisplayData(product, actualIndex);
+                    
+                    return (
                     <div
-                      key={index}
+                      key={`${actualIndex}-${product['product-title']}`}
                       className={
                         viewMode === "grid"
                           ? "bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 overflow-hidden group cursor-pointer h-full flex flex-col"
@@ -921,15 +951,15 @@ const CategoryListPage = ({
                           {/* Image Container */}
                           <div className="relative h-40 overflow-hidden">
                             <img
-                              src={product["image-url"]}
-                              alt={product["product-title"]}
+                              src={displayProduct["image-url"]}
+                              alt={displayProduct["product-title"]}
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             />
-                            {product["old-price"] !== product["new-price"] && (
+                            {displayProduct["old-price"] !== displayProduct["new-price"] && (
                               <div className="absolute top-2.5 left-2.5 bg-red-500 text-white px-2 py-0.5 rounded-full text-xs font-semibold">
                                 {calculateDiscount(
-                                  parseInt(product["old-price"]),
-                                  parseInt(product["new-price"])
+                                  parseInt(displayProduct["old-price"]),
+                                  parseInt(displayProduct["new-price"])
                                 )}
                                 % OFF
                               </div>
@@ -969,40 +999,26 @@ const CategoryListPage = ({
                             {/* Variant thumbnails */}
                             {Array.isArray(product.raw?.classification?.variants) &&
                               product.raw.classification.variants.length > 0 && (
-                                <div className="mt-1.5 flex items-center gap-2 overflow-x-auto">
-                                  {product.raw.classification.variants
-                                    .slice(0, 6)
-                                    .map((v, vi) => {
-                                      const thumb =
-                                        Array.isArray(v.images) && v.images.length > 0
-                                          ? v.images[0]
-                                          : null;
-                                      if (!thumb) return null;
-                                      return (
-                                        <div
-                                          key={vi}
-                                          className="w-8 h-8 rounded border border-gray-200 hover:border-blue-400 overflow-hidden flex-shrink-0"
-                                        >
-                                          <img
-                                            src={thumb}
-                                            alt={v.name || `variant-${vi}`}
-                                            className="w-full h-full object-cover"
-                                          />
-                                        </div>
-                                      );
-                                    })}
-                                </div>
+                                <VariantImageSelector
+                                  variants={product.raw.classification.variants}
+                                  selectedVariantIndex={productVariantSelections[`${actualIndex}-${product['product-title']}`]?.variantIndex}
+                                  onVariantSelect={(variant, variantIndex) => {
+                                    handleVariantSelect(actualIndex, product, variant, variantIndex);
+                                  }}
+                                  size="normal"
+                                  showPrices={true}
+                                />
                               )}
 
                             {/* Price */}
                             <div className="flex items-center justify-between mb-2 mt-1.5">
                               <div className="flex items-center space-x-2">
                                 <span className="text-lg font-bold text-gray-900">
-                                  {formatPrice(product["new-price"])}
+                                  {formatPrice(displayProduct["new-price"])}
                                 </span>
-                                {product["old-price"] !== product["new-price"] && (
+                                {displayProduct["old-price"] !== displayProduct["new-price"] && (
                                   <span className="text-sm text-gray-500 line-through">
-                                    {formatPrice(product["old-price"])}
+                                    {formatPrice(displayProduct["old-price"])}
                                   </span>
                                 )}
                               </div>
@@ -1025,15 +1041,15 @@ const CategoryListPage = ({
                         <div className="flex items-center p-4 space-x-4">
                           <div className="relative w-24 h-24 flex-shrink-0 overflow-hidden rounded-lg">
                             <img
-                              src={product["image-url"]}
-                              alt={product["product-title"]}
+                              src={displayProduct["image-url"]}
+                              alt={displayProduct["product-title"]}
                               className="w-full h-full object-cover"
                             />
-                            {product["old-price"] !== product["new-price"] && (
+                            {displayProduct["old-price"] !== displayProduct["new-price"] && (
                               <div className="absolute top-1 left-1 bg-red-500 text-white px-1 py-0.5 rounded text-xs font-semibold">
                                 {calculateDiscount(
-                                  parseInt(product["old-price"]),
-                                  parseInt(product["new-price"])
+                                  parseInt(displayProduct["old-price"]),
+                                  parseInt(displayProduct["new-price"])
                                 )}
                                 %
                               </div>
@@ -1041,42 +1057,28 @@ const CategoryListPage = ({
                           </div>
                           <div className="flex-1 min-w-0">
                             <h3 className="font-semibold text-gray-900 mb-1 truncate">
-                              {product["product-title"]}
+                              {displayProduct["product-title"]}
                             </h3>
                             {/* Variant thumbnails */}
                             {Array.isArray(product.raw?.classification?.variants) &&
                               product.raw.classification.variants.length > 0 && (
-                                <div className="mt-1 flex items-center gap-2 overflow-x-auto">
-                                  {product.raw.classification.variants
-                                    .slice(0, 6)
-                                    .map((v, vi) => {
-                                      const thumb =
-                                        Array.isArray(v.images) && v.images.length > 0
-                                          ? v.images[0]
-                                          : null;
-                                      if (!thumb) return null;
-                                      return (
-                                        <div
-                                          key={vi}
-                                          className="w-7 h-7 rounded border border-gray-200 hover:border-blue-400 overflow-hidden flex-shrink-0"
-                                        >
-                                          <img
-                                            src={thumb}
-                                            alt={v.name || `variant-${vi}`}
-                                            className="w-full h-full object-cover"
-                                          />
-                                        </div>
-                                      );
-                                    })}
-                                </div>
+                                <VariantImageSelector
+                                  variants={product.raw.classification.variants}
+                                  size="small"
+                                  selectedVariantIndex={productVariantSelections[`${actualIndex}-${product['product-title']}`]?.variantIndex}
+                                  onVariantSelect={(variant, variantIndex) => {
+                                    handleVariantSelect(actualIndex, product, variant, variantIndex);
+                                  }}
+                                  showPrices={true}
+                                />
                               )}
                             <div className="flex items-center space-x-3 mb-2">
                               <span className="text-lg font-bold text-gray-900">
-                                {formatPrice(product["new-price"])}
+                                {formatPrice(displayProduct["new-price"])}
                               </span>
-                              {product["old-price"] !== product["new-price"] && (
+                              {displayProduct["old-price"] !== displayProduct["new-price"] && (
                                 <span className="text-sm text-gray-500 line-through">
-                                  {formatPrice(product["old-price"])}
+                                  {formatPrice(displayProduct["old-price"])}
                                 </span>
                               )}
                             </div>
@@ -1119,7 +1121,8 @@ const CategoryListPage = ({
                         </div>
                       )}
                     </div>
-                  ))}
+                  );
+                  })}
                 </div>
 
                 {/* Pagination bottom */}
@@ -1642,5 +1645,6 @@ const Pagination = ({ currentPage, totalPages, onChange }) => {
     </div>
   );
 };
+
 
 export default CategoryListPage;
