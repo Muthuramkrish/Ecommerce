@@ -1,10 +1,31 @@
 import React from 'react';
 import { Heart, Star, ShoppingCart } from 'lucide-react';
+import VariantImageSelector from './VariantImageSelector';
 
 const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false, onOpenDetails }) => {
-  const oldPrice = parseFloat(product['old-price']);
-  const newPrice = parseFloat(product['new-price']);
+  const [selectedVariantIndex, setSelectedVariantIndex] = React.useState(null);
+  const [displayData, setDisplayData] = React.useState({
+    imageUrl: product['image-url'],
+    newPrice: parseFloat(product['new-price']),
+    oldPrice: parseFloat(product['old-price'])
+  });
+
+  const variants = product.raw?.classification?.variants || [];
+  const hasVariants = variants.length > 0;
+
+  const oldPrice = displayData.oldPrice;
+  const newPrice = displayData.newPrice;
   const discount = Math.round(((oldPrice - newPrice) / oldPrice) * 100);
+
+  const handleVariantSelect = (variant, variantIndex, e) => {
+    e.stopPropagation();
+    setSelectedVariantIndex(variantIndex);
+    setDisplayData({
+      imageUrl: variant.images && variant.images.length > 0 ? variant.images[0] : product['image-url'],
+      newPrice: variant.price != null ? variant.price : parseFloat(product['new-price']),
+      oldPrice: parseFloat(product['old-price']) // Keep original old price for discount calculation
+    });
+  };
 
   return (
     <div
@@ -14,9 +35,9 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
       {/* Image Container */}
       <div className="relative overflow-hidden h-48">
         <img
-          src={product['image-url']}
+          src={displayData.imageUrl}
           alt={product['product-title']}
-          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-full object-cover group-hover:scale-105 transition-all duration-500"
           onError={(e) => {
             const target = e.target;
             target.src = 'https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=400';
@@ -58,10 +79,23 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
           <p className="text-xs text-gray-500 mb-2">{product.category}</p>
         )}
 
+        {/* Variant thumbnails */}
+        {hasVariants && (
+          <VariantImageSelector
+            variants={variants}
+            selectedVariantIndex={selectedVariantIndex}
+            onVariantSelect={handleVariantSelect}
+            size="normal"
+            maxVariants={4}
+            showPrices={true}
+            className="mb-3"
+          />
+        )}
+
         {/* Price */}
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center space-x-2">
-            <span className="text-lg font-bold text-blue-900">
+            <span className="text-lg font-bold text-blue-900 transition-all duration-300">
               ₹{newPrice.toLocaleString()}
             </span>
             {oldPrice > newPrice && (
@@ -70,6 +104,11 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
               </span>
             )}
           </div>
+          {selectedVariantIndex !== null && (
+            <span className="text-xs px-2 py-1 bg-blue-100 text-blue-800 rounded-full">
+              {variants[selectedVariantIndex]?.name}
+            </span>
+          )}
         </div>
 
         {/* Add to Cart Button pinned at bottom */}

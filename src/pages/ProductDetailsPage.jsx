@@ -193,7 +193,7 @@ const ProductDetailsPage = ({
           {/* Product Images */}
           <div className="space-y-4">
             <div
-              className="aspect-square bg-white rounded-lg overflow-hidden shadow-lg cursor-pointer"
+              className="aspect-square bg-white rounded-lg overflow-hidden shadow-lg cursor-pointer relative group"
               onClick={() => {
                 if (variants.length && variantsRef.current) {
                   variantsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -205,8 +205,18 @@ const ProductDetailsPage = ({
               <img
                 src={displayedImages[selectedImage]}
                 alt={product['product-title']}
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover transition-all duration-500 group-hover:scale-105"
               />
+              {selectedVariant && (
+                <div className="absolute top-3 left-3 bg-black bg-opacity-70 text-white px-3 py-1 rounded-full text-sm font-medium">
+                  {selectedVariant.name}
+                </div>
+              )}
+              {variants.length > 0 && (
+                <div className="absolute bottom-3 right-3 bg-black bg-opacity-70 text-white px-2 py-1 rounded-full text-xs">
+                  Click to see variants
+                </div>
+              )}
             </div>
             {displayedImages.length > 1 && (
               <div className="grid grid-cols-4 gap-2">
@@ -281,8 +291,13 @@ const ProductDetailsPage = ({
               </h1>
               
               <div className="flex items-center space-x-4 mb-6">
-                <span className="text-3xl font-bold text-blue-600">
+                <span className="text-3xl font-bold text-blue-600 transition-all duration-300">
                   ₹{displayedPrice}
+                  {selectedVariant && (
+                    <span className="text-sm ml-2 px-2 py-1 bg-blue-100 text-blue-800 rounded-full">
+                      {selectedVariant.name}
+                    </span>
+                  )}
                 </span>
                 {product['old-price'] !== displayedPrice && product['old-price'] != null && (
                   <span className="text-xl text-gray-500 line-through">
@@ -398,18 +413,26 @@ const ProductDetailsPage = ({
                         {selectedVariantIndex === i && <span className="text-xs px-2 py-0.5 bg-blue-50 text-blue-700 rounded">Selected</span>}
                       </div>
                       {Array.isArray(v.images) && v.images.length > 0 && (
-                        <div className="flex gap-2 overflow-x-auto">
+                        <div className="flex gap-2 overflow-x-auto pb-1">
                           {v.images.map((img, j) => (
-                            <div
+                            <button
                               key={j}
-                              role="button"
-                              tabIndex={0}
-                              onClick={(e) => { e.stopPropagation(); setSelectedVariantIndex(i); setSelectedImage(0); }}
-                              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); setSelectedVariantIndex(i); setSelectedImage(0); } }}
-                              className="rounded overflow-hidden border border-gray-200 hover:border-blue-400 cursor-pointer"
+                              onClick={(e) => { 
+                                e.stopPropagation(); 
+                                setSelectedVariantIndex(i); 
+                                setSelectedImage(j); // Set to the clicked image index
+                              }}
+                              className={`rounded-lg overflow-hidden border-2 transition-all duration-200 hover:scale-105 flex-shrink-0 ${
+                                selectedVariantIndex === i && selectedImage === j
+                                  ? 'border-blue-500 ring-2 ring-blue-200 shadow-md' 
+                                  : selectedVariantIndex === i 
+                                    ? 'border-blue-300 hover:border-blue-500' 
+                                    : 'border-gray-200 hover:border-blue-400'
+                              }`}
+                              title={`${v.name} - Image ${j + 1}`}
                             >
-                              <img src={img} alt={`${v.name}-${j}`} className="w-16 h-16 object-cover" />
-                            </div>
+                              <img src={img} alt={`${v.name}-${j + 1}`} className="w-16 h-16 object-cover" />
+                            </button>
                           ))}
                         </div>
                       )}
