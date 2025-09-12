@@ -905,7 +905,23 @@ const CategoryListPage = ({
                       : "space-y-4"
                   }
                 >
-                  {pageProducts.map((product, index) => (
+                  {pageProducts.map((product, index) => {
+                    // State for managing selected variant and image for each product
+                    const [selectedVariantIndex, setSelectedVariantIndex] = React.useState(null);
+                    
+                    // Get variants and determine displayed image
+                    const variants = Array.isArray(product.raw?.classification?.variants) ? product.raw.classification.variants : [];
+                    const selectedVariant = selectedVariantIndex !== null && variants[selectedVariantIndex] ? variants[selectedVariantIndex] : null;
+                    
+                    const displayedImage = (selectedVariant && Array.isArray(selectedVariant.images) && selectedVariant.images.length > 0)
+                      ? selectedVariant.images[0]
+                      : product['image-url'];
+                      
+                    const displayedPrice = (selectedVariant && selectedVariant.price != null)
+                      ? selectedVariant.price
+                      : product['new-price'];
+
+                    return (
                     <div
                       key={index}
                       className={
@@ -921,7 +937,7 @@ const CategoryListPage = ({
                           {/* Image Container */}
                           <div className="relative h-40 overflow-hidden">
                             <img
-                              src={product["image-url"]}
+                              src={displayedImage}
                               alt={product["product-title"]}
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             />
@@ -967,11 +983,26 @@ const CategoryListPage = ({
                             </h3>
 
                             {/* Variant thumbnails */}
-                            {Array.isArray(product.raw?.classification?.variants) &&
-                              product.raw.classification.variants.length > 0 && (
+                            {variants.length > 0 && (
                                 <div className="mt-1.5 flex items-center gap-2 overflow-x-auto">
-                                  {product.raw.classification.variants
-                                    .slice(0, 6)
+                                  <button
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      e.stopPropagation();
+                                      setSelectedVariantIndex(null);
+                                    }}
+                                    className={`w-8 h-8 rounded border border-gray-200 hover:border-blue-400 overflow-hidden flex-shrink-0 ${
+                                      selectedVariantIndex === null ? 'border-blue-500 border-2' : ''
+                                    }`}
+                                  >
+                                    <img
+                                      src={product["image-url"]}
+                                      alt="Original"
+                                      className="w-full h-full object-cover"
+                                    />
+                                  </button>
+                                  {variants
+                                    .slice(0, 5)
                                     .map((v, vi) => {
                                       const thumb =
                                         Array.isArray(v.images) && v.images.length > 0
@@ -979,16 +1010,23 @@ const CategoryListPage = ({
                                           : null;
                                       if (!thumb) return null;
                                       return (
-                                        <div
+                                        <button
                                           key={vi}
-                                          className="w-8 h-8 rounded border border-gray-200 hover:border-blue-400 overflow-hidden flex-shrink-0"
+                                          onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            setSelectedVariantIndex(vi);
+                                          }}
+                                          className={`w-8 h-8 rounded border border-gray-200 hover:border-blue-400 overflow-hidden flex-shrink-0 ${
+                                            selectedVariantIndex === vi ? 'border-blue-500 border-2' : ''
+                                          }`}
                                         >
                                           <img
                                             src={thumb}
                                             alt={v.name || `variant-${vi}`}
                                             className="w-full h-full object-cover"
                                           />
-                                        </div>
+                                        </button>
                                       );
                                     })}
                                 </div>
@@ -998,9 +1036,9 @@ const CategoryListPage = ({
                             <div className="flex items-center justify-between mb-2 mt-1.5">
                               <div className="flex items-center space-x-2">
                                 <span className="text-lg font-bold text-gray-900">
-                                  {formatPrice(product["new-price"])}
+                                  {formatPrice(displayedPrice)}
                                 </span>
-                                {product["old-price"] !== product["new-price"] && (
+                                {product["old-price"] !== displayedPrice && parseFloat(product["old-price"]) > parseFloat(displayedPrice) && (
                                   <span className="text-sm text-gray-500 line-through">
                                     {formatPrice(product["old-price"])}
                                   </span>
@@ -1025,7 +1063,7 @@ const CategoryListPage = ({
                         <div className="flex items-center p-4 space-x-4">
                           <div className="relative w-24 h-24 flex-shrink-0 overflow-hidden rounded-lg">
                             <img
-                              src={product["image-url"]}
+                              src={displayedImage}
                               alt={product["product-title"]}
                               className="w-full h-full object-cover"
                             />
@@ -1044,11 +1082,26 @@ const CategoryListPage = ({
                               {product["product-title"]}
                             </h3>
                             {/* Variant thumbnails */}
-                            {Array.isArray(product.raw?.classification?.variants) &&
-                              product.raw.classification.variants.length > 0 && (
+                            {variants.length > 0 && (
                                 <div className="mt-1 flex items-center gap-2 overflow-x-auto">
-                                  {product.raw.classification.variants
-                                    .slice(0, 6)
+                                  <button
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      e.stopPropagation();
+                                      setSelectedVariantIndex(null);
+                                    }}
+                                    className={`w-7 h-7 rounded border border-gray-200 hover:border-blue-400 overflow-hidden flex-shrink-0 ${
+                                      selectedVariantIndex === null ? 'border-blue-500 border-2' : ''
+                                    }`}
+                                  >
+                                    <img
+                                      src={product["image-url"]}
+                                      alt="Original"
+                                      className="w-full h-full object-cover"
+                                    />
+                                  </button>
+                                  {variants
+                                    .slice(0, 5)
                                     .map((v, vi) => {
                                       const thumb =
                                         Array.isArray(v.images) && v.images.length > 0
@@ -1056,25 +1109,32 @@ const CategoryListPage = ({
                                           : null;
                                       if (!thumb) return null;
                                       return (
-                                        <div
+                                        <button
                                           key={vi}
-                                          className="w-7 h-7 rounded border border-gray-200 hover:border-blue-400 overflow-hidden flex-shrink-0"
+                                          onClick={(e) => {
+                                            e.preventDefault();
+                                            e.stopPropagation();
+                                            setSelectedVariantIndex(vi);
+                                          }}
+                                          className={`w-7 h-7 rounded border border-gray-200 hover:border-blue-400 overflow-hidden flex-shrink-0 ${
+                                            selectedVariantIndex === vi ? 'border-blue-500 border-2' : ''
+                                          }`}
                                         >
                                           <img
                                             src={thumb}
                                             alt={v.name || `variant-${vi}`}
                                             className="w-full h-full object-cover"
                                           />
-                                        </div>
+                                        </button>
                                       );
                                     })}
                                 </div>
                               )}
                             <div className="flex items-center space-x-3 mb-2">
                               <span className="text-lg font-bold text-gray-900">
-                                {formatPrice(product["new-price"])}
+                                {formatPrice(displayedPrice)}
                               </span>
-                              {product["old-price"] !== product["new-price"] && (
+                              {product["old-price"] !== displayedPrice && parseFloat(product["old-price"]) > parseFloat(displayedPrice) && (
                                 <span className="text-sm text-gray-500 line-through">
                                   {formatPrice(product["old-price"])}
                                 </span>
@@ -1119,7 +1179,8 @@ const CategoryListPage = ({
                         </div>
                       )}
                     </div>
-                  ))}
+                    );
+                  })}
                 </div>
 
                 {/* Pagination bottom */}

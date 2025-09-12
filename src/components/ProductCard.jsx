@@ -1,10 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Heart, Star, ShoppingCart } from 'lucide-react';
 
 const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false, onOpenDetails }) => {
   const oldPrice = parseFloat(product['old-price']);
   const newPrice = parseFloat(product['new-price']);
   const discount = Math.round(((oldPrice - newPrice) / oldPrice) * 100);
+  
+  // State for managing selected variant and image
+  const [selectedVariantIndex, setSelectedVariantIndex] = useState(null);
+  
+  // Get variants and determine displayed image and price
+  const variants = Array.isArray(product.raw?.classification?.variants) ? product.raw.classification.variants : [];
+  const selectedVariant = selectedVariantIndex !== null && variants[selectedVariantIndex] ? variants[selectedVariantIndex] : null;
+  
+  const displayedImage = (selectedVariant && Array.isArray(selectedVariant.images) && selectedVariant.images.length > 0)
+    ? selectedVariant.images[0]
+    : product['image-url'];
+    
+  const displayedPrice = (selectedVariant && selectedVariant.price != null)
+    ? selectedVariant.price
+    : newPrice;
 
   return (
     <div
@@ -14,7 +29,7 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
       {/* Image Container */}
       <div className="relative overflow-hidden h-48">
         <img
-          src={product['image-url']}
+          src={displayedImage}
           alt={product['product-title']}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           onError={(e) => {
@@ -58,13 +73,63 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
           <p className="text-xs text-gray-500 mb-2">{product.category}</p>
         )}
 
+        {/* Variant thumbnails */}
+        {variants.length > 0 && (
+          <div className="mb-2 flex items-center gap-1.5 overflow-x-auto">
+            <button
+              onClick={(e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                setSelectedVariantIndex(null);
+              }}
+              className={`w-6 h-6 rounded border border-gray-200 hover:border-blue-400 overflow-hidden flex-shrink-0 ${
+                selectedVariantIndex === null ? 'border-blue-500 border-2' : ''
+              }`}
+            >
+              <img
+                src={product['image-url']}
+                alt="Original"
+                className="w-full h-full object-cover"
+              />
+            </button>
+            {variants
+              .slice(0, 5)
+              .map((variant, index) => {
+                const thumb =
+                  Array.isArray(variant.images) && variant.images.length > 0
+                    ? variant.images[0]
+                    : null;
+                if (!thumb) return null;
+                return (
+                  <button
+                    key={index}
+                    onClick={(e) => {
+                      e.preventDefault();
+                      e.stopPropagation();
+                      setSelectedVariantIndex(index);
+                    }}
+                    className={`w-6 h-6 rounded border border-gray-200 hover:border-blue-400 overflow-hidden flex-shrink-0 ${
+                      selectedVariantIndex === index ? 'border-blue-500 border-2' : ''
+                    }`}
+                  >
+                    <img
+                      src={thumb}
+                      alt={variant.name || `variant-${index}`}
+                      className="w-full h-full object-cover"
+                    />
+                  </button>
+                );
+              })}
+          </div>
+        )}
+
         {/* Price */}
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center space-x-2">
             <span className="text-lg font-bold text-blue-900">
-              ₹{newPrice.toLocaleString()}
+              ₹{parseFloat(displayedPrice).toLocaleString()}
             </span>
-            {oldPrice > newPrice && (
+            {oldPrice > displayedPrice && (
               <span className="text-sm text-gray-500 line-through">
                 ₹{oldPrice.toLocaleString()}
               </span>
