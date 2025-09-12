@@ -11,7 +11,7 @@ const CheckoutPage = ({ items, onOrderComplete, onBack }) => {
     city: '',
     state: '',
     pincode: '',
-    paymentMethod: 'card'
+    paymentMethod: 'cod'
   });
 
   const [isProcessing, setIsProcessing] = useState(false);
@@ -42,22 +42,90 @@ const CheckoutPage = ({ items, onOrderComplete, onBack }) => {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="min-h-screen bg-gray-50">
         {/* Header */}
-        <div className="flex items-center justify-between mb-8">
-          <div className="flex items-center">
-            <button
-              onClick={onBack}
-              className="flex items-center text-blue-900 hover:text-blue-800 font-medium mr-4"
-            >
-              <ArrowLeft className="w-5 h-5 mr-2" />
-              Back to Cart
-            </button>
-            <h1 className="text-3xl font-bold text-gray-900">Checkout</h1>
+        <div className="bg-white shadow-sm border-b">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex items-center justify-between h-16">
+              <button
+                onClick={onBack}
+                className="flex items-center text-gray-600 hover:text-gray-900 transition-colors text-sm md:text-base"
+              >
+                <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 mr-2" />
+                <span>Back</span>
+              </button>
+              <h1 className="text-lg font-semibold text-gray-900">Checkout</h1>
+              <div className="w-32" />
+            </div>
           </div>
         </div>
 
-        <div className="grid lg:grid-cols-2 gap-8">
+        <div className="grid lg:grid-cols-2 gap-8 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+          {/* Order Summary */}
+          <div className="bg-white rounded-xl shadow-lg p-6 h-fit">
+            <h3 className="text-xl font-semibold text-gray-900 mb-6">Order Summary</h3>
+
+            <div className="space-y-4 mb-6">
+              {items.map((item, index) => (
+                <div key={index} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                  <img
+                    src={item['image-url']}
+                    alt={item['product-title']}
+                    className="w-16 h-16 object-cover rounded-lg"
+                  />
+                  <div className="flex-1">
+                    <h4 className="font-medium text-gray-900 line-clamp-2">
+                      {item['product-title']}
+                    </h4>
+                    <p className="text-sm text-gray-500 mt-1">Quantity: {item.quantity}</p>
+                  </div>
+                  <span className="font-semibold text-gray-900">
+                    ₹{(parseFloat(item['new-price']) * item.quantity).toLocaleString()}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <div className="space-y-3 border-t pt-4">
+              <div className="flex justify-between text-gray-600">
+                <span>Subtotal ({items.reduce((sum, item) => sum + item.quantity, 0)} items)</span>
+                <span>₹{subtotal.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between text-gray-600">
+                <span>Shipping</span>
+                <span className={shipping === 0 ? 'text-green-600 font-medium' : ''}>
+                  {shipping === 0 ? 'Free' : `₹${shipping}`}
+                </span>
+              </div>
+              <div className="flex justify-between text-gray-600">
+                <span>Tax (18% GST)</span>
+                <span>₹{tax.toLocaleString()}</span>
+              </div>
+              <div className="flex justify-between font-bold text-xl text-gray-900 border-t pt-3">
+                <span>Total</span>
+                <span>₹{total.toLocaleString()}</span>
+              </div>
+            </div>
+
+            {shipping === 0 && (
+              <div className="mt-4 p-3 bg-green-50 rounded-lg">
+                <p className="text-sm text-green-700 font-medium">
+                  🎉 You've qualified for free shipping!
+                </p>
+              </div>
+            )}
+
+            {/* <div className="mt-6 p-4 bg-blue-50 rounded-lg">
+              <div className="flex items-center text-blue-800 mb-2">
+                <Shield className="w-5 h-5 mr-2" />
+                <span className="font-medium">Secure Payment Guaranteed</span>
+              </div>
+              <p className="text-sm text-blue-600">
+                Your payment information is encrypted and secure. We use industry-standard SSL encryption.
+              </p>
+            </div> */}
+          </div>
+
           {/* Order Form */}
           <div className="bg-white rounded-xl shadow-lg p-6">
             <form onSubmit={handleSubmit} className="space-y-6">
@@ -174,8 +242,13 @@ const CheckoutPage = ({ items, onOrderComplete, onBack }) => {
                   <CreditCard className="w-5 h-5 mr-2" />
                   Payment Method
                 </h3>
+                <div className="mb-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                  <p className="text-sm text-yellow-800">
+                    <strong>Note:</strong> At this time, we just offer cash on delivery.
+                  </p>
+                </div>
                 <div className="space-y-3">
-                  <label className="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                  {/* <label className="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
                     <input
                       type="radio"
                       name="paymentMethod"
@@ -198,7 +271,7 @@ const CheckoutPage = ({ items, onOrderComplete, onBack }) => {
                     />
                     <span className="w-5 h-5 mr-2 text-center text-lg">📱</span>
                     <span className="font-medium">UPI Payment</span>
-                  </label>
+                  </label> */}
                   <label className="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
                     <input
                       type="radio"
@@ -234,70 +307,6 @@ const CheckoutPage = ({ items, onOrderComplete, onBack }) => {
             </form>
           </div>
 
-          {/* Order Summary */}
-          <div className="bg-white rounded-xl shadow-lg p-6 h-fit">
-            <h3 className="text-xl font-semibold text-gray-900 mb-6">Order Summary</h3>
-            
-            <div className="space-y-4 mb-6">
-              {items.map((item, index) => (
-                <div key={index} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
-                  <img
-                    src={item['image-url']}
-                    alt={item['product-title']}
-                    className="w-16 h-16 object-cover rounded-lg"
-                  />
-                  <div className="flex-1">
-                    <h4 className="font-medium text-gray-900 line-clamp-2">
-                      {item['product-title']}
-                    </h4>
-                    <p className="text-sm text-gray-500 mt-1">Quantity: {item.quantity}</p>
-                  </div>
-                  <span className="font-semibold text-gray-900">
-                    ₹{(parseFloat(item['new-price']) * item.quantity).toLocaleString()}
-                  </span>
-                </div>
-              ))}
-            </div>
-
-            <div className="space-y-3 border-t pt-4">
-              <div className="flex justify-between text-gray-600">
-                <span>Subtotal ({items.reduce((sum, item) => sum + item.quantity, 0)} items)</span>
-                <span>₹{subtotal.toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between text-gray-600">
-                <span>Shipping</span>
-                <span className={shipping === 0 ? 'text-green-600 font-medium' : ''}>
-                  {shipping === 0 ? 'Free' : `₹${shipping}`}
-                </span>
-              </div>
-              <div className="flex justify-between text-gray-600">
-                <span>Tax (18% GST)</span>
-                <span>₹{tax.toLocaleString()}</span>
-              </div>
-              <div className="flex justify-between font-bold text-xl text-gray-900 border-t pt-3">
-                <span>Total</span>
-                <span>₹{total.toLocaleString()}</span>
-              </div>
-            </div>
-
-            {shipping === 0 && (
-              <div className="mt-4 p-3 bg-green-50 rounded-lg">
-                <p className="text-sm text-green-700 font-medium">
-                  🎉 You've qualified for free shipping!
-                </p>
-              </div>
-            )}
-
-            <div className="mt-6 p-4 bg-blue-50 rounded-lg">
-              <div className="flex items-center text-blue-800 mb-2">
-                <Shield className="w-5 h-5 mr-2" />
-                <span className="font-medium">Secure Payment Guaranteed</span>
-              </div>
-              <p className="text-sm text-blue-600">
-                Your payment information is encrypted and secure. We use industry-standard SSL encryption.
-              </p>
-            </div>
-          </div>
         </div>
       </div>
     </div>

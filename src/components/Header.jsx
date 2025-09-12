@@ -70,7 +70,7 @@ const Header = ({
             </button>
             <button
               onClick={() => setIsLeftMenuOpen(!isLeftMenuOpen)}
-              className="left-menu-toggle p-2 hover:bg-blue-800 rounded-full transition-colors relative"
+              className="left-menu-toggle p-2 hover:bg-blue-800 rounded-full transition-colors relative mt-3"
               title="Menu"
             >
               <Menu className="w-6 h-6" />
@@ -83,9 +83,9 @@ const Header = ({
                 className="left-menu fixed top-20 left-0 mt-0 bg-white text-gray-800 rounded-xl shadow-xl z-50 border border-gray-100 ring-1 ring-black/5"
                 onMouseLeave={() => { setActiveCategory(null); setActiveSubcategory(null); }}
               >
-                <div className="flex w-[1000px] max-w-[calc(100vw-1rem)] min-h-[360px]">
+                <div className="flex w-[95vw] max-w-[1200px] min-h-[320px] max-h-[80vh] overflow-hidden">
                   {/* Left rail: top links + categories */}
-                  <div className="w-64 border-r border-gray-100 p-3 bg-white">
+                  <div className="w-64 md:w-72 border-r border-gray-100 p-3 bg-white">
                     <div className="px-3 pb-1 text-xs font-semibold uppercase tracking-wider text-gray-400">Electrical</div>
                     <div className="rounded-lg overflow-hidden border border-gray-100 bg-white">
                       <div className="max-h-[320px] overflow-auto">
@@ -94,12 +94,12 @@ const Header = ({
                             key={cat.name}
                             href={`#category/${encodeURIComponent(slugify(cat.name))}`}
                             onMouseEnter={() => { setActiveCategory(cat.name); setActiveSubcategory(null); }}
-                            onClick={(e) => { e.preventDefault(); onNavigateTaxonomy && onNavigateTaxonomy('category', cat.name); }}
+                            onClick={(e) => { e.preventDefault(); setIsLeftMenuOpen(false); onNavigateTaxonomy && onNavigateTaxonomy('category', cat.name); }}
                             className={`w-full flex items-center justify-between px-3 py-2 text-sm hover:bg-blue-50 ${activeCategory === cat.name ? 'bg-blue-50 text-blue-900' : ''}`}
                             title={cat.name}
                           >
                             <span className="truncate">{cat.name}</span>
-                            <span className="text-xs text-gray-400">›</span>
+                            <span className="text-xs text-gray-900 font-bold">›</span>
                           </a>
                         ))}
                       </div>
@@ -107,7 +107,7 @@ const Header = ({
                   </div>
 
                   {/* Right panel: subcategories and sub-subs */}
-                  <div className="flex-1 p-4 bg-white">
+                  <div className="flex-1 p-4 bg-white overflow-auto">
                     {!activeCategory ? (
                       <div className="h-full flex items-center justify-center text-sm text-gray-400">
                         Hover a category to explore
@@ -152,12 +152,24 @@ const Header = ({
                                     return (
                                       <div>
                                         <div className="text-sm font-semibold text-gray-700 mb-2">{sub ? sub.name : 'Subcategories'}</div>
-                                        <div className="grid grid-cols-2 gap-2 max-h-[280px] overflow-auto">
+                                        <div className="grid grid-cols-2 gap-2 max-h-[60vh] overflow-auto">
                                           {subSubs.map((ss) => (
                                             <a
                                               key={ss.name}
-                                              href={`#sub-subcategory/${encodeURIComponent(slugify(ss.name))}`}
-                                              onClick={(e) => { e.preventDefault(); setIsLeftMenuOpen(false); onNavigateTaxonomy && onNavigateTaxonomy('sub-subcategory', ss.name); }}
+                                              href={`#category/${encodeURIComponent(slugify(sub?.name || ''))}/filter/sub-subcategory/${encodeURIComponent(ss.name)}`}
+                                              onClick={(e) => {
+                                                e.preventDefault();
+                                                setIsLeftMenuOpen(false);
+                                                const parent = sub?.name || '';
+                                                const hash = `#category/${encodeURIComponent(slugify(parent))}/filter/sub-subcategory/${encodeURIComponent(ss.name)}`;
+                                                if (window && window.location) {
+                                                  if (window.location.hash !== hash) {
+                                                    window.location.hash = hash;
+                                                  } else {
+                                                    window.dispatchEvent(new HashChangeEvent('hashchange'));
+                                                  }
+                                                }
+                                              }}
                                               className="text-left text-sm px-2 py-1.5 rounded hover:bg-gray-50 truncate"
                                               title={ss.name}
                                             >

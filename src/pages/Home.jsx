@@ -1,16 +1,178 @@
-import React from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Zap } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
-import { useHeroSlides, useCategoriesScroll, useHomeHandlers, useProductModal } from './Home.load.js';
 
-const Home = ({ products = [], onAddToCart, onAddToWishlist, onCategorySelect, onOpenDetails, favorites = [], categories = [] }) => {
+const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, onCategorySelect, onOpenDetails, favorites = [], categories = [] }) => {
+  // Hero component state
+  const [currentSlide, setCurrentSlide] = useState(0);
+  
+  // Categories component state
+  const scrollContainer = useRef(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(true);
+  
+  // Product modal state
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
   const defaultCategories = categories && categories.length ? categories : [];
 
-  // Use custom hooks from Home.load.js
-  const { slides, currentSlide, nextSlide, prevSlide, goToSlide } = useHeroSlides(products);
-  const { scrollContainer, canScrollLeft, canScrollRight, scrollLeft, scrollRight } = useCategoriesScroll(defaultCategories);
-  const { handleCategorySelect, handleHeroCta1, handleHeroCta2 } = useHomeHandlers(onCategorySelect, onOpenDetails);
-  const { selectedProduct, setSelectedProduct } = useProductModal();
+  // Get featured products for hero slides
+  const getFeaturedProducts = () => {
+    const featured = products.filter(p => p.raw?.marketing?.isFeatured);
+    return featured.length >= 4 ? featured.slice(0, 4) : products.slice(0, 4);
+  };
+
+  const featuredProducts = getFeaturedProducts();
+
+  // Build slides from first offers-image per collection (subcategory), using full list when available
+  const sourceForHero = (Array.isArray(allProducts) && allProducts.length) ? allProducts : featuredProducts;
+  const seenCollections = new Set();
+  const slides = sourceForHero.map((product, index) => {
+    const accentColors = [
+      "from-blue-600 to-purple-600",
+      "from-green-600 to-teal-600", 
+      "from-orange-600 to-red-600",
+      "from-indigo-600 to-blue-600"
+    ];
+
+    const collection = product.raw?.anchor?.subcategory || product.category || 'Electrical';
+
+    // Prefer backend offers image for hero banner
+    const rawImages = product?.raw?.characteristics?.images || {};
+    const offers = rawImages?.offers;
+    let offersImageUrl = null;
+    if (typeof offers === 'string') {
+      offersImageUrl = offers;
+    } else if (Array.isArray(offers)) {
+      offersImageUrl = offers.find((v) => typeof v === 'string' && v.trim().length > 0) || null;
+    } else if (offers && typeof offers === 'object') {
+      offersImageUrl = offers.url || offers.src || offers.href || null;
+    }
+
+    // If no offers image, skip this product for Hero (do not fall back to primary)
+    if (!offersImageUrl) return null;
+
+    // Only keep the first offers image per collection
+    const key = String(collection).toLowerCase();
+    if (seenCollections.has(key)) return null;
+    seenCollections.add(key);
+
+    return {
+      id: index + 1,
+      product: product,
+      title: product['product-title'],
+      subtitle: `${collection} Collection`,
+      description: product.raw?.characteristics?.description ||
+        `Discover our premium ${collection.toLowerCase()} products. High quality, reliable performance, and excellent value.`,
+      image: offersImageUrl,
+      cta1: `Shop ${collection}`,
+      cta2: "View Details",
+      accent: accentColors[index % accentColors.length],
+      category: collection
+    };
+  }).filter(Boolean);
+
+  // Ensure we always have at least one slide
+  const finalSlides = slides.length > 0 ? slides : [{
+    id: 1,
+    product: null,
+    title: 'Top Electrical Deals',
+    subtitle: 'Shop Now',
+    description: 'Discover premium electrical products with great offers and reliable performance.',
+    image: 'https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=1920',
+    cta1: 'Browse Categories',
+    cta2: 'View Details',
+    accent: 'from-blue-600 to-purple-600',
+    category: 'Electrical'
+  }];
+
+  // Hero Auto slide functionality
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentSlide((prev) => (prev + 1) % finalSlides.length);
+    }, 8000); // 8 seconds
+
+    return () => clearInterval(interval);
+  }, [finalSlides.length]);
+
+  // Keep currentSlide in range if slides shrink
+  useEffect(() => {
+    if (currentSlide >= finalSlides.length) {
+      setCurrentSlide(0);
+    }
+  }, [finalSlides.length, currentSlide]);
+
+  // Categories scroll functionality
+  const checkScrollButtons = () => {
+    if (scrollContainer.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = scrollContainer.current;
+      setCanScrollLeft(scrollLeft > 0);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
+    }
+  };
+
+  useEffect(() => {
+    checkScrollButtons();
+    const container = scrollContainer.current;
+    if (container) {
+      container.addEventListener('scroll', checkScrollButtons);
+      return () => container.removeEventListener('scroll', checkScrollButtons);
+    }
+  }, [defaultCategories]);
+
+  // Hero navigation functions
+  const nextSlide = () => {
+    setCurrentSlide((prev) => (prev + 1) % finalSlides.length);
+  };
+
+  const prevSlide = () => {
+    setCurrentSlide((prev) => (prev - 1 + finalSlides.length) % finalSlides.length);
+  };
+
+  const goToSlide = (index) => {
+    setCurrentSlide(index);
+  };
+
+  // Categories scroll functions
+  const scrollLeft = () => {
+    if (scrollContainer.current) {
+      scrollContainer.current.scrollBy({
+        left: -280, // Width of one card
+        behavior: 'smooth'
+      });
+    }
+  };
+
+  const scrollRight = () => {
+    if (scrollContainer.current) {
+      scrollContainer.current.scrollBy({
+        left: 280, // Width of one card
+        behavior: 'smooth'
+      });
+    }
+  };
+
+    // Handle category selection - use the prop if available, otherwise log
+  const handleCategorySelect = (categoryName) => {
+    if (onCategorySelect) {
+      onCategorySelect(categoryName);
+    } else {
+
+    }
+  };
+
+  // Handle hero button clicks
+  const handleHeroCta1 = (slide) => {
+    if (slide.category) {
+      handleCategorySelect(slide.category);
+    }
+  };
+
+  const handleHeroCta2 = (slide) => {
+    if (slide.product && onOpenDetails) {
+      onOpenDetails(slide.product);
+    }
+  };
 
 
 
@@ -20,7 +182,7 @@ const Home = ({ products = [], onAddToCart, onAddToWishlist, onCategorySelect, o
       <section className="relative h-[58vh] sm:h-[64vh] md:h-[85vh] overflow-hidden">
         {/* Slides */}
         <div className="relative w-full h-full">
-          {slides.map((slide, index) => (
+          {finalSlides.map((slide, index) => (
             <div
               key={slide.id}
               className={`absolute inset-0 transition-all duration-1000 ease-in-out ${
@@ -94,7 +256,7 @@ const Home = ({ products = [], onAddToCart, onAddToWishlist, onCategorySelect, o
  
         {/* Slide Indicators */}
         <div className="absolute bottom-4 md:bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2 md:space-x-3 z-10">
-          {slides.map((_, index) => (
+          {finalSlides.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
@@ -112,7 +274,7 @@ const Home = ({ products = [], onAddToCart, onAddToWishlist, onCategorySelect, o
           <div
             className="h-full bg-gradient-to-r from-blue-400 to-purple-400 transition-all duration-4000 ease-linear"
             style={{
-              width: `${((currentSlide + 1) / slides.length) * 100}%`
+              width: `${finalSlides.length ? (((currentSlide + 1) / finalSlides.length) * 100) : 0}%`
             }}
           />
         </div>

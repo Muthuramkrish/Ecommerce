@@ -7,16 +7,16 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
   const discount = Math.round(((oldPrice - newPrice) / oldPrice) * 100);
 
   return (
-    <div 
-      className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden group cursor-pointer"
+    <div
+      className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 overflow-hidden group cursor-pointer h-full flex flex-col"
       onClick={() => onOpenDetails?.(product)}
     >
       {/* Image Container */}
-      <div className="relative overflow-hidden">
+      <div className="relative overflow-hidden h-48">
         <img
           src={product['image-url']}
           alt={product['product-title']}
-          className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-300"
+          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
           onError={(e) => {
             const target = e.target;
             target.src = 'https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=400';
@@ -39,42 +39,24 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
             e.stopPropagation();
             onAddToWishlist?.(product);
           }}
-          className={`absolute top-2 right-2 p-2 rounded-full shadow-md transition-all duration-300 ${
-            isFavorite 
-              ? 'bg-red-500 text-white opacity-100' 
+          className={`absolute top-2 right-2 p-2 rounded-full shadow-md transition-all duration-300 ${isFavorite
+              ? 'bg-red-500 text-white opacity-100'
               : 'bg-white text-gray-600 opacity-0 group-hover:opacity-100 hover:bg-gray-50'
-          }`}
+            }`}
         >
           <Heart className={`w-4 h-4 ${isFavorite ? 'fill-current' : ''}`} />
         </a>
       </div>
 
       {/* Content */}
-      <div className="p-4">
+      <div className="p-4 flex flex-col flex-1">
         <h3 className="font-semibold text-gray-800 mb-2 line-clamp-2 text-sm">
           {product['product-title']}
         </h3>
-        
+
         {product.category && (
           <p className="text-xs text-gray-500 mb-2">{product.category}</p>
         )}
-
-        {/* Rating */}
-        <div className="flex items-center mb-2">
-          <div className="flex items-center">
-            {[...Array(5)].map((_, i) => (
-              <Star
-                key={i}
-                className={`w-3 h-3 ${
-                  i < (product.rating || 4) ? 'text-yellow-400 fill-current' : 'text-gray-300'
-                }`}
-              />
-            ))}
-          </div>
-          <span className="text-xs text-gray-500 ml-1">
-            ({product.reviews || Math.floor(Math.random() * 100) + 10})
-          </span>
-        </div>
 
         {/* Price */}
         <div className="flex items-center justify-between mb-3">
@@ -90,15 +72,15 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
           </div>
         </div>
 
-        {/* Add to Cart Button */}
+        {/* Add to Cart Button pinned at bottom */}
         <a
           href="#cart"
-          onClick={(e) => { 
+          onClick={(e) => {
             e.preventDefault();
-            e.stopPropagation(); 
-            onAddToCart?.(product); 
+            e.stopPropagation();
+            onAddToCart?.(product);
           }}
-          className="w-full bg-blue-900 text-white py-2 px-4 rounded-lg hover:bg-blue-800 transition-colors duration-200 flex items-center justify-center space-x-2 font-medium inline-block"
+          className="w-full bg-blue-900 text-white py-2 px-4 rounded-lg hover:bg-blue-800 transition-colors duration-200 flex items-center justify-center space-x-2 font-medium inline-block mt-auto"
         >
           <ShoppingCart className="w-4 h-4" />
           <span>Add to Cart</span>

@@ -400,13 +400,16 @@ const ProductDetailsPage = ({
                       {Array.isArray(v.images) && v.images.length > 0 && (
                         <div className="flex gap-2 overflow-x-auto">
                           {v.images.map((img, j) => (
-                            <button
+                            <div
                               key={j}
+                              role="button"
+                              tabIndex={0}
                               onClick={(e) => { e.stopPropagation(); setSelectedVariantIndex(i); setSelectedImage(0); }}
-                              className="rounded overflow-hidden border border-gray-200 hover:border-blue-400"
+                              onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); e.stopPropagation(); setSelectedVariantIndex(i); setSelectedImage(0); } }}
+                              className="rounded overflow-hidden border border-gray-200 hover:border-blue-400 cursor-pointer"
                             >
                               <img src={img} alt={`${v.name}-${j}`} className="w-16 h-16 object-cover" />
-                            </button>
+                            </div>
                           ))}
                         </div>
                       )}

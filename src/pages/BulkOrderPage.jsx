@@ -1,21 +1,33 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { ArrowLeft, Plus, Trash2, Package, Users, DollarSign, Truck, Search, ChevronDown } from 'lucide-react';
-import productsData from '../data/product.json';
+import { fetchAllProducts } from '../api/client';
 
 const BulkOrderPage = () => {
-  // Process products data
-  const products = useMemo(() => {
-    const rawSource = Array.isArray(productsData)
-      ? productsData
-      : (productsData && Array.isArray(productsData.products) ? productsData.products : []);
-    
-    return rawSource.map(p => ({
-      id: p?.identifiers?.productId || '',
-      title: p?.characteristics?.title || 'Untitled Product',
-      price: p?.pricing?.basePrice || 0,
-      image: p?.characteristics?.images?.primary?.[0] || '',
-      category: p?.anchor?.subcategory || p?.anchor?.category || 'General'
-    }));
+  const [products, setProducts] = useState([]);
+
+  useEffect(() => {
+    let isMounted = true;
+    (async () => {
+      try {
+        const data = await fetchAllProducts();
+        if (!isMounted) return;
+        const mapped = (Array.isArray(data) ? data : []).map(p => ({
+          id: p?.identifiers?.productId || '',
+          title: p?.characteristics?.title || 'Untitled Product',
+          price: p?.pricing?.basePrice || 0,
+          image: p?.characteristics?.images?.primary?.[0] || '',
+          category: p?.anchor?.subcategory || p?.anchor?.category || 'General',
+          collection: p?.collection || 'Unknown',
+          stock: (p?.inventory?.availableQuantity ?? 0)
+        }));
+        setProducts(mapped);
+      } catch (e) {
+        console.error('Failed to load products for bulk order:', e);
+        if (!isMounted) return;
+        setProducts([]);
+      }
+    })();
+    return () => { isMounted = false; };
   }, []);
 
   const [formData, setFormData] = useState({
@@ -39,7 +51,8 @@ const BulkOrderPage = () => {
         unitPrice: '',
         totalPrice: '',
         searchQuery: '',
-        showDropdown: false
+        showDropdown: false,
+        quantityError: ''
       }
     ]
   });
@@ -70,13 +83,41 @@ const BulkOrderPage = () => {
 
   const handleItemChange = (index, field, value) => {
     const newItems = [...formData.items];
-    newItems[index][field] = value;
+    if (field === 'quantity') {
+      // Allow any number but validate and show error if <10 or > stock
+      newItems[index][field] = value;
+      const selected = products.find(p => p.id === newItems[index].productId);
+      const stock = selected?.stock;
+      const parsed = parseInt(value, 10);
+      let error = '';
+      if (value === '') {
+        error = 'Quantity is required';
+      } else if (isNaN(parsed)) {
+        error = 'Enter a valid number';
+      } else if (parsed < 10) {
+        error = 'Minimum quantity is 10';
+      } else if (stock != null && stock > 0 && parsed > stock) {
+        error = `Only ${stock} available`;
+      }
+      newItems[index].quantityError = error;
+    } else if (field === 'unitPrice') {
+      // Unit price is auto-filled and read-only when product selected; ignore edits
+      const currentItem = newItems[index];
+      if (currentItem.productId) {
+        return; // do not allow manual change after selection
+      }
+      newItems[index][field] = value;
+    } else {
+      newItems[index][field] = value;
+    }
     
     // Calculate total price for this item
     if (field === 'quantity' || field === 'unitPrice') {
-      const quantity = field === 'quantity' ? value : newItems[index].quantity;
-      const unitPrice = field === 'unitPrice' ? value : newItems[index].unitPrice;
-      newItems[index].totalPrice = (parseFloat(quantity) * parseFloat(unitPrice)).toFixed(2) || '';
+      const quantityStr = field === 'quantity' ? value : newItems[index].quantity;
+      const unitPriceStr = field === 'unitPrice' ? value : newItems[index].unitPrice;
+      const q = parseFloat(quantityStr);
+      const u = parseFloat(unitPriceStr);
+      newItems[index].totalPrice = (isFinite(q) && isFinite(u)) ? (q * u).toFixed(2) : '';
     }
     
     setFormData(prev => ({
@@ -103,6 +144,19 @@ const BulkOrderPage = () => {
     newItems[index].unitPrice = product.price.toString();
     newItems[index].searchQuery = product.title;
     newItems[index].showDropdown = false;
+    // If empty, seed quantity to 10, else keep user's value
+    if (!newItems[index].quantity) {
+      newItems[index].quantity = '10';
+    }
+    // Validate and set error
+    const parsed = parseInt(newItems[index].quantity, 10);
+    let error = '';
+    if (isNaN(parsed) || parsed < 10) {
+      error = 'Minimum quantity is 10';
+    } else if (product.stock != null && product.stock > 0 && parsed > product.stock) {
+      error = `Only ${product.stock} available`;
+    }
+    newItems[index].quantityError = error;
     
     // Calculate total price if quantity is already entered
     if (newItems[index].quantity) {
@@ -527,10 +581,13 @@ const BulkOrderPage = () => {
                         value={item.quantity}
                         onChange={(e) => handleItemChange(index, 'quantity', e.target.value)}
                         required
-                        min="1"
-                        className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        step="1"
+                        className={`w-full px-3 py-2 border rounded-lg focus:ring-2 focus:border-transparent ${item.quantityError ? 'border-red-500 focus:ring-red-500' : 'border-gray-300 focus:ring-blue-500'}`}
                         placeholder="Qty"
                       />
+                      {item.quantityError && (
+                        <p className="mt-1 text-xs text-red-600">{item.quantityError}</p>
+                      )}
                     </div>
                     
                     <div>
@@ -543,9 +600,8 @@ const BulkOrderPage = () => {
                         onChange={(e) => handleItemChange(index, 'unitPrice', e.target.value)}
                         step="0.01"
                         min="0"
-                        className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${
-                          item.productId ? 'bg-green-50' : ''
-                        }`}
+                        readOnly={!!item.productId}
+                        className={`w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent ${item.productId ? 'bg-green-50 cursor-not-allowed' : ''}`}
                         placeholder="0.00"
                       />
                     </div>
