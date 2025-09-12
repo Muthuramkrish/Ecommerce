@@ -25,6 +25,7 @@ const CategoryListPage = ({
   const [sortedProducts, setSortedProducts] = React.useState(products);
   const [showFilters, setShowFilters] = React.useState(false);
   const [isDesktop, setIsDesktop] = React.useState(typeof window !== 'undefined' ? window.innerWidth >= 1024 : false);
+  const [showBackToTop, setShowBackToTop] = React.useState(false);
   const subcategorySectionRef = React.useRef(null);
 
   React.useEffect(() => {
@@ -33,20 +34,21 @@ const CategoryListPage = ({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Ensure subcategory filter is visible when arriving on category page
+  // Handle scroll events for back to top button
   React.useEffect(() => {
-    // Auto-open filters on mobile and scroll to subcategory section
+    const handleScroll = () => {
+      setShowBackToTop(window.pageYOffset > 300);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Auto-open filters on mobile (removed auto-scroll to subcategory to preserve scroll-to-top)
+  React.useEffect(() => {
     if (!isDesktop) {
       setShowFilters(true);
     }
-    const id = window.setTimeout(() => {
-      try {
-        if (subcategorySectionRef.current) {
-          subcategorySectionRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      } catch (_) { }
-    }, 150);
-    return () => window.clearTimeout(id);
   }, [isDesktop]);
 
   // Derived prices
@@ -1134,6 +1136,35 @@ const CategoryListPage = ({
           </div>
         </div>
       </div>
+
+      {/* Back to Top Button */}
+      {showBackToTop && (
+        <button
+          onClick={() => {
+            window.scrollTo({
+              top: 0,
+              left: 0,
+              behavior: 'smooth'
+            });
+          }}
+          className="fixed bottom-6 right-6 z-50 bg-blue-900 hover:bg-blue-800 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110"
+          aria-label="Back to top"
+        >
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 10l7-7m0 0l7 7m-7-7v18"
+            />
+          </svg>
+        </button>
+      )}
     </div>
   );
 };
