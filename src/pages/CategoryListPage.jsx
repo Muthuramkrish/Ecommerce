@@ -70,6 +70,9 @@ const CategoryListPage = ({
   const [selectedDiscountBucket, setSelectedDiscountBucket] = React.useState(0); // 0, 10, 25, 50
   const [showOnlyInStock, setShowOnlyInStock] = React.useState(false);
   const [filteredProducts, setFilteredProducts] = React.useState(products);
+  
+  // State for tracking selected variants per product
+  const [selectedVariants, setSelectedVariants] = React.useState({});
 
   // Sync selected filters when route-provided initialFilters or category changes
   React.useEffect(() => {
@@ -474,6 +477,69 @@ const CategoryListPage = ({
   const calculateDiscount = (oldPrice, newPrice) => {
     const discount = ((oldPrice - newPrice) / oldPrice) * 100;
     return Math.round(discount);
+  };
+
+  // Helper function to get display image for a product
+  const getDisplayImage = (product, index) => {
+    const productKey = `${product['product-title']}-${index}`;
+    const selectedVariantIndex = selectedVariants[productKey];
+    const variants = product.raw?.classification?.variants || [];
+    
+    if (selectedVariantIndex !== undefined && variants[selectedVariantIndex]) {
+      const variant = variants[selectedVariantIndex];
+      if (Array.isArray(variant.images) && variant.images.length > 0) {
+        return variant.images[0];
+      }
+    }
+    
+    return product["image-url"];
+  };
+
+  // Helper function to get display price for a product
+  const getDisplayPrice = (product, index, priceType = 'new') => {
+    const productKey = `${product['product-title']}-${index}`;
+    const selectedVariantIndex = selectedVariants[productKey];
+    const variants = product.raw?.classification?.variants || [];
+    
+    if (selectedVariantIndex !== undefined && variants[selectedVariantIndex]) {
+      const variant = variants[selectedVariantIndex];
+      if (variant.price != null) {
+        return variant.price;
+      }
+      // If variant has pricing information in different structure
+      if (variant.pricing && variant.pricing.basePrice != null) {
+        return variant.pricing.basePrice;
+      }
+    }
+    
+    return product[priceType === 'new' ? 'new-price' : 'old-price'];
+  };
+
+  // Helper function to get unique variant images (removes duplicates)
+  const getUniqueVariantImages = (variants) => {
+    const seen = new Set();
+    const uniqueVariants = [];
+    
+    variants.forEach((variant, index) => {
+      if (Array.isArray(variant.images) && variant.images.length > 0) {
+        const firstImage = variant.images[0];
+        if (!seen.has(firstImage)) {
+          seen.add(firstImage);
+          uniqueVariants.push({ ...variant, originalIndex: index });
+        }
+      }
+    });
+    
+    return uniqueVariants;
+  };
+
+  // Handle variant selection
+  const handleVariantSelect = (product, productIndex, variantIndex) => {
+    const productKey = `${product['product-title']}-${productIndex}`;
+    setSelectedVariants(prev => ({
+      ...prev,
+      [productKey]: variantIndex
+    }));
   };
 
   const handleBrandToggle = (brand) => {
@@ -921,15 +987,15 @@ const CategoryListPage = ({
                           {/* Image Container */}
                           <div className="relative h-40 overflow-hidden">
                             <img
-                              src={product["image-url"]}
+                              src={getDisplayImage(product, index)}
                               alt={product["product-title"]}
                               className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                             />
-                            {product["old-price"] !== product["new-price"] && (
+                            {getDisplayPrice(product, index, 'old') !== getDisplayPrice(product, index, 'new') && (
                               <div className="absolute top-2.5 left-2.5 bg-red-500 text-white px-2 py-0.5 rounded-full text-xs font-semibold">
                                 {calculateDiscount(
-                                  parseInt(product["old-price"]),
-                                  parseInt(product["new-price"])
+                                  parseInt(getDisplayPrice(product, index, 'old')),
+                                  parseInt(getDisplayPrice(product, index, 'new'))
                                 )}
                                 % OFF
                               </div>
@@ -970,25 +1036,31 @@ const CategoryListPage = ({
                             {Array.isArray(product.raw?.classification?.variants) &&
                               product.raw.classification.variants.length > 0 && (
                                 <div className="mt-1.5 flex items-center gap-2 overflow-x-auto">
-                                  {product.raw.classification.variants
+                                  {getUniqueVariantImages(product.raw.classification.variants)
                                     .slice(0, 6)
                                     .map((v, vi) => {
-                                      const thumb =
-                                        Array.isArray(v.images) && v.images.length > 0
-                                          ? v.images[0]
-                                          : null;
-                                      if (!thumb) return null;
+                                      const productKey = `${product['product-title']}-${index}`;
+                                      const isSelected = selectedVariants[productKey] === v.originalIndex;
+                                      const thumb = v.images[0];
                                       return (
-                                        <div
+                                        <button
                                           key={vi}
-                                          className="w-8 h-8 rounded border border-gray-200 hover:border-blue-400 overflow-hidden flex-shrink-0"
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleVariantSelect(product, index, v.originalIndex);
+                                          }}
+                                          className={`w-8 h-8 rounded border overflow-hidden flex-shrink-0 transition-all ${
+                                            isSelected 
+                                              ? 'border-blue-500 ring-2 ring-blue-200' 
+                                              : 'border-gray-200 hover:border-blue-400'
+                                          }`}
                                         >
                                           <img
                                             src={thumb}
                                             alt={v.name || `variant-${vi}`}
                                             className="w-full h-full object-cover"
                                           />
-                                        </div>
+                                        </button>
                                       );
                                     })}
                                 </div>
@@ -998,11 +1070,11 @@ const CategoryListPage = ({
                             <div className="flex items-center justify-between mb-2 mt-1.5">
                               <div className="flex items-center space-x-2">
                                 <span className="text-lg font-bold text-gray-900">
-                                  {formatPrice(product["new-price"])}
+                                  {formatPrice(getDisplayPrice(product, index, 'new'))}
                                 </span>
-                                {product["old-price"] !== product["new-price"] && (
+                                {getDisplayPrice(product, index, 'old') !== getDisplayPrice(product, index, 'new') && (
                                   <span className="text-sm text-gray-500 line-through">
-                                    {formatPrice(product["old-price"])}
+                                    {formatPrice(getDisplayPrice(product, index, 'old'))}
                                   </span>
                                 )}
                               </div>
@@ -1025,15 +1097,15 @@ const CategoryListPage = ({
                         <div className="flex items-center p-4 space-x-4">
                           <div className="relative w-24 h-24 flex-shrink-0 overflow-hidden rounded-lg">
                             <img
-                              src={product["image-url"]}
+                              src={getDisplayImage(product, index)}
                               alt={product["product-title"]}
                               className="w-full h-full object-cover"
                             />
-                            {product["old-price"] !== product["new-price"] && (
+                            {getDisplayPrice(product, index, 'old') !== getDisplayPrice(product, index, 'new') && (
                               <div className="absolute top-1 left-1 bg-red-500 text-white px-1 py-0.5 rounded text-xs font-semibold">
                                 {calculateDiscount(
-                                  parseInt(product["old-price"]),
-                                  parseInt(product["new-price"])
+                                  parseInt(getDisplayPrice(product, index, 'old')),
+                                  parseInt(getDisplayPrice(product, index, 'new'))
                                 )}
                                 %
                               </div>
@@ -1047,36 +1119,42 @@ const CategoryListPage = ({
                             {Array.isArray(product.raw?.classification?.variants) &&
                               product.raw.classification.variants.length > 0 && (
                                 <div className="mt-1 flex items-center gap-2 overflow-x-auto">
-                                  {product.raw.classification.variants
+                                  {getUniqueVariantImages(product.raw.classification.variants)
                                     .slice(0, 6)
                                     .map((v, vi) => {
-                                      const thumb =
-                                        Array.isArray(v.images) && v.images.length > 0
-                                          ? v.images[0]
-                                          : null;
-                                      if (!thumb) return null;
+                                      const productKey = `${product['product-title']}-${index}`;
+                                      const isSelected = selectedVariants[productKey] === v.originalIndex;
+                                      const thumb = v.images[0];
                                       return (
-                                        <div
+                                        <button
                                           key={vi}
-                                          className="w-7 h-7 rounded border border-gray-200 hover:border-blue-400 overflow-hidden flex-shrink-0"
+                                          onClick={(e) => {
+                                            e.stopPropagation();
+                                            handleVariantSelect(product, index, v.originalIndex);
+                                          }}
+                                          className={`w-7 h-7 rounded border overflow-hidden flex-shrink-0 transition-all ${
+                                            isSelected 
+                                              ? 'border-blue-500 ring-2 ring-blue-200' 
+                                              : 'border-gray-200 hover:border-blue-400'
+                                          }`}
                                         >
                                           <img
                                             src={thumb}
                                             alt={v.name || `variant-${vi}`}
                                             className="w-full h-full object-cover"
                                           />
-                                        </div>
+                                        </button>
                                       );
                                     })}
                                 </div>
                               )}
                             <div className="flex items-center space-x-3 mb-2">
                               <span className="text-lg font-bold text-gray-900">
-                                {formatPrice(product["new-price"])}
+                                {formatPrice(getDisplayPrice(product, index, 'new'))}
                               </span>
-                              {product["old-price"] !== product["new-price"] && (
+                              {getDisplayPrice(product, index, 'old') !== getDisplayPrice(product, index, 'new') && (
                                 <span className="text-sm text-gray-500 line-through">
-                                  {formatPrice(product["old-price"])}
+                                  {formatPrice(getDisplayPrice(product, index, 'old'))}
                                 </span>
                               )}
                             </div>
