@@ -686,14 +686,14 @@ const CategoryListPage = ({
             </div>
 
             {/* View Controls */}
-            <div className="flex items-center space-x-3 md:space-x-4">
+            <div className="flex items-center space-x-2 md:space-x-4 flex-wrap gap-y-2">
               {/* Mobile Filter Button */}
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="lg:hidden flex items-center space-x-2 bg-blue-900 text-white px-3 py-2 rounded-lg hover:bg-blue-800 transition-colors text-sm"
+                className="lg:hidden flex items-center space-x-2 bg-blue-900 text-white px-3 py-2 rounded-lg hover:bg-blue-800 transition-colors text-sm flex-shrink-0"
               >
                 <Filter className="w-4 h-4" />
-                <span>Filters</span>
+                <span className="hidden xs:inline">Filters</span>
                 {activeFiltersCount > 0 && (
                   <span className="bg-white text-blue-900 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
                     {activeFiltersCount}
@@ -701,8 +701,22 @@ const CategoryListPage = ({
                 )}
               </button>
 
+              {/* Mobile Sort Dropdown */}
+              <div className="sm:hidden">
+                <select
+                  value={sortBy}
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="border border-gray-300 rounded-lg px-2 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                >
+                  <option value="name">Name</option>
+                  <option value="price-low">Low to High</option>
+                  <option value="price-high">High to Low</option>
+                </select>
+              </div>
+
+              {/* Desktop Sort */}
               <div className="hidden sm:flex items-center space-x-2">
-                <span className="text-sm text-gray-600">Sort by:</span>
+                <span className="text-sm text-gray-600 whitespace-nowrap">Sort by:</span>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
@@ -714,16 +728,17 @@ const CategoryListPage = ({
                 </select>
               </div>
 
-              <div className="hidden sm:flex border border-gray-300 rounded-lg overflow-hidden">
+              {/* View Mode Toggle */}
+              <div className="flex border border-gray-300 rounded-lg overflow-hidden">
                 <button
                   onClick={() => setViewMode('grid')}
-                  className={`p-2 ${viewMode === 'grid' ? 'bg-blue-900 text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
+                  className={`p-2 transition-colors ${viewMode === 'grid' ? 'bg-blue-900 text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
                 >
                   <Grid className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => setViewMode('list')}
-                  className={`p-2 ${viewMode === 'list' ? 'bg-blue-900 text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
+                  className={`p-2 transition-colors ${viewMode === 'list' ? 'bg-blue-900 text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
                 >
                   <List className="w-4 h-4" />
                 </button>
@@ -754,14 +769,15 @@ const CategoryListPage = ({
           {/* Mobile Filter Overlay */}
           {showFilters && (
             <div className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-50">
-              <div className="absolute right-0 top-0 h-full w-72 sm:w-80 bg-white shadow-xl overflow-y-auto">
-                <div className="p-6">
-                  <div className="flex items-center justify-between mb-6">
+              <div className="absolute right-0 top-0 h-full w-80 sm:w-96 bg-white shadow-xl overflow-y-auto">
+                <div className="p-4 pb-6">
+                  <div className="flex items-center justify-between mb-6 sticky top-0 bg-white py-2 border-b border-gray-100">
+                    <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
                     <button
                       onClick={() => setShowFilters(false)}
-                      className="text-gray-400 hover:text-gray-600"
+                      className="text-gray-400 hover:text-gray-600 p-1"
                     >
-                      <X className="w-5 h-5" />
+                      <X className="w-6 h-6" />
                     </button>
                   </div>
                   <FilterPanel
@@ -819,7 +835,7 @@ const CategoryListPage = ({
           {/* Desktop Filter Sidebar (render only on desktop to avoid duplicate on mobile) */}
           {isDesktop && (
             <div className="hidden lg:block w-80 flex-shrink-0">
-              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pr-2">
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-4 max-h-[calc(100vh-2rem)] overflow-y-auto">
                 <FilterPanel
                   priceRange={priceRange}
                   setPriceRange={setPriceRange}
@@ -890,11 +906,13 @@ const CategoryListPage = ({
             ) : (
               <>
                 {/* Result meta and pagination top */}
-                <div className="flex items-center justify-between mb-4 text-sm text-gray-600">
-                  <div>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4 text-sm text-gray-600">
+                  <div className="text-center sm:text-left">
                     Showing <span className="font-medium text-gray-900">{currentStart + 1}</span> – <span className="font-medium text-gray-900">{currentEnd}</span> of <span className="font-medium text-gray-900">{totalResults}</span> results
                   </div>
-                  <Pagination currentPage={currentPage} totalPages={totalPages} onChange={setCurrentPage} />
+                  <div className="flex justify-center sm:justify-end">
+                    <Pagination currentPage={currentPage} totalPages={totalPages} onChange={setCurrentPage} />
+                  </div>
                 </div>
 
                 {isFiltering ? (
@@ -905,7 +923,7 @@ const CategoryListPage = ({
                   <div
                     className={
                       viewMode === "grid"
-                        ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 md:gap-8 lg:gap-10 items-stretch"
+                        ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6 md:gap-8 items-stretch"
                         : "space-y-4"
                     }
                   >
@@ -923,7 +941,7 @@ const CategoryListPage = ({
                         // 🌟 Grid View
                         <>
                           {/* Image Container */}
-                          <div className="relative h-40 overflow-hidden">
+                          <div className="relative h-48 sm:h-52 lg:h-56 overflow-hidden">
                             <img
                               src={product.__activeImage || product["image-url"]}
                               alt={product["product-title"]}
@@ -1146,18 +1164,20 @@ const CategoryListPage = ({
                 )}
 
                 {/* Pagination bottom */}
-                <div className="flex items-center justify-between mt-6 text-sm text-gray-600">
-                  <div>
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mt-6 text-sm text-gray-600">
+                  <div className="text-center sm:text-left">
                     Showing <span className="font-medium text-gray-900">{currentStart + 1}</span> – <span className="font-medium text-gray-900">{currentEnd}</span> of <span className="font-medium text-gray-900">{totalResults}</span> results
                   </div>
-                  <Pagination
-                    currentPage={currentPage}
-                    totalPages={totalPages}
-                    onChange={(p) => {
-                      setCurrentPage(p);
-                      window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-                    }}
-                  />
+                  <div className="flex justify-center sm:justify-end">
+                    <Pagination
+                      currentPage={currentPage}
+                      totalPages={totalPages}
+                      onChange={(p) => {
+                        setCurrentPage(p);
+                        window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+                      }}
+                    />
+                  </div>
                 </div>
               </>
             )}
@@ -1248,7 +1268,7 @@ const FilterPanel = ({
                 <button
                   key={threshold}
                   onClick={() => setPriceRange([minPrice, threshold])}
-                  className={`text-xs px-2.5 py-1 rounded-full border ${priceRange[0] === minPrice && priceRange[1] === threshold
+                  className={`text-xs px-2.5 py-1.5 rounded-full border transition-colors ${priceRange[0] === minPrice && priceRange[1] === threshold
                     ? 'bg-blue-900 text-white border-blue-900'
                     : 'bg-gray-100 hover:bg-gray-200 text-gray-800 border-gray-200'
                     }`}
@@ -1259,7 +1279,7 @@ const FilterPanel = ({
             {/* Any */}
             <button
               onClick={() => setPriceRange([minPrice, maxPrice])}
-              className={`text-xs px-2.5 py-1 rounded-full border ${priceRange[0] === minPrice && priceRange[1] === maxPrice
+              className={`text-xs px-2.5 py-1.5 rounded-full border transition-colors ${priceRange[0] === minPrice && priceRange[1] === maxPrice
                 ? 'bg-blue-900 text-white border-blue-900'
                 : 'bg-gray-100 hover:bg-gray-200 text-gray-800 border-gray-200'
                 }`}
@@ -1628,46 +1648,48 @@ const FilterPanel = ({
 const Pagination = ({ currentPage, totalPages, onChange }) => {
   const go = (p) => onChange(Math.min(Math.max(1, p), totalPages));
   const pages = [];
-  const start = Math.max(1, currentPage - 2);
-  const end = Math.min(totalPages, currentPage + 2);
+  const start = Math.max(1, currentPage - 1);
+  const end = Math.min(totalPages, currentPage + 1);
   for (let i = start; i <= end; i++) pages.push(i);
 
   return (
-    <div className="flex items-center gap-1">
+    <div className="flex items-center gap-1 text-sm sm:text-base">
       <button
         onClick={() => go(currentPage - 1)}
-        className="px-2 py-1 rounded border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50"
+        className="px-2 sm:px-3 py-1 sm:py-2 rounded border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50 transition-colors"
         disabled={currentPage === 1}
       >
-        Prev
+        <span className="hidden sm:inline">Prev</span>
+        <span className="sm:hidden">‹</span>
       </button>
       {start > 1 && (
         <>
-          <button onClick={() => go(1)} className={`px-3 py-1 rounded border ${currentPage === 1 ? 'bg-blue-900 text-white border-blue-900' : 'bg-white hover:bg-gray-50 border-gray-300'}`}>1</button>
-          {start > 2 && <span className="px-1">…</span>}
+          <button onClick={() => go(1)} className={`px-2 sm:px-3 py-1 sm:py-2 rounded border transition-colors ${currentPage === 1 ? 'bg-blue-900 text-white border-blue-900' : 'bg-white hover:bg-gray-50 border-gray-300'}`}>1</button>
+          {start > 2 && <span className="px-1 text-gray-400">…</span>}
         </>
       )}
       {pages.map(p => (
         <button
           key={p}
           onClick={() => go(p)}
-          className={`px-3 py-1 rounded border ${currentPage === p ? 'bg-blue-900 text-white border-blue-900' : 'bg-white hover:bg-gray-50 border-gray-300'}`}
+          className={`px-2 sm:px-3 py-1 sm:py-2 rounded border transition-colors ${currentPage === p ? 'bg-blue-900 text-white border-blue-900' : 'bg-white hover:bg-gray-50 border-gray-300'}`}
         >
           {p}
         </button>
       ))}
       {end < totalPages && (
         <>
-          {end < totalPages - 1 && <span className="px-1">…</span>}
-          <button onClick={() => go(totalPages)} className={`px-3 py-1 rounded border ${currentPage === totalPages ? 'bg-blue-900 text-white border-blue-900' : 'bg-white hover:bg-gray-50 border-gray-300'}`}>{totalPages}</button>
+          {end < totalPages - 1 && <span className="px-1 text-gray-400">…</span>}
+          <button onClick={() => go(totalPages)} className={`px-2 sm:px-3 py-1 sm:py-2 rounded border transition-colors ${currentPage === totalPages ? 'bg-blue-900 text-white border-blue-900' : 'bg-white hover:bg-gray-50 border-gray-300'}`}>{totalPages}</button>
         </>
       )}
       <button
         onClick={() => go(currentPage + 1)}
-        className="px-2 py-1 rounded border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50"
+        className="px-2 sm:px-3 py-1 sm:py-2 rounded border border-gray-300 bg-white hover:bg-gray-50 disabled:opacity-50 transition-colors"
         disabled={currentPage === totalPages}
       >
-        Next
+        <span className="hidden sm:inline">Next</span>
+        <span className="sm:hidden">›</span>
       </button>
     </div>
   );
