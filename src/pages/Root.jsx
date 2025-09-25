@@ -17,6 +17,8 @@ import Returns from './Returns';
 import ShippingInfo from './ShippingInfo';
 import TrackOrder from './TrackOrder';
 import Warranty from './Warranty';
+import TermsOfService from './TermsOfService';
+import PrivacyPolicy from './PrivacyPolicy';
 import LoadingPage from '../components/LoadingPage'; // Add LoadingPage component import
 import { fetchAllProducts } from '../api/client';
 
@@ -78,6 +80,8 @@ function Root() {
   const [showShippingInfoPage, setShowShippingInfoPage] = useState(false);
   const [showTrackOrderPage, setShowTrackOrderPage] = useState(false);
   const [showWarrantyPage, setShowWarrantyPage] = useState(false);
+  const [showTermsOfServicePage, setShowTermsOfServicePage] = useState(false);
+  const [showPrivacyPolicyPage, setShowPrivacyPolicyPage] = useState(false);
   const [previousPage, setPreviousPage] = useState('home');
   const [initialCategoryFilters, setInitialCategoryFilters] = useState({ brand: [], subcategory: [], subSubcategory: [], productType: [] });
   const [rawSource, setRawSource] = useState([]);
@@ -135,6 +139,8 @@ function Root() {
     setShowShippingInfoPage(false);
     setShowTrackOrderPage(false);
     setShowWarrantyPage(false);
+    setShowTermsOfServicePage(false);
+    setShowPrivacyPolicyPage(false);
 
     switch (route) {
       case 'cart':
@@ -172,6 +178,12 @@ function Root() {
         break;
       case 'warranty':
         setShowWarrantyPage(true);
+        break;
+      case 'terms':
+        setShowTermsOfServicePage(true);
+        break;
+      case 'privacy':
+        setShowPrivacyPolicyPage(true);
         break;
       case 'category': {
         const categoryParam = rest[0] || '';
@@ -719,6 +731,16 @@ function Root() {
     setHash('warranty');
     scrollToTop();
   };
+  const handleTermsOfServiceClick = () => {
+    setShowTermsOfServicePage(true);
+    setHash('terms');
+    scrollToTop();
+  };
+  const handlePrivacyPolicyClick = () => {
+    setShowPrivacyPolicyPage(true);
+    setHash('privacy');
+    scrollToTop();
+  };
 
   const handleSearchChange = (query) => {
     setSearchQuery(query);
@@ -748,6 +770,8 @@ function Root() {
     setShowAboutPage(false); // Reset About page
     setShowContactPage(false); // Reset Contact page
     setShowBulkOrderPage(false); // Reset BulkOrderPage
+    setShowTermsOfServicePage(false); // Reset Terms page
+    setShowPrivacyPolicyPage(false); // Reset Privacy page
     setHash('home');
     scrollToTop();
   };
@@ -875,6 +899,22 @@ function Root() {
           <TrackOrder />
         ) : showWarrantyPage ? (
           <Warranty />
+        ) : showTermsOfServicePage ? (
+          <TermsOfService 
+            onBack={() => {
+              setShowTermsOfServicePage(false);
+              setHash('home');
+              scrollToTop();
+            }}
+          />
+        ) : showPrivacyPolicyPage ? (
+          <PrivacyPolicy 
+            onBack={() => {
+              setShowPrivacyPolicyPage(false);
+              setHash('home');
+              scrollToTop();
+            }}
+          />
         ) : showCartPage ? (
           <CartPage
             items={cartItems}
@@ -1035,6 +1075,8 @@ function Root() {
            onTrackOrderClick={handleTrackOrderClick}
            onWarrantyClick={handleWarrantyClick}
            onBulkOrderClick={handleBulkOrderClick}
+           onPrivacyPolicyClick={handlePrivacyPolicyClick}
+           onTermsOfServiceClick={handleTermsOfServiceClick}
          />
        )}
          </>

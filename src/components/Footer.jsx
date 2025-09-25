@@ -12,7 +12,9 @@ const Footer = ({
   onShippingClick,
   onTrackOrderClick,
   onWarrantyClick,
-  onBulkOrderClick
+  onBulkOrderClick,
+  onPrivacyPolicyClick,
+  onTermsOfServiceClick
 }) => {
   return (
     <footer className="bg-blue-900 text-white">
@@ -109,7 +111,20 @@ const Footer = ({
         {/* Bottom Bar */}
         <div className="border-t border-blue-800 mt-8 pt-8 text-center">
           <p className="text-blue-200">
-            © 2025 VIKOSHIYA. All rights reserved. | Privacy Policy | Terms of Service
+            © 2025 VIKOSHIYA. All rights reserved. | {' '}
+            <button 
+              onClick={onPrivacyPolicyClick} 
+              className="text-blue-200 hover:text-white transition-colors underline"
+            >
+              Privacy Policy
+            </button>
+            {' '} | {' '}
+            <button 
+              onClick={onTermsOfServiceClick} 
+              className="text-blue-200 hover:text-white transition-colors underline"
+            >
+              Terms of Service
+            </button>
           </p>
         </div>
       </div>
