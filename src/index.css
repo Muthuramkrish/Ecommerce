@@ -62,4 +62,48 @@
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
+
+  /* Scrollbar hide utility */
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Smooth touch scrolling for mobile */
+  .touch-scroll {
+    -webkit-overflow-scrolling: touch;
+    scroll-behavior: smooth;
+  }
+
+  /* Enhanced focus styles for accessibility */
+  .focus-visible:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+
+  /* Categories grid responsive animations */
+  @media (prefers-reduced-motion: no-preference) {
+    .category-card {
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .category-card:hover {
+      transform: translateY(-4px);
+    }
+    
+    .category-card:active {
+      transform: translateY(-2px);
+    }
+  }
+
+  /* Ensure proper touch targets on mobile */
+  @media (max-width: 768px) {
+    .category-card {
+      min-height: 44px;
+    }
+  }
   

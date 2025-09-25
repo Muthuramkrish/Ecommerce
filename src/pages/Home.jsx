@@ -1,8 +1,9 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Zap } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
+import CategorySkeleton from '../components/CategorySkeleton';
 
-const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, onCategorySelect, onOpenDetails, favorites = [], categories = [] }) => {
+const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, onCategorySelect, onOpenDetails, favorites = [], categories = [], isLoadingCategories = false }) => {
   // Hero component state
   const [currentSlide, setCurrentSlide] = useState(0);
   
@@ -162,8 +163,9 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
   // Categories scroll functions
   const scrollLeft = () => {
     if (scrollContainer.current) {
+      const cardWidth = window.innerWidth >= 1280 ? 284 : 264; // xl:gap-6 vs gap-4 + card width
       scrollContainer.current.scrollBy({
-        left: -280, // Width of one card
+        left: -cardWidth,
         behavior: 'smooth'
       });
     }
@@ -171,8 +173,9 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
 
   const scrollRight = () => {
     if (scrollContainer.current) {
+      const cardWidth = window.innerWidth >= 1280 ? 284 : 264; // xl:gap-6 vs gap-4 + card width
       scrollContainer.current.scrollBy({
-        left: 280, // Width of one card
+        left: cardWidth,
         behavior: 'smooth'
       });
     }
@@ -319,112 +322,185 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
       </section>
 
       {/* Categories Section */}
-      <section className="py-8 md:py-16 bg-white" id="categories">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4">Shop by Category</h2>
-            <p className="text-sm md:text-base text-gray-600 max-w-2xl mx-auto px-4">
-              Explore our comprehensive range of electrical products organized by category
-            </p>
-          </div>
+      <section className="py-6 sm:py-8 md:py-12 lg:py-16 bg-white" id="categories">
+        <div className="max-w-7xl mx-auto px-3 sm:px-4 md:px-6 lg:px-8">
+          {isLoadingCategories || defaultCategories.length === 0 ? (
+            <CategorySkeleton />
+          ) : (
+            <>
+              <div className="text-center mb-6 sm:mb-8 md:mb-10 lg:mb-12">
+                <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 mb-2 sm:mb-3 md:mb-4">Shop by Category</h2>
+                <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-3xl mx-auto px-2 sm:px-4">
+                  Explore our comprehensive range of electrical products organized by category. Find exactly what you need with our intuitive browsing experience.
+                </p>
+              </div>
 
-          <div className="relative">
-            {/* Left Arrow */}
+              <div className="relative">
+            {/* Left Arrow - Desktop & Large Tablet */}
             {canScrollLeft && (
               <button
                 onClick={scrollLeft}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-xl rounded-full p-3 hover:bg-gray-50 transition-all duration-200 border border-gray-200 hover:scale-110"
-                aria-label="Scroll left"
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-xl rounded-full p-2 sm:p-3 hover:bg-gray-50 transition-all duration-200 border border-gray-200 hover:scale-110 hidden lg:flex items-center justify-center"
+                aria-label="Scroll categories left"
               >
-                <ChevronLeft className="w-6 h-6 text-gray-700" />
+                <ChevronLeft className="w-5 h-5 lg:w-6 lg:h-6 text-gray-700" />
               </button>
             )}
 
-            {/* Right Arrow */}
+            {/* Right Arrow - Desktop & Large Tablet */}
             {canScrollRight && (
               <button
                 onClick={scrollRight}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-xl rounded-full p-3 hover:bg-gray-50 transition-all duration-200 border border-gray-200 hover:scale-110"
-                aria-label="Scroll right"
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-xl rounded-full p-2 sm:p-3 hover:bg-gray-50 transition-all duration-200 border border-gray-200 hover:scale-110 hidden lg:flex items-center justify-center"
+                aria-label="Scroll categories right"
               >
-                <ChevronRight className="w-6 h-6 text-gray-700" />
+                <ChevronRight className="w-5 h-5 lg:w-6 lg:h-6 text-gray-700" />
               </button>
             )}
 
-            {/* Desktop: Horizontal Scrollable Container */}
-            <div className="hidden md:block">
+            {/* Desktop & Large Tablet: Horizontal Scrollable Container */}
+            <div className="hidden lg:block">
               <div
                 ref={scrollContainer}
-                className="flex overflow-x-auto scrollbar-hide gap-6 px-12 py-4"
+                className="flex overflow-x-auto scrollbar-hide gap-4 xl:gap-6 px-8 xl:px-12 py-4"
                 style={{
                   scrollbarWidth: 'none',
                   msOverflowStyle: 'none',
                 }}
               >
                 {defaultCategories.map((category) => (
-                  <a
+                  <button
                     key={category.id}
-                    href={`#category-${category.id}`}
-                    onClick={(e) => {
-                      e.preventDefault();
-                      handleCategorySelect(category.name);
-                    }}
-                    className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-3 border border-gray-100 flex-shrink-0 overflow-hidden block"
-                    style={{ width: '280px', height: '220px' }}
+                    onClick={() => handleCategorySelect(category.name)}
+                    className="group bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-3 border border-gray-100 flex-shrink-0 overflow-hidden focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                    style={{ width: '260px', height: '200px' }}
+                    aria-label={`Browse ${category.name} category with ${category.productCount} products`}
                   >
-                    <div className="relative h-32 overflow-hidden">
+                    <div className="relative h-28 overflow-hidden">
                       <img
                         src={category.image}
-                        alt={category.name}
+                        alt={`${category.name} category`}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        loading="lazy"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-blue-900/40 to-transparent"></div>
+                      <div className="absolute bottom-2 left-2 right-2">
+                        <span className="inline-block bg-white/20 backdrop-blur-sm text-white text-xs px-2 py-1 rounded-full font-medium">
+                          {category.productCount} items
+                        </span>
+                      </div>
                     </div>
-                    <div className="p-6 text-center">
-                      <h3 className="font-bold text-gray-900 mb-2 text-lg leading-tight group-hover:text-blue-900 transition-colors">
+                    <div className="p-4 text-center">
+                      <h3 className="font-bold text-gray-900 mb-1 text-base leading-tight group-hover:text-blue-900 transition-colors line-clamp-2">
                         {category.name}
                       </h3>
                       <p className="text-sm text-gray-500 font-medium">
-                        {category.productCount} products
+                        Browse Collection
                       </p>
                     </div>
-                  </a>
+                  </button>
                 ))}
               </div>
             </div>
 
-            {/* Mobile: 2 Grid Layout */}
-            <div className="md:hidden grid grid-cols-2 gap-3">
-              {defaultCategories.slice(0, 4).map((category) => (
-                <a
+            {/* Medium Tablet: 3 Column Grid */}
+            <div className="hidden md:grid lg:hidden grid-cols-3 gap-3 sm:gap-4">
+              {defaultCategories.slice(0, 6).map((category) => (
+                <button
                   key={category.id}
-                  href={`#category-${category.id}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    handleCategorySelect(category.name);
-                  }}
-                  className="group bg-white rounded-lg shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 overflow-hidden block"
+                  onClick={() => handleCategorySelect(category.name)}
+                  className="group bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 border border-gray-100 overflow-hidden focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2"
+                  aria-label={`Browse ${category.name} category with ${category.productCount} products`}
                 >
-                  <div className="relative h-20 overflow-hidden">
+                  <div className="relative h-24 sm:h-28 overflow-hidden">
                     <img
                       src={category.image}
-                      alt={category.name}
+                      alt={`${category.name} category`}
                       className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      loading="lazy"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-blue-900/40 to-transparent"></div>
                   </div>
-                  <div className="p-3 text-center">
-                    <h3 className="font-semibold text-gray-900 mb-1 text-xs leading-tight group-hover:text-blue-900 transition-colors">
+                  <div className="p-3 sm:p-4 text-center">
+                    <h3 className="font-semibold text-gray-900 mb-1 text-sm sm:text-base leading-tight group-hover:text-blue-900 transition-colors line-clamp-2">
                       {category.name}
                     </h3>
-                    <p className="text-xs text-gray-500 font-medium">
+                    <p className="text-xs sm:text-sm text-gray-500 font-medium">
                       {category.productCount} products
                     </p>
                   </div>
-                </a>
+                </button>
               ))}
             </div>
+
+            {/* Small Tablet & Mobile: 2 Column Grid */}
+            <div className="grid grid-cols-2 gap-2 sm:gap-3 md:hidden">
+              {defaultCategories.slice(0, 6).map((category) => (
+                <button
+                  key={category.id}
+                  onClick={() => handleCategorySelect(category.name)}
+                  className="group bg-white rounded-lg sm:rounded-xl shadow-md hover:shadow-lg transition-all duration-300 transform active:scale-95 border border-gray-100 overflow-hidden focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-1"
+                  aria-label={`Browse ${category.name} category with ${category.productCount} products`}
+                >
+                  <div className="relative h-16 sm:h-20 overflow-hidden">
+                    <img
+                      src={category.image}
+                      alt={`${category.name} category`}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                      loading="lazy"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-blue-900/40 to-transparent"></div>
+                  </div>
+                  <div className="p-2 sm:p-3 text-center">
+                    <h3 className="font-semibold text-gray-900 mb-0.5 sm:mb-1 text-xs sm:text-sm leading-tight group-hover:text-blue-900 transition-colors line-clamp-2">
+                      {category.name}
+                    </h3>
+                    <p className="text-xs text-gray-500 font-medium">
+                      {category.productCount} items
+                    </p>
+                  </div>
+                </button>
+              ))}
+            </div>
+
+            {/* Show More Categories Button for Mobile/Tablet */}
+            {defaultCategories.length > 6 && (
+              <div className="text-center mt-4 sm:mt-6 lg:hidden">
+                <button
+                  onClick={() => {
+                    // You can implement navigation to a full categories page here
+                    console.log('Navigate to all categories');
+                  }}
+                  className="inline-flex items-center px-4 sm:px-6 py-2 sm:py-3 bg-blue-900 text-white rounded-lg sm:rounded-xl hover:bg-blue-800 transition-colors duration-200 font-medium text-sm sm:text-base"
+                >
+                  View All Categories
+                  <ChevronRight className="w-4 h-4 ml-2" />
+                </button>
+              </div>
+            )}
           </div>
+
+          {/* Category Quick Stats - Hidden on mobile, shown on larger screens */}
+          <div className="hidden sm:flex justify-center items-center mt-8 lg:mt-12 space-x-6 lg:space-x-8 text-sm lg:text-base text-gray-600">
+            <div className="text-center">
+              <span className="block font-bold text-lg lg:text-xl text-blue-900">{defaultCategories.length}+</span>
+              <span>Categories</span>
+            </div>
+            <div className="w-px h-8 bg-gray-300"></div>
+            <div className="text-center">
+              <span className="block font-bold text-lg lg:text-xl text-blue-900">
+                {defaultCategories.reduce((sum, cat) => sum + (cat.productCount || 0), 0)}+
+              </span>
+              <span>Products</span>
+            </div>
+            <div className="w-px h-8 bg-gray-300"></div>
+            <div className="text-center">
+              <span className="block font-bold text-lg lg:text-xl text-blue-900">24/7</span>
+              <span>Support</span>
+            </div>
+              </div>
+            </>
+          )}
         </div>
       </section>
 
