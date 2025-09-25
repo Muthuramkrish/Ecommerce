@@ -124,11 +124,11 @@ const Header = ({
                             href={`#category/${encodeURIComponent(slugify(cat.name))}`}
                             onMouseEnter={() => { setActiveCategory(cat.name); setActiveSubcategory(null); }}
                             onClick={(e) => { e.preventDefault(); setIsLeftMenuOpen(false); onNavigateTaxonomy && onNavigateTaxonomy('category', cat.name); }}
-                            className={`w-full flex items-center justify-between px-3 py-2 text-sm hover:bg-blue-50 ${activeCategory === cat.name ? 'bg-blue-50 text-blue-900' : ''}`}
+                            className={`w-full flex items-center justify-between px-3 py-2 text-base hover:bg-blue-50 ${activeCategory === cat.name ? 'bg-blue-50 text-blue-900' : ''}`}
                             title={cat.name}
                           >
                             <span className="truncate">{cat.name}</span>
-                            <span className="text-xs text-gray-900 font-bold">›</span>
+                            <span className="text-lg text-gray-900 font-bold">›</span>
                           </a>
                         ))}
                       </div>
@@ -156,11 +156,11 @@ const Header = ({
                                         href={`#subcategory/${encodeURIComponent(slugify(sub.name))}`}
                                         onMouseEnter={() => setActiveSubcategory(sub.name)}
                                         onClick={(e) => { e.preventDefault(); setIsLeftMenuOpen(false); onNavigateTaxonomy && onNavigateTaxonomy('subcategory', sub.name); }}
-                                        className={`w-full flex items-center justify-between px-3 py-2 text-sm rounded-lg hover:bg-gray-50 ${activeSubcategory === sub.name ? 'bg-gray-50' : ''}`}
+                                        className={`w-full flex items-center justify-between px-3 py-2 text-base rounded-lg hover:bg-gray-50 ${activeSubcategory === sub.name ? 'bg-gray-50' : ''}`}
                                         title={sub.name}
                                       >
                                         <span className="truncate font-medium text-gray-800">{sub.name}</span>
-                                        <span className="text-xs text-gray-400">›</span>
+                                        <span className="text-lg text-gray-400">›</span>
                                       </a>
                                     </div>
                                   ))}
@@ -171,7 +171,7 @@ const Header = ({
                                     const subSubs = (sub && Array.isArray(sub.children)) ? sub.children : [];
                                     return (
                                       <div>
-                                        <div className="text-sm font-semibold text-gray-700 mb-2">{sub ? sub.name : 'Subcategories'}</div>
+                                        <div className="text-base font-semibold text-gray-700 mb-2">{sub ? sub.name : 'Subcategories'}</div>
                                         <div className="grid grid-cols-2 gap-2 max-h-[60vh] overflow-auto">
                                           {subSubs.map((ss) => (
                                             <a
@@ -190,7 +190,7 @@ const Header = ({
                                                   }
                                                 }
                                               }}
-                                              className="text-left text-sm px-2 py-1.5 rounded hover:bg-gray-50 truncate"
+                                              className="text-left text-base px-2 py-1.5 rounded hover:bg-gray-50 truncate"
                                               title={ss.name}
                                             >
                                               {ss.name}
@@ -468,8 +468,8 @@ const Header = ({
                               }}
                               className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-gray-50 transition-colors"
                             >
-                              <span className="font-medium truncate pr-2">{category.name}</span>
-                              <span className={`text-gray-400 transform transition-transform text-lg flex-shrink-0 ${expandedCategory === category.name ? 'rotate-90' : ''
+                              <span className="font-medium text-base truncate pr-2">{category.name}</span>
+                              <span className={`text-gray-400 transform transition-transform text-xl flex-shrink-0 ${expandedCategory === category.name ? 'rotate-90' : ''
                                 }`}>
                                 ›
                               </span>
@@ -483,7 +483,7 @@ const Header = ({
                                     setIsMobileMenuOpen(false);
                                     onNavigateTaxonomy && onNavigateTaxonomy('category', category.name);
                                   }}
-                                  className="w-full px-4 py-2 text-left text-sm font-medium text-blue-600 hover:bg-blue-50 transition-colors border-b border-gray-200 truncate"
+                                  className="w-full px-4 py-2 text-left text-base font-medium text-blue-600 hover:bg-blue-50 transition-colors border-b border-gray-200 truncate"
                                 >
                                   View All {category.name}
                                 </button>
@@ -498,11 +498,11 @@ const Header = ({
                                           setExpandedSubcategory(subcategory.name);
                                         }
                                       }}
-                                      className="w-full flex items-center justify-between px-4 py-2 text-left text-sm hover:bg-gray-100 transition-colors"
+                                      className="w-full flex items-center justify-between px-4 py-2 text-left text-base hover:bg-gray-100 transition-colors"
                                     >
-                                      <span className="truncate pr-2">{subcategory.name}</span>
+                                      <span className="truncate pr-2 text-base">{subcategory.name}</span>
                                       {subcategory.children && subcategory.children.length > 0 && (
-                                        <span className={`text-gray-400 transform transition-transform text-base flex-shrink-0 ${expandedSubcategory === subcategory.name ? 'rotate-90' : ''
+                                        <span className={`text-gray-400 transform transition-transform text-lg flex-shrink-0 ${expandedSubcategory === subcategory.name ? 'rotate-90' : ''
                                           }`}>
                                           ›
                                         </span>
@@ -517,7 +517,7 @@ const Header = ({
                                             setIsMobileMenuOpen(false);
                                             onNavigateTaxonomy && onNavigateTaxonomy('subcategory', subcategory.name);
                                           }}
-                                          className="w-full text-left px-6 py-2 text-sm font-medium text-blue-600 hover:bg-blue-50 transition-colors border-b border-gray-200 truncate"
+                                          className="w-full text-left px-6 py-2 text-base font-medium text-blue-600 hover:bg-blue-50 transition-colors border-b border-gray-200 truncate"
                                         >
                                           View All {subcategory.name}
                                         </button>
@@ -536,7 +536,7 @@ const Header = ({
                                                 }
                                               }
                                             }}
-                                            className="w-full text-left px-6 py-2 text-sm text-gray-600 hover:bg-gray-200 transition-colors truncate"
+                                            className="w-full text-left px-6 py-2 text-base text-gray-600 hover:bg-gray-200 transition-colors truncate"
                                           >
                                             {subSubcategory.name}
                                           </button>
