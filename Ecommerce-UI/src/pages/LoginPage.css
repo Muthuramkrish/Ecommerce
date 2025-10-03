@@ -1,0 +1,545 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  background-color: #c9d6ff;
+  /* background: linear-gradient(to right, #e2e2e2, #c9d6ff); */
+  height: 100vh;
+}
+
+.main-wrapper {
+  display: flex;
+  align-items: center;
+  height: 100vh;
+}
+
+.image-section {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  width: 40vw;
+  min-width: 300px;
+
+}
+
+.image-section img {
+  max-width: 80%;
+  max-height: 80%;
+  object-fit: contain;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+}
+
+.container {
+  background-color: #fff;
+  border-radius: 150px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.35);
+  position: relative;
+  overflow: hidden;
+  width: 768px;
+  max-width: 100%;
+  min-height: 480px;
+  margin-right: 7%;
+}
+
+.container p {
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.3px;
+  margin: 20px 0;
+}
+
+.container span {
+  font-size: 12px;
+}
+
+.container a {
+  color: #333;
+  font-size: 13px;
+  text-decoration: none;
+  margin: 15px 0 10px;
+}
+
+.icons a:hover {
+  background-color: #396aef;
+  color: #fff;
+  border: 1px solid #fff;
+  transition: all 0.3s ease;
+}
+
+.terms {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  font-size: 13px;
+  gap: 8px;
+}
+
+.terms input[type="checkbox"] {
+  margin-right: 8px;
+  accent-color: #1e3a8a;
+}
+
+.terms label {
+  user-select: none;
+  white-space: nowrap;
+}
+
+.container button {
+  background-color: #1e3a8a;
+  color: #fff;
+  padding: 10px 45px;
+  border: 1px solid transparent;
+  border-radius: 8px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-top: 10px;
+  cursor: pointer;
+}
+
+.container button:hover {
+  background-color: #396aef;
+  color: #fff;
+  border: 1px solid #1e3a8a;
+  transition: all 0.3s ease;
+}
+
+.container button.hidden {
+  background-color: transparent;
+  border-color: #fff;
+}
+
+.container form {
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 0 40px;
+  height: 100%;
+}
+
+.container input {
+  background-color: #eee;
+  border: none;
+  margin: 8px 0;
+  padding: 10px 15px;
+  font-size: 13px;
+  border-radius: 8px;
+  width: 100%;
+  outline: none;
+}
+
+.sign-up, .sign-in {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  transition: all 0.6s ease-in-out;
+}
+
+.sign-in {
+  left: 0;
+  width: 50%;
+  z-index: 2;
+}
+
+.container.active .sign-in {
+  transform: translateX(100%);
+}
+
+.sign-up {
+  left: 0;
+  width: 50%;
+  z-index: 1;
+  opacity: 0;
+}
+
+.container.active .sign-up {
+  transform: translateX(100%);
+  opacity: 1;
+  z-index: 5;
+  animation: move 0.6s;
+}
+
+@keyframes move {
+  0%, 49.99%{
+    opacity: 0;
+    z-index: 1;
+  }
+   50%, 100%{
+    opacity: 1;
+    z-index: 5;
+  }
+}
+
+.icons {
+  margin: 20px 0;
+}
+
+.icons a {
+  border: 1px solid #ccc;
+  border-radius: 20%;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0 3px;
+  width: 40px;
+  height: 40px;
+}
+
+.toggle-container {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 150px;
+  z-index: 1000;
+  transition: all 0.6s ease-in-out;
+}
+
+.container.active .toggle-container {
+  transform: translateX(-100%);
+  border-radius: 150px;
+}
+
+.toggle {
+  background-color: #1e3a8a;
+  height: 100%;
+  background: linear-gradient(to right, #4371f1, #1e3a8a);
+  color: #fff;
+  position: relative;
+  left: -100%;
+  width: 200%;
+  transform: translateX(0);
+  transition: all 0.6s ease-in-out;
+}
+
+.container.active .toggle {
+  transform: translateX(50%);
+}
+
+.toggle-panel {
+  position: absolute;
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 0 30px;
+  text-align: center;
+  top: 0;
+  transform: translateX(0);
+  transition: all 0.6s ease-in-out;
+}
+
+#login, #register {
+  background-color: #fff;
+  color: #1e3a8a;
+  transition: background 0.2s, color 0.2s;
+}
+
+#login:hover, #register:hover {
+  background-color: #1e3a8a;
+  color: #fff;
+}
+
+.toggle-left {
+  transform: translateX(-200%);
+}
+
+.container.active .toggle-left {
+  transform: translateX(0);
+}
+
+.toggle-right {
+  right: 0;
+  transform: translateX(0);
+}
+
+.container.active .toggle-right {
+  transform: translateX(200%);
+}
+
+.email-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.email-wrapper input[type="email"],
+.email-wrapper input[type="text"] {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.password-wrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.password-wrapper input[type="password"],
+.password-wrapper input[type="text"] {
+  width: 100%;
+  padding-right: 40px;
+}
+
+.toggle-password {
+  position: absolute;
+  right: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  color: #888;
+  font-size: 18px;
+  z-index: 2;
+}
+
+.toggle-password:hover {
+  color: #1e3a8a;
+}
+
+.pwd-checklist {
+position: absolute;
+top: 100%;
+left: 0;
+z-index: 20;
+background: #fff;
+border: 1px solid #e5e7eb;
+border-radius: 8px;
+padding: 10px 12px;
+margin-top: 6px;
+box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+width: min(320px, 92vw);
+}
+.pwd-checklist-title {
+font-size: 12px;
+font-weight: 600;
+color: #374151;
+margin-bottom: 6px;
+}
+.pwd-checklist-list {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+.pwd-checklist-item {
+display: flex;
+align-items: center;
+gap: 8px;
+font-size: 12px;
+color: #6b7280;
+margin: 4px 0;
+}
+.pwd-checklist-item.ok { color: #065f46; }
+.pwd-checklist-box {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+width: 16px;
+height: 16px;
+border-radius: 4px;
+border: 1px solid #d1d5db;
+background: #fff;
+color: #9ca3af;
+font-size: 12px;
+line-height: 1;
+}
+.pwd-checklist-item.ok .pwd-checklist-box {
+border-color: #10b981;
+background: #d1fae5;
+color: #047857;
+}
+
+.error-message {
+color: #e53935;
+font-size: 12px;
+margin-top: 4px;
+}
+.success-message {
+color: #388e3c;
+font-size: 12px;
+margin-top: 4px;
+}
+
+.email-suggestions {
+position: absolute;
+top: 100%;
+left: 0;
+width: 100%;
+background: #fff;
+border: 1px solid #ccc;
+border-radius: 0 0 8px 8px;
+box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+z-index: 10;
+max-height: 160px;
+overflow-y: auto;
+margin-top: 2px;
+}
+.suggestion-item {
+padding: 8px 12px;
+cursor: pointer;
+border-bottom: 1px solid #f0f0f0;
+}
+.suggestion-item:last-child {
+border-bottom: none;
+}
+.suggestion-item:hover {
+background: #f5f7fa;
+}
+.suggestion-email {
+font-size: 13px;
+font-weight: 500;
+}
+.suggestion-name {
+font-size: 11px;
+color: #888;
+}
+
+/* Mobile responsiveness (CSS-only, no markup changes) */
+@media (max-width: 768px) {
+.main-wrapper {
+  height: auto;
+  min-height: 100vh;
+  align-items: stretch;
+  padding: 16px;
+  overflow-x: hidden;
+}
+
+.image-section {
+  display: none;
+}
+
+.container {
+  width: 100%;
+  margin: 0;
+  border-radius: 16px;
+  min-height: auto;
+  padding-top: 72px;
+  overflow: visible;
+}
+/* Keep desktop heading scale on mobile for visual parity */
+
+.container form {
+  padding: 16px 16px 20px 16px;
+  height: auto;
+}
+
+/* Stack panels, show only one at a time */
+.sign-in, .sign-up {
+  position: static;
+  width: 100%;
+  height: auto;
+  opacity: 1;
+  transform: none;
+  transition: none;
+  background: #fff;
+}
+
+/* Explicitly override desktop's higher-specificity translate on active sign-up */
+.container.active .sign-up {
+  transform: none !important;
+  left: auto;
+  right: auto;
+  opacity: 1;
+  z-index: auto;
+}
+
+/* Default: show sign-in, hide sign-up */
+.container:not(.active) .sign-up {
+  display: none;
+}
+
+/* When active: show sign-up, hide sign-in */
+.container.active .sign-in {
+  display: none;
+}
+.container.active .sign-up {
+  display: block;
+}
+
+/* Mobile-friendly toggle pinned to top */
+.toggle-container {
+  position: absolute;
+  top: 8px;
+  left: 12px;
+  right: 12px;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  border-radius: 12px;
+  transform: none !important;
+  z-index: 10;
+}
+.toggle {
+  position: static;
+  left: 0;
+  width: 100%;
+  transform: none !important;
+  background: #eef2ff;
+  background-image: none;
+  color: inherit;
+  height: auto;
+  display: flex;
+  gap: 8px;
+  padding: 4px;
+  border-radius: 10px;
+}
+.toggle-panel {
+  position: static;
+  width: 50%;
+  height: auto;
+  padding: 0;
+}
+.toggle-panel h1,
+.toggle-panel p {
+  display: none;
+}
+.toggle-panel button {
+  width: 100%;
+  background-color: #fff;
+  color: #1e3a8a;
+  border-radius: 8px;
+  padding: 10px 0;
+}
+.container:not(.active) .toggle-left button { background: #1e3a8a; color: #fff; }
+.container:not(.active) .toggle-right button { background: #fff; color: #1e3a8a; }
+.container.active .toggle-right button { background: #1e3a8a; color: #fff; }
+.container.active .toggle-left button { background: #fff; color: #1e3a8a; }
+
+.container input {
+  font-size: 16px;
+  padding: 14px 16px;
+}
+
+.container button {
+  width: 100%;
+  padding: 12px 16px;
+  font-size: 14px;
+}
+
+.email-suggestions {
+  max-height: 200px;
+}
+}
+
+/* Very small phones */
+@media (max-width: 380px) {
+.container h2 {
+  font-size: 18px;
+}
+.container form {
+  padding: 12px;
+}
+}
