@@ -1,25 +1,16 @@
 import dotenv from "dotenv";
-import connectDB from "./config/db.js";
 import express from "express";
 import cors from "cors";
 import ProductListRouter from "./router/productList/productList.js"; 
 import AuthRouter from "./router/auth/auth.js";
-import UserRouter from "./router/user/user.js";
 
 dotenv.config();
 
 const app = express();
 
 // Middleware
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
-app.use(cors({
-  origin: process.env.CLIENT_URL || "http://localhost:3000",
-  credentials: true
-}));
-
-// Connect Database
-connectDB();
+app.use(express.json());
+app.use(cors());
 
 // Health check route
 app.get("/api/health", (req, res) => {
@@ -33,7 +24,6 @@ app.get("/api/health", (req, res) => {
 // Routes
 app.use("/api/productList", ProductListRouter);
 app.use("/api/auth", AuthRouter);
-app.use("/api/user", UserRouter);
 
 // 404 handler
 app.use((req, res) => {
@@ -61,5 +51,4 @@ app.listen(PORT, () => {
   console.log(`📊 Health check: http://localhost:${PORT}/api/health`);
   console.log(`🛍️  Products API: http://localhost:${PORT}/api/productList`);
   console.log(`🔐 Auth API: http://localhost:${PORT}/api/auth`);
-  console.log(`👤 User API: http://localhost:${PORT}/api/user`);
 });
