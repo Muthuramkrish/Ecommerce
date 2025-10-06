@@ -27,7 +27,7 @@ import {
   updateCartQuantity as apiUpdateCartQuantity,
   removeFromCart as apiRemoveFromCart,
   clearCart as apiClearCart
-} from '../api/userApi';
+} from '../api/user';
 
 function Root() {
   const [products, setProducts] = useState([]);
