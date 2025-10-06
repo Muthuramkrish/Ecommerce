@@ -9,6 +9,28 @@ const getAuthToken = () => {
       return parsedUser.token;
     } catch (error) {
       console.error('Error parsing user token:', error);
+      localStorage.removeItem('currentUser'); // Clear corrupted data
+      return null;
+    }
+  }
+  return null;
+};
+
+// Helper function to check if user is authenticated
+export const isAuthenticated = () => {
+  const token = getAuthToken();
+  return !!token;
+};
+
+// Helper function to get current user info
+export const getCurrentUser = () => {
+  const user = localStorage.getItem('currentUser');
+  if (user) {
+    try {
+      return JSON.parse(user);
+    } catch (error) {
+      console.error('Error parsing current user:', error);
+      localStorage.removeItem('currentUser');
       return null;
     }
   }
@@ -31,8 +53,16 @@ const apiCall = async (url, options = {}) => {
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Request failed');
+      // Handle 401 Unauthorized specifically
+      if (response.status === 401) {
+        // Clear invalid token and redirect to login
+        localStorage.removeItem('currentUser');
+        const errorData = await response.json().catch(() => ({}));
+        throw new Error(errorData.message || 'Access denied. Please log in again.');
+      }
+      
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.message || `Request failed with status ${response.status}`);
     }
 
     return await response.json();

@@ -249,6 +249,9 @@ export const getUserProfile = async (req, res) => {
   }
 };
 
+// Get User Data (alias for getUserProfile)
+export const getUserData = getUserProfile;
+
 // Add to Favorites
 export const addToFavorites = async (req, res) => {
   try {
