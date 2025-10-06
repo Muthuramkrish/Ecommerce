@@ -24,12 +24,15 @@ export const verifyToken = (req, res, next) => {
 // Helper function to get product from appropriate collection
 const getProductFromCollection = async (category, productId) => {
   try {
+    // Convert category back to collection name (e.g., "Fans" -> "fans")
     const collectionName = category.toLowerCase();
+    
     const collection = mongoose.connection.db.collection(collectionName);
     const product = await collection.findOne({ _id: new mongoose.Types.ObjectId(productId) });
+    
     return product;
   } catch (error) {
-    console.error(`Error fetching product from ${category}:`, error);
+    console.error(`❌ Error fetching product from ${category}:`, error);
     return null;
   }
 };
@@ -38,11 +41,33 @@ const getProductFromCollection = async (category, productId) => {
 const convertDbProductToFrontend = (dbProduct, category) => {
   if (!dbProduct) return null;
   
+  // Handle different possible data structures from imported CSV
+  const productTitle = dbProduct['product-title'] || 
+                      dbProduct.characteristics?.title || 
+                      dbProduct.title || 
+                      'Unknown Product';
+                      
+  const imageUrl = dbProduct['image-url'] || 
+                   dbProduct.characteristics?.images?.primary?.[0] || 
+                   dbProduct.imageUrl || 
+                   '';
+                   
+  const oldPrice = dbProduct['old-price'] || 
+                   dbProduct.pricing?.comparePrice || 
+                   dbProduct.oldPrice || 
+                   '0';
+                   
+  const newPrice = dbProduct['new-price'] || 
+                   dbProduct.pricing?.basePrice || 
+                   dbProduct.newPrice || 
+                   dbProduct.price || 
+                   '0';
+  
   return {
-    'product-title': dbProduct['product-title'] || dbProduct.title || 'Unknown Product',
-    'image-url': dbProduct['image-url'] || dbProduct.imageUrl || '',
-    'old-price': dbProduct['old-price'] || dbProduct.oldPrice || '0',
-    'new-price': dbProduct['new-price'] || dbProduct.newPrice || dbProduct.price || '0',
+    'product-title': productTitle,
+    'image-url': imageUrl,
+    'old-price': String(oldPrice),
+    'new-price': String(newPrice),
     category: category,
     rating: dbProduct.rating || 4,
     reviews: dbProduct.reviews || 0,
@@ -89,23 +114,37 @@ const populateCart = async (cartItems) => {
 // Helper function to find product ID and category from frontend product data
 const findProductIdAndCategory = async (frontendProduct) => {
   const productTitle = frontendProduct['product-title'];
-  const collections = ['fans', 'switches', 'heaters', 'lightings', 'cables']; // Add your collection names
+  const collections = ['fans', 'switches', 'heaters', 'lightings', 'cables']; // Exact collection names
   
   for (const collectionName of collections) {
     try {
       const collection = mongoose.connection.db.collection(collectionName);
-      const product = await collection.findOne({ 
-        'product-title': productTitle 
-      });
+      
+      // Try multiple search strategies
+      let product = null;
+      
+      // Strategy 1: Exact match on product-title
+      product = await collection.findOne({ 'product-title': productTitle });
+      
+      // Strategy 2: Search in characteristics.title if not found
+      if (!product) {
+        product = await collection.findOne({ 'characteristics.title': productTitle });
+      }
+      
+      // Strategy 3: Search in nested product title fields
+      if (!product) {
+        product = await collection.findOne({ 'title': productTitle });
+      }
       
       if (product) {
+        const category = collectionName.charAt(0).toUpperCase() + collectionName.slice(1); // Convert "fans" to "Fans"
         return {
           productId: product._id,
-          category: collectionName.charAt(0).toUpperCase() + collectionName.slice(1, -1) // Convert "fans" to "Fan"
+          category: category
         };
       }
     } catch (error) {
-      console.error(`Error searching in ${collectionName}:`, error);
+      console.error(`❌ Error searching in ${collectionName}:`, error);
     }
   }
   
@@ -316,7 +355,11 @@ export const addToCart = async (req, res) => {
     // Find the product ID and category
     const productInfo = await findProductIdAndCategory(product);
     if (!productInfo) {
-      return res.status(404).json({ message: "Product not found in database" });
+      return res.status(404).json({ 
+        message: "Product not found in database",
+        productTitle: product['product-title'],
+        availableCollections: ['fans', 'switches', 'heaters', 'lightings', 'cables']
+      });
     }
 
     // Check if product is already in cart
@@ -344,6 +387,7 @@ export const addToCart = async (req, res) => {
       cart 
     });
   } catch (error) {
+    console.error('❌ Error adding to cart:', error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
