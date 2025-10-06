@@ -156,24 +156,24 @@ const LoginPage = ({ onLoginSuccess }) => {
     try {
       // Call backend API
       const res = await signInUser({ email, password });
-  
-      // Store token
-      if (res.token) {
-        localStorage.setItem("token", res.token);
-      }
-  
-      // Store user info for header
+
+      // Store user info for header (token is already stored in signInUser)
       const userInfo = {
-        name: res.user?.fullName || email,
+        fullName: res.user?.fullName || email,
         email: res.user?.email || email,
+        token: res.token
       };
       localStorage.setItem("currentUser", JSON.stringify(userInfo));
-  
-      // Update app state via callback
+
+      // Update app state via callback - pass the complete response including favorites and cart
       if (onLoginSuccess) {
-        onLoginSuccess(userInfo);
+        onLoginSuccess({
+          ...userInfo,
+          favorites: res.favorites || [],
+          cart: res.cart || []
+        });
       }
-  
+
       setSignInMsg({ msg: "Login successful! Welcome back.", error: false });
     } catch (err) {
       setSignInMsg({

@@ -24,6 +24,68 @@ const userSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
+    favorites: [{
+      productTitle: {
+        type: String,
+        required: true
+      },
+      imageUrl: {
+        type: String,
+        required: true
+      },
+      oldPrice: {
+        type: String,
+        required: true
+      },
+      newPrice: {
+        type: String,
+        required: true
+      },
+      category: String,
+      rating: Number,
+      reviews: Number,
+      raw: {
+        type: mongoose.Schema.Types.Mixed
+      },
+      addedAt: {
+        type: Date,
+        default: Date.now
+      }
+    }],
+    cart: [{
+      productTitle: {
+        type: String,
+        required: true
+      },
+      imageUrl: {
+        type: String,
+        required: true
+      },
+      oldPrice: {
+        type: String,
+        required: true
+      },
+      newPrice: {
+        type: String,
+        required: true
+      },
+      category: String,
+      rating: Number,
+      reviews: Number,
+      raw: {
+        type: mongoose.Schema.Types.Mixed
+      },
+      quantity: {
+        type: Number,
+        required: true,
+        min: 1,
+        default: 1
+      },
+      addedAt: {
+        type: Date,
+        default: Date.now
+      }
+    }]
   },
   { timestamps: true }
 );

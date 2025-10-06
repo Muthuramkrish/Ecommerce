@@ -5,6 +5,7 @@ import cors from "cors";
 import ProductListRouter from "./router/productList/productList.js";
 import signUpRoutes from "./router/signUp/signUp.js";
 import signInRoutes from "./router/signIn/signIn.js";
+import userRoutes from "./router/user/user.js";
 
 dotenv.config();
 
@@ -21,6 +22,7 @@ connectDB();
 app.use("/api/productList", ProductListRouter);
 app.use("/api/signup", signUpRoutes);
 app.use("/api/signin", signInRoutes);
+app.use("/api/user", userRoutes);
 
 const PORT = process.env.PORT || 5000;
 
