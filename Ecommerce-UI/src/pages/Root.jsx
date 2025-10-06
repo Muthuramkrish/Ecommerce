@@ -418,7 +418,11 @@ function Root() {
   const subcategories = useMemo(() => {
     const summaries = new Map();
     for (const p of rawSource) {
-      const sub = p?.anchor?.subcategory || 'Other';
+      const sub = p?.anchor?.subcategory;
+      // Skip products without a proper subcategory
+      if (!sub || typeof sub !== 'string' || sub.trim() === '') {
+        continue;
+      }
       const firstImage = p?.characteristics?.images?.primary?.[0]
         || 'https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=300';
       if (!summaries.has(sub)) {
@@ -439,9 +443,14 @@ function Root() {
     const categoryMap = new Map();
     for (const p of rawSource) {
       const a = (p && p.anchor) || {};
-      const categoryName = a.category || 'Other';
+      const categoryName = a.category;
       const subcategoryName = a.subcategory || null;
       const subSubcategoryName = a.subSubcategory || null;
+
+      // Skip products without a proper category
+      if (!categoryName || typeof categoryName !== 'string' || categoryName.trim() === '') {
+        continue;
+      }
 
       if (!categoryMap.has(categoryName)) {
         categoryMap.set(categoryName, new Map());

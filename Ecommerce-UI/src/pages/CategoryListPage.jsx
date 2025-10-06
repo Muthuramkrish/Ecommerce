@@ -96,36 +96,36 @@ const CategoryListPage = ({
   // Get unique brands from products
   const getUniqueBrands = () => {
     const brands = products.map(product => {
-      const brand = product.raw?.anchor?.brand || 'Unknown Brand';
+      const brand = product.raw?.anchor?.brand;
       return brand;
-    });
+    }).filter(brand => brand && typeof brand === 'string' && brand.trim() !== '');
     return [...new Set(brands)].sort();
   };
 
   // Get unique product types from products
   const getUniqueProductTypes = () => {
     const productTypes = products.map(product => {
-      const productType = product.raw?.anchor?.productType || 'Unknown Type';
+      const productType = product.raw?.anchor?.productType;
       return productType;
-    });
+    }).filter(productType => productType && typeof productType === 'string' && productType.trim() !== '');
     return [...new Set(productTypes)].sort();
   };
 
   // Get unique subcategories from products
   const getUniqueSubcategories = () => {
     const subcategories = products.map(product => {
-      const subcategory = product.raw?.anchor?.subcategory || 'Unknown Subcategory';
+      const subcategory = product.raw?.anchor?.subcategory;
       return subcategory;
-    });
+    }).filter(subcategory => subcategory && typeof subcategory === 'string' && subcategory.trim() !== '');
     return [...new Set(subcategories)].sort();
   };
 
   // Get unique sub-subcategories from products
   const getUniqueSubSubcategories = () => {
     const subSubcategories = products.map(product => {
-      const subSubcategory = product.raw?.anchor?.subSubcategory || 'Unknown Sub-subcategory';
+      const subSubcategory = product.raw?.anchor?.subSubcategory;
       return subSubcategory;
-    });
+    }).filter(subSubcategory => subSubcategory && typeof subSubcategory === 'string' && subSubcategory.trim() !== '');
     return [...new Set(subSubcategories)].sort();
   };
 
@@ -252,33 +252,33 @@ const CategoryListPage = ({
   // Get available filter options based on current filtered products
   const getAvailableBrands = () => {
     const brands = filteredProducts.map(product => {
-      const brand = product.raw?.anchor?.brand || 'Unknown Brand';
+      const brand = product.raw?.anchor?.brand;
       return brand;
-    });
+    }).filter(brand => brand && typeof brand === 'string' && brand.trim() !== '');
     return [...new Set(brands)].sort();
   };
 
   const getAvailableProductTypes = () => {
     const productTypes = filteredProducts.map(product => {
-      const productType = product.raw?.anchor?.productType || 'Unknown Type';
+      const productType = product.raw?.anchor?.productType;
       return productType;
-    });
+    }).filter(productType => productType && typeof productType === 'string' && productType.trim() !== '');
     return [...new Set(productTypes)].sort();
   };
 
   const getAvailableSubcategories = () => {
     const subcategories = filteredProducts.map(product => {
-      const subcategory = product.raw?.anchor?.subcategory || 'Unknown Subcategory';
+      const subcategory = product.raw?.anchor?.subcategory;
       return subcategory;
-    });
+    }).filter(subcategory => subcategory && typeof subcategory === 'string' && subcategory.trim() !== '');
     return [...new Set(subcategories)].sort();
   };
 
   const getAvailableSubSubcategories = () => {
     const subSubcategories = filteredProducts.map(product => {
-      const subSubcategory = product.raw?.anchor?.subSubcategory || 'Unknown Sub-subcategory';
+      const subSubcategory = product.raw?.anchor?.subSubcategory;
       return subSubcategory;
-    });
+    }).filter(subSubcategory => subSubcategory && typeof subSubcategory === 'string' && subSubcategory.trim() !== '');
     return [...new Set(subSubcategories)].sort();
   };
 
@@ -549,7 +549,7 @@ const CategoryListPage = ({
       // Brand filter
       if (selectedBrands.length > 0) {
         filtered = filtered.filter(product => {
-          const brand = product.raw?.anchor?.brand || 'Unknown Brand';
+          const brand = product.raw?.anchor?.brand;
           return selectedBrands.includes(brand);
         });
       }
@@ -557,7 +557,7 @@ const CategoryListPage = ({
       // Product Type filter
       if (selectedProductTypes.length > 0) {
         filtered = filtered.filter(product => {
-          const productType = product.raw?.anchor?.productType || 'Unknown Type';
+          const productType = product.raw?.anchor?.productType;
           return selectedProductTypes.includes(productType);
         });
       }
@@ -565,7 +565,7 @@ const CategoryListPage = ({
       // Subcategory filter
       if (selectedSubcategories.length > 0) {
         filtered = filtered.filter(product => {
-          const subcategory = product.raw?.anchor?.subcategory || 'Unknown Subcategory';
+          const subcategory = product.raw?.anchor?.subcategory;
           return selectedSubcategories.includes(subcategory);
         });
       }
@@ -573,7 +573,7 @@ const CategoryListPage = ({
       // Sub-subcategory filter
       if (selectedSubSubcategories.length > 0) {
         filtered = filtered.filter(product => {
-          const subSubcategory = product.raw?.anchor?.subSubcategory || 'Unknown Sub-subcategory';
+          const subSubcategory = product.raw?.anchor?.subSubcategory;
           return selectedSubSubcategories.includes(subSubcategory);
         });
       }
