@@ -1,51 +1,13 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './LoginPage.css';
+import { signUpUser, signInUser } from "../api/user";  
+
 
 const initialForm = {
   signUp: { name: '', email: '', password: '', terms: false },
   signIn: { email: '', password: '' },
 };
 
-function getStoredUsers() {
-  try {
-    return JSON.parse(localStorage.getItem('users')) || [];
-  } catch {
-    return [];
-  }
-}
-
-function saveUser(name, email, password) {
-  let users = getStoredUsers();
-  if (users.find((u) => u.email === email)) return false;
-  users.push({ name, email, password, createdAt: new Date().toISOString() });
-  localStorage.setItem('users', JSON.stringify(users));
-  localStorage.setItem('lastUser', email);
-  return true;
-}
-
-function authenticateUser(email, password) {
-  let users = getStoredUsers();
-  let user = users.find((u) => u.email === email && u.password === password);
-  if (user) {
-    localStorage.setItem('currentUser', JSON.stringify(user));
-    localStorage.setItem('lastUser', email);
-    return user;
-  }
-  return null;
-}
-
-function getLastUser() {
-  try {
-    const lastUserEmail = localStorage.getItem('lastUser');
-    if (lastUserEmail) {
-      const users = getStoredUsers();
-      return users.find((user) => user.email === lastUserEmail);
-    }
-    return null;
-  } catch {
-    return null;
-  }
-}
 
 const LoginPage = ({ onLoginSuccess }) => {
   const [active, setActive] = useState(false);
@@ -61,24 +23,24 @@ const LoginPage = ({ onLoginSuccess }) => {
   const [showSignUpChecklist, setShowSignUpChecklist] = useState(false);
   const [signUpPwdFocused, setSignUpPwdFocused] = useState(false);
 
-  useEffect(() => {
-    const lastUser = getLastUser();
-    if (lastUser) {
-      setForm((f) => ({ ...f, signIn: { ...f.signIn, email: lastUser.email } }));
-    }
-  }, []);
+  // useEffect(() => {
+  //   const lastUser = getLastUser();
+  //   if (lastUser) {
+  //     setForm((f) => ({ ...f, signIn: { ...f.signIn, email: lastUser.email } }));
+  //   }
+  // }, []);
 
-  // On mobile, allow deep-linking to the Sign Up panel via #signup or ?mode=signup
-  useEffect(() => {
-    try {
-      const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
-      const hash = window.location.hash;
-      const searchParams = new URLSearchParams(window.location.search);
-      if (isMobile && (hash === '#signup' || searchParams.get('mode') === 'signup')) {
-        setActive(true);
-      }
-    } catch {}
-  }, []);
+  // // On mobile, allow deep-linking to the Sign Up panel via #signup or ?mode=signup
+  // useEffect(() => {
+  //   try {
+  //     const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
+  //     const hash = window.location.hash;
+  //     const searchParams = new URLSearchParams(window.location.search);
+  //     if (isMobile && (hash === '#signup' || searchParams.get('mode') === 'signup')) {
+  //       setActive(true);
+  //     }
+  //   } catch {}
+  // }, []);
 
   // Email suggestions removed on request
 
@@ -133,62 +95,91 @@ const LoginPage = ({ onLoginSuccess }) => {
     }
   };
 
-  const handleSignUp = (e) => {
+  const handleSignUp = async (e) => {
     e.preventDefault();
     const { name, email, password, terms } = form.signUp;
+  
     if (!name.trim() || !email.trim() || !password.trim()) {
-      setSignUpMsg({ msg: 'All fields are required.', error: true });
+      setSignUpMsg({ msg: "All fields are required.", error: true });
       return;
     }
     if (!isValidEmail(email)) {
-      setSignUpMsg({ msg: 'Please enter a valid email address.', error: true });
+      setSignUpMsg({ msg: "Please enter a valid email address.", error: true });
       return;
     }
-    // Password validation: all rules must pass
-    const allOk = passwordRules.every((r) => r.regex.test(password));
-    if (!allOk) {
-      setSignUpMsg({ msg: 'Please satisfy all password requirements.', error: true });
+    if (!areAllPasswordRulesOk(password)) {
+      setSignUpMsg({ msg: "Please satisfy all password requirements.", error: true });
       setShowSignUpChecklist(true);
       return;
     }
     if (!terms) {
-      setSignUpMsg({ msg: 'Please accept the terms and conditions', error: true });
+      setSignUpMsg({ msg: "Please accept the terms and conditions", error: true });
       return;
     }
-    if (saveUser(name, email, password)) {
-      setSignUpMsg({ msg: 'Registration successful! You can now sign in.', error: false });
+  
+    try {
+      const res = await signUpUser({
+        fullName: name,
+        email,
+        password,
+        termsAccepted: terms,
+      });
+      setSignUpMsg({ msg: res.message || "Registration successful!", error: false });
+  
       setForm((f) => ({ ...f, signUp: initialForm.signUp }));
       setTimeout(() => {
         setActive(false);
         setForm((f) => ({ ...f, signIn: { ...f.signIn, email } }));
-        signInEmailRef.current && signInEmailRef.current.focus();
-      }, 1500);
-    } else {
-      setSignUpMsg({ msg: 'User with this email already exists!', error: true });
+        signInEmailRef.current?.focus();
+      }, 2500);
+    } catch (err) {
+      setSignUpMsg({
+        msg: err?.message || "Error registering. Try again.",
+        error: true,
+      });
     }
   };
 
-  const handleSignIn = (e) => {
+  const handleSignIn = async (e) => {
     e.preventDefault();
     const { email, password } = form.signIn;
+  
     if (!email.trim() || !password.trim()) {
-      setSignInMsg({ msg: 'Email and password are required.', error: true });
+      setSignInMsg({ msg: "Email and password are required.", error: true });
       return;
     }
     if (!isValidEmail(email)) {
-      setSignInMsg({ msg: 'Please enter a valid email address.', error: true });
+      setSignInMsg({ msg: "Please enter a valid email address.", error: true });
       return;
     }
-    const user = authenticateUser(email, password);
-    if (user) {
-      setSignInMsg({ msg: 'Login successful! Welcome back.', error: false });
-      setTimeout(() => {
-        if (onLoginSuccess) {
-          onLoginSuccess(user);
-        }
-      }, 1000);
-    } else {
-      setSignInMsg({ msg: 'Invalid email or password. Please try again.', error: true });
+  
+    try {
+      // Call backend API
+      const res = await signInUser({ email, password });
+  
+      // Store token
+      if (res.token) {
+        localStorage.setItem("token", res.token);
+      }
+  
+      // Store user info for header
+      const userInfo = {
+        name: res.user?.fullName || email,
+        email: res.user?.email || email,
+      };
+      localStorage.setItem("currentUser", JSON.stringify(userInfo));
+  
+      // Update app state via callback
+      if (onLoginSuccess) {
+        onLoginSuccess(userInfo);
+      }
+  
+      setSignInMsg({ msg: "Login successful! Welcome back.", error: false });
+    } catch (err) {
+      setSignInMsg({
+        msg: err?.message || "Invalid email or password. Please try again.",
+        error: true,
+      });
     }
   };
 

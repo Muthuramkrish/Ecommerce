@@ -24,7 +24,7 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
         />
         {discount > 0 && (
           <div className="absolute top-2 left-2 bg-red-500 text-white px-2 py-1 rounded-full text-xs font-semibold">
-            {discount}%
+            -{discount}%
           </div>
         )}
         {((product.raw && (product.raw?.characteristics?.offers || product.raw?.marketing?.promotionText))) && (

@@ -2,7 +2,9 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import express from "express";
 import cors from "cors";
-import ProductListRouter from "./router/productList/productList.js"; 
+import ProductListRouter from "./router/productList/productList.js";
+import signUpRoutes from "./router/signUp/signUp.js";
+import signInRoutes from "./router/signIn/signIn.js";
 
 dotenv.config();
 
@@ -17,7 +19,8 @@ connectDB();
 
 // Routes
 app.use("/api/productList", ProductListRouter);
-// app.use("/api/productDetails", ProductDetailsRouter);
+app.use("/api/signup", signUpRoutes);
+app.use("/api/signin", signInRoutes);
 
 const PORT = process.env.PORT || 5000;
 

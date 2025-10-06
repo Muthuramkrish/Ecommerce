@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ShoppingCart, Search, User, Heart, Package, Menu, X, Home, Info, Phone } from 'lucide-react';
-import vLogo from '../assets/v4.png';
+import vLogo from '../assets/v1.png';
 
 const Header = ({
   cartItemCount,
@@ -82,19 +82,13 @@ const Header = ({
           {/* Logo */}
           <div className="flex-shrink-0 flex items-center space-x-2 relative">
             <button onClick={onLogoClick} className="flex items-center">
-              <img
-                src={vLogo}
-                alt="V Logo"
-                className="h-20 w-32 md:h-12 md:w-32 object-contain rounded-lg border border-gray-300 p-1 bg-white shadow-sm"
-              />
-
-              {/* <h1 className="text-white text-2xl font-bold font-rye -tracking-wide">VIKOSHIYA</h1> */}
+              <img src={vLogo} alt="V Logo" className="h-8 md:h-10 w-auto" />
             </button>
 
             {/* Desktop Category Menu Button */}
             <button
               onClick={() => setIsLeftMenuOpen(!isLeftMenuOpen)}
-              className="left-menu-toggle hidden md:block p-2 hover:bg-blue-800 rounded-full transition-colors relative"
+              className="left-menu-toggle hidden md:block p-2 hover:bg-blue-800 rounded-full transition-colors relative mt-3"
               title="Categories"
             >
               <Menu className="w-6 h-6" />
@@ -351,8 +345,7 @@ const Header = ({
             {/* Mobile Menu Header */}
             <div className="bg-blue-900 text-white p-4 flex items-center justify-between">
               <div className="flex items-center space-x-2">
-                {/* <img src={vLogo} alt="V Logo" className="h-8 w-auto" /> */}
-                <h1 className="text-white text-2xl font-bold font-rye -tracking-wide">VIKOSHIYA</h1>
+                <img src={vLogo} alt="V Logo" className="h-8 w-auto" />
                 <span className="font-semibold text-lg">Menu</span>
               </div>
               <button
