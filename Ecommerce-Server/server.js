@@ -3,8 +3,6 @@ import connectDB from "./config/db.js";
 import express from "express";
 import cors from "cors";
 import ProductListRouter from "./router/productList/productList.js";
-import signUpRoutes from "./router/signUp/signUp.js";
-import signInRoutes from "./router/signIn/signIn.js";
 import userRoutes from "./router/user/user.js";
 
 dotenv.config();
@@ -20,9 +18,20 @@ connectDB();
 
 // Routes
 app.use("/api/productList", ProductListRouter);
-app.use("/api/signup", signUpRoutes);
-app.use("/api/signin", signInRoutes);
 app.use("/api/user", userRoutes);
+
+// Backward compatibility routes (redirect to new endpoints)
+app.use("/api/signup", (req, res) => {
+  // Redirect to new signup endpoint
+  req.url = '/signup';
+  userRoutes(req, res);
+});
+
+app.use("/api/signin", (req, res) => {
+  // Redirect to new signin endpoint
+  req.url = '/signin';
+  userRoutes(req, res);
+});
 
 const PORT = process.env.PORT || 5000;
 
