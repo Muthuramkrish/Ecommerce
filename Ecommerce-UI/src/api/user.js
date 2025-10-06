@@ -130,6 +130,11 @@ export const getUserProfile = async () => {
   return await apiCall(`${API_BASE_URL}/api/user/profile`);
 };
 
+// Get User Data (alias for getUserProfile for compatibility)
+export const getUserData = async () => {
+  return await apiCall(`${API_BASE_URL}/api/user/data`);
+};
+
 // ================================
 // FAVORITES API CALLS
 // ================================
@@ -202,4 +207,23 @@ export const syncCart = async (cartItems) => {
     method: 'POST',
     body: JSON.stringify({ cartItems })
   });
+};
+
+// Export all functions for easier debugging
+export default {
+  isAuthenticated,
+  getCurrentUser,
+  signUpUser,
+  signInUser,
+  getUserProfile,
+  getUserData,
+  getFavorites,
+  addToFavorites,
+  removeFromFavorites,
+  getCart,
+  addToCart,
+  updateCartQuantity,
+  removeFromCart,
+  clearCart,
+  syncCart
 };
