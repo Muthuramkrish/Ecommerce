@@ -20,7 +20,7 @@ connectDB();
 app.use("/api/productList", ProductListRouter);
 app.use("/api/user", userRoutes);
 
-const PORT = process.env.PORT || 5000;
+const PORT = 5000; // Fixed port for development
 
 app.listen(PORT, () => {
   console.log(`✅ Server running on port ${PORT}`);

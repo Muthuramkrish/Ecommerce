@@ -7,16 +7,20 @@ const JWT_SECRET = process.env.JWT_SECRET || "vikoshiya_india_electrical_&_elect
 
 // Middleware to verify JWT token
 export const verifyToken = (req, res, next) => {
+  console.log("🔐 Token verification requested for:", req.path);
   const token = req.headers.authorization?.split(' ')[1]; // Bearer TOKEN
   if (!token) {
+    console.log("❌ No token provided for:", req.path);
     return res.status(401).json({ message: "Access denied. No token provided." });
   }
 
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     req.userId = decoded.userId;
+    console.log("✅ Token verified for user:", decoded.userId);
     next();
   } catch (error) {
+    console.log("❌ Invalid token for:", req.path);
     res.status(400).json({ message: "Invalid token." });
   }
 };
@@ -158,6 +162,17 @@ const findProductIdAndCategory = async (frontendProduct) => {
 // Sign Up
 export const signUp = async (req, res) => {
   try {
+    console.log("📝 Signup request received:", req.body);
+    
+    // Check if MongoDB is connected
+    if (mongoose.connection.readyState !== 1) {
+      console.log("❌ MongoDB not connected, readyState:", mongoose.connection.readyState);
+      return res.status(503).json({ 
+        message: "Database connection unavailable. Please ensure MongoDB is running.",
+        details: "MongoDB connection state: " + mongoose.connection.readyState
+      });
+    }
+    
     const { fullName, email, password, termsAccepted } = req.body;
 
     if (!termsAccepted) {
@@ -181,10 +196,31 @@ export const signUp = async (req, res) => {
     });
 
     await newUser.save();
+    console.log("✅ User created successfully:", email);
 
     res.status(201).json({ message: "User registered successfully" });
   } catch (err) {
-    res.status(500).json({ message: "Server error", error: err.message });
+    console.error("❌ Signup error:", err);
+    
+    // Provide specific error messages for common issues
+    if (err.name === 'ValidationError') {
+      return res.status(400).json({ 
+        message: "Validation error", 
+        error: err.message 
+      });
+    }
+    
+    if (err.code === 11000) {
+      return res.status(400).json({ 
+        message: "Email already registered" 
+      });
+    }
+    
+    res.status(500).json({ 
+      message: "Server error", 
+      error: err.message,
+      mongoState: mongoose.connection.readyState
+    });
   }
 };
 
