@@ -100,6 +100,11 @@ export const getUserProfile = async () => {
   return await apiCall(`${API_BASE_URL}/api/user/profile`);
 };
 
+// Get User Data (profile, cart, and favorites)
+export const getUserData = async () => {
+  return await apiCall(`${API_BASE_URL}/api/user/data`);
+};
+
 // ================================
 // FAVORITES API CALLS
 // ================================

@@ -249,6 +249,37 @@ export const getUserProfile = async (req, res) => {
   }
 };
 
+// Get User Data (profile, cart, and favorites) - alias for getUserProfile
+export const getUserData = async (req, res) => {
+  try {
+    const user = await User.findById(req.userId).select('-password');
+    if (!user) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    const favorites = await populateFavorites(user.favorites || []);
+    const cart = await populateCart(user.cart || []);
+
+    res.status(200).json({
+      success: true,
+      user: {
+        id: user._id,
+        fullName: user.fullName,
+        email: user.email,
+        createdAt: user.createdAt
+      },
+      favorites,
+      cart
+    });
+  } catch (error) {
+    console.error('Get user data error:', error);
+    res.status(500).json({ 
+      success: false, 
+      message: "Error fetching user data" 
+    });
+  }
+};
+
 // Add to Favorites
 export const addToFavorites = async (req, res) => {
   try {
