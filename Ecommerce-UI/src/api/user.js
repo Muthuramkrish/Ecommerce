@@ -18,9 +18,15 @@ const getAuthToken = () => {
 // Helper function to make authenticated API calls
 const apiCall = async (url, options = {}) => {
   const token = getAuthToken();
+  
+  // Check if token exists for protected endpoints
+  if (!token) {
+    throw new Error('401 - Access denied. No token provided.');
+  }
+  
   const headers = {
     'Content-Type': 'application/json',
-    ...(token && { 'Authorization': `Bearer ${token}` }),
+    'Authorization': `Bearer ${token}`,
     ...options.headers
   };
 
@@ -31,8 +37,17 @@ const apiCall = async (url, options = {}) => {
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Request failed');
+      let errorMessage = 'Request failed';
+      try {
+        const errorData = await response.json();
+        errorMessage = errorData.message || errorMessage;
+      } catch (parseError) {
+        // If we can't parse the error response, use status text
+        errorMessage = response.statusText || errorMessage;
+      }
+      
+      // Include status code in error message for better handling
+      throw new Error(`${response.status} - ${errorMessage}`);
     }
 
     return await response.json();

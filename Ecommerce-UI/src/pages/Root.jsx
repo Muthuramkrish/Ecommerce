@@ -38,9 +38,21 @@ function Root() {
   const [currentUser, setCurrentUser] = useState(() => {
     try {
       const storedUser = localStorage.getItem('currentUser');
-      return storedUser ? JSON.parse(storedUser) : null;
+      if (!storedUser) return null;
+      
+      const parsedUser = JSON.parse(storedUser);
+      
+      // Basic validation of stored user data
+      if (!parsedUser.token || !parsedUser.email) {
+        console.warn('Invalid user data in localStorage, clearing');
+        localStorage.removeItem('currentUser');
+        return null;
+      }
+      
+      return parsedUser;
     } catch (error) {
       console.error('Error parsing stored user:', error);
+      localStorage.removeItem('currentUser');
       return null;
     }
   });
@@ -272,7 +284,10 @@ function Root() {
 
   // Load user data (cart and favorites) from database
   const loadUserData = async () => {
-    if (!currentUser?.token) return;
+    if (!currentUser?.token || !isValidToken(currentUser.token)) {
+      console.warn('No valid token available for loading user data');
+      return;
+    }
     
     try {
       setIsLoadingUserData(true);
@@ -283,12 +298,29 @@ function Root() {
         if (userData.cart) setCartItems(userData.cart);
         if (userData.favorites) setFavorites(userData.favorites);
       } catch (error) {
+        // Check if it's an authentication error
+        if (error.message?.includes('401') || error.message?.includes('Unauthorized') || error.message?.includes('Invalid token')) {
+          console.warn('Authentication error, clearing user session:', error.message);
+          handleTokenExpired();
+          return;
+        }
+        
         // Fallback to individual API calls if getUserData doesn't exist
         console.warn('getUserData not available, using individual calls:', error);
         
         const [cartResponse, favoritesResponse] = await Promise.allSettled([
-          getCart(),
-          getFavorites()
+          getCart().catch(err => {
+            if (err.message?.includes('401') || err.message?.includes('Unauthorized')) {
+              throw err; // Re-throw auth errors
+            }
+            return { cart: [] };
+          }),
+          getFavorites().catch(err => {
+            if (err.message?.includes('401') || err.message?.includes('Unauthorized')) {
+              throw err; // Re-throw auth errors
+            }
+            return { favorites: [] };
+          })
         ]);
         
         if (cartResponse.status === 'fulfilled' && cartResponse.value?.cart) {
@@ -298,12 +330,65 @@ function Root() {
         if (favoritesResponse.status === 'fulfilled' && favoritesResponse.value?.favorites) {
           setFavorites(favoritesResponse.value.favorites);
         }
+        
+        // Check if any of the fallback calls failed with auth error
+        if (cartResponse.status === 'rejected' || favoritesResponse.status === 'rejected') {
+          const authError = [cartResponse.reason, favoritesResponse.reason]
+            .find(err => err?.message?.includes('401') || err?.message?.includes('Unauthorized'));
+          if (authError) {
+            console.warn('Authentication error in fallback calls:', authError.message);
+            handleTokenExpired();
+            return;
+          }
+        }
       }
     } catch (error) {
       console.error('Error loading user data:', error);
-      // Don't show error toast as this might happen on page load
+      
+      // Check if it's an authentication error
+      if (error.message?.includes('401') || error.message?.includes('Unauthorized') || error.message?.includes('Invalid token')) {
+        handleTokenExpired();
+      }
     } finally {
       setIsLoadingUserData(false);
+    }
+  };
+
+  // Handle expired or invalid token
+  const handleTokenExpired = () => {
+    console.log('Token expired or invalid, logging out user');
+    setCurrentUser(null);
+    setCartItems([]);
+    setFavorites([]);
+    localStorage.removeItem('currentUser');
+    
+    // Don't show toast if user is already on login page or home
+    if (!isLoginOpen && (showCartPage || showFavoritesPage || showCheckoutPage)) {
+      showToast('Your session has expired. Please login again.', 'warning');
+      setShowCartPage(false);
+      setShowFavoritesPage(false);
+      setShowCheckoutPage(false);
+      setHash('home');
+      scrollToTop();
+    }
+  };
+
+  // Check if JWT token is expired (optional - basic check)
+  const isTokenExpired = (token) => {
+    if (!token) return true;
+    
+    try {
+      const parts = token.split('.');
+      if (parts.length !== 3) return true;
+      
+      const payload = JSON.parse(atob(parts[1]));
+      const currentTime = Date.now() / 1000;
+      
+      // Check if token has expired
+      return payload.exp && payload.exp < currentTime;
+    } catch (error) {
+      console.warn('Error checking token expiration:', error);
+      return true; // Assume expired if we can't parse it
     }
   };
 
@@ -379,9 +464,32 @@ function Root() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [products]);
 
+  // Validate token format (basic check)
+  const isValidToken = (token) => {
+    if (!token || typeof token !== 'string') return false;
+    // Basic JWT format check (should have 3 parts separated by dots)
+    const parts = token.split('.');
+    return parts.length === 3;
+  };
+
   // Load user data when user is available (on page load or login)
   useEffect(() => {
     if (currentUser?.token) {
+      if (!isValidToken(currentUser.token)) {
+        // Invalid token format, clear user session
+        console.warn('Invalid token format detected, clearing session');
+        handleTokenExpired();
+        return;
+      }
+      
+      if (isTokenExpired(currentUser.token)) {
+        // Token has expired, clear user session
+        console.warn('Token has expired, clearing session');
+        handleTokenExpired();
+        return;
+      }
+      
+      // Token is valid, load user data
       loadUserData();
     } else {
       // Clear data when user logs out
@@ -499,6 +607,13 @@ function Root() {
       showToast('Added to cart.', 'success');
     } catch (error) {
       console.error('Error adding to cart:', error);
+      
+      // Check if it's an authentication error
+      if (error.message?.includes('401') || error.message?.includes('Unauthorized')) {
+        handleTokenExpired();
+        return;
+      }
+      
       showToast('Failed to add to cart. Please try again.', 'warning');
     }
   };
@@ -515,6 +630,13 @@ function Root() {
       setCartItems(response.cart);
     } catch (error) {
       console.error('Error updating cart quantity:', error);
+      
+      // Check if it's an authentication error
+      if (error.message?.includes('401') || error.message?.includes('Unauthorized')) {
+        handleTokenExpired();
+        return;
+      }
+      
       showToast('Failed to update quantity. Please try again.', 'warning');
     }
   };
@@ -534,6 +656,13 @@ function Root() {
       showToast(`${removedTitle} removed from cart.`, 'info');
     } catch (error) {
       console.error('Error removing from cart:', error);
+      
+      // Check if it's an authentication error
+      if (error.message?.includes('401') || error.message?.includes('Unauthorized')) {
+        handleTokenExpired();
+        return;
+      }
+      
       showToast('Failed to remove item. Please try again.', 'warning');
     }
   };
@@ -576,6 +705,13 @@ function Root() {
       setCartItems([]);
     } catch (error) {
       console.error('Error clearing cart:', error);
+      
+      // Check if it's an authentication error
+      if (error.message?.includes('401') || error.message?.includes('Unauthorized')) {
+        handleTokenExpired();
+        return;
+      }
+      
       // Still clear local state even if API call fails
       setCartItems([]);
     }
@@ -682,6 +818,10 @@ function Root() {
   const handleAddToWishlist = async (product) => {
     if (!currentUser) {
       showToast('Please login to add items to your wishlist.', 'warning');
+      setPostLoginTarget('favorites');
+      setIsLoginOpen(true);
+      setHash('login');
+      scrollToTop();
       return;
     }
 
@@ -701,6 +841,13 @@ function Root() {
       }
     } catch (error) {
       console.error('Error updating favorites:', error);
+      
+      // Check if it's an authentication error
+      if (error.message?.includes('401') || error.message?.includes('Unauthorized')) {
+        handleTokenExpired();
+        return;
+      }
+      
       showToast('Failed to update wishlist. Please try again.', 'warning');
     }
   };
