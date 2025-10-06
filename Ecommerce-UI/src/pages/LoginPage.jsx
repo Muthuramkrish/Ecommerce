@@ -23,27 +23,6 @@ const LoginPage = ({ onLoginSuccess }) => {
   const [showSignUpChecklist, setShowSignUpChecklist] = useState(false);
   const [signUpPwdFocused, setSignUpPwdFocused] = useState(false);
 
-  // useEffect(() => {
-  //   const lastUser = getLastUser();
-  //   if (lastUser) {
-  //     setForm((f) => ({ ...f, signIn: { ...f.signIn, email: lastUser.email } }));
-  //   }
-  // }, []);
-
-  // // On mobile, allow deep-linking to the Sign Up panel via #signup or ?mode=signup
-  // useEffect(() => {
-  //   try {
-  //     const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
-  //     const hash = window.location.hash;
-  //     const searchParams = new URLSearchParams(window.location.search);
-  //     if (isMobile && (hash === '#signup' || searchParams.get('mode') === 'signup')) {
-  //       setActive(true);
-  //     }
-  //   } catch {}
-  // }, []);
-
-  // Email suggestions removed on request
-
   const isValidEmail = (email) => {
     const value = String(email || '').trim();
     if (!value) return false;
@@ -154,10 +133,8 @@ const LoginPage = ({ onLoginSuccess }) => {
     }
   
     try {
-      // Call backend API
       const res = await signInUser({ email, password });
 
-      // Store user info for header (token is already stored in signInUser)
       const userInfo = {
         fullName: res.user?.fullName || email,
         email: res.user?.email || email,
@@ -165,7 +142,6 @@ const LoginPage = ({ onLoginSuccess }) => {
       };
       localStorage.setItem("currentUser", JSON.stringify(userInfo));
 
-      // Update app state via callback - pass the complete response including favorites and cart
       if (onLoginSuccess) {
         onLoginSuccess({
           ...userInfo,
@@ -182,8 +158,6 @@ const LoginPage = ({ onLoginSuccess }) => {
       });
     }
   };
-
-  // Suggestion click handler removed
 
   return (
     <div className="main-wrapper">

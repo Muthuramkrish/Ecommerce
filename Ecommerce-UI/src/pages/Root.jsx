@@ -6,12 +6,11 @@ import CheckoutPage from './CheckoutPage';
 import Footer from '../components/Footer';
 import LoginPage from './LoginPage';
 import CategoryListPage from './CategoryListPage';
-import ProductCard from '../components/ProductCard';
 import ProductDetailsPage from './ProductDetailsPage';
 import FavoritesPage from './FavoritesPage';
-import About from './About'; // Add About component import
-import Contact from './Contact'; // Add Contact component import
-import BulkOrderPage from './BulkOrderPage'; // Add BulkOrderPage component import
+import About from './About';
+import Contact from './Contact';
+import BulkOrderPage from './BulkOrderPage';
 import HelpCenter from './HelpCenter';
 import Returns from './Returns';
 import ShippingInfo from './ShippingInfo';
@@ -19,7 +18,7 @@ import TrackOrder from './TrackOrder';
 import Warranty from './Warranty';
 import TermsOfService from './TermsOfService';
 import PrivacyPolicy from './PrivacyPolicy';
-import LoadingPage from '../components/LoadingPage'; // Add LoadingPage component import
+import LoadingPage from '../components/LoadingPage';
 import { fetchAllProducts } from '../api/client';
 import { 
   addToFavorites as apiAddToFavorites,

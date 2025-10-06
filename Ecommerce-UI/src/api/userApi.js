@@ -42,59 +42,6 @@ const apiCall = async (url, options = {}) => {
   }
 };
 
-// User Authentication
-export const signUp = async (userData) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/api/signup`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(userData),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Sign up failed');
-    }
-
-    return await response.json();
-  } catch (error) {
-    console.error('Sign up error:', error);
-    throw error;
-  }
-};
-
-export const signIn = async (credentials) => {
-  try {
-    const response = await fetch(`${API_BASE_URL}/api/signin`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(credentials),
-    });
-
-    if (!response.ok) {
-      const errorData = await response.json();
-      throw new Error(errorData.message || 'Sign in failed');
-    }
-
-    const data = await response.json();
-    
-    // Store user data and token for future requests
-    if (data.user && data.token) {
-      const userWithToken = { ...data.user, token: data.token };
-      localStorage.setItem('currentUser', JSON.stringify(userWithToken));
-    }
-
-    return data;
-  } catch (error) {
-    console.error('Sign in error:', error);
-    throw error;
-  }
-};
-
 // User Profile
 export const getUserProfile = async () => {
   return await apiCall(`${API_BASE_URL}/api/user/profile`);
@@ -157,59 +104,4 @@ export const syncCart = async (cartItems) => {
     method: 'POST',
     body: JSON.stringify({ cartItems })
   });
-};
-
-// Helper functions for managing data synchronization
-export const syncFavoritesFromLocalStorage = async () => {
-  try {
-    const user = localStorage.getItem('currentUser');
-    if (!user) return;
-
-    const parsedUser = JSON.parse(user);
-    const localFavorites = localStorage.getItem(`favorites:${parsedUser.email}`);
-    
-    if (localFavorites) {
-      const favorites = JSON.parse(localFavorites);
-      
-      // Add each favorite to the database
-      for (const favorite of favorites) {
-        try {
-          await addToFavorites(favorite);
-        } catch (error) {
-          // Continue with other favorites if one fails
-          console.warn('Failed to sync favorite:', favorite['product-title'], error);
-        }
-      }
-      
-      // Clear local storage after successful sync
-      localStorage.removeItem(`favorites:${parsedUser.email}`);
-    }
-  } catch (error) {
-    console.error('Error syncing favorites from localStorage:', error);
-  }
-};
-
-export const syncCartFromLocalStorage = async () => {
-  try {
-    const user = localStorage.getItem('currentUser');
-    if (!user) return;
-
-    const parsedUser = JSON.parse(user);
-    const localCart = localStorage.getItem(`cart:${parsedUser.email}`) || 
-                     localStorage.getItem('guestCart');
-    
-    if (localCart) {
-      const cartItems = JSON.parse(localCart);
-      
-      if (cartItems.length > 0) {
-        await syncCart(cartItems);
-        
-        // Clear local storage after successful sync
-        localStorage.removeItem(`cart:${parsedUser.email}`);
-        localStorage.removeItem('guestCart');
-      }
-    }
-  } catch (error) {
-    console.error('Error syncing cart from localStorage:', error);
-  }
 };

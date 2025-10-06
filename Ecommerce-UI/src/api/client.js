@@ -9,7 +9,6 @@ export async function fetchProducts(params = {}) {
     throw new Error(`Failed to fetch products: ${response.status}`);
   }
   const json = await response.json();
-  console.log(json);
   return Array.isArray(json?.data) ? json.data : [];
 }
 
@@ -19,6 +18,5 @@ export async function fetchAllProducts() {
     throw new Error(`Failed to fetch all products: ${response.status}`);
   }
   const json = await response.json();
-  console.log(json);
   return Array.isArray(json?.data) ? json.data : [];
 }

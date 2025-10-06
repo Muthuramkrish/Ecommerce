@@ -20,19 +20,6 @@ connectDB();
 app.use("/api/productList", ProductListRouter);
 app.use("/api/user", userRoutes);
 
-// Backward compatibility routes (redirect to new endpoints)
-app.use("/api/signup", (req, res) => {
-  // Redirect to new signup endpoint
-  req.url = '/signup';
-  userRoutes(req, res);
-});
-
-app.use("/api/signin", (req, res) => {
-  // Redirect to new signin endpoint
-  req.url = '/signin';
-  userRoutes(req, res);
-});
-
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
