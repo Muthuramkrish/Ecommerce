@@ -18,6 +18,11 @@ app.use(cors());
 // Connect Database
 connectDB();
 
+// Test route
+app.get("/api/test", (req, res) => {
+  res.json({ message: "Server is working!", timestamp: new Date().toISOString() });
+});
+
 // Routes
 app.use("/api/productList", ProductListRouter);
 app.use("/api/user", userRoutes);
