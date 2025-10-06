@@ -20,9 +20,6 @@ const Header = ({
   menuTree,
   onNavigateTaxonomy
 }) => {
-  // Debug: Log current user data
-  console.log('Header currentUser:', currentUser);
-  console.log('Header isLoggedIn:', isLoggedIn);
   const [searchQuery, setSearchQuery] = useState('');
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isLeftMenuOpen, setIsLeftMenuOpen] = useState(false);
@@ -259,14 +256,18 @@ const Header = ({
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
                   className="flex items-center space-x-1 md:space-x-2 p-1.5 md:p-2 hover:bg-blue-800 rounded-full transition-colors"
                 >
-                  <span className="text-xs md:text-sm text-blue-100">Hi, {currentUser?.fullName || currentUser?.name || 'User'}</span>
+                  <span className="text-xs md:text-sm text-blue-100">
+                    Hi, {currentUser?.fullName || currentUser?.name || 'User'}
+                  </span>
                   <User className="w-5 h-5 md:w-6 md:h-6" />
                 </button>
 
                 {isUserMenuOpen && (
                   <div className="absolute right-0 mt-2 w-auto min-w-[12rem] max-w-[90vw] sm:max-w-sm bg-white rounded-md shadow-lg py-1 z-50">
                     <div className="px-4 py-2 text-sm text-gray-700 border-b border-gray-100 space-y-0.5">
-                      <div className="font-medium break-words whitespace-normal">{currentUser?.fullName || currentUser?.name || 'User'}</div>
+                      <div className="font-medium break-words whitespace-normal">
+                        {currentUser?.fullName || currentUser?.name || 'User'}
+                      </div>
                       <div className="text-gray-500 break-words whitespace-normal">{currentUser?.email}</div>
                     </div>
                     <button
@@ -369,7 +370,9 @@ const Header = ({
                       <User className="w-6 h-6 text-blue-600" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <div className="font-medium text-gray-900 truncate">{currentUser?.fullName || currentUser?.name || 'User'}</div>
+                      <div className="font-medium text-gray-900 truncate">
+                        {currentUser?.fullName || currentUser?.name || 'User'}
+                      </div>
                       <div className="text-sm text-gray-500 truncate">{currentUser?.email}</div>
                     </div>
                   </div>
