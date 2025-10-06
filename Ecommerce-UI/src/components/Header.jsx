@@ -24,7 +24,6 @@ const Header = ({
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isLeftMenuOpen, setIsLeftMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-  const [showElectrical, setShowElectrical] = useState(false);
   const [expandedCategory, setExpandedCategory] = useState(null);
   const [expandedSubcategory, setExpandedSubcategory] = useState(null);
   const [activeCategory, setActiveCategory] = useState(null);
