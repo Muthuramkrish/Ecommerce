@@ -1,5 +1,25 @@
 import mongoose from "mongoose";
 
+const cartItemSchema = new mongoose.Schema(
+  {
+    category: {
+      type: String, // e.g. "Switches", "Fans"
+      required: true,
+    },
+    productId: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: true, // Product from that category collection
+    },
+    quantity: {
+      type: Number,
+      required: true,
+      default: 1,
+      min: 1,
+    },
+  },
+  { _id: false }
+);
+
 const userSchema = new mongoose.Schema(
   {
     fullName: {
@@ -24,68 +44,23 @@ const userSchema = new mongoose.Schema(
       required: true,
       default: false,
     },
-    favorites: [{
-      productTitle: {
-        type: String,
-        required: true
+    favorites: [
+      {
+        category: {
+          type: String, // e.g. "Fans", "Switches"
+          required: true,
+        },
+        productId: {
+          type: mongoose.Schema.Types.ObjectId,
+          required: true,
+        },
+        addedAt: {
+          type: Date,
+          default: Date.now,
+        },
       },
-      imageUrl: {
-        type: String,
-        required: true
-      },
-      oldPrice: {
-        type: String,
-        required: true
-      },
-      newPrice: {
-        type: String,
-        required: true
-      },
-      category: String,
-      rating: Number,
-      reviews: Number,
-      raw: {
-        type: mongoose.Schema.Types.Mixed
-      },
-      addedAt: {
-        type: Date,
-        default: Date.now
-      }
-    }],
-    cart: [{
-      productTitle: {
-        type: String,
-        required: true
-      },
-      imageUrl: {
-        type: String,
-        required: true
-      },
-      oldPrice: {
-        type: String,
-        required: true
-      },
-      newPrice: {
-        type: String,
-        required: true
-      },
-      category: String,
-      rating: Number,
-      reviews: Number,
-      raw: {
-        type: mongoose.Schema.Types.Mixed
-      },
-      quantity: {
-        type: Number,
-        required: true,
-        min: 1,
-        default: 1
-      },
-      addedAt: {
-        type: Date,
-        default: Date.now
-      }
-    }]
+    ],
+    cart: [cartItemSchema],
   },
   { timestamps: true }
 );

@@ -1,6 +1,7 @@
 import User from "../models/user.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import mongoose from "mongoose";
 
 const JWT_SECRET = process.env.JWT_SECRET || "vikoshiya_india_electrical_&_electronics_ecommerce_service_site";
 
@@ -20,30 +21,96 @@ export const verifyToken = (req, res, next) => {
   }
 };
 
-// Helper function to convert frontend product format to database format
-const convertProductToDb = (product) => ({
-  productTitle: product['product-title'],
-  imageUrl: product['image-url'],
-  oldPrice: product['old-price'],
-  newPrice: product['new-price'],
-  category: product.category,
-  rating: product.rating,
-  reviews: product.reviews,
-  raw: product.raw
-});
+// Helper function to get product from appropriate collection
+const getProductFromCollection = async (category, productId) => {
+  try {
+    const collectionName = category.toLowerCase();
+    const collection = mongoose.connection.db.collection(collectionName);
+    const product = await collection.findOne({ _id: new mongoose.Types.ObjectId(productId) });
+    return product;
+  } catch (error) {
+    console.error(`Error fetching product from ${category}:`, error);
+    return null;
+  }
+};
 
-// Helper function to convert database format to frontend format
-const convertProductFromDb = (dbProduct) => ({
-  'product-title': dbProduct.productTitle,
-  'image-url': dbProduct.imageUrl,
-  'old-price': dbProduct.oldPrice,
-  'new-price': dbProduct.newPrice,
-  category: dbProduct.category,
-  rating: dbProduct.rating,
-  reviews: dbProduct.reviews,
-  raw: dbProduct.raw,
-  quantity: dbProduct.quantity // Only for cart items
-});
+// Helper function to convert database product to frontend format
+const convertDbProductToFrontend = (dbProduct, category) => {
+  if (!dbProduct) return null;
+  
+  return {
+    'product-title': dbProduct['product-title'] || dbProduct.title || 'Unknown Product',
+    'image-url': dbProduct['image-url'] || dbProduct.imageUrl || '',
+    'old-price': dbProduct['old-price'] || dbProduct.oldPrice || '0',
+    'new-price': dbProduct['new-price'] || dbProduct.newPrice || dbProduct.price || '0',
+    category: category,
+    rating: dbProduct.rating || 4,
+    reviews: dbProduct.reviews || 0,
+    raw: dbProduct,
+    _id: dbProduct._id
+  };
+};
+
+// Helper function to populate favorites with product data
+const populateFavorites = async (favorites) => {
+  const populatedFavorites = [];
+  
+  for (const fav of favorites) {
+    const product = await getProductFromCollection(fav.category, fav.productId);
+    if (product) {
+      const frontendProduct = convertDbProductToFrontend(product, fav.category);
+      if (frontendProduct) {
+        populatedFavorites.push(frontendProduct);
+      }
+    }
+  }
+  
+  return populatedFavorites;
+};
+
+// Helper function to populate cart with product data
+const populateCart = async (cartItems) => {
+  const populatedCart = [];
+  
+  for (const item of cartItems) {
+    const product = await getProductFromCollection(item.category, item.productId);
+    if (product) {
+      const frontendProduct = convertDbProductToFrontend(product, item.category);
+      if (frontendProduct) {
+        frontendProduct.quantity = item.quantity;
+        populatedCart.push(frontendProduct);
+      }
+    }
+  }
+  
+  return populatedCart;
+};
+
+// Helper function to find product ID and category from frontend product data
+const findProductIdAndCategory = async (frontendProduct) => {
+  const productTitle = frontendProduct['product-title'];
+  const collections = ['fans', 'switches', 'heaters', 'lightings', 'cables']; // Add your collection names
+  
+  for (const collectionName of collections) {
+    try {
+      const collection = mongoose.connection.db.collection(collectionName);
+      const product = await collection.findOne({ 
+        'product-title': productTitle 
+      });
+      
+      if (product) {
+        return {
+          productId: product._id,
+          category: collectionName.charAt(0).toUpperCase() + collectionName.slice(1, -1) // Convert "fans" to "Fan"
+        };
+      }
+    } catch (error) {
+      console.error(`Error searching in ${collectionName}:`, error);
+    }
+  }
+  
+  return null;
+};
 
 // Sign Up
 export const signUp = async (req, res) => {
@@ -95,9 +162,9 @@ export const signIn = async (req, res) => {
       { expiresIn: "24h" }
     );
 
-    // Convert favorites and cart to frontend format
-    const favorites = user.favorites.map(convertProductFromDb);
-    const cart = user.cart.map(convertProductFromDb);
+    // Populate favorites and cart with actual product data
+    const favorites = await populateFavorites(user.favorites);
+    const cart = await populateCart(user.cart);
 
     res.status(200).json({ 
       message: "Login successful", 
@@ -122,8 +189,8 @@ export const getUserProfile = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const favorites = user.favorites.map(convertProductFromDb);
-    const cart = user.cart.map(convertProductFromDb);
+    const favorites = await populateFavorites(user.favorites);
+    const cart = await populateCart(user.cart);
 
     res.status(200).json({
       user: {
@@ -152,9 +219,15 @@ export const addToFavorites = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
+    // Find the product ID and category
+    const productInfo = await findProductIdAndCategory(product);
+    if (!productInfo) {
+      return res.status(404).json({ message: "Product not found in database" });
+    }
+
     // Check if product is already in favorites
     const existingIndex = user.favorites.findIndex(
-      fav => fav.productTitle === product['product-title']
+      fav => fav.productId.toString() === productInfo.productId.toString()
     );
 
     if (existingIndex !== -1) {
@@ -162,11 +235,14 @@ export const addToFavorites = async (req, res) => {
     }
 
     // Add to favorites
-    const dbProduct = convertProductToDb(product);
-    user.favorites.push(dbProduct);
+    user.favorites.push({
+      category: productInfo.category,
+      productId: productInfo.productId,
+      addedAt: new Date()
+    });
     await user.save();
 
-    const favorites = user.favorites.map(convertProductFromDb);
+    const favorites = await populateFavorites(user.favorites);
     res.status(200).json({ 
       message: "Product added to favorites", 
       favorites 
@@ -186,13 +262,19 @@ export const removeFromFavorites = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
+    // Find the product to get its ID
+    const productInfo = await findProductIdAndCategory({ 'product-title': productTitle });
+    if (!productInfo) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
     // Remove from favorites
     user.favorites = user.favorites.filter(
-      fav => fav.productTitle !== productTitle
+      fav => fav.productId.toString() !== productInfo.productId.toString()
     );
     await user.save();
 
-    const favorites = user.favorites.map(convertProductFromDb);
+    const favorites = await populateFavorites(user.favorites);
     res.status(200).json({ 
       message: "Product removed from favorites", 
       favorites 
@@ -210,7 +292,7 @@ export const getFavorites = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const favorites = user.favorites.map(convertProductFromDb);
+    const favorites = await populateFavorites(user.favorites);
     res.status(200).json({ favorites });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
@@ -231,9 +313,15 @@ export const addToCart = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
+    // Find the product ID and category
+    const productInfo = await findProductIdAndCategory(product);
+    if (!productInfo) {
+      return res.status(404).json({ message: "Product not found in database" });
+    }
+
     // Check if product is already in cart
     const existingIndex = user.cart.findIndex(
-      item => item.productTitle === product['product-title']
+      item => item.productId.toString() === productInfo.productId.toString()
     );
 
     if (existingIndex !== -1) {
@@ -241,14 +329,16 @@ export const addToCart = async (req, res) => {
       user.cart[existingIndex].quantity = Math.max(1, user.cart[existingIndex].quantity + quantity);
     } else {
       // Add new item to cart
-      const dbProduct = convertProductToDb(product);
-      dbProduct.quantity = Math.max(1, quantity);
-      user.cart.push(dbProduct);
+      user.cart.push({
+        category: productInfo.category,
+        productId: productInfo.productId,
+        quantity: Math.max(1, quantity)
+      });
     }
 
     await user.save();
 
-    const cart = user.cart.map(convertProductFromDb);
+    const cart = await populateCart(user.cart);
     res.status(200).json({ 
       message: "Product added to cart", 
       cart 
@@ -273,8 +363,14 @@ export const updateCartQuantity = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
+    // Find the product to get its ID
+    const productInfo = await findProductIdAndCategory({ 'product-title': productTitle });
+    if (!productInfo) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
     const itemIndex = user.cart.findIndex(
-      item => item.productTitle === productTitle
+      item => item.productId.toString() === productInfo.productId.toString()
     );
 
     if (itemIndex === -1) {
@@ -284,7 +380,7 @@ export const updateCartQuantity = async (req, res) => {
     user.cart[itemIndex].quantity = quantity;
     await user.save();
 
-    const cart = user.cart.map(convertProductFromDb);
+    const cart = await populateCart(user.cart);
     res.status(200).json({ 
       message: "Cart quantity updated", 
       cart 
@@ -304,13 +400,19 @@ export const removeFromCart = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
+    // Find the product to get its ID
+    const productInfo = await findProductIdAndCategory({ 'product-title': productTitle });
+    if (!productInfo) {
+      return res.status(404).json({ message: "Product not found" });
+    }
+
     // Remove from cart
     user.cart = user.cart.filter(
-      item => item.productTitle !== productTitle
+      item => item.productId.toString() !== productInfo.productId.toString()
     );
     await user.save();
 
-    const cart = user.cart.map(convertProductFromDb);
+    const cart = await populateCart(user.cart);
     res.status(200).json({ 
       message: "Product removed from cart", 
       cart 
@@ -328,7 +430,7 @@ export const getCart = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const cart = user.cart.map(convertProductFromDb);
+    const cart = await populateCart(user.cart);
     res.status(200).json({ cart });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
@@ -370,32 +472,36 @@ export const syncCart = async (req, res) => {
     }
 
     // Convert and merge cart items
-    const newCart = [];
+    const newCartItems = [];
     
     for (const item of cartItems) {
       if (!item['product-title']) continue;
       
-      const dbProduct = convertProductToDb(item);
-      dbProduct.quantity = Math.max(1, item.quantity || 1);
+      const productInfo = await findProductIdAndCategory(item);
+      if (!productInfo) continue;
       
       // Check if item already exists in current cart
       const existingIndex = user.cart.findIndex(
-        cartItem => cartItem.productTitle === dbProduct.productTitle
+        cartItem => cartItem.productId.toString() === productInfo.productId.toString()
       );
       
       if (existingIndex !== -1) {
         // Merge quantities
-        user.cart[existingIndex].quantity = Math.max(1, user.cart[existingIndex].quantity + dbProduct.quantity);
+        user.cart[existingIndex].quantity = Math.max(1, user.cart[existingIndex].quantity + (item.quantity || 1));
       } else {
-        newCart.push(dbProduct);
+        newCartItems.push({
+          category: productInfo.category,
+          productId: productInfo.productId,
+          quantity: Math.max(1, item.quantity || 1)
+        });
       }
     }
     
     // Add new items to cart
-    user.cart.push(...newCart);
+    user.cart.push(...newCartItems);
     await user.save();
 
-    const cart = user.cart.map(convertProductFromDb);
+    const cart = await populateCart(user.cart);
     res.status(200).json({ 
       message: "Cart synced successfully", 
       cart 
