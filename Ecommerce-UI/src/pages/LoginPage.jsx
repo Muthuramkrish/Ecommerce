@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './LoginPage.css';
-import { signUpUser, signInUser } from "../api/user";  
+import { signUpUser, signInUser } from '../api/user.js';  
 
 
 const initialForm = {
