@@ -201,9 +201,29 @@ export const signIn = async (req, res) => {
       { expiresIn: "24h" }
     );
 
-    // Populate favorites and cart with actual product data
-    const favorites = await populateFavorites(user.favorites);
-    const cart = await populateCart(user.cart);
+    // Convert favorites and cart to frontend format (handle both old and new formats)
+    const favorites = user.favorites.map(fav => ({
+      'product-title': fav.productTitle || fav.productId?.toString() || 'Unknown',
+      'image-url': fav.imageUrl || '',
+      'old-price': fav.oldPrice || '0',
+      'new-price': fav.newPrice || '0',
+      category: fav.category || 'General',
+      rating: fav.rating || 4,
+      reviews: fav.reviews || 0,
+      raw: fav.raw
+    }));
+
+    const cart = user.cart.map(item => ({
+      'product-title': item.productTitle || item.productId?.toString() || 'Unknown',
+      'image-url': item.imageUrl || '',
+      'old-price': item.oldPrice || '0',
+      'new-price': item.newPrice || '0',
+      category: item.category || 'General',
+      rating: item.rating || 4,
+      reviews: item.reviews || 0,
+      raw: item.raw,
+      quantity: item.quantity || 1
+    }));
 
     res.status(200).json({ 
       message: "Login successful", 
@@ -216,6 +236,7 @@ export const signIn = async (req, res) => {
       cart
     });
   } catch (err) {
+    console.error('❌ Error during sign in:', err);
     res.status(500).json({ message: "Server error", error: err.message });
   }
 };
@@ -343,6 +364,12 @@ export const addToCart = async (req, res) => {
   try {
     const { product, quantity = 1 } = req.body;
     
+    console.log('📦 Add to Cart Request received:', {
+      product: product ? product['product-title'] : 'No product',
+      quantity,
+      userId: req.userId
+    });
+    
     if (!product || !product['product-title']) {
       return res.status(400).json({ message: "Invalid product data" });
     }
@@ -352,43 +379,83 @@ export const addToCart = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Find the product ID and category
-    const productInfo = await findProductIdAndCategory(product);
-    if (!productInfo) {
-      return res.status(404).json({ 
-        message: "Product not found in database",
-        productTitle: product['product-title'],
-        availableCollections: ['fans', 'switches', 'heaters', 'lightings', 'cables']
+    console.log('👤 User found:', user.email);
+
+    // TEMPORARY FALLBACK: Store the full product data like the old system
+    // This will work while we debug the ObjectId lookup issue
+    try {
+      // Check if product is already in cart by product title
+      const existingIndex = user.cart.findIndex(
+        item => {
+          // Handle both old format (with productTitle) and new format (with productId)
+          if (item.productTitle) {
+            return item.productTitle === product['product-title'];
+          } else if (item.productId) {
+            // For new format, we'll need to populate and check
+            return false; // For now, treat as new item
+          }
+          return false;
+        }
+      );
+
+      if (existingIndex !== -1) {
+        // Update existing item quantity
+        user.cart[existingIndex].quantity = Math.max(1, user.cart[existingIndex].quantity + quantity);
+        console.log('📦 Updated existing cart item');
+      } else {
+        // Add new item using fallback format (temporary)
+        const cartItem = {
+          // Use old format temporarily to avoid ObjectId issues
+          productTitle: product['product-title'],
+          imageUrl: product['image-url'] || '',
+          oldPrice: product['old-price'] || '0',
+          newPrice: product['new-price'] || '0',
+          category: product.category || 'General',
+          rating: product.rating || 4,
+          reviews: product.reviews || 0,
+          raw: product.raw || product,
+          quantity: Math.max(1, quantity),
+          addedAt: new Date()
+        };
+        
+        user.cart.push(cartItem);
+        console.log('📦 Added new cart item (fallback format)');
+      }
+
+      await user.save();
+      console.log('💾 User cart saved successfully');
+
+      // Convert cart to frontend format
+      const cart = user.cart.map(item => ({
+        'product-title': item.productTitle || item.productId?.toString() || 'Unknown',
+        'image-url': item.imageUrl || '',
+        'old-price': item.oldPrice || '0',
+        'new-price': item.newPrice || '0',
+        category: item.category || 'General',
+        rating: item.rating || 4,
+        reviews: item.reviews || 0,
+        raw: item.raw,
+        quantity: item.quantity || 1
+      }));
+
+      res.status(200).json({ 
+        message: "Product added to cart", 
+        cart 
       });
+
+    } catch (innerError) {
+      console.error('❌ Inner error in cart operation:', innerError);
+      throw innerError;
     }
 
-    // Check if product is already in cart
-    const existingIndex = user.cart.findIndex(
-      item => item.productId.toString() === productInfo.productId.toString()
-    );
-
-    if (existingIndex !== -1) {
-      // Update quantity if product already exists
-      user.cart[existingIndex].quantity = Math.max(1, user.cart[existingIndex].quantity + quantity);
-    } else {
-      // Add new item to cart
-      user.cart.push({
-        category: productInfo.category,
-        productId: productInfo.productId,
-        quantity: Math.max(1, quantity)
-      });
-    }
-
-    await user.save();
-
-    const cart = await populateCart(user.cart);
-    res.status(200).json({ 
-      message: "Product added to cart", 
-      cart 
-    });
   } catch (error) {
     console.error('❌ Error adding to cart:', error);
-    res.status(500).json({ message: "Server error", error: error.message });
+    console.error('❌ Error stack:', error.stack);
+    res.status(500).json({ 
+      message: "Server error", 
+      error: error.message,
+      details: process.env.NODE_ENV === 'development' ? error.stack : undefined
+    });
   }
 };
 
@@ -474,9 +541,22 @@ export const getCart = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    const cart = await populateCart(user.cart);
+    // Convert cart to frontend format (handle both old and new formats)
+    const cart = user.cart.map(item => ({
+      'product-title': item.productTitle || item.productId?.toString() || 'Unknown',
+      'image-url': item.imageUrl || '',
+      'old-price': item.oldPrice || '0',
+      'new-price': item.newPrice || '0',
+      category: item.category || 'General',
+      rating: item.rating || 4,
+      reviews: item.reviews || 0,
+      raw: item.raw,
+      quantity: item.quantity || 1
+    }));
+
     res.status(200).json({ cart });
   } catch (error) {
+    console.error('❌ Error getting cart:', error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };

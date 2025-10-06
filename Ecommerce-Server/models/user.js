@@ -2,13 +2,12 @@ import mongoose from "mongoose";
 
 const cartItemSchema = new mongoose.Schema(
   {
+    // New ObjectId-based format
     category: {
       type: String, // e.g. "Switches", "Fans"
-      required: true,
     },
     productId: {
       type: mongoose.Schema.Types.ObjectId,
-      required: true, // Product from that category collection
     },
     quantity: {
       type: Number,
@@ -16,6 +15,19 @@ const cartItemSchema = new mongoose.Schema(
       default: 1,
       min: 1,
     },
+    
+    // Temporary fallback fields (old format) - for compatibility
+    productTitle: String,
+    imageUrl: String,
+    oldPrice: String,
+    newPrice: String,
+    rating: Number,
+    reviews: Number,
+    raw: mongoose.Schema.Types.Mixed,
+    addedAt: {
+      type: Date,
+      default: Date.now,
+    }
   },
   { _id: false }
 );
@@ -46,18 +58,26 @@ const userSchema = new mongoose.Schema(
     },
     favorites: [
       {
+        // New ObjectId-based format
         category: {
           type: String, // e.g. "Fans", "Switches"
-          required: true,
         },
         productId: {
           type: mongoose.Schema.Types.ObjectId,
-          required: true,
         },
         addedAt: {
           type: Date,
           default: Date.now,
         },
+        
+        // Temporary fallback fields (old format) - for compatibility
+        productTitle: String,
+        imageUrl: String,
+        oldPrice: String,
+        newPrice: String,
+        rating: Number,
+        reviews: Number,
+        raw: mongoose.Schema.Types.Mixed,
       },
     ],
     cart: [cartItemSchema],
