@@ -42,74 +42,16 @@ const apiCall = async (url, options = {}) => {
   }
 };
 
-// ================================
-// AUTHENTICATION API CALLS
-// ================================
-
-// SIGN UP (REGISTER)
-export const signUpUser = async (data = {}) => {
-  const response = await fetch(`${API_BASE_URL}/api/user/signup`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
-
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.message || `Signup failed: ${response.status}`);
-  }
-
-  const json = await response.json();
-  return json;
-};
-
-// SIGN IN (LOGIN)
-export const signInUser = async (data = {}) => {
-  const response = await fetch(`${API_BASE_URL}/api/user/signin`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(data),
-  });
-
-  if (!response.ok) {
-    const errorData = await response.json();
-    throw new Error(errorData.message || `Login failed: ${response.status}`);
-  }
-
-  const json = await response.json();
-  
-  // Store user data and token for future requests
-  if (json.user && json.token) {
-    const userWithToken = { ...json.user, token: json.token };
-    localStorage.setItem('currentUser', JSON.stringify(userWithToken));
-  }
-  
-  return json;
-};
-
-// ================================
-// USER PROFILE API CALLS
-// ================================
-
-// Get User Profile
+// User Profile
 export const getUserProfile = async () => {
   return await apiCall(`${API_BASE_URL}/api/user/profile`);
 };
 
-// ================================
-// FAVORITES API CALLS
-// ================================
-
-// Get Favorites
+// Favorites API calls
 export const getFavorites = async () => {
   return await apiCall(`${API_BASE_URL}/api/user/favorites`);
 };
 
-// Add to Favorites
 export const addToFavorites = async (product) => {
   return await apiCall(`${API_BASE_URL}/api/user/favorites`, {
     method: 'POST',
@@ -117,7 +59,6 @@ export const addToFavorites = async (product) => {
   });
 };
 
-// Remove from Favorites
 export const removeFromFavorites = async (productTitle) => {
   const encodedTitle = encodeURIComponent(productTitle);
   return await apiCall(`${API_BASE_URL}/api/user/favorites/${encodedTitle}`, {
@@ -125,16 +66,11 @@ export const removeFromFavorites = async (productTitle) => {
   });
 };
 
-// ================================
-// CART API CALLS
-// ================================
-
-// Get Cart
+// Cart API calls
 export const getCart = async () => {
   return await apiCall(`${API_BASE_URL}/api/user/cart`);
 };
 
-// Add to Cart
 export const addToCart = async (product, quantity = 1) => {
   return await apiCall(`${API_BASE_URL}/api/user/cart`, {
     method: 'POST',
@@ -142,7 +78,6 @@ export const addToCart = async (product, quantity = 1) => {
   });
 };
 
-// Update Cart Item Quantity
 export const updateCartQuantity = async (productTitle, quantity) => {
   const encodedTitle = encodeURIComponent(productTitle);
   return await apiCall(`${API_BASE_URL}/api/user/cart/${encodedTitle}`, {
@@ -151,7 +86,6 @@ export const updateCartQuantity = async (productTitle, quantity) => {
   });
 };
 
-// Remove from Cart
 export const removeFromCart = async (productTitle) => {
   const encodedTitle = encodeURIComponent(productTitle);
   return await apiCall(`${API_BASE_URL}/api/user/cart/${encodedTitle}`, {
@@ -159,14 +93,12 @@ export const removeFromCart = async (productTitle) => {
   });
 };
 
-// Clear Cart
 export const clearCart = async () => {
   return await apiCall(`${API_BASE_URL}/api/user/cart`, {
     method: 'DELETE'
   });
 };
 
-// Sync Cart from Frontend
 export const syncCart = async (cartItems) => {
   return await apiCall(`${API_BASE_URL}/api/user/cart/sync`, {
     method: 'POST',

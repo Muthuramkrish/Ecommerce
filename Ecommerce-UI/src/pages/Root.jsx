@@ -6,12 +6,11 @@ import CheckoutPage from './CheckoutPage';
 import Footer from '../components/Footer';
 import LoginPage from './LoginPage';
 import CategoryListPage from './CategoryListPage';
-import ProductCard from '../components/ProductCard';
 import ProductDetailsPage from './ProductDetailsPage';
 import FavoritesPage from './FavoritesPage';
-import About from './About'; // Add About component import
-import Contact from './Contact'; // Add Contact component import
-import BulkOrderPage from './BulkOrderPage'; // Add BulkOrderPage component import
+import About from './About';
+import Contact from './Contact';
+import BulkOrderPage from './BulkOrderPage';
 import HelpCenter from './HelpCenter';
 import Returns from './Returns';
 import ShippingInfo from './ShippingInfo';
@@ -19,8 +18,16 @@ import TrackOrder from './TrackOrder';
 import Warranty from './Warranty';
 import TermsOfService from './TermsOfService';
 import PrivacyPolicy from './PrivacyPolicy';
-import LoadingPage from '../components/LoadingPage'; // Add LoadingPage component import
+import LoadingPage from '../components/LoadingPage';
 import { fetchAllProducts } from '../api/client';
+import { 
+  addToFavorites as apiAddToFavorites,
+  removeFromFavorites as apiRemoveFromFavorites,
+  addToCart as apiAddToCart,
+  updateCartQuantity as apiUpdateCartQuantity,
+  removeFromCart as apiRemoveFromCart,
+  clearCart as apiClearCart
+} from '../api/user';
 
 function Root() {
   const [products, setProducts] = useState([]);
@@ -360,48 +367,34 @@ function Root() {
   // When currentUser changes, load cart and favorites for that user (with guest fallback)
   useEffect(() => {
     try {
-      const email = currentUser?.email || null;
-      const cartKey = email ? `cart:${email}` : 'guestCart';
-      const favKey = email ? `favorites:${email}` : null;
-      
-      // Load cart for current user (logged in) or guest cart (not logged in)
-      const storedCart = localStorage.getItem(cartKey);
-      const parsedCart = storedCart ? JSON.parse(storedCart) : [];
-      setCartItems(Array.isArray(parsedCart) ? parsedCart : []);
-      
-      if (favKey) {
-        const storedFav = localStorage.getItem(favKey) || localStorage.getItem('favorites');
-        const parsedFav = storedFav ? JSON.parse(storedFav) : [];
-        setFavorites(Array.isArray(parsedFav) ? parsedFav : []);
-      } else {
-        setFavorites([]);
+      if (!currentUser?.email) {
+        // Guest user - load from localStorage
+        const guestCart = localStorage.getItem('guestCart');
+        const parsedCart = guestCart ? JSON.parse(guestCart) : [];
+        setCartItems(Array.isArray(parsedCart) ? parsedCart : []);
+        setFavorites([]); // Guests don't have favorites
       }
+      // For logged-in users, cart and favorites are set during login
     } catch (error) {
-      console.error('Error loading user-scoped data:', error);
+      console.error('Error loading guest data:', error);
       setCartItems([]);
       setFavorites([]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentUser?.email]);
 
+  // Save guest cart to localStorage (only for guests)
   useEffect(() => {
     try {
-      const email = currentUser?.email;
-      if (email) {
-        // User is logged in - save to user-specific cart
-        localStorage.setItem(`cart:${email}`, JSON.stringify(cartItems));
-        // Clean up guest cart when user logs in
-        localStorage.removeItem('guestCart');
-      } else {
+      if (!currentUser?.email) {
         // User is not logged in - save to guest cart
         localStorage.setItem('guestCart', JSON.stringify(cartItems));
       }
+      // For logged-in users, cart is automatically saved to database via API calls
     } catch (error) {
-      console.error('Error saving cart to localStorage:', error);
+      console.error('Error saving guest cart to localStorage:', error);
     }
   }, [cartItems, currentUser?.email]);
-
-  // favorites are saved when toggled inside handleAddToWishlist
 
   useEffect(() => {
     let filtered = products;
@@ -485,34 +478,75 @@ function Root() {
     scrollToTop();
   };
 
-  const handleAddToCart = (product, quantity = 1) => {
-    setCartItems(prevItems => {
-      const existingItem = prevItems.find(item => item['product-title'] === product['product-title']);
-      if (existingItem) {
-        return prevItems.map(item =>
-          item['product-title'] === product['product-title']
-            ? { ...item, quantity: Math.max(1, item.quantity + (quantity || 1)) }
-            : item
-        );
-      } else {
-        return [...prevItems, { ...product, quantity: Math.max(1, quantity || 1) }];
+  const handleAddToCart = async (product, quantity = 1) => {
+    if (currentUser) {
+      // User is logged in - use database API
+      try {
+        const response = await apiAddToCart(product, quantity);
+        setCartItems(response.cart);
+        showToast('Added to cart.', 'success');
+      } catch (error) {
+        console.error('Error adding to cart:', error);
+        showToast('Failed to add to cart. Please try again.', 'warning');
       }
-    });
-    showToast('Added to cart.', 'success');
+    } else {
+      // Guest user - use localStorage (existing logic)
+      setCartItems(prevItems => {
+        const existingItem = prevItems.find(item => item['product-title'] === product['product-title']);
+        if (existingItem) {
+          return prevItems.map(item =>
+            item['product-title'] === product['product-title']
+              ? { ...item, quantity: Math.max(1, item.quantity + (quantity || 1)) }
+              : item
+          );
+        } else {
+          return [...prevItems, { ...product, quantity: Math.max(1, quantity || 1) }];
+        }
+      });
+      showToast('Added to cart.', 'success');
+    }
   };
 
-  const handleUpdateQuantity = (index, quantity) => {
-    setCartItems(prevItems =>
-      prevItems.map((item, i) =>
-        i === index ? { ...item, quantity: Math.max(1, quantity) } : item
-      )
-    );
+  const handleUpdateQuantity = async (index, quantity) => {
+    if (currentUser) {
+      // User is logged in - use database API
+      try {
+        const productTitle = cartItems[index]['product-title'];
+        const response = await apiUpdateCartQuantity(productTitle, quantity);
+        setCartItems(response.cart);
+      } catch (error) {
+        console.error('Error updating cart quantity:', error);
+        showToast('Failed to update quantity. Please try again.', 'warning');
+      }
+    } else {
+      // Guest user - use localStorage (existing logic)
+      setCartItems(prevItems =>
+        prevItems.map((item, i) =>
+          i === index ? { ...item, quantity: Math.max(1, quantity) } : item
+        )
+      );
+    }
   };
 
-  const handleRemoveItem = (index) => {
+  const handleRemoveItem = async (index) => {
     const removedTitle = cartItems[index]?.['product-title'] || 'Item';
-    setCartItems(prevItems => prevItems.filter((_, i) => i !== index));
-    showToast(`${removedTitle} removed from cart.`, 'info');
+    
+    if (currentUser) {
+      // User is logged in - use database API
+      try {
+        const productTitle = cartItems[index]['product-title'];
+        const response = await apiRemoveFromCart(productTitle);
+        setCartItems(response.cart);
+        showToast(`${removedTitle} removed from cart.`, 'info');
+      } catch (error) {
+        console.error('Error removing from cart:', error);
+        showToast('Failed to remove item. Please try again.', 'warning');
+      }
+    } else {
+      // Guest user - use localStorage (existing logic)
+      setCartItems(prevItems => prevItems.filter((_, i) => i !== index));
+      showToast(`${removedTitle} removed from cart.`, 'info');
+    }
   };
 
   const handleCheckout = () => {
@@ -534,8 +568,22 @@ function Root() {
     scrollToTop();
   };
 
-  const handleOrderComplete = () => {
-    setCartItems([]);
+  const handleOrderComplete = async () => {
+    if (currentUser) {
+      // User is logged in - clear cart in database
+      try {
+        await apiClearCart();
+        setCartItems([]);
+      } catch (error) {
+        console.error('Error clearing cart:', error);
+        // Still clear local state even if API call fails
+        setCartItems([]);
+      }
+    } else {
+      // Guest user - clear localStorage
+      setCartItems([]);
+    }
+    
     setShowCheckoutPage(false);
     setHash('home');
     scrollToTop();
@@ -547,39 +595,32 @@ function Root() {
     setHash('cart');
   };
 
-  const handleLoginSuccess = (user) => {
+  const handleLoginSuccess = (userResponse) => {
+    const user = {
+      fullName: userResponse.fullName,
+      email: userResponse.email,
+      token: userResponse.token
+    };
+    
     setCurrentUser(user);
     setIsLoginOpen(false);
     
-    // Merge guest cart with user cart if user has items in guest cart
+    // Set favorites and cart from database response
+    if (userResponse.favorites) {
+      setFavorites(userResponse.favorites);
+    }
+    if (userResponse.cart) {
+      setCartItems(userResponse.cart);
+    }
+    
+    // Clear localStorage since we're now using database
     try {
-      const guestCart = localStorage.getItem('guestCart');
-      if (guestCart) {
-        const guestCartItems = JSON.parse(guestCart);
-        if (Array.isArray(guestCartItems) && guestCartItems.length > 0) {
-          const userCartKey = `cart:${user.email}`;
-          const existingUserCart = localStorage.getItem(userCartKey);
-          const userCartItems = existingUserCart ? JSON.parse(existingUserCart) : [];
-          
-          // Merge guest cart items with user cart items
-          const mergedCart = [...userCartItems];
-          guestCartItems.forEach(guestItem => {
-            const existingItem = mergedCart.find(item => item['product-title'] === guestItem['product-title']);
-            if (existingItem) {
-              existingItem.quantity += guestItem.quantity;
-            } else {
-              mergedCart.push(guestItem);
-            }
-          });
-          
-          // Save merged cart and clear guest cart
-          localStorage.setItem(userCartKey, JSON.stringify(mergedCart));
-          localStorage.removeItem('guestCart');
-          setCartItems(mergedCart);
-        }
-      }
+      localStorage.removeItem(`favorites:${user.email}`);
+      localStorage.removeItem(`cart:${user.email}`);
+      localStorage.removeItem('guestCart');
+      localStorage.removeItem('favorites');
     } catch (error) {
-      console.error('Error merging guest cart with user cart:', error);
+      console.error('Error clearing localStorage:', error);
     }
     
     // Redirect to intended destination if any
@@ -635,29 +676,30 @@ function Root() {
     scrollToTop();
   };
 
-  const handleAddToWishlist = (product) => {
+  const handleAddToWishlist = async (product) => {
     if (!currentUser) {
       showToast('Please login to add items to your wishlist.', 'warning');
       return;
     }
-    setFavorites(prevFavorites => {
-      const isAlreadyFavorite = prevFavorites.find(fav => fav['product-title'] === product['product-title']);
+
+    try {
+      const isAlreadyFavorite = favorites.find(fav => fav['product-title'] === product['product-title']);
+      
       if (isAlreadyFavorite) {
-        const newFavorites = prevFavorites.filter(fav => fav['product-title'] !== product['product-title']);
-        if (currentUser?.email) {
-          localStorage.setItem(`favorites:${currentUser.email}`, JSON.stringify(newFavorites));
-        }
+        // Remove from favorites
+        const response = await apiRemoveFromFavorites(product['product-title']);
+        setFavorites(response.favorites);
         showToast('Removed from wishlist.', 'info');
-        return newFavorites;
       } else {
-        const newFavorites = [...prevFavorites, product];
-        if (currentUser?.email) {
-          localStorage.setItem(`favorites:${currentUser.email}`, JSON.stringify(newFavorites));
-        }
+        // Add to favorites
+        const response = await apiAddToFavorites(product);
+        setFavorites(response.favorites);
         showToast('Added to wishlist.', 'success');
-        return newFavorites;
       }
-    });
+    } catch (error) {
+      console.error('Error updating favorites:', error);
+      showToast('Failed to update wishlist. Please try again.', 'warning');
+    }
   };
 
   const handleFavoritesClick = () => {

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import './LoginPage.css';
-import { signUpUser, signInUser } from "../api/user";  
+import { signUpUser, signInUser } from '../api/user.js';  
 
 
 const initialForm = {
@@ -22,27 +22,6 @@ const LoginPage = ({ onLoginSuccess }) => {
 
   const [showSignUpChecklist, setShowSignUpChecklist] = useState(false);
   const [signUpPwdFocused, setSignUpPwdFocused] = useState(false);
-
-  // useEffect(() => {
-  //   const lastUser = getLastUser();
-  //   if (lastUser) {
-  //     setForm((f) => ({ ...f, signIn: { ...f.signIn, email: lastUser.email } }));
-  //   }
-  // }, []);
-
-  // // On mobile, allow deep-linking to the Sign Up panel via #signup or ?mode=signup
-  // useEffect(() => {
-  //   try {
-  //     const isMobile = window.matchMedia && window.matchMedia('(max-width: 768px)').matches;
-  //     const hash = window.location.hash;
-  //     const searchParams = new URLSearchParams(window.location.search);
-  //     if (isMobile && (hash === '#signup' || searchParams.get('mode') === 'signup')) {
-  //       setActive(true);
-  //     }
-  //   } catch {}
-  // }, []);
-
-  // Email suggestions removed on request
 
   const isValidEmail = (email) => {
     const value = String(email || '').trim();
@@ -154,26 +133,23 @@ const LoginPage = ({ onLoginSuccess }) => {
     }
   
     try {
-      // Call backend API
       const res = await signInUser({ email, password });
-  
-      // Store token
-      if (res.token) {
-        localStorage.setItem("token", res.token);
-      }
-  
-      // Store user info for header
+
       const userInfo = {
-        name: res.user?.fullName || email,
+        fullName: res.user?.fullName || email,
         email: res.user?.email || email,
+        token: res.token
       };
       localStorage.setItem("currentUser", JSON.stringify(userInfo));
-  
-      // Update app state via callback
+
       if (onLoginSuccess) {
-        onLoginSuccess(userInfo);
+        onLoginSuccess({
+          ...userInfo,
+          favorites: res.favorites || [],
+          cart: res.cart || []
+        });
       }
-  
+
       setSignInMsg({ msg: "Login successful! Welcome back.", error: false });
     } catch (err) {
       setSignInMsg({
@@ -182,8 +158,6 @@ const LoginPage = ({ onLoginSuccess }) => {
       });
     }
   };
-
-  // Suggestion click handler removed
 
   return (
     <div className="main-wrapper">
