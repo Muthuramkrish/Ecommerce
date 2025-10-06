@@ -366,7 +366,7 @@ const Header = ({
                       <User className="w-6 h-6 text-blue-600" />
                     </div>
                     <div className="min-w-0 flex-1">
-                      <div className="font-medium text-gray-900 truncate">{currentUser?.name}</div>
+                      <div className="font-medium text-gray-900 truncate">{currentUser?.fullName}</div>
                       <div className="text-sm text-gray-500 truncate">{currentUser?.email}</div>
                     </div>
                   </div>
