@@ -26,8 +26,11 @@ import {
   addToCart as apiAddToCart,
   updateCartQuantity as apiUpdateCartQuantity,
   removeFromCart as apiRemoveFromCart,
-  clearCart as apiClearCart
-} from '../api/user';
+  clearCart as apiClearCart,
+  getUserData,
+  getCart,
+  getFavorites
+} from '../api/user.js';
 
 function Root() {
   const [products, setProducts] = useState([]);
@@ -35,45 +38,31 @@ function Root() {
   const [currentUser, setCurrentUser] = useState(() => {
     try {
       const storedUser = localStorage.getItem('currentUser');
-      return storedUser ? JSON.parse(storedUser) : null;
+      if (!storedUser) return null;
+      
+      const parsedUser = JSON.parse(storedUser);
+      
+      // Basic validation of stored user data
+      if (!parsedUser.token || !parsedUser.email) {
+        console.warn('Invalid user data in localStorage, clearing');
+        localStorage.removeItem('currentUser');
+        return null;
+      }
+      
+      return parsedUser;
     } catch (error) {
       console.error('Error parsing stored user:', error);
+      localStorage.removeItem('currentUser');
       return null;
     }
   });
-  const [cartItems, setCartItems] = useState(() => {
-    try {
-      const storedUser = localStorage.getItem('currentUser');
-      const user = storedUser ? JSON.parse(storedUser) : null;
-      const email = user?.email || null;
-      const perUserKey = email ? `cart:${email}` : 'guestCart';
-      const storedCart = localStorage.getItem(perUserKey) || localStorage.getItem('guestCart');
-      if (!storedCart) return [];
-      const parsed = JSON.parse(storedCart);
-      return Array.isArray(parsed) ? parsed : [];
-    } catch (error) {
-      console.error('Error parsing stored cart:', error);
-      return [];
-    }
-  });
+  const [cartItems, setCartItems] = useState([]);
   const [showCartPage, setShowCartPage] = useState(false);
   const [showCheckoutPage, setShowCheckoutPage] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('');
   const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [favorites, setFavorites] = useState(() => {
-    try {
-      const storedUser = localStorage.getItem('currentUser');
-      const user = storedUser ? JSON.parse(storedUser) : null;
-      const email = user?.email || null;
-      const perUserKey = email ? `favorites:${email}` : 'favorites';
-      const storedFavorites = localStorage.getItem(perUserKey) || localStorage.getItem('favorites');
-      return storedFavorites ? JSON.parse(storedFavorites) : [];
-    } catch (error) {
-      console.error('Error parsing stored favorites:', error);
-      return [];
-    }
-  });
+  const [favorites, setFavorites] = useState([]);
   const [showCategoryList, setShowCategoryList] = useState(false);
   const [selectedCategoryForList, setSelectedCategoryForList] = useState('');
   const [selectedProduct, setSelectedProduct] = useState(null);
@@ -93,6 +82,7 @@ function Root() {
   const [initialCategoryFilters, setInitialCategoryFilters] = useState({ brand: [], subcategory: [], subSubcategory: [], productType: [] });
   const [rawSource, setRawSource] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingUserData, setIsLoadingUserData] = useState(false);
   const [postLoginTarget, setPostLoginTarget] = useState(null); // 'checkout' | 'favorites' | null
   const [toast, setToast] = useState({ message: '', type: 'info', visible: false });
 
@@ -292,6 +282,116 @@ function Root() {
     }, Math.max(1000, durationMs));
   };
 
+  // Load user data (cart and favorites) from database
+  const loadUserData = async () => {
+    if (!currentUser?.token || !isValidToken(currentUser.token)) {
+      console.warn('No valid token available for loading user data');
+      return;
+    }
+    
+    try {
+      setIsLoadingUserData(true);
+      
+      // Try to get all user data at once
+      try {
+        const userData = await getUserData();
+        if (userData.cart) setCartItems(userData.cart);
+        if (userData.favorites) setFavorites(userData.favorites);
+      } catch (error) {
+        // Check if it's an authentication error
+        if (error.message?.includes('401') || error.message?.includes('Unauthorized') || error.message?.includes('Invalid token')) {
+          console.warn('Authentication error, clearing user session:', error.message);
+          handleTokenExpired();
+          return;
+        }
+        
+        // Fallback to individual API calls if getUserData doesn't exist
+        console.warn('getUserData not available, using individual calls:', error);
+        
+        const [cartResponse, favoritesResponse] = await Promise.allSettled([
+          getCart().catch(err => {
+            if (err.message?.includes('401') || err.message?.includes('Unauthorized')) {
+              throw err; // Re-throw auth errors
+            }
+            return { cart: [] };
+          }),
+          getFavorites().catch(err => {
+            if (err.message?.includes('401') || err.message?.includes('Unauthorized')) {
+              throw err; // Re-throw auth errors
+            }
+            return { favorites: [] };
+          })
+        ]);
+        
+        if (cartResponse.status === 'fulfilled' && cartResponse.value?.cart) {
+          setCartItems(cartResponse.value.cart);
+        }
+        
+        if (favoritesResponse.status === 'fulfilled' && favoritesResponse.value?.favorites) {
+          setFavorites(favoritesResponse.value.favorites);
+        }
+        
+        // Check if any of the fallback calls failed with auth error
+        if (cartResponse.status === 'rejected' || favoritesResponse.status === 'rejected') {
+          const authError = [cartResponse.reason, favoritesResponse.reason]
+            .find(err => err?.message?.includes('401') || err?.message?.includes('Unauthorized'));
+          if (authError) {
+            console.warn('Authentication error in fallback calls:', authError.message);
+            handleTokenExpired();
+            return;
+          }
+        }
+      }
+    } catch (error) {
+      console.error('Error loading user data:', error);
+      
+      // Check if it's an authentication error
+      if (error.message?.includes('401') || error.message?.includes('Unauthorized') || error.message?.includes('Invalid token')) {
+        handleTokenExpired();
+      }
+    } finally {
+      setIsLoadingUserData(false);
+    }
+  };
+
+  // Handle expired or invalid token
+  const handleTokenExpired = () => {
+    console.log('Token expired or invalid, logging out user');
+    setCurrentUser(null);
+    setCartItems([]);
+    setFavorites([]);
+    localStorage.removeItem('currentUser');
+    
+    // Don't show toast if user is already on login page or home
+    if (!isLoginOpen && (showCartPage || showFavoritesPage || showCheckoutPage)) {
+      showToast('Your session has expired. Please login again.', 'warning');
+      setShowCartPage(false);
+      setShowFavoritesPage(false);
+      setShowCheckoutPage(false);
+      setHash('home');
+      scrollToTop();
+    }
+  };
+
+  // Check if JWT token is expired (optional - basic check)
+  const isTokenExpired = (token) => {
+    if (!token) return true;
+    
+    try {
+      const parts = token.split('.');
+      if (parts.length !== 3) return true;
+      
+      const payload = JSON.parse(atob(parts[1]));
+      const currentTime = Date.now() / 1000;
+      
+      // Check if token has expired
+      return payload.exp && payload.exp < currentTime;
+    } catch (error) {
+      console.warn('Error checking token expiration:', error);
+      return true; // Assume expired if we can't parse it
+    }
+  };
+
   const getProductCategory = (title) => {
     const titleLower = title.toLowerCase();
     if (titleLower.includes('led') || titleLower.includes('bulb') || titleLower.includes('light')) {
@@ -364,37 +464,41 @@ function Root() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [products]);
 
-  // When currentUser changes, load cart and favorites for that user (with guest fallback)
+  // Validate token format (basic check)
+  const isValidToken = (token) => {
+    if (!token || typeof token !== 'string') return false;
+    // Basic JWT format check (should have 3 parts separated by dots)
+    const parts = token.split('.');
+    return parts.length === 3;
+  };
+
+  // Load user data when user is available (on page load or login)
   useEffect(() => {
-    try {
-      if (!currentUser?.email) {
-        // Guest user - load from localStorage
-        const guestCart = localStorage.getItem('guestCart');
-        const parsedCart = guestCart ? JSON.parse(guestCart) : [];
-        setCartItems(Array.isArray(parsedCart) ? parsedCart : []);
-        setFavorites([]); // Guests don't have favorites
+    if (currentUser?.token) {
+      if (!isValidToken(currentUser.token)) {
+        // Invalid token format, clear user session
+        console.warn('Invalid token format detected, clearing session');
+        handleTokenExpired();
+        return;
       }
-      // For logged-in users, cart and favorites are set during login
-    } catch (error) {
-      console.error('Error loading guest data:', error);
+      
+      if (isTokenExpired(currentUser.token)) {
+        // Token has expired, clear user session
+        console.warn('Token has expired, clearing session');
+        handleTokenExpired();
+        return;
+      }
+      
+      // Token is valid, load user data
+      loadUserData();
+    } else {
+      // Clear data when user logs out
       setCartItems([]);
       setFavorites([]);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentUser?.email]);
+  }, [currentUser?.token]);
 
-  // Save guest cart to localStorage (only for guests)
-  useEffect(() => {
-    try {
-      if (!currentUser?.email) {
-        // User is not logged in - save to guest cart
-        localStorage.setItem('guestCart', JSON.stringify(cartItems));
-      }
-      // For logged-in users, cart is automatically saved to database via API calls
-    } catch (error) {
-      console.error('Error saving guest cart to localStorage:', error);
-    }
-  }, [cartItems, currentUser?.email]);
 
   useEffect(() => {
     let filtered = products;
@@ -418,7 +522,11 @@ function Root() {
   const subcategories = useMemo(() => {
     const summaries = new Map();
     for (const p of rawSource) {
-      const sub = p?.anchor?.subcategory || 'Other';
+      const sub = p?.anchor?.subcategory;
+      // Skip products without a proper subcategory
+      if (!sub || typeof sub !== 'string' || sub.trim() === '') {
+        continue;
+      }
       const firstImage = p?.characteristics?.images?.primary?.[0]
         || 'https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=300';
       if (!summaries.has(sub)) {
@@ -439,9 +547,14 @@ function Root() {
     const categoryMap = new Map();
     for (const p of rawSource) {
       const a = (p && p.anchor) || {};
-      const categoryName = a.category || 'Other';
+      const categoryName = a.category;
       const subcategoryName = a.subcategory || null;
       const subSubcategoryName = a.subSubcategory || null;
+
+      // Skip products without a proper category
+      if (!categoryName || typeof categoryName !== 'string' || categoryName.trim() === '') {
+        continue;
+      }
 
       if (!categoryMap.has(categoryName)) {
         categoryMap.set(categoryName, new Map());
@@ -479,73 +592,78 @@ function Root() {
   };
 
   const handleAddToCart = async (product, quantity = 1) => {
-    if (currentUser) {
-      // User is logged in - use database API
-      try {
-        const response = await apiAddToCart(product, quantity);
-        setCartItems(response.cart);
-        showToast('Added to cart.', 'success');
-      } catch (error) {
-        console.error('Error adding to cart:', error);
-        showToast('Failed to add to cart. Please try again.', 'warning');
-      }
-    } else {
-      // Guest user - use localStorage (existing logic)
-      setCartItems(prevItems => {
-        const existingItem = prevItems.find(item => item['product-title'] === product['product-title']);
-        if (existingItem) {
-          return prevItems.map(item =>
-            item['product-title'] === product['product-title']
-              ? { ...item, quantity: Math.max(1, item.quantity + (quantity || 1)) }
-              : item
-          );
-        } else {
-          return [...prevItems, { ...product, quantity: Math.max(1, quantity || 1) }];
-        }
-      });
+    if (!currentUser) {
+      showToast('Please login to add items to cart.', 'warning');
+      setPostLoginTarget('cart');
+      setIsLoginOpen(true);
+      setHash('login');
+      scrollToTop();
+      return;
+    }
+
+    try {
+      const response = await apiAddToCart(product, quantity);
+      setCartItems(response.cart);
       showToast('Added to cart.', 'success');
+    } catch (error) {
+      console.error('Error adding to cart:', error);
+      
+      // Check if it's an authentication error
+      if (error.message?.includes('401') || error.message?.includes('Unauthorized')) {
+        handleTokenExpired();
+        return;
+      }
+      
+      showToast('Failed to add to cart. Please try again.', 'warning');
     }
   };
 
   const handleUpdateQuantity = async (index, quantity) => {
-    if (currentUser) {
-      // User is logged in - use database API
-      try {
-        const productTitle = cartItems[index]['product-title'];
-        const response = await apiUpdateCartQuantity(productTitle, quantity);
-        setCartItems(response.cart);
-      } catch (error) {
-        console.error('Error updating cart quantity:', error);
-        showToast('Failed to update quantity. Please try again.', 'warning');
+    if (!currentUser) {
+      showToast('Please login to manage cart.', 'warning');
+      return;
+    }
+
+    try {
+      const productTitle = cartItems[index]['product-title'];
+      const response = await apiUpdateCartQuantity(productTitle, quantity);
+      setCartItems(response.cart);
+    } catch (error) {
+      console.error('Error updating cart quantity:', error);
+      
+      // Check if it's an authentication error
+      if (error.message?.includes('401') || error.message?.includes('Unauthorized')) {
+        handleTokenExpired();
+        return;
       }
-    } else {
-      // Guest user - use localStorage (existing logic)
-      setCartItems(prevItems =>
-        prevItems.map((item, i) =>
-          i === index ? { ...item, quantity: Math.max(1, quantity) } : item
-        )
-      );
+      
+      showToast('Failed to update quantity. Please try again.', 'warning');
     }
   };
 
   const handleRemoveItem = async (index) => {
     const removedTitle = cartItems[index]?.['product-title'] || 'Item';
     
-    if (currentUser) {
-      // User is logged in - use database API
-      try {
-        const productTitle = cartItems[index]['product-title'];
-        const response = await apiRemoveFromCart(productTitle);
-        setCartItems(response.cart);
-        showToast(`${removedTitle} removed from cart.`, 'info');
-      } catch (error) {
-        console.error('Error removing from cart:', error);
-        showToast('Failed to remove item. Please try again.', 'warning');
-      }
-    } else {
-      // Guest user - use localStorage (existing logic)
-      setCartItems(prevItems => prevItems.filter((_, i) => i !== index));
+    if (!currentUser) {
+      showToast('Please login to manage cart.', 'warning');
+      return;
+    }
+
+    try {
+      const productTitle = cartItems[index]['product-title'];
+      const response = await apiRemoveFromCart(productTitle);
+      setCartItems(response.cart);
       showToast(`${removedTitle} removed from cart.`, 'info');
+    } catch (error) {
+      console.error('Error removing from cart:', error);
+      
+      // Check if it's an authentication error
+      if (error.message?.includes('401') || error.message?.includes('Unauthorized')) {
+        handleTokenExpired();
+        return;
+      }
+      
+      showToast('Failed to remove item. Please try again.', 'warning');
     }
   };
 
@@ -563,24 +681,38 @@ function Root() {
   };
 
   const handleCartClick = () => {
+    if (!currentUser) {
+      setPostLoginTarget('cart');
+      setIsLoginOpen(true);
+      setHash('login');
+      scrollToTop();
+      return;
+    }
+    
     setShowCartPage(true);
     setHash('cart');
     scrollToTop();
   };
 
   const handleOrderComplete = async () => {
-    if (currentUser) {
-      // User is logged in - clear cart in database
-      try {
-        await apiClearCart();
-        setCartItems([]);
-      } catch (error) {
-        console.error('Error clearing cart:', error);
-        // Still clear local state even if API call fails
-        setCartItems([]);
+    if (!currentUser) {
+      showToast('Please login to complete order.', 'warning');
+      return;
+    }
+
+    try {
+      await apiClearCart();
+      setCartItems([]);
+    } catch (error) {
+      console.error('Error clearing cart:', error);
+      
+      // Check if it's an authentication error
+      if (error.message?.includes('401') || error.message?.includes('Unauthorized')) {
+        handleTokenExpired();
+        return;
       }
-    } else {
-      // Guest user - clear localStorage
+      
+      // Still clear local state even if API call fails
       setCartItems([]);
     }
     
@@ -605,7 +737,7 @@ function Root() {
     setCurrentUser(user);
     setIsLoginOpen(false);
     
-    // Set favorites and cart from database response
+    // Set favorites and cart from login response if available
     if (userResponse.favorites) {
       setFavorites(userResponse.favorites);
     }
@@ -613,7 +745,7 @@ function Root() {
       setCartItems(userResponse.cart);
     }
     
-    // Clear localStorage since we're now using database
+    // Clean up any old localStorage data
     try {
       localStorage.removeItem(`favorites:${user.email}`);
       localStorage.removeItem(`cart:${user.email}`);
@@ -663,15 +795,22 @@ function Root() {
   const handleLogout = () => {
     setCurrentUser(null);
     localStorage.removeItem('currentUser');
-    // Don't clear cart items - they will be preserved as guest cart
+    
+    // Clear user-specific data
+    setCartItems([]);
     setFavorites([]);
-    // If on favorites or protected pages, go home
+    
+    // If on protected pages, go home
     if (showFavoritesPage) {
       setShowFavoritesPage(false);
     }
     if (showCartPage) {
       setShowCartPage(false);
     }
+    if (showCheckoutPage) {
+      setShowCheckoutPage(false);
+    }
+    
     setHash('home');
     scrollToTop();
   };
@@ -679,6 +818,10 @@ function Root() {
   const handleAddToWishlist = async (product) => {
     if (!currentUser) {
       showToast('Please login to add items to your wishlist.', 'warning');
+      setPostLoginTarget('favorites');
+      setIsLoginOpen(true);
+      setHash('login');
+      scrollToTop();
       return;
     }
 
@@ -698,6 +841,13 @@ function Root() {
       }
     } catch (error) {
       console.error('Error updating favorites:', error);
+      
+      // Check if it's an authentication error
+      if (error.message?.includes('401') || error.message?.includes('Unauthorized')) {
+        handleTokenExpired();
+        return;
+      }
+      
       showToast('Failed to update wishlist. Please try again.', 'warning');
     }
   };

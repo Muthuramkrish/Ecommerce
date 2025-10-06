@@ -140,7 +140,7 @@ const LoginPage = ({ onLoginSuccess }) => {
         email: res.user?.email || email,
         token: res.token
       };
-      localStorage.setItem("currentUser", JSON.stringify(userInfo));
+      // Note: localStorage is already set in signInUser API function
 
       if (onLoginSuccess) {
         onLoginSuccess({

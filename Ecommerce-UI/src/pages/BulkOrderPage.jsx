@@ -18,7 +18,7 @@ const BulkOrderPage = () => {
           taxRate: p?.pricing?.taxRate ?? null,
           image: p?.characteristics?.images?.primary?.[0] || '',
           category: p?.anchor?.subcategory || p?.anchor?.category || 'General',
-          collection: p?.collection || 'Unknown',
+          collection: p?.collection,
           stock: (p?.inventory?.availableQuantity ?? 0)
         }));
         setProducts(mapped);

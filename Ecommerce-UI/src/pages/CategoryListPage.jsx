@@ -12,15 +12,6 @@ const CategoryListPage = ({
   favorites = [],
   initialFilters
 }) => {
-  // Scroll to top when component mounts
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      left: 0,
-      behavior: 'smooth'
-    });
-  };
-
   const [viewMode, setViewMode] = React.useState('grid');
   const [sortBy, setSortBy] = React.useState('name');
   const [sortedProducts, setSortedProducts] = React.useState(products);
@@ -41,20 +32,15 @@ const CategoryListPage = ({
   const minPrice = React.useMemo(() => (allPrices.length ? Math.min(...allPrices) : 0), [allPrices]);
   const maxPrice = React.useMemo(() => (allPrices.length ? Math.max(...allPrices) : 0), [allPrices]);
 
-  // Filter states
+  // Filter states - keeping only relevant filters for electrical products
   const [priceRange, setPriceRange] = React.useState([minPrice, maxPrice]);
   const [selectedBrands, setSelectedBrands] = React.useState(initialFilters?.brand || []);
   const [selectedProductTypes, setSelectedProductTypes] = React.useState(initialFilters?.productType || []);
   const [selectedSubcategories, setSelectedSubcategories] = React.useState(initialFilters?.subcategory || []);
   const [selectedSubSubcategories, setSelectedSubSubcategories] = React.useState(initialFilters?.subSubcategory || []);
   const [selectedPowerRanges, setSelectedPowerRanges] = React.useState([]);
-  const [selectedColors, setSelectedColors] = React.useState([]);
-  const [selectedSizes, setSelectedSizes] = React.useState([]);
-  const [selectedMaterials, setSelectedMaterials] = React.useState([]);
   const [selectedCertifications, setSelectedCertifications] = React.useState([]);
   const [selectedWarranties, setSelectedWarranties] = React.useState([]);
-  const [showOnlyDiscounted, setShowOnlyDiscounted] = React.useState(false);
-  const [selectedDiscountBucket, setSelectedDiscountBucket] = React.useState(0); // 0, 10, 25, 50
   const [showOnlyInStock, setShowOnlyInStock] = React.useState(false);
   const [filteredProducts, setFilteredProducts] = React.useState(products);
   const [isFiltering, setIsFiltering] = useState(false);
@@ -96,36 +82,36 @@ const CategoryListPage = ({
   // Get unique brands from products
   const getUniqueBrands = () => {
     const brands = products.map(product => {
-      const brand = product.raw?.anchor?.brand || 'Unknown Brand';
+      const brand = product.raw?.anchor?.brand;
       return brand;
-    });
+    }).filter(brand => brand && typeof brand === 'string' && brand.trim() !== '');
     return [...new Set(brands)].sort();
   };
 
   // Get unique product types from products
   const getUniqueProductTypes = () => {
     const productTypes = products.map(product => {
-      const productType = product.raw?.anchor?.productType || 'Unknown Type';
+      const productType = product.raw?.anchor?.productType;
       return productType;
-    });
+    }).filter(productType => productType && typeof productType === 'string' && productType.trim() !== '');
     return [...new Set(productTypes)].sort();
   };
 
   // Get unique subcategories from products
   const getUniqueSubcategories = () => {
     const subcategories = products.map(product => {
-      const subcategory = product.raw?.anchor?.subcategory || 'Unknown Subcategory';
+      const subcategory = product.raw?.anchor?.subcategory;
       return subcategory;
-    });
+    }).filter(subcategory => subcategory && typeof subcategory === 'string' && subcategory.trim() !== '');
     return [...new Set(subcategories)].sort();
   };
 
   // Get unique sub-subcategories from products
   const getUniqueSubSubcategories = () => {
     const subSubcategories = products.map(product => {
-      const subSubcategory = product.raw?.anchor?.subSubcategory || 'Unknown Sub-subcategory';
+      const subSubcategory = product.raw?.anchor?.subSubcategory;
       return subSubcategory;
-    });
+    }).filter(subSubcategory => subSubcategory && typeof subSubcategory === 'string' && subSubcategory.trim() !== '');
     return [...new Set(subSubcategories)].sort();
   };
 
@@ -152,68 +138,6 @@ const CategoryListPage = ({
       }
     });
     return [...new Set(powerRanges)].sort();
-  };
-
-  // Get unique colors from products
-  const getUniqueColors = () => {
-    const colors = [];
-    products.forEach(product => {
-      const variants = product.raw?.classification?.variants || [];
-      variants.forEach(variant => {
-        if (variant.attributes?.color) {
-          colors.push(variant.attributes.color);
-        }
-      });
-      // Also check specifications for color info
-      const specs = product.raw?.characteristics?.specifications || [];
-      const colorSpec = specs.find(spec =>
-        spec.name?.toLowerCase().includes('color') ||
-        spec.name?.toLowerCase().includes('colour')
-      );
-      if (colorSpec && colorSpec.value) {
-        colors.push(colorSpec.value);
-      }
-    });
-    return [...new Set(colors)].sort();
-  };
-
-  // Get unique sizes from products
-  const getUniqueSizes = () => {
-    const sizes = [];
-    products.forEach(product => {
-      const variants = product.raw?.classification?.variants || [];
-      variants.forEach(variant => {
-        if (variant.attributes?.size) {
-          sizes.push(variant.attributes.size);
-        }
-      });
-      // Also check specifications for size info
-      const specs = product.raw?.characteristics?.specifications || [];
-      const sizeSpec = specs.find(spec =>
-        spec.name?.toLowerCase().includes('size') ||
-        spec.name?.toLowerCase().includes('dimension')
-      );
-      if (sizeSpec && sizeSpec.value) {
-        sizes.push(sizeSpec.value);
-      }
-    });
-    return [...new Set(sizes)].sort();
-  };
-
-  // Get unique materials from products
-  const getUniqueMaterials = () => {
-    const materials = [];
-    products.forEach(product => {
-      const specs = product.raw?.characteristics?.specifications || [];
-      const materialSpec = specs.find(spec =>
-        spec.name?.toLowerCase().includes('material') ||
-        spec.name?.toLowerCase().includes('construction')
-      );
-      if (materialSpec && materialSpec.value) {
-        materials.push(materialSpec.value);
-      }
-    });
-    return [...new Set(materials)].sort();
   };
 
   // Get unique certifications from products
@@ -252,33 +176,33 @@ const CategoryListPage = ({
   // Get available filter options based on current filtered products
   const getAvailableBrands = () => {
     const brands = filteredProducts.map(product => {
-      const brand = product.raw?.anchor?.brand || 'Unknown Brand';
+      const brand = product.raw?.anchor?.brand;
       return brand;
-    });
+    }).filter(brand => brand && typeof brand === 'string' && brand.trim() !== '');
     return [...new Set(brands)].sort();
   };
 
   const getAvailableProductTypes = () => {
     const productTypes = filteredProducts.map(product => {
-      const productType = product.raw?.anchor?.productType || 'Unknown Type';
+      const productType = product.raw?.anchor?.productType;
       return productType;
-    });
+    }).filter(productType => productType && typeof productType === 'string' && productType.trim() !== '');
     return [...new Set(productTypes)].sort();
   };
 
   const getAvailableSubcategories = () => {
     const subcategories = filteredProducts.map(product => {
-      const subcategory = product.raw?.anchor?.subcategory || 'Unknown Subcategory';
+      const subcategory = product.raw?.anchor?.subcategory;
       return subcategory;
-    });
+    }).filter(subcategory => subcategory && typeof subcategory === 'string' && subcategory.trim() !== '');
     return [...new Set(subcategories)].sort();
   };
 
   const getAvailableSubSubcategories = () => {
     const subSubcategories = filteredProducts.map(product => {
-      const subSubcategory = product.raw?.anchor?.subSubcategory || 'Unknown Sub-subcategory';
+      const subSubcategory = product.raw?.anchor?.subSubcategory;
       return subSubcategory;
-    });
+    }).filter(subSubcategory => subSubcategory && typeof subSubcategory === 'string' && subSubcategory.trim() !== '');
     return [...new Set(subSubcategories)].sort();
   };
 
@@ -468,39 +392,6 @@ const CategoryListPage = ({
       }
     }
 
-    // Remove colors that are no longer available
-    if (selectedColors.length > 0) {
-      const availableColors = colors;
-      const validColors = selectedColors.filter(color => availableColors.includes(color));
-      if (validColors.length !== selectedColors.length) {
-        setSelectedColors(validColors);
-        cleanupCount += selectedColors.length - validColors.length;
-        cleanupMessage += `${selectedColors.length - validColors.length} color(s) removed. `;
-      }
-    }
-
-    // Remove sizes that are no longer available
-    if (selectedSizes.length > 0) {
-      const availableSizes = sizes;
-      const validSizes = selectedSizes.filter(size => availableSizes.includes(size));
-      if (validSizes.length !== selectedSizes.length) {
-        setSelectedSizes(validSizes);
-        cleanupCount += selectedSizes.length - validSizes.length;
-        cleanupMessage += `${selectedSizes.length - validSizes.length} size(s) removed. `;
-      }
-    }
-
-    // Remove materials that are no longer available
-    if (selectedMaterials.length > 0) {
-      const availableMaterials = materials;
-      const validMaterials = selectedMaterials.filter(material => availableMaterials.includes(material));
-      if (validMaterials.length !== selectedMaterials.length) {
-        setSelectedMaterials(validMaterials);
-        cleanupCount += selectedMaterials.length - validMaterials.length;
-        cleanupMessage += `${selectedMaterials.length - validMaterials.length} material(s) removed. `;
-      }
-    }
-
     // Remove certifications that are no longer available
     if (selectedCertifications.length > 0) {
       const availableCertifications = certifications;
@@ -549,7 +440,7 @@ const CategoryListPage = ({
       // Brand filter
       if (selectedBrands.length > 0) {
         filtered = filtered.filter(product => {
-          const brand = product.raw?.anchor?.brand || 'Unknown Brand';
+          const brand = product.raw?.anchor?.brand;
           return selectedBrands.includes(brand);
         });
       }
@@ -557,7 +448,7 @@ const CategoryListPage = ({
       // Product Type filter
       if (selectedProductTypes.length > 0) {
         filtered = filtered.filter(product => {
-          const productType = product.raw?.anchor?.productType || 'Unknown Type';
+          const productType = product.raw?.anchor?.productType;
           return selectedProductTypes.includes(productType);
         });
       }
@@ -565,7 +456,7 @@ const CategoryListPage = ({
       // Subcategory filter
       if (selectedSubcategories.length > 0) {
         filtered = filtered.filter(product => {
-          const subcategory = product.raw?.anchor?.subcategory || 'Unknown Subcategory';
+          const subcategory = product.raw?.anchor?.subcategory;
           return selectedSubcategories.includes(subcategory);
         });
       }
@@ -573,7 +464,7 @@ const CategoryListPage = ({
       // Sub-subcategory filter
       if (selectedSubSubcategories.length > 0) {
         filtered = filtered.filter(product => {
-          const subSubcategory = product.raw?.anchor?.subSubcategory || 'Unknown Sub-subcategory';
+          const subSubcategory = product.raw?.anchor?.subSubcategory;
           return selectedSubSubcategories.includes(subSubcategory);
         });
       }
@@ -604,56 +495,6 @@ const CategoryListPage = ({
         });
       }
 
-      // Color filter
-      if (selectedColors.length > 0) {
-        filtered = filtered.filter(product => {
-          const variants = product.raw?.classification?.variants || [];
-          const hasColorVariant = variants.some(variant =>
-            variant.attributes?.color && selectedColors.includes(variant.attributes.color)
-          );
-          if (hasColorVariant) return true;
-
-          // Also check specifications
-          const specs = product.raw?.characteristics?.specifications || [];
-          const colorSpec = specs.find(spec =>
-            spec.name?.toLowerCase().includes('color') ||
-            spec.name?.toLowerCase().includes('colour')
-          );
-          return colorSpec && colorSpec.value && selectedColors.includes(colorSpec.value);
-        });
-      }
-
-      // Size filter
-      if (selectedSizes.length > 0) {
-        filtered = filtered.filter(product => {
-          const variants = product.raw?.classification?.variants || [];
-          const hasSizeVariant = variants.some(variant =>
-            variant.attributes?.size && selectedSizes.includes(variant.attributes.size)
-          );
-          if (hasSizeVariant) return true;
-
-          // Also check specifications
-          const specs = product.raw?.characteristics?.specifications || [];
-          const sizeSpec = specs.find(spec =>
-            spec.name?.toLowerCase().includes('size') ||
-            spec.name?.toLowerCase().includes('dimension')
-          );
-          return sizeSpec && sizeSpec.value && selectedSizes.includes(sizeSpec.value);
-        });
-      }
-
-      // Material filter
-      if (selectedMaterials.length > 0) {
-        filtered = filtered.filter(product => {
-          const specs = product.raw?.characteristics?.specifications || [];
-          const materialSpec = specs.find(spec =>
-            spec.name?.toLowerCase().includes('material') ||
-            spec.name?.toLowerCase().includes('construction')
-          );
-          return materialSpec && materialSpec.value && selectedMaterials.includes(materialSpec.value);
-        });
-      }
-
       // Certification filter
       if (selectedCertifications.length > 0) {
         filtered = filtered.filter(product => {
@@ -679,20 +520,6 @@ const CategoryListPage = ({
         });
       }
 
-
-
-      // Discount filters
-      if (showOnlyDiscounted || selectedDiscountBucket > 0) {
-        filtered = filtered.filter(product => {
-          const oldP = parseInt(product['old-price']);
-          const newP = parseInt(product['new-price']);
-          if (!(oldP > newP)) return false;
-          if (selectedDiscountBucket === 0) return true;
-          const discount = ((oldP - newP) / oldP) * 100;
-          return discount >= selectedDiscountBucket;
-        });
-      }
-
       // Stock filter (assuming products with inventory > 0 are in stock)
       if (showOnlyInStock) {
         filtered = filtered.filter(product => {
@@ -710,8 +537,7 @@ const CategoryListPage = ({
     return () => clearTimeout(timeoutId);
   }, [products, priceRange, selectedBrands, selectedProductTypes,
     selectedSubcategories, selectedSubSubcategories, selectedPowerRanges,
-    selectedColors, selectedSizes, selectedMaterials, selectedCertifications, selectedWarranties,
-    showOnlyDiscounted, selectedDiscountBucket, showOnlyInStock]);
+    selectedCertifications, selectedWarranties, showOnlyInStock]);
 
   React.useEffect(() => {
     let sorted = [...filteredProducts];
@@ -894,21 +720,6 @@ const CategoryListPage = ({
     label: pr,
     onRemove: () => setSelectedPowerRanges(prev => prev.filter(x => x !== pr))
   }));
-  selectedColors.forEach(c => chips.push({
-    type: 'color',
-    label: c,
-    onRemove: () => setSelectedColors(prev => prev.filter(x => x !== c))
-  }));
-  selectedSizes.forEach(s => chips.push({
-    type: 'size',
-    label: s,
-    onRemove: () => setSelectedSizes(prev => prev.filter(x => x !== s))
-  }));
-  selectedMaterials.forEach(m => chips.push({
-    type: 'material',
-    label: m,
-    onRemove: () => setSelectedMaterials(prev => prev.filter(x => x !== m))
-  }));
   selectedCertifications.forEach(c => chips.push({
     type: 'certification',
     label: c,
@@ -920,12 +731,6 @@ const CategoryListPage = ({
     onRemove: () => setSelectedWarranties(prev => prev.filter(x => x !== w))
   }));
 
-  if (showOnlyDiscounted) {
-    chips.push({ type: 'sale', label: 'On Sale', onRemove: () => setShowOnlyDiscounted(false) });
-  }
-  if (selectedDiscountBucket > 0) {
-    chips.push({ type: 'discount', label: `${selectedDiscountBucket}%+ off`, onRemove: () => setSelectedDiscountBucket(0) });
-  }
   if (showOnlyInStock) {
     chips.push({ type: 'stock', label: 'In Stock', onRemove: () => setShowOnlyInStock(false) });
   }
