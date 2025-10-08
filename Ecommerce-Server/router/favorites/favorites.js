@@ -15,8 +15,11 @@ router.use(verifyToken); // Apply middleware to all routes below
 
 
 // Favorites routes
-router.get('/favorites', getFavorites);
-router.post('/favorites', addToFavorites);
-router.delete('/favorites/:productTitle', removeFromFavorites);
+router.get('/', getFavorites);
+// Add to favorites
+router.post('/add', addToFavorites);
+
+// Remove from favorites
+router.delete('/:productId', removeFromFavorites);
 
 export default router;

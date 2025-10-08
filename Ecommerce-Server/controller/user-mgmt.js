@@ -2,6 +2,7 @@ import User from "../models/user.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import mongoose from "mongoose";
+import { getProductModel } from "../models/products.js";
 
 const JWT_SECRET = process.env.JWT_SECRET || "vikoshiya_india_electrical_&_electronics_ecommerce_service_site";
 
@@ -17,7 +18,6 @@ export const verifyToken = (req, res, next) => {
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     req.userId = decoded.userId;
-    console.log("✅ Token verified for user:", decoded.userId);
     next();
   } catch (error) {
     console.log("❌ Invalid token for:", req.path);
@@ -241,6 +241,8 @@ export const signIn = async (req, res) => {
       { expiresIn: "24h" }
     );
 
+    console.log(token, "token");
+
     // Populate favorites and cart with actual product data
     const favorites = await populateFavorites(user.favorites);
     const cart = await populateCart(user.cart);
@@ -318,13 +320,15 @@ export const getUserData = async (req, res) => {
 };
 
 
-// Add to Favorites
+// ===========================
+// Add to Favorites (by productId)
+// ===========================
 export const addToFavorites = async (req, res) => {
   try {
-    const { product } = req.body;
-    
-    if (!product || !product['product-title']) {
-      return res.status(400).json({ message: "Invalid product data" });
+    const { productId } = req.body; // ✅ Expecting productId from frontend
+
+    if (!productId) {
+      return res.status(400).json({ message: "Product ID is required" });
     }
 
     const user = await User.findById(req.userId);
@@ -332,64 +336,78 @@ export const addToFavorites = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Find the product ID and category
-    const productInfo = await findProductIdAndCategory(product);
-    if (!productInfo) {
-      return res.status(404).json({ message: "Product not found in database" });
+    // Check if the product exists in your Product model
+    const product = await Product.findById(productId);
+    if (!product) {
+      return res.status(404).json({ message: "Product not found" });
     }
 
     // Check if product is already in favorites
-    const existingIndex = user.favorites.findIndex(
-      fav => fav.productId.toString() === productInfo.productId.toString()
+    const alreadyExists = user.favorites.some(
+      fav => fav.productId.toString() === productId
     );
 
-    if (existingIndex !== -1) {
+    if (alreadyExists) {
       return res.status(400).json({ message: "Product already in favorites" });
     }
 
     // Add to favorites
     user.favorites.push({
-      category: productInfo.category,
-      productId: productInfo.productId
+      category: product.category,
+      productId: product._id,
     });
+
     await user.save();
 
+    // Optionally populate favorites
     const favorites = await populateFavorites(user.favorites);
-    res.status(200).json({ 
-      message: "Product added to favorites", 
-      favorites 
+
+    res.status(200).json({
+      message: "Product added to favorites",
+      favorites,
     });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
-// Remove from Favorites
+// ===========================
+// Remove from Favorites (by productId)
+// ===========================
 export const removeFromFavorites = async (req, res) => {
   try {
-    const { productTitle } = req.params;
-    
+    const { productId } = req.params; // ✅ productId now from URL params
+
+    if (!productId) {
+      return res.status(400).json({ message: "Product ID is required" });
+    }
+
     const user = await User.findById(req.userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Find the product to get its ID
-    const productInfo = await findProductIdAndCategory({ 'product-title': productTitle });
-    if (!productInfo) {
-      return res.status(404).json({ message: "Product not found" });
+    // Check if product exists in user favorites
+    const exists = user.favorites.some(
+      fav => fav.productId.toString() === productId
+    );
+
+    if (!exists) {
+      return res.status(404).json({ message: "Product not found in favorites" });
     }
 
     // Remove from favorites
     user.favorites = user.favorites.filter(
-      fav => fav.productId.toString() !== productInfo.productId.toString()
+      fav => fav.productId.toString() !== productId
     );
+
     await user.save();
 
     const favorites = await populateFavorites(user.favorites);
-    res.status(200).json({ 
-      message: "Product removed from favorites", 
-      favorites 
+
+    res.status(200).json({
+      message: "Product removed from favorites",
+      favorites,
     });
   } catch (error) {
     res.status(500).json({ message: "Server error", error: error.message });
@@ -411,67 +429,61 @@ export const getFavorites = async (req, res) => {
   }
 };
 
-// Add to Cart
+// =======================
+// Add to Cart (by productId)
 export const addToCart = async (req, res) => {
   try {
-    const { product, quantity = 1 } = req.body;
-    
-    if (!product || !product['product-title']) {
-      return res.status(400).json({ message: "Invalid product data" });
+    const { productId, category, quantity = 1 } = req.body;
+
+    if (!productId || !category) {
+      return res.status(400).json({ message: "Product ID and category are required" });
     }
 
     const user = await User.findById(req.userId);
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
+    if (!user) return res.status(404).json({ message: "User not found" });
 
-    // Find the product ID and category
-    const productInfo = await findProductIdAndCategory(product);
-    if (!productInfo) {
-      console.log(`Product not found: ${product['product-title']}`);
-      return res.status(404).json({ 
-        message: "Product not found in database",
-        productTitle: product['product-title'],
-        availableCollections: ['fans', 'switches', 'heaters', 'lightings', 'cables']
-      });
-    }
+    // Get correct model for collection
+    const ProductModel = getProductModel(category);
+    const product = await ProductModel.findById(productId);
+    if (!product) return res.status(404).json({ message: "Product not found in database" });
 
     // Check if product is already in cart
     const existingIndex = user.cart.findIndex(
-      item => item.productId.toString() === productInfo.productId.toString()
+      item => item.productId.toString() === productId
     );
 
     if (existingIndex !== -1) {
-      // Update quantity if product already exists
-      user.cart[existingIndex].quantity = Math.max(1, user.cart[existingIndex].quantity + quantity);
+      user.cart[existingIndex].quantity = Math.max(
+        1,
+        user.cart[existingIndex].quantity + quantity
+      );
     } else {
-      // Add new item to cart
       user.cart.push({
-        category: productInfo.category,
-        productId: productInfo.productId,
-        quantity: Math.max(1, quantity)
+        category: category,
+        productId: product._id,
+        quantity: Math.max(1, quantity),
       });
     }
 
     await user.save();
 
     const cart = await populateCart(user.cart);
-    res.status(200).json({ 
-      message: "Product added to cart", 
-      cart 
-    });
+
+    res.status(200).json({ message: "Product added to cart", cart });
   } catch (error) {
-    console.error('Error adding to cart:', error);
+    console.error("Error adding to cart:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
-// Update Cart Item Quantity
+// =======================
+// Update Cart Item Quantity (by productId)
+// =======================
 export const updateCartQuantity = async (req, res) => {
   try {
-    const { productTitle } = req.params;
+    const { productId } = req.params;
     const { quantity } = req.body;
-    
+
     if (!quantity || quantity < 1) {
       return res.status(400).json({ message: "Invalid quantity" });
     }
@@ -481,14 +493,8 @@ export const updateCartQuantity = async (req, res) => {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Find the product to get its ID
-    const productInfo = await findProductIdAndCategory({ 'product-title': productTitle });
-    if (!productInfo) {
-      return res.status(404).json({ message: "Product not found" });
-    }
-
     const itemIndex = user.cart.findIndex(
-      item => item.productId.toString() === productInfo.productId.toString()
+      item => item.productId.toString() === productId
     );
 
     if (itemIndex === -1) {
@@ -499,46 +505,56 @@ export const updateCartQuantity = async (req, res) => {
     await user.save();
 
     const cart = await populateCart(user.cart);
-    res.status(200).json({ 
-      message: "Cart quantity updated", 
-      cart 
+
+    res.status(200).json({
+      message: "Cart quantity updated",
+      cart,
     });
   } catch (error) {
+    console.error("Error updating cart quantity:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
 
-// Remove from Cart
+// =======================
+// Remove from Cart (by productId)
+// =======================
 export const removeFromCart = async (req, res) => {
   try {
-    const { productTitle } = req.params;
-    
+    const { productId } = req.params;
+
     const user = await User.findById(req.userId);
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
 
-    // Find the product to get its ID
-    const productInfo = await findProductIdAndCategory({ 'product-title': productTitle });
-    if (!productInfo) {
-      return res.status(404).json({ message: "Product not found" });
+    const existing = user.cart.some(
+      item => item.productId.toString() === productId
+    );
+
+    if (!existing) {
+      return res.status(404).json({ message: "Product not found in cart" });
     }
 
-    // Remove from cart
+    // Remove product
     user.cart = user.cart.filter(
-      item => item.productId.toString() !== productInfo.productId.toString()
+      item => item.productId.toString() !== productId
     );
+
     await user.save();
 
     const cart = await populateCart(user.cart);
-    res.status(200).json({ 
-      message: "Product removed from cart", 
-      cart 
+
+    res.status(200).json({
+      message: "Product removed from cart",
+      cart,
     });
   } catch (error) {
+    console.error("Error removing from cart:", error);
     res.status(500).json({ message: "Server error", error: error.message });
   }
 };
+
 
 // Get Cart
 export const getCart = async (req, res) => {

@@ -17,11 +17,11 @@ const router = express.Router();
 router.use(verifyToken); // Apply middleware to all routes below
 
 // Cart routes
-router.get('/cart', getCart);
-router.post('/cart', addToCart);
-router.put('/cart/:productTitle', updateCartQuantity);
-router.delete('/cart/:productTitle', removeFromCart);
-router.delete('/cart', clearCart);
-router.post('/cart/sync', syncCart);
+router.get('/', getCart);
+router.post('/add', addToCart);
+router.put('/:productId', updateCartQuantity);
+router.delete('/:productId', removeFromCart);
+router.delete('/', clearCart);
+router.post('/sync', syncCart);
 
 export default router;

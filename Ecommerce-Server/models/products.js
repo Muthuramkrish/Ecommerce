@@ -74,3 +74,4 @@ export const getProductModel = (collectionName) => {
   const name = collectionName.toLowerCase().replace(/\s+/g, "-");
   return mongoose.models[name] || mongoose.model(name, productSchema, name);
 };
+export default mongoose.model("Product", productSchema);

@@ -28,8 +28,6 @@ app.use("/api/cart", cartRoutes);
 app.use("/api/signUp", signUpRoutes);
 app.use("/api/signIn", signInRoutes);
 
-app.use("/api/user", favoritesRoutes);
-app.use("/api/user", cartRoutes);
 
 const PORT = 5000; // Fixed port for development
 
