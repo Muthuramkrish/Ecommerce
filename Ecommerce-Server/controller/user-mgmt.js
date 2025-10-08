@@ -255,6 +255,7 @@ export const signIn = async (req, res) => {
       favorites,
       cart
     });
+    console.log("token", token);
   } catch (err) {
     console.error('Error during sign in:', err);
     res.status(500).json({ message: "Server error", error: err.message });
