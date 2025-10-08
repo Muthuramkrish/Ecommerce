@@ -46,8 +46,18 @@ const apiCall = async (url, options = {}) => {
         errorMessage = response.statusText || errorMessage;
       }
       
-      // Include status code in error message for better handling
-      throw new Error(`${response.status} - ${errorMessage}`);
+      // Add more specific error messages for common status codes
+      if (response.status === 404) {
+        errorMessage = `404 - Endpoint not found: ${url}`;
+      } else if (response.status === 401) {
+        errorMessage = `401 - ${errorMessage}`;
+      } else if (response.status === 403) {
+        errorMessage = `403 - ${errorMessage}`;
+      } else {
+        errorMessage = `${response.status} - ${errorMessage}`;
+      }
+      
+      throw new Error(errorMessage);
     }
 
     return await response.json();

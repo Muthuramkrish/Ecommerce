@@ -6,8 +6,6 @@ import ProductListRouter from "./router/productList/productList.js";
 import userRoutes from "./router/user/user.js";
 import signUpRoutes from "./router/signUp/signUp.js";
 import signInRoutes from "./router/signIn/signIn.js";
-import favoritesRoutes from "./router/favorites/favorites.js";
-import cartRoutes from "./router/cart/cart.js";
 
 dotenv.config();
 
@@ -22,11 +20,9 @@ connectDB();
 
 // Routes
 app.use("/api/productList", ProductListRouter);
-app.use("/api/user", userRoutes);
+app.use("/api/user", userRoutes); // This now includes cart and favorites routes
 app.use("/api/signUp", signUpRoutes);
 app.use("/api/signIn", signInRoutes);
-app.use("/api/favorites", favoritesRoutes);
-app.use("/api/cart", cartRoutes);
 
 const PORT = process.env.PORT || 5000;
 
