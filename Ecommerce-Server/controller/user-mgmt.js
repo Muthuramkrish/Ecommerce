@@ -65,7 +65,7 @@ const convertDbProductToFrontend = (dbProduct, category) => {
                    '0';
   
   return {
-    'product-title': productTitle,
+    'product-id': dbProduct._id,
     'image-url': imageUrl,
     'old-price': String(oldPrice),
     'new-price': String(newPrice),
@@ -114,36 +114,15 @@ const populateCart = async (cartItems) => {
 
 // Helper function to find product ID and category from frontend product data
 const findProductIdAndCategory = async (frontendProduct) => {
-  const productTitle = frontendProduct['product-title'];
+  const productId = frontendProduct['product-id'];
   const collections = ['fans', 'switches', 'heaters', 'lightings', 'cables'];
   
   for (const collectionName of collections) {
     try {
       const collection = mongoose.connection.db.collection(collectionName);
       
-      // First, let's check what's actually in the database
-      const sampleDoc = await collection.findOne({});
-      if (sampleDoc) {
-        console.log(`📋 Sample document from ${collectionName}:`, Object.keys(sampleDoc));
-      }
-      
-      // Try multiple search strategies based on CSV import structure
-      let product = null;
-      
-      // Strategy 1: Search by characteristics.title (from CSV structure)
-      product = await collection.findOne({ 'characteristics.title': productTitle });
-      
-      // Strategy 2: Direct product-title field (if processed)
-      if (!product) {
-        product = await collection.findOne({ 'product-title': productTitle });
-      }
-      
-      // Strategy 3: Case-insensitive search on characteristics.title
-      if (!product) {
-        product = await collection.findOne({ 
-          'characteristics.title': { $regex: new RegExp(`^${productTitle.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}$`, 'i') }
-        });
-      }
+      // Search by product ID
+      const product = await collection.findOne({ _id: new mongoose.Types.ObjectId(productId) });
       
       if (product) {
         return {
@@ -324,7 +303,7 @@ export const addToFavorites = async (req, res) => {
   try {
     const { product } = req.body;
     
-    if (!product || !product['product-title']) {
+    if (!product || !product['product-id']) {
       return res.status(400).json({ message: "Invalid product data" });
     }
 
@@ -368,7 +347,7 @@ export const addToFavorites = async (req, res) => {
 // Remove from Favorites
 export const removeFromFavorites = async (req, res) => {
   try {
-    const { productTitle } = req.params;
+    const { productId } = req.params;
     
     const user = await User.findById(req.userId);
     if (!user) {
@@ -376,7 +355,7 @@ export const removeFromFavorites = async (req, res) => {
     }
 
     // Find the product to get its ID
-    const productInfo = await findProductIdAndCategory({ 'product-title': productTitle });
+    const productInfo = await findProductIdAndCategory({ 'product-id': productId });
     if (!productInfo) {
       return res.status(404).json({ message: "Product not found" });
     }
@@ -417,7 +396,7 @@ export const addToCart = async (req, res) => {
   try {
     const { product, quantity = 1 } = req.body;
     
-    if (!product || !product['product-title']) {
+    if (!product || !product['product-id']) {
       return res.status(400).json({ message: "Invalid product data" });
     }
 
@@ -429,10 +408,10 @@ export const addToCart = async (req, res) => {
     // Find the product ID and category
     const productInfo = await findProductIdAndCategory(product);
     if (!productInfo) {
-      console.log(`Product not found: ${product['product-title']}`);
+      console.log(`Product not found: ${product['product-id']}`);
       return res.status(404).json({ 
         message: "Product not found in database",
-        productTitle: product['product-title'],
+        productId: product['product-id'],
         availableCollections: ['fans', 'switches', 'heaters', 'lightings', 'cables']
       });
     }
@@ -470,7 +449,7 @@ export const addToCart = async (req, res) => {
 // Update Cart Item Quantity
 export const updateCartQuantity = async (req, res) => {
   try {
-    const { productTitle } = req.params;
+    const { productId } = req.params;
     const { quantity } = req.body;
     
     if (!quantity || quantity < 1) {
@@ -483,7 +462,7 @@ export const updateCartQuantity = async (req, res) => {
     }
 
     // Find the product to get its ID
-    const productInfo = await findProductIdAndCategory({ 'product-title': productTitle });
+    const productInfo = await findProductIdAndCategory({ 'product-id': productId });
     if (!productInfo) {
       return res.status(404).json({ message: "Product not found" });
     }
@@ -512,7 +491,7 @@ export const updateCartQuantity = async (req, res) => {
 // Remove from Cart
 export const removeFromCart = async (req, res) => {
   try {
-    const { productTitle } = req.params;
+    const { productId } = req.params;
     
     const user = await User.findById(req.userId);
     if (!user) {
@@ -520,7 +499,7 @@ export const removeFromCart = async (req, res) => {
     }
 
     // Find the product to get its ID
-    const productInfo = await findProductIdAndCategory({ 'product-title': productTitle });
+    const productInfo = await findProductIdAndCategory({ 'product-id': productId });
     if (!productInfo) {
       return res.status(404).json({ message: "Product not found" });
     }
@@ -594,7 +573,7 @@ export const syncCart = async (req, res) => {
     const newCartItems = [];
     
     for (const item of cartItems) {
-      if (!item['product-title']) continue;
+      if (!item['product-id']) continue;
       
       const productInfo = await findProductIdAndCategory(item);
       if (!productInfo) continue;

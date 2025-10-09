@@ -19,8 +19,8 @@ router.use(verifyToken); // Apply middleware to all routes below
 // Cart routes
 router.get('/cart', getCart);
 router.post('/cart', addToCart);
-router.put('/cart/:productTitle', updateCartQuantity);
-router.delete('/cart/:productTitle', removeFromCart);
+router.put('/cart/:productId', updateCartQuantity);
+router.delete('/cart/:productId', removeFromCart);
 router.delete('/cart', clearCart);
 router.post('/cart/sync', syncCart);
 
