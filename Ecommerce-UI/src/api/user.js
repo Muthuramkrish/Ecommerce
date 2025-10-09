@@ -153,9 +153,8 @@ export const addToFavorites = async (product) => {
 };
 
 // Remove from Favorites
-export const removeFromFavorites = async (productTitle) => {
-  const encodedTitle = encodeURIComponent(productTitle);
-  return await apiCall(`${API_BASE_URL}/api/user/favorites/${encodedTitle}`, {
+export const removeFromFavorites = async (productId) => {
+  return await apiCall(`${API_BASE_URL}/api/user/favorites/${productId}`, {
     method: 'DELETE'
   });
 };
@@ -178,18 +177,16 @@ export const addToCart = async (product, quantity = 1) => {
 };
 
 // Update Cart Item Quantity
-export const updateCartQuantity = async (productTitle, quantity) => {
-  const encodedTitle = encodeURIComponent(productTitle);
-  return await apiCall(`${API_BASE_URL}/api/user/cart/${encodedTitle}`, {
+export const updateCartQuantity = async (productId, quantity) => {
+  return await apiCall(`${API_BASE_URL}/api/user/cart/${productId}`, {
     method: 'PUT',
     body: JSON.stringify({ quantity })
   });
 };
 
 // Remove from Cart
-export const removeFromCart = async (productTitle) => {
-  const encodedTitle = encodeURIComponent(productTitle);
-  return await apiCall(`${API_BASE_URL}/api/user/cart/${encodedTitle}`, {
+export const removeFromCart = async (productId) => {
+  return await apiCall(`${API_BASE_URL}/api/user/cart/${productId}`, {
     method: 'DELETE'
   });
 };

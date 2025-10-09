@@ -41,12 +41,15 @@ const FavoritesPage = ({ favorites = [], onBack, onAddToCart, onAddToWishlist, o
           ) : (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
               {favorites.map((product, index) => (
-                <div key={`${product['product-title']}-${index}`} className="cursor-pointer">
+                <div key={`${product['product-id'] || product['product-title']}-${index}`} className="cursor-pointer">
                   <ProductCard
                     product={product}
                     onAddToCart={onAddToCart}
                     onAddToWishlist={onAddToWishlist}
-                    isFavorite={favorites.some((fav) => fav['product-title'] === product['product-title'])}
+                    isFavorite={favorites.some((fav) => 
+                      fav['product-id'] === product['product-id'] || 
+                      fav['product-title'] === product['product-title']
+                    )}
                     onOpenDetails={onOpenDetails}
                   />
                 </div>

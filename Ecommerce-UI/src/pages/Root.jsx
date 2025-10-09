@@ -420,6 +420,7 @@ function Root() {
     const comparePrice = p?.pricing?.comparePrice ?? basePrice;
     const categoryFromData = p?.anchor?.subcategory || p?.anchor?.category || getProductCategory(title);
     return {
+      'product-id': p._id || p.id,
       'product-title': title,
       'image-url': imageUrl,
       'old-price': String(comparePrice),
@@ -625,8 +626,8 @@ function Root() {
     }
 
     try {
-      const productTitle = cartItems[index]['product-title'];
-      const response = await apiUpdateCartQuantity(productTitle, quantity);
+      const productId = cartItems[index]['product-id'] || cartItems[index]['product-title'];
+      const response = await apiUpdateCartQuantity(productId, quantity);
       setCartItems(response.cart);
     } catch (error) {
       console.error('Error updating cart quantity:', error);
@@ -650,8 +651,8 @@ function Root() {
     }
 
     try {
-      const productTitle = cartItems[index]['product-title'];
-      const response = await apiRemoveFromCart(productTitle);
+      const productId = cartItems[index]['product-id'] || cartItems[index]['product-title'];
+      const response = await apiRemoveFromCart(productId);
       setCartItems(response.cart);
       showToast(`${removedTitle} removed from cart.`, 'info');
     } catch (error) {
@@ -826,11 +827,14 @@ function Root() {
     }
 
     try {
-      const isAlreadyFavorite = favorites.find(fav => fav['product-title'] === product['product-title']);
+      const isAlreadyFavorite = favorites.find(fav => 
+        fav['product-id'] === product['product-id'] || 
+        fav['product-title'] === product['product-title']
+      );
       
       if (isAlreadyFavorite) {
         // Remove from favorites
-        const response = await apiRemoveFromFavorites(product['product-title']);
+        const response = await apiRemoveFromFavorites(product['product-id']);
         setFavorites(response.favorites);
         showToast('Removed from wishlist.', 'info');
       } else {
@@ -1216,14 +1220,17 @@ function Root() {
                   <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-stretch">
                     {filteredProducts.map((product, index) => (
                       <div
-                        key={`${product['product-title']}-${index}`}
+                        key={`${product['product-id'] || product['product-title']}-${index}`}
                         className="cursor-pointer h-full"
                       >
                         <ProductCard
                           product={product}
                           onAddToCart={handleAddToCart}
                           onAddToWishlist={handleAddToWishlist}
-                          isFavorite={favorites.some((fav) => fav['product-title'] === product['product-title'])}
+                          isFavorite={favorites.some((fav) => 
+                            fav['product-id'] === product['product-id'] || 
+                            fav['product-title'] === product['product-title']
+                          )}
                           onOpenDetails={handleOpenProductDetailsPage}
                           className="h-full flex flex-col" // <- ensure card fills height
                         />

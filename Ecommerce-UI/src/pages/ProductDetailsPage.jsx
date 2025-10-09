@@ -25,8 +25,14 @@ const ProductDetailsPage = ({
   const variantsRef = React.useRef(null);
   const [variantsHighlighted, setVariantsHighlighted] = React.useState(false);
 
-  const isInWishlist = favorites.some(fav => fav['product-title'] === product['product-title']);
-  const cartItem = cartItems.find(item => item['product-title'] === product['product-title']);
+  const isInWishlist = favorites.some(fav => 
+    fav['product-id'] === product['product-id'] || 
+    fav['product-title'] === product['product-title']
+  );
+  const cartItem = cartItems.find(item => 
+    item['product-id'] === product['product-id'] || 
+    item['product-title'] === product['product-title']
+  );
   const cartQuantity = cartItem ? cartItem.quantity : 0;
 
   const handleAddToCart = () => {

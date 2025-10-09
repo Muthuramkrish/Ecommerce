@@ -558,7 +558,10 @@ const CategoryListPage = ({
   }, [filteredProducts, sortBy]);
 
   const isInWishlist = (product) => {
-    return favorites.some(fav => fav['product-title'] === product['product-title']);
+    return favorites.some(fav => 
+      fav['product-id'] === product['product-id'] || 
+      fav['product-title'] === product['product-title']
+    );
   };
 
   const formatPrice = (price) => {
