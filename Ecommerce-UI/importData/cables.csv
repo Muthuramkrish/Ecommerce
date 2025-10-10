@@ -1,0 +1,1044 @@
+identifiers_productId,identifiers_sku,identifiers_slug,identifiers_barcode,characteristics_title,characteristics_description,characteristics_images_primary,characteristics_images_offers,characteristics_specifications,characteristics_weight_value,characteristics_weight_unit,characteristics_dimensions_length,characteristics_dimensions_width,characteristics_dimensions_height,characteristics_dimensions_unit,anchor_category,anchor_subcategory,anchor_subSubcategory,anchor_brand,anchor_manufacturer,anchor_productType,classification_variants,classification_attributes_material,classification_attributes_certification,classification_attributes_warrantyPeriod,classification_attributes_countryOfOrigin,pricing_basePrice,pricing_comparePrice,pricing_costPrice,pricing_currency,pricing_taxRate,pricing_discounts,inventory_totalQuantity,inventory_availableQuantity,inventory_reservedQuantity,inventory_lowStockThreshold,inventory_bulkQuantityTiers,inventory_trackInventory,inventory_allowBackorder,marketing_tags,marketing_metaTitle,marketing_metaDescription,marketing_keywords,marketing_isActive,marketing_isFeatured,marketing_isBestseller,marketing_featuredOrder,marketing_promotionText,classification_attributes_connectorType,classification_attributes_application,classification_attributes_cableType
+VK-ELEC-CBL-001,CBL-HDMI-TYPEA-4K-2M,hdmi-typea-cable-4k-2meter,8.90E+12,HDMI Type-A Cable 4K Ultra HD - 2 Meter,"High-speed HDMI Type-A cable supporting 4K Ultra HD resolution at 60Hz. Gold-plated Type-A connectors ensure optimal signal transmission. Perfect for connecting gaming consoles, streaming devices, Blu-ray players, and laptops to 4K TVs and monitors.","https://i.pinimg.com/1200x/14/16/08/1416088ac4a7b8691247d9998ffc1c5a.jpg
+https://i.pinimg.com/1200x/80/1e/8f/801e8f051b7789dd86f197fc925e9f93.jpg
+https://i.pinimg.com/1200x/59/82/fc/5982fc6851666821c152d00db37a4e31.jpg",,"group': 'Connector',   
+'name': 'Connector Type', 
+'value': 'HDMI Type-A (Standard)', 
+'unit': ''
+ 
+'group': 'Technical', 
+'name': 'HDMI Version',
+'value': '2.0', 
+'unit': ''
+
+'group': 'Performance',
+'name': 'Maximum Resolution', 
+'value': '4K', 
+'unit': 'UHD',
+
+'group': 'Performance', 
+'name': 'Refresh Rate',
+'value': '60', 
+'unit': 'Hz',
+
+'group': 'Physical', 
+'name': 'Cable Length', 
+'value': '2',
+unit': 'meter',
+
+ 'group': 'Technical', 
+'name': 'Bandwidth', 
+'value': '18', 
+'unit': 'Gbps'",320,grams,2000,8,8,mm,Electrical,Cables,HDMI Cables,Belkin,Belkin International,Accessory,"type': 'length', 
+'name': '1 Meter', 
+'sku': 'CBL-HDMI-TYPEA-4K-1M', 
+'price': 899, 
+'inventory': 85, 
+'images': 'https://i.pinimg.com/1200x/59/82/fc/5982fc6851666821c152d00db37a4e31.jpg'
+
+'type': 'length', 
+'name': '2 Meter', 
+'sku': 'CBL-HDMI-TYPEA-4K-2M', 
+'price': 1299, 
+'inventory': 120, 
+'images': 'https://i.pinimg.com/1200x/59/82/fc/5982fc6851666821c152d00db37a4e31.jpg'
+
+'type': 'length', 
+'name': '3 Meter',
+'sku': 'CBL-HDMI-TYPEA-4K-3M', 
+'price': 1699, 
+'inventory': 60, 
+'images': 'https://i.pinimg.com/1200x/59/82/fc/5982fc6851666821c152d00db37a4e31.jpg'",Copper with PVC Jacket,"HDMI Certified
+RoHS",Lifetime,China,1299,1599,950,INR,18,"type': 'bulk', 
+'value': 12, 
+'minQuantity': 25, 
+'validFrom': '2024-01-01T00:00:00Z', 
+'validTo': '2024-12-31T23:59:59Z', 
+'isActive': True",265,265,0,20,"minQuantity': 5, 
+'maxQuantity': 24, 
+'discountPercentage': 8, 
+
+'minQuantity': 25, 
+'maxQuantity': 49, 
+'discountPercentage': 1, 
+
+'minQuantity': 50, 
+'maxQuantity': 999, 
+'discountPercentage': 18",TRUE,TRUE,"hdmi 
+cable 
+type-a 
+4k
+ultra hd 
+gaming 
+streaming",HDMI Type-A 4K Cable 2M | Ultra HD | Gold Plated | Belkin,"Premium HDMI Type-A 4K cable with gold-plated connectors. Supports 4K@60Hz, perfect for gaming and streaming. Lifetime warranty included.","hdmi type-a
+standard hdmi cable
+4k hdmi cable
+ultra hd cable
+hdmi 2.0'
+belkin hdmi",TRUE,FALSE,TRUE,0,,,,
+VK-ELEC-CBL-002,CBL-HDMI-TYPEC-4K-1_5M,mini-hdmi-typec-4k-1_5meter,8.90E+12,Mini HDMI (Type-C) Cable 4K Ultra HD - 1.5 Meter,"Compact Mini HDMI Type-C cable designed for cameras, tablets, and laptops. Supports 4K Ultra HD resolution at 60Hz with high-speed data transfer. Gold-plated connectors provide excellent durability and reliable signal transmission.","https://m.media-amazon.com/images/I/61pB03L7ahL._UF1000,1000_QL80_.jpg
+https://www.ugreenindia.com/cdn/shop/files/11167_1.jpg
+https://www.ugreenindia.com/cdn/shop/files/61z-jjxp74l-_sl1000.jpg?v=1719805997&width=1214",,"group': 'Technical', 
+'name': 'HDMI Version', 
+'value': '2.0', 
+'unit': '' 
+
+'group': 'Performance', 
+'name': 'Maximum Resolution', 
+'value': '4K', 
+'unit': 'UHD'
+
+'group': 'Performance', 
+'name': 'Refresh Rate', 
+'value': '60', 
+'unit': 'Hz' 
+
+'group': 'Physical', 
+'name': 'Cable Length', 
+'value': '1.5', 
+'unit': 'meter' 
+
+'group': 'Technical', 
+'name': 'Bandwidth', 
+'value': '18', 
+'unit': 'Gbps'",150,grams,1500,6,6,mm,Electrical,Cables,HDMI Cables,Sony,Sony Corporation,Accessory,"type': 'length', 
+'name': '1 Meter', 
+'sku': 'CBL-HDMI-TYPEC-4K-1M', 
+'price': 749, 
+'inventory': 95, 
+'images': 'https://m.media-amazon.com/images/I/61pB03L7ahL._UF1000,1000_QL80_.jpg' 
+
+'type': 'length', 
+'name': '1.5 Meter', 
+'sku': 'CBL-HDMI-TYPEC-4K-1_5M', 
+'price': 999, 
+'inventory': 130, 
+'images': 'https://m.media-amazon.com/images/I/61pB03L7ahL._UF1000,1000_QL80_.jpg'
+
+'type': 'length', 
+'name': '2 Meter', 
+'sku': 'CBL-HDMI-TYPEC-4K-2M', 
+'price': 1199, 
+'inventory': 70, 
+'images': 'https://m.media-amazon.com/images/I/61pB03L7ahL._UF1000,1000_QL80_.jpg'",Copper with Nylon Braided Jacket,"HDMI Certified
+RoHS",2 Years,Japan,999,1199,700,INR,18,"type': 'bulk', 
+'value': 10, 
+'minQuantity': 20, 
+'validFrom': '2024-01-01T00:00:00Z', 
+'validTo': '2024-12-31T23:59:59Z', 
+'isActive': True",295,295,0,15,"minQuantity': 5, 
+'maxQuantity': 19, 
+'discountPercentage': 7 
+
+'minQuantity': 20, 
+'maxQuantity': 49, 
+'discountPercentage': 10
+ 
+'minQuantity': 50, 
+'maxQuantity': 500, 
+'discountPercentage': 15",TRUE,FALSE,"mini hdmi 
+type-c
+cable
+4k
+camera
+tablet",Mini HDMI (Type-C) Cable 1.5M | 4K Ultra HD | Sony,"Sony Mini HDMI (Type-C) cable supports 4K@60Hz with gold-plated connectors. Ideal for cameras, tablets, and portable devices. 2-year warranty.","mini hdmi cable
+hdmi type c
+sony mini hdmi
+camera hdmi cable
+4k hdmi mini",TRUE,FALSE,FALSE,0,Perfect for DSLR cameras and tablets,,,
+VK-ELEC-CBL-003,CBL-HDMI-TYPED-4K-1M,micro-hdmi-typed-4k-1meter,8.90E+12,Micro HDMI (Type-D) Cable 4K Ultra HD - 1 Meter,"Ultra-compact Micro HDMI Type-D cable designed for smartphones, tablets, GoPro, and other portable devices. Supports 4K Ultra HD video at 60Hz with high-speed data transmission.  Gold-plated connectors ensure stable performance and durability.","https://m.media-amazon.com/images/I/71xdRAy-myL.jpg
+https://m.media-amazon.com/images/I/61hgqWdJuPL._UF1000,1000_QL80_.jpg
+https://m.media-amazon.com/images/I/71qjl-fIBCL.jpg",https://cdn.eleczo.com/media/wysiwyg/ebbmedia/electric-wire-discount-desktop.webp,"group': 'Technical', 
+'name': 'HDMI Version', 
+'value': '2.0', 
+'unit': ''
+
+'group': 'Performance', 
+'name': 'Maximum Resolution', 
+'value': '4K', 
+'unit': 'UHD' 
+
+'group': 'Performance',
+'name': 'Refresh Rate', 
+'value': '60', 
+'unit': 'Hz'
+
+'group': 'Physical', 
+'name': 'Cable Length', 
+'value': '1', 
+'unit': 'meter'
+
+'group': 'Technical', 
+'name': 'Bandwidth', 
+'value': '18', 
+'unit': 'Gbps'",120,grams,1000,5,5,mm,Electrical,Cables,HDMI Cables,Belkin,Belkin International,Accessory,"type': 'length', 
+'name': '1 Meter', 
+'sku': 'CBL-HDMI-TYPED-4K-1M', 
+'price': 699, 
+'inventory': 110, 
+'images': 'https://m.media-amazon.com/images/I/71xdRAy-myL.jpg'
+
+'type': 'length', 
+'name': '1.5 Meter', 
+'sku': 'CBL-HDMI-TYPED-4K-1_5M', 
+'price': 849, 
+'inventory': 90, 
+'images': 'https://m.media-amazon.com/images/I/61hgqWdJuPL._UF1000,1000_QL80_.jpg'
+
+'type': 'length', 
+'name': '2 Meter', 
+'sku': 'CBL-HDMI-TYPED-4K-2M', 
+'price': 1099, 
+'inventory': 60, 
+'images': 'https://m.media-amazon.com/images/I/71qjl-fIBCL.jpg'",Oxygen-Free Copper with PVC Jacket,"HDMI Certified
+CE
+RoHS",1 Year,China,699,899,480,INR,18,"type': 'bulk', 
+'value': 8, 
+'minQuantity': 15, 
+'validFrom': '2024-02-01T00:00:00Z', 
+'validTo': '2024-12-31T23:59:59Z', 
+'isActive': True",260,260,0,12,"minQuantity': 5, 
+'maxQuantity': 14, 
+'discountPercentage': 5 
+
+'minQuantity': 15, 
+'maxQuantity': 49, 
+'discountPercentage': 8 
+
+'minQuantity': 50, 
+'maxQuantity': 200, 
+'discountPercentage': 12",TRUE,FALSE,"micro hdmi
+type-d
+hdmi cable
+4k
+smartphone
+gopro",Micro HDMI (Type-D) Cable 1M | 4K Ultra HD | Belkin,"Belkin Micro HDMI (Type-D) cable supports 4K@60Hz with high-speed data transfer. Perfect for GoPro, tablets, and portable devices. 1-year warranty.","micro hdmi cable
+hdmi type d
+belkin micro hdmi
+gopro hdmi cable
+smartphone hdmi",TRUE,FALSE,TRUE,2,Ideal for portable devices like GoPro and smartphones,,,
+VK-ELEC-CBL-004,CBL-ETH-CAT5E-3M,cat5e-ethernet-cable-3meter,8.90E+12,Cat5e Ethernet Cable - 3 Meter,"Cat5e Ethernet LAN cable suitable for home and office networks. Supports speeds up to 1Gbps and bandwidth up to 100MHz. Ideal for basic internet, routers, modems, and small office setups. Flexible PVC jacket for durability.","https://m.media-amazon.com/images/I/41ztMbXNBxL._UF1000,1000_QL80_.jpg
+https://m.media-amazon.com/images/I/71Oj271fReL._UF1000,1000_QL80_.jpg
+https://m.media-amazon.com/images/I/41WHrMGVwWL._UF1000,1000_QL80_.jpg",,"group': 'Technical', 
+'name': 'Cable Category', 
+'value': 'Cat5e', 
+'unit': '' 
+
+'group': 'Performance', 
+'name': 'Max Speed',
+'value': '1', 
+'unit': 'Gbps' 
+
+'group': 'Performance', 
+'name': 'Bandwidth', 
+'value': '100', 
+'unit': 'MHz' 
+
+'group': 'Physical', 
+'name': 'Cable Length', 
+'value': '3', 
+'unit': 'meter'
+
+'group': 'Technical', 
+'name': 'Connector Type', 
+'value': 'RJ45', 
+'unit': ''",200,grams,3000,5,5,mm,Electrical,Cables,Ethernet Cables,Belkin,Belkin International Inc.,Networking Accessory,"type': 'length', 
+'name': '1 Meter', 
+'sku': 'CBL-ETH-CAT5E-1M', 
+'price': 129, 
+'inventory': 200, 
+'images': 'https://m.media-amazon.com/images/I/41ztMbXNBxL._UF1000,1000_QL80_.jpg'
+
+'type': 'length', 
+'name': '3 Meter', 
+'sku': 'CBL-ETH-CAT5E-3M', 
+'price': 249, 
+'inventory': 150, 
+'images': 'https://m.media-amazon.com/images/I/71Oj271fReL._UF1000,1000_QL80_.jpg'
+
+'type': 'length', 
+'name': '5 Meter', 
+'sku': 'CBL-ETH-CAT5E-5M', 
+'price': 399, 
+'inventory': 100, 
+'images': 'https://m.media-amazon.com/images/I/41WHrMGVwWL._UF1000,1000_QL80_.jpg'",Copper Clad Aluminum with PVC Jacket,"RoHS
+TIA/EIA-568-B",1 Year,China,249,399,150,INR,18,"type': 'bulk', 
+'value': 5, 
+'minQuantity': 20, 
+'validFrom': '2024-01-01T00:00:00Z', 
+'validTo': '2024-12-31T23:59:59Z', 
+'isActive': True",450,450,0,20,"minQuantity': 5, 
+'maxQuantity': 19, 
+'discountPercentage': 3
+
+'minQuantity': 20, 
+'maxQuantity': 49, 
+'discountPercentage': 5
+
+'minQuantity': 50, 
+'maxQuantity': 200, 
+'discountPercentage': 10",TRUE,FALSE,"ethernet
+cat5e
+lan cable
+rj45
+networking",Cat5e Ethernet Cable 3M | LAN Cable | Belkin,"Reliable Cat5e LAN cable with RJ45 connectors. Supports 1Gbps speed, 100MHz bandwidth. Perfect for home and office networking.","cat5e cable
+ethernet cable
+lan cable 3m
+belkin networking",TRUE,FALSE,FALSE,2,Affordable networking cable for everyday use,,,
+VK-ELEC-CBL-005,CBL-ETH-CAT6-5M,cat6-ethernet-cable-5meter,8.90E+12,Cat6 Ethernet Cable - 5 Meter,"High-performance Cat6 Ethernet LAN cable. Supports speeds up to 1Gbps and bandwidth up to 250MHz. Ideal for routers, switches, modems, and gaming consoles. Durable PVC jacket for long-lasting use.","https://i.pinimg.com/1200x/47/b5/22/47b522ea58c5528dd5da2df95e15dd26.jpg
+https://i.pinimg.com/1200x/00/80/8b/00808bba6dd894f046ca7c8713e13719.jpg
+https://i.pinimg.com/1200x/c4/8b/7e/c48b7ea1685fa50571ef84200a959707.jpg",,"group': 'Technical', 
+'name': 'Cable Category', 
+'value': 'Cat6', 
+'unit': ''
+
+'group': 'Performance', 
+'name': 'Max Speed', 
+'value': '1', 
+'unit': 'Gbps' 
+
+'group': 'Performance', 
+'name': 'Bandwidth', 
+'value': '250', 
+'unit': 'MHz'
+
+'group': 'Physical', 
+'name': 'Cable Length', 
+'value': '5', 
+'unit': 'meter'
+
+'group': 'Technical', 
+'name': 'Connector Type', 
+'value': 'RJ45', 
+'unit': ''",400,grams,5000,6,6,mm,Electrical,Cables,Ethernet Cables,D-Link,D-Link Corporation,Networking Accessory,"type': 'length', 
+'name': '1 Meter', 
+'sku': 'CBL-ETH-CAT6-1M', 
+'price': 199, 
+'inventory': 150, 
+'images': 'https://i.pinimg.com/1200x/c4/8b/7e/c48b7ea1685fa50571ef84200a959707.jpg'
+
+'type': 'length', 
+'name': '3 Meter', 
+'sku': 'CBL-ETH-CAT6-3M', 
+'price': 349, 
+'inventory': 120, 
+'images': 'https://i.pinimg.com/1200x/c4/8b/7e/c48b7ea1685fa50571ef84200a959707.jpg'
+
+'type': 'length', 
+'name': '5 Meter', 
+'sku': 'CBL-ETH-CAT6-5M', 
+'price': 499, 
+'inventory': 80, 
+'images': 'https://i.pinimg.com/1200x/c4/8b/7e/c48b7ea1685fa50571ef84200a959707.jpg'",Copper with PVC Jacket,"RoHS
+ISO 11801",2 Years,India,499,699,320,INR,18,"type': 'bulk', 
+'value': 10, 
+'minQuantity': 20, 
+'validFrom': '2024-01-01T00:00:00Z', 
+'validTo': '2024-12-31T23:59:59Z', 
+'isActive': True",350,350,0,15,"minQuantity': 5, 
+'maxQuantity': 19, 
+'discountPercentage': 5
+
+'minQuantity': 20, 
+'maxQuantity': 49, 
+'discountPercentage': 10 
+
+'minQuantity': 50, 
+'maxQuantity': 200, 
+'discountPercentage': 15",TRUE,FALSE,"ethernet
+cat6
+lan cable
+rj45
+networking",Cat6 Ethernet Cable 5M | High Speed LAN | D-Link,"Premium Cat6 LAN cable with RJ45 connectors. Supports 1Gbps speed, 250MHz bandwidth. Ideal for gaming, streaming & home office.","cat6 cable
+ethernet cable
+lan cable 5m
+d-link networking",TRUE,TRUE,FALSE,1,"Buy 2, Get 10% Off",,,
+VK-ELEC-CBL-006,CBL-ETH-CAT7-5M,cat7-ethernet-cable-5meter,8.90E+12,Cat7 Ethernet Cable - 5 Meter,"Ultra-high-performance Cat7 Ethernet LAN cable with shielded twisted pairs (STP). Supports speeds up to 10Gbps and bandwidth up to 600MHz. Designed for data centers, gaming, and high-speed networking with superior shielding for reduced interference.","https://m.media-amazon.com/images/I/61gh2jt0aNL._UF1000,1000_QL80_.jpg
+https://m.media-amazon.com/images/I/61JVboGSX3L.jpg
+https://m.media-amazon.com/images/I/71bezhgcJEL._UF1000,1000_QL80_.jpg",,"group': 'Technical', 
+'name': 'Cable Category', 
+'value': 'Cat7', 
+'unit': ''
+
+'group': 'Performance', 
+'name': 'Max Speed', 
+'value': '10', 
+'unit': 'Gbps'
+
+'group': 'Performance', 
+'name': 'Bandwidth', 
+'value': '600', 
+'unit': 'MHz'
+
+'group': 'Physical', 
+'name': 'Cable Length', 
+'value': '5', 
+'unit': 'meter'
+
+'group': 'Technical', 
+'name': 'Connector Type', 
+'value': 'RJ45 (Shielded)', 
+'unit': ''",450,grams,5000,7,7,mm,Electrical,Cables,Ethernet Cables,Belkin,Belkin International Inc.,Networking Accessory,"type': 'length', 
+'name': '1 Meter', 
+'sku': 'CBL-ETH-CAT7-1M', 
+'price': 399, 
+'inventory': 180, 
+'images': 'https://m.media-amazon.com/images/I/61gh2jt0aNL._UF1000,1000_QL80_.jpg'
+
+'type': 'length', 
+'name': '3 Meter', 
+'sku': 'CBL-ETH-CAT7-3M', 
+'price': 699, 
+'inventory': 140, 
+'images': 'https://m.media-amazon.com/images/I/61JVboGSX3L.jpg'
+
+'type': 'length', 
+'name': '5 Meter', 
+'sku': 'CBL-ETH-CAT7-5M', 
+'price': 999, 
+'inventory': 90, 
+'images': 'https://m.media-amazon.com/images/I/71bezhgcJEL._UF1000,1000_QL80_.jpg'",Copper with Shielded Twisted Pairs (STP),"RoHS
+ISO/IEC 11801
+TIA/EIA",3 Years,China,999,1299,700,INR,18,"type': 'bulk', 
+'value': 12, 
+'minQuantity': 20, 
+'validFrom': '2024-01-01T00:00:00Z', 
+'validTo': '2024-12-31T23:59:59Z', 
+'isActive': True",410,410,0,20,"minQuantity': 5, 
+'maxQuantity': 19, 
+'discountPercentage': 7
+
+'minQuantity': 20, 
+'maxQuantity': 49, 
+'discountPercentage': 12
+
+'minQuantity': 50, 
+'maxQuantity': 200, 
+'discountPercentage': 18",TRUE,FALSE,"ethernet
+cat7
+lan cable
+rj45 shielded
+networking",Cat7 Ethernet Cable 5M | High Speed LAN | Belkin,"Premium Cat7 LAN cable with shielded RJ45 connectors. Supports 10Gbps speed, 600MHz bandwidth. Perfect for gaming, streaming & professional networks.","cat7 cable
+ethernet cable
+lan cable 5m
+belkin networking",TRUE,TRUE,TRUE,2,Save 15% on bulk orders,,,
+VK-ELEC-CBL-007,CBL-SOLAR-4SQMM,solar-cable-4sqmm,8.90E+12,Solar Cable - 4 sqmm,"High-quality 4 sqmm solar DC cable designed for photovoltaic applications. UV resistant, weatherproof, and suitable for outdoor installations. Ensures low transmission loss and long service life.","https://i.pinimg.com/736x/71/b8/54/71b854c795efcea44d900c4f440e770b.jpg
+https://i.pinimg.com/736x/9a/41/72/9a4172fdd4d5ed106aad0292f69a2159.jpg
+https://i.pinimg.com/1200x/57/a3/b5/57a3b51784064502dd11264cdc90ace9.jpg",,"group': 'Electrical', 
+'name': 'Conductor Material', 
+'value': 'Tinned Copper', 
+'unit': ''
+
+'group': 'Electrical', 
+'name': 'Cross Sectional Area', 
+'value': '4', 
+'unit': 'sqmm'
+
+'group': 'Performance', 
+'name': 'Rated Voltage', 
+'value': '1800', 
+'unit': 'V DC'
+
+'group': 'Performance', 
+'name': 'Temperature Range', 
+'value': '-40 to +90', 
+'unit': '°C'
+
+'group': 'Physical', 
+'name': 'Insulation', 
+'value': 'XLPO (UV & Weather Resistant)', 
+'unit': ''",0.095,kg/m,100,100,100,mm (per coil of 100m),Electrical,Cables,Solar Cables,Polycab,Polycab India Ltd.,Wires & Cables,"type': 'length', 
+'name': '10 Meter Coil', 
+'sku': 'CBL-SOLAR-4SQMM-10M', 
+'price': 950, 
+'inventory': 80, 
+'images': 'https://cdn.eleczo.com/media/wysiwyg/ebbmedia/electric-wire-discount-desktop.webp'
+
+'type': 'length',
+'name': '50 Meter Coil', 
+'sku': 'CBL-SOLAR-4SQMM-50M', 
+'price': 4200, 
+'inventory': 60, 
+'images': 'https://cdn.eleczo.com/media/wysiwyg/ebbmedia/electric-wire-discount-desktop.webp'
+
+'type': 'length', 
+'name': '100 Meter Coil', 
+'sku': 'CBL-SOLAR-4SQMM-100M', 
+'price': 7999, 
+'inventory': 40, 
+'images': 'https://cdn.eleczo.com/media/wysiwyg/ebbmedia/electric-wire-discount-desktop.webp'",Tinned Copper with XLPO Insulation,"TÜV Certified
+IEC 62930 Compliant
+RoHS Compliant",5 Years,India,7999,8999,6200,INR,18,"type': 'seasonal', 
+'value': 10, 
+'minQuantity': 1, 
+'validFrom': '2024-04-01T00:00:00Z', 
+'validTo': '2024-06-30T23:59:59Z', 
+'isActive': True",180,180,0,10,"minQuantity': 5, 
+'maxQuantity': 9, 
+'discountPercentage': 5
+
+'minQuantity': 10, 
+'maxQuantity': 24, 
+'discountPercentage': 8
+
+'minQuantity': 25, 
+'maxQuantity': 100, 
+'discountPercentage': 12",TRUE,FALSE,"solar cable
+4 sqmm cable
+dc cable
+pv cable",Solar Cable 4 sqmm | Polycab | UV Resistant | TUV Certified,"Polycab Solar Cable 4 sqmm with tinned copper conductor and XLPO insulation. UV & weather resistant, long life, suitable for solar power plants.","solar cable 4 sqmm
+pv cable
+dc solar wire
+poly cab solar cable",TRUE,TRUE,TRUE,3,Go Green with Polycab Solar Cables – 10% Off,,,
+VK-ELEC-CBL-008,CBL-SOLAR-PV-TWIN-6SQMM,pv-twin-core-solar-cable-6sqmm,8.90E+12,PV Twin-Core Solar Cable - 6 sqmm,"Durable 6 sqmm twin-core solar DC cable designed for photovoltaic systems. Combines two insulated conductors in a single sheath for easy installation. UV resistant, halogen-free, weatherproof, and flame-retardant. Ideal for connecting solar panels and inverters.","https://m.media-amazon.com/images/I/514Tp1r2uDL._UF1000,1000_QL80_.jpg
+https://mega-cloud.usa18.wondercdn.com/owirecable_en/uploads/2023/03/DARKB2@40XC86CJ@Y22R.webp
+https://propaudio.com/wp-content/uploads/2024/01/SSC260-H1Z2Z2-K-EN50618-2014-2x6mm2-twin-core-Solar-PV-Cable.jpg",,"group': 'Electrical', 
+'name': 'Conductor Material', 
+'value': 'Tinned Copper', 
+'unit': ''
+
+'group': 'Electrical', 
+'name': 'Cross Sectional Area', 
+'value': '6', 
+'unit': 'sqmm'
+
+'group': 'Performance', 
+'name': 'Rated Voltage', 
+'value': '2000', 
+'unit': 'V DC'
+
+'group': 'Performance', 
+'name': 'Temperature Range', 
+'value': '-40 to +120', 
+'unit': '°C'
+
+'group': 'Physical', 
+'name': 'Insulation', 
+'value': 'XLPO (UV, Ozone & Weather Resistant)', 
+'unit': ''
+
+'group': 'Physical', 
+'name': 'Sheath', 
+'value': 'Halogen-free, Flame Retardant', 
+'unit': ''",0.185,kg/m,100,100,100,mm (per coil of 100m),Electrical,Cables,Solar Cables,RR Kabel,RR Kabel Ltd.,Wires & Cables,"type': 'length', 
+'name': '25 Meter Coil', 
+'sku': 'CBL-SOLAR-PV-TWIN-6SQMM-25M', 
+'price': 3200, 
+'inventory': 100, 
+'images': 'https://m.media-amazon.com/images/I/514Tp1r2uDL._UF1000,1000_QL80_.jpg'
+
+'type': 'length', 
+'name': '50 Meter Coil', 
+'sku': 'CBL-SOLAR-PV-TWIN-6SQMM-50M', 
+'price': 6200, 
+'inventory': 70,
+'images': 'https://mega-cloud.usa18.wondercdn.com/owirecable_en/uploads/2023/03/DARKB2@40XC86CJ@Y22R.webp'
+
+'type': 'length', 
+'name': '100 Meter Coil', 
+'sku': 'CBL-SOLAR-PV-TWIN-6SQMM-100M', 
+'price': 11800, 
+'inventory': 50, 
+'images': 'https://propaudio.com/wp-content/uploads/2024/01/SSC260-H1Z2Z2-K-EN50618-2014-2x6mm2-twin-core-Solar-PV-Cable.jpg'",Tinned Copper with XLPO Insulation,"TÜV Certified
+IEC 62930 Compliant
+EN 50618
+RoHS Compliant",10 Years,India,11800,12900,9600,INR,18,"type': 'bulk', 
+'value': 10, 
+'minQuantity': 5, 
+'validFrom': '2024-05-01T00:00:00Z', 
+'validTo': '2024-08-31T23:59:59Z', 
+'isActive': True",220,220,0,15,"minQuantity': 5, 
+'maxQuantity': 9, 
+'discountPercentage': 5
+
+'minQuantity': 10, 
+'maxQuantity': 24, 
+'discountPercentage': 8
+
+'minQuantity': 25, 
+'maxQuantity': 100, 
+'discountPercentage': 12",TRUE,FALSE,"solar cable
+twin-core cable
+pv cable
+dc solar wire",PV Twin-Core Solar Cable 6 sqmm | RR Kabel | UV Resistant | TÜV Certified,"RR Kabel PV Twin-Core Solar Cable 6 sqmm with tinned copper conductor and XLPO insulation. UV & weather resistant, halogen-free, flame-retardant, long life, suitable for solar power plants.","pv twin-core solar cable
+solar cable 6 sqmm
+rr kabel solar wire
+uv resistant twin core cable",TRUE,TRUE,TRUE,2,Twin-Core Power for Reliable Solar Installations – Save 10% Now,,,
+VK-ELEC-CBL-009,CBL-PVDC-6SQMM,pv-dc-solar-cable-6sqmm,8.90E+12,PV DC Solar Cable - 6 sqmm,"Durable 6 sqmm photovoltaic DC solar cable designed for high-voltage solar power transmission. Suitable for interconnection between solar panels and inverter. UV resistant, weatherproof, and flame-retardant.","https://solar-world.in/cdn/shop/files/6112Baxsi7L._AC_UF894_1000_QL80_064287b6-27b3-40e5-a271-190dbf649990.jpg?v=1707829307
+https://m.media-amazon.com/images/I/61gAc72J+mL._UF1000,1000_QL80_.jpg
+https://m.media-amazon.com/images/I/61-gfNbI46L._UF1000,1000_QL80_.jpg",,"group': 'Electrical', 
+'name': 'Conductor Material', 
+'value': 'Tinned Copper', 
+'unit': ''
+
+'group': 'Electrical', 
+'name': 'Cross Sectional Area', 
+'value': '6', 
+'unit': 'sqmm'
+
+'group': 'Performance', 
+'name': 'Rated Voltage', 
+'value': '1500', 
+'unit': 'V DC'
+
+'group': 'Performance', 
+'name': 'Temperature Range', 
+'value': '-40 to +120', 
+'unit': '°C'
+
+'group': 'Physical', 
+'name': 'Insulation', 
+'value': 'Electron Beam Cross-linked XLPO (UV & Weather Resistant)', 
+'unit': ''",0.125,kg/m,100,100,100,mm (per coil of 100m),Electrical,Cables,Solar Cables,RR Kabel,RR Kabel Ltd.,Wires & Cables,"type': 'length', 
+'name': '10 Meter Coil', 
+'sku': 'CBL-PVDC-6SQMM-10M', 
+'price': 1250, 
+'inventory': 100, 
+'images': 'https://solar-world.in/cdn/shop/files/6112Baxsi7L._AC_UF894_1000_QL80_064287b6-27b3-40e5-a271-190dbf649990.jpg?v=1707829307'
+
+'type': 'length', 
+'name': '50 Meter Coil', 
+'sku': 'CBL-PVDC-6SQMM-50M', 
+'price': 5900, 
+'inventory': 70, 
+'images': 'https://m.media-amazon.com/images/I/61gAc72J+mL._UF1000,1000_QL80_.jpg'
+
+'type': 'length', 
+'name': '100 Meter Coil', 
+'sku': 'CBL-PVDC-6SQMM-100M', 
+'price': 11200, 
+'inventory': 50, 
+'images': 'https://m.media-amazon.com/images/I/61-gfNbI46L._UF1000,1000_QL80_.jpg'",Tinned Copper with XLPO Insulation,"TÜV Certified
+IEC 62930 Compliant
+EN 50618 Standard
+RoHS Compliant",7 Years,India,11200,12500,8700,INR,18,"type': 'festival', 
+'value': 12, 
+'minQuantity': 1, 
+'validFrom': '2024-10-01T00:00:00Z', 
+'validTo': '2024-12-31T23:59:59Z', 
+'isActive': True",220,220,0,15,"minQuantity': 5, 
+'maxQuantity': 9, 
+'discountPercentage': 5
+
+'minQuantity': 10, 
+'maxQuantity': 24, 
+'discountPercentage': 10
+
+'minQuantity': 25, 
+'maxQuantity': 100, 
+'discountPercentage': 15",TRUE,FALSE,"pv dc cable
+solar dc wire
+6 sqmm solar cable
+rr kabel solar",PV DC Solar Cable 6 sqmm | RR Kabel | High Voltage | IEC Certified,"RR Kabel PV DC Solar Cable 6 sqmm for high-performance solar installations. XLPO insulated, UV resistant, flame-retardant and TÜV certified.","pv dc cable 6 sqmm
+solar dc cable
+iec 62930 solar cable
+rr kabel pv cable",TRUE,TRUE,TRUE,4,Power Your Solar System with TÜV Certified PV DC Cables – 12% Off,,,
+VK-ELEC-CBL-010,TEL-CBL-RJ11-4C-10M,flat-telephone-cable-rj11-4core-10m,8.90E+12,"Flat Telephone Cable RJ11 - 4 Core, 10 Meter","High-quality flat telephone cable with 4 conductors for RJ11 connections. Suitable for landline phones, fax machines, and DSL broadband connections. Provides stable voice and data transmission.","https://m.media-amazon.com/images/I/51Vwa0Lkk8L.jpg
+https://m.media-amazon.com/images/I/41Z4XA0-HUL.jpg
+https://m.media-amazon.com/images/I/31e8d6aeKNL.jpg",,"group': 'Electrical', 
+'name': 'Conductor Material', 
+'value': 'Copper', 
+'unit': ''
+
+'group': 'Electrical', 
+'name': 'Number of Conductors', 
+'value': '4', 
+'unit': 'cores'
+
+'group': 'Performance', 
+'name': 'Impedance', 
+'value': '100', 
+'unit': 'Ohms'
+
+'group': 'Performance', 
+'name': 'Frequency Range', 
+'value': '0.3 - 3.4', 
+'unit': 'kHz (Voice Band)'
+
+'group': 'Physical', 
+'name': 'Insulation', 
+'value': 'PVC', 
+'unit': ''",0.25,kg (per 10m roll),10,5,5,m,Electrical,Cables,Telephone Cables,Finolex,Finolex Cables Ltd.,Wires & Cables,"type': 'length', 
+'name': '5 Meter Roll', 
+'sku': 'TEL-CBL-RJ11-4C-5M', 
+'price': 120, 
+'inventory': 150, 
+'images': 'https://m.media-amazon.com/images/I/51Vwa0Lkk8L.jpg'
+
+'type': 'length', 
+'name': '10 Meter Roll', 
+'sku': 'TEL-CBL-RJ11-4C-10M', 
+'price': 199, 
+'inventory': 100, 
+'images': 'https://m.media-amazon.com/images/I/41Z4XA0-HUL.jpg'
+
+'type': 'length', 
+'name': '20 Meter Roll', 
+'sku': 'TEL-CBL-RJ11-4C-20M', 
+'price': 350, 
+'inventory': 80, 
+'images': 'https://m.media-amazon.com/images/I/31e8d6aeKNL.jpg'",,,1 Year,India,199,250,140,INR,18,"type': 'seasonal', 
+'value': 15, 
+'minQuantity': 1, 
+'validFrom': '2024-10-01T00:00:00Z', 
+'validTo': '2024-12-31T23:59:59Z', 
+'isActive': True",330,330,0,15,"minQuantity': 10, 
+'maxQuantity': 24, 
+'discountPercentage': 5
+
+'minQuantity': 25, 
+'maxQuantity': 99, 
+'discountPercentage': 10
+
+'minQuantity': 100, 
+'maxQuantity': 500, 
+'discountPercentage': 15",TRUE,FALSE,"telephone cable
+RJ11 cable
+flat phone wire
+landline cable",Flat Telephone Cable RJ11 - 4 Core | Finolex,"Finolex Flat Telephone Cable RJ11 with 4 cores for landline, fax, and DSL broadband. Available in 5m, 10m, and 20m rolls.","RJ11 telephone cable
+flat landline cable
+DSL wire
+Finolex telephone cable",TRUE,TRUE,FALSE,5,Stay connected with Finolex Telephone Cables – Save 15% this season,RJ11 (4P4C),"Landline Telephone
+Fax Machine
+DSL Broadband Modem",
+VK-ELEC-CBL-011,TEL-CAT3-UTP-2P-100M,twisted-pair-telephone-cable-cat3-2pair-100m,8.90E+12,"Twisted Pair Telephone Cable - Cat3 UTP, 2 Pair (100m)","High-quality Cat3 unshielded twisted pair (UTP) telephone cable with 2 pairs (4 cores). Designed for stable voice transmission, DSL, and low-speed networking applications. Suitable for PBX systems and internal telephone wiring.","https://image.made-in-china.com/202f0j00wvnqPpWlAacH/Telephone-Cable-Cat3-UTP-Indoor-Outdoor-50-80-Pair-Telephone-Cable.webp
+https://s.alicdn.com/@sc04/kf/H6df66115df7d4645828523f97dd203b5F.jpg
+https://s.alicdn.com/@sc04/kf/H6df66115df7d4645828523f97dd203b5F.jpg",,"group': 'Electrical', 
+'name': 'Category', 
+'value': 'Cat3', 
+'unit': ''
+
+'group': 'Electrical', 
+'name': 'Number of Pairs', 
+'value': '2', 
+'unit': 'pairs (4 cores)'
+
+'group': 'Performance', 
+'name': 'Bandwidth', 
+'value': '16', 
+'unit': 'MHz'
+
+'group': 'Performance', 
+'name': 'Data Rate', 
+'value': 'Up to 10', 
+'unit': 'Mbps'
+
+'group': 'Physical', 
+'name': 'Insulation', 
+'value': 'PVC', 
+'unit': ''",2.5,kg (per 100m roll),100,12,12,m,Electrical,Cables,Telephone Cables,D-Link,D-Link Corporation,Wires & Cables,"type': 'length', 
+'name': '50 Meter Roll', 
+'sku': 'TEL-CAT3-UTP-2P-50M', 
+'price': 450, 'inventory': 120, 
+'images': 'https://image.made-in-china.com/202f0j00wvnqPpWlAacH/Telephone-Cable-Cat3-UTP-Indoor-Outdoor-50-80-Pair-Telephone-Cable.webp'
+
+'type': 'length', 
+'name': '100 Meter Roll', 
+'sku': 'TEL-CAT3-UTP-2P-100M', 
+'price': 799, 
+'inventory': 80, 
+'images': 'https://s.alicdn.com/@sc04/kf/H6df66115df7d4645828523f97dd203b5F.jpg'
+
+'type': 'length', 
+'name': '305 Meter Box', 
+'sku': 'TEL-CAT3-UTP-2P-305M', 
+'price': 2200, 
+'inventory': 40, 
+'images': 'https://s.alicdn.com/@sc04/kf/H6df66115df7d4645828523f97dd203b5F.jpg'",,,1 Year,India,799,950,600,INR,18,"type': 'bulk', 
+'value': 10, 
+'minQuantity': 5, 
+'validFrom': '2024-10-01T00:00:00Z', 
+'validTo': '2025-03-31T23:59:59Z', 
+'isActive': True",240,240,0,15,"minQuantity': 10, 
+'maxQuantity': 24, 
+'discountPercentage': 5
+
+'minQuantity': 25, 
+'maxQuantity': 99, 
+'discountPercentage': 10
+
+'minQuantity': 100, 
+'maxQuantity': 500, 
+'discountPercentage': 15",TRUE,FALSE,"telephone cable
+twisted pair cable
+Cat3 UTP
+PBX wire",Twisted Pair Telephone Cable - Cat3 UTP | D-Link,"Cat3 Twisted Pair Telephone Cable with 2 pairs (4 cores). Ideal for PBX, DSL, and internal telephone wiring. Available in 50m, 100m, and 305m rolls.","Cat3 telephone cable
+twisted pair cable
+UTP telephone wire
+D-Link telephone cable",TRUE,FALSE,TRUE,3,Upgrade your telecom setup with D-Link Cat3 Twisted Pair Cables – Bulk discounts available!,Punch-down / RJ11 (via termination),"Telephone Lines
+DSL Internet
+PBX Systems
+Low-Speed Networking",UTP (Unshielded Twisted Pair)
+VK-ELEC-CBL-012,TEL-ARM-20P-100M,armoured-telephone-cable-20pair-100m,8.90E+12,Armoured Telephone Cable - 20 Pair (100m),"Heavy-duty armoured telephone cable with 20 pairs (40 cores), gel-filled for moisture protection and steel armouring for mechanical strength. Suitable for outdoor and underground installations, ensuring reliable voice and data transmission in harsh conditions.","https://5.imimg.com/data5/SELLER/Default/2025/8/536722891/QG/BP/MX/3059229/50-pair-jelly-filled-unarmored-telephone-cable-pijf-500x500.jpg
+https://5.imimg.com/data5/SELLER/Default/2021/4/SK/DY/ZA/3059229/5-pair-armoured-telephone-cable-500x500.jpg
+https://www.bestofelectricals.com/images/thumbs/0015625_finolex-05-mm-20-pair-90-mtr-pvc-unarmoured-telephone-cable_600.jpeg",,"group': 'Electrical', 
+'name': 'Number of Pairs', 
+'value': '20', 
+'unit': 'pairs (40 cores)'
+
+'group': 'Physical', 
+'name': 'Armour', 
+'value': 'Steel Tape Armoured', 
+'unit': ''
+
+'group': 'Protection', 
+'name': 'Moisture Protection', 
+'value': 'Jelly Filled', 
+'unit': ''
+
+'group': 'Performance', 
+'name': 'Operating Voltage', 
+'value': '300', 
+'unit': 'V'
+
+'group': 'Physical', 
+'name': 'Sheath', 
+'value': 'UV Resistant HDPE', 
+'unit': ''",20,kg (per 100m roll),100,22,22,m,Electrical,Cables,Telephone Cables,Finolex,Finolex Cables Ltd.,Wires & Cables,"type': 'pairs', 
+'name': '10 Pair - 100m', 
+'sku': 'TEL-ARM-10P-100M', 
+'price': 4500, 
+'inventory': 60, 
+'images': 'https://5.imimg.com/data5/SELLER/Default/2025/8/536722891/QG/BP/MX/3059229/50-pair-jelly-filled-unarmored-telephone-cable-pijf-500x500.jpg'
+
+'type': 'pairs', 
+'name': '20 Pair - 100m', 
+'sku': 'TEL-ARM-20P-100M', 
+'price': 7800, 
+'inventory': 40, 
+'images': 'https://5.imimg.com/data5/SELLER/Default/2021/4/SK/DY/ZA/3059229/5-pair-armoured-telephone-cable-500x500.jpg'
+
+'type': 'pairs', 
+'name': '50 Pair - 100m', 
+'sku': 'TEL-ARM-50P-100M', 
+'price': 16500, 
+'inventory': 25, 
+'images': 'https://www.bestofelectricals.com/images/thumbs/0015625_finolex-05-mm-20-pair-90-mtr-pvc-unarmoured-telephone-cable_600.jpeg'",,,2 Years,India,7800,8500,6000,INR,18,"type': 'bulk', 
+'value': 12, 
+'minQuantity': 5, 
+'validFrom': '2024-11-01T00:00:00Z', 
+'validTo': '2025-06-30T23:59:59Z', 
+'isActive': True",125,125,0,10,"minQuantity': 5, 
+'maxQuantity': 9, 
+'discountPercentage': 5
+
+'minQuantity': 10, 
+'maxQuantity': 49, 
+'discountPercentage': 10
+
+'minQuantity': 50, 
+'maxQuantity': 200, 
+'discountPercentage': 15",TRUE,FALSE,"armoured telephone cable
+jelly filled cable
+underground telephone wire
+multi-pair telecom cable",Armoured Telephone Cable - Jelly Filled Multi-Pair | Finolex,"Finolex Armoured Telephone Cable with steel tape armouring, jelly filled for moisture resistance. Ideal for outdoor/underground telecom cabling. Available in 10, 20, and 50 pair options.","armoured telephone cable
+jelly filled telephone wire
+outdoor telecom cable
+multi-pair armoured cable",TRUE,TRUE,TRUE,2,Heavy-duty outdoor telephone cables – Bulk discounts available!,Krone / Punch-down blocks,"Outdoor Telephone Lines
+Underground Cabling
+PBX Systems
+Inter-building Connections",Steel Tape Armoured Jelly Filled
+VK-ELEC-CBL-013,CBL-USB-A-2M,usb-type-a-cable-2meter,8.90E+12,USB 3.0 Type-A to Type-A Cable - 2 Meter,"High-speed USB 3.0 Type-A cable for data transfer and charging. Supports transfer speeds up to 5Gbps and backward compatibility with USB 2.0.Ideal for connecting external hard drives, printers, and other peripherals.","https://m.media-amazon.com/images/I/71Q6oHdslRL.jpg
+https://m.media-amazon.com/images/I/81MXmAYoVXL._UF1000,1000_QL80_.jpg
+https://m.media-amazon.com/images/I/71uVjV3vqjS.jpg",,"group': 'Technical', 
+'name': 'USB Version', 
+'value': '3.0', 
+'unit': ''
+
+'group': 'Performance', 
+'name': 'Data Transfer Speed', 
+'value': '5', 
+'unit': 'Gbps'
+
+'group': 'Performance', 
+'name': 'Compatibility', 
+'value': 'USB 2.0 / 1.1', 
+'unit': ''
+
+'group': 'Physical', 
+'name': 'Cable Length', 
+'value': '2', 
+'unit': 'meter'
+
+'group': 'Technical', 
+'name': 'Connector Type', 
+'value': 'USB Type-A Male to Male', 
+'unit': ''",180,grams,2000,5,5,mm,Electrical,Cables,USB Cables,Anker,Anker Innovations,Accessory,"type': 'length', 
+'name': '1 Meter', 
+'sku': 'CBL-USB-A-1M', 
+'price': 499, 
+'inventory': 140, 
+'images': 'https://m.media-amazon.com/images/I/71Q6oHdslRL.jpg'
+
+'type': 'length', 
+'name': '2 Meter', 
+'sku': 'CBL-USB-A-2M', 
+'price': 699, 
+'inventory': 95, 
+'images': 'https://m.media-amazon.com/images/I/81MXmAYoVXL._UF1000,1000_QL80_.jpg'
+
+'type': 'length', 
+'name': '3 Meter', 
+'sku': 'CBL-USB-A-3M', 
+'price': 899, 
+'inventory': 55, 
+'images': 'https://m.media-amazon.com/images/I/71uVjV3vqjS.jpg'",Tinned Copper with Nylon Braided Jacket,"USB-IF Certified
+RoHS",2 Years,China,699,899,450,INR,18,"type': 'bulk', 
+'value': 10, 
+'minQuantity': 20, 
+'validFrom': '2024-01-01T00:00:00Z', 
+'validTo': '2024-12-31T23:59:59Z', 
+'isActive': True",290,290,0,15,"minQuantity': 5, 
+'maxQuantity': 19, 
+'discountPercentage': 7
+
+'minQuantity': 20, 
+'maxQuantity': 49, 
+'discountPercentage': 10
+
+'minQuantity': 50, 
+'maxQuantity': 500, 
+'discountPercentage': 15",TRUE,TRUE,"usb
+type-a
+data cable
+charging
+high speed",USB 3.0 Type-A Cable 2M | High Speed | Anker,"Premium USB 3.0 Type-A cable supporting 5Gbps data transfer. Nylon braided for durability. Available in 1M, 2M, and 3M lengths.","usb type-a cable
+usb 3.0 cable
+data transfer cable
+anker usb cable",TRUE,FALSE,TRUE,0,,,,
+VK-ELEC-CBL-014,CBL-USB-A-B-2M,usb-type-a-to-type-b-cable-2meter,8.90E+12,USB 2.0 Type-A to Type-B Cable - 2 Meter,"Durable USB 2.0 Type-A to Type-B cable designed for printers, scanners, and other peripherals. Supports up to 480 Mbps transfer speed and backward compatibility with USB 1.1. Reinforced connectors for long-lasting performance.","https://m.media-amazon.com/images/I/51DsvgWdHnL._UF1000,1000_QL80_.jpg
+https://m.media-amazon.com/images/I/610R8fp4P7S.jpg
+https://5.imimg.com/data5/SELLER/Default/2025/6/520557469/GO/XJ/GI/123820762/1-copy-500x500.jpg",,"group': 'Technical', 
+'name': 'USB Version', 
+'value': '2.0', 
+'unit': ''
+
+'group': 'Performance', 
+'name': 'Data Transfer Speed', 
+'value': '480', 
+'unit': 'Mbps'
+
+'group': 'Performance', 
+'name': 'Compatibility', 
+'value': 'USB 1.1', 
+'unit': ''
+
+'group': 'Physical', 
+'name': 'Cable Length', 
+'value': '2', 
+'unit': 'meter'
+
+'group': 'Technical', 
+'name': 'Connector Type', 
+'value': 'USB Type-A Male to Type-B Male', 
+'unit': ''",150,grams,2000,6,6,mm,Electrical,Cables,USB Cables,Belkin,Belkin International,Accessory,"type': 'length', 
+'name': '1 Meter', 
+'sku': 'CBL-USB-A-B-1M', 
+'price': 299, 
+'inventory': 180, 
+'images': 'https://m.media-amazon.com/images/I/51DsvgWdHnL._UF1000,1000_QL80_.jpg'
+
+'type': 'length', 
+'name': '2 Meter', 
+'sku': 'CBL-USB-A-B-2M', 
+'price': 399, 
+'inventory': 120, 
+'images': 'https://m.media-amazon.com/images/I/610R8fp4P7S.jpg'
+
+'type': 'length', 
+'name': '3 Meter', 
+'sku': 'CBL-USB-A-B-3M', 
+'price': 499, 
+'inventory': 60, 
+'images': 'https://5.imimg.com/data5/SELLER/Default/2025/6/520557469/GO/XJ/GI/123820762/1-copy-500x500.jpg'",Pure Copper with PVC Jacket,"USB-IF Certified
+RoHS",1 Year,China,399,499,220,INR,18,"type': 'bulk'
+'value': 8
+'minQuantity': 25
+'validFrom': '2024-01-01T00:00:00Z'
+'validTo': '2024-12-31T23:59:59Z'
+'isActive': True",360,360,0,20,"minQuantity': 5, 
+'maxQuantity': 24, 
+'discountPercentage': 5
+
+'minQuantity': 25, 
+'maxQuantity': 49, 
+'discountPercentage': 8
+
+'minQuantity': 50, 
+'maxQuantity': 500, 
+'discountPercentage': 12",TRUE,TRUE,"usb 
+type-a
+type-b
+printer cable
+scanner cable",USB 2.0 Type-A to Type-B Cable 2M | Belkin,"Durable USB 2.0 Type-A to Type-B cable. Supports 480 Mbps data transfer, ideal for printers and scanners. Available in 1M, 2M, 3M lengths.","usb a to b cable
+printer cable
+scanner cable
+belkin usb cable",TRUE,FALSE,TRUE,0,,,,
+VK-ELEC-CBL-015,CBL-USB-A-C-2M,usb-type-a-to-type-c-cable-2meter,8.90E+12,USB 3.1 Type-A to Type-C Cable - 2 Meter,"Fast-charging and high-speed USB 3.1 Type-A to Type-C cable. Supports up to 10Gbps data transfer and up to 3A charging. Compatible with smartphones, tablets, laptops, and power banks. Durable braided design ensures long-lasting use.","https://www.black-box.co.in/_AppData/Images/Full/10747.jpg
+https://www.cablesdirect.co.uk/images/2m-usb-5gbps-type-c-m-to-type-a-m-cable-p7920-12589_image.jpg
+https://icplindia.com/wp-content/uploads/2021/07/IFCPL3021-01.jpg",,"group': 'Technical', 
+'name': 'USB Version', 
+'value': '3.1', 
+'unit': ''
+
+'group': 'Performance', 
+'name': 'Data Transfer Speed', 
+'value': '10', 
+'unit': 'Gbps'
+
+'group': 'Performance', 
+'name': 'Charging Output', 
+'value': '3', 
+'unit': 'A'
+
+'group': 'Physical', 
+'name': 'Cable Length', 
+'value': '2', 
+'unit': 'meter'
+
+'group': 'Technical', 
+'name': 'Connector Type', 
+'value': 'USB Type-A Male to USB Type-C Male', 
+'unit': ''",160,grams,2000,5,5,mm,Electrical,Cables,USB Cables,Anker,Anker Innovations,Accessory,"type': 'length', 
+'name': '1 Meter', 
+'sku': 'CBL-USB-A-C-1M', 
+'price': 499, 
+'inventory': 200, 
+'images': 'https://www.black-box.co.in/_AppData/Images/Full/10747.jpg'
+'type': 'length', 
+'name': '2 Meter', 
+'sku': 'CBL-USB-A-C-2M', 
+'price': 699, 
+'inventory': 130, 
+'images': 'https://icplindia.com/wp-content/uploads/2021/07/IFCPL3021-01.jpg'
+
+'type': 'length', 
+'name': '3 Meter', 
+'sku': 'CBL-USB-A-C-3M', 
+'price': 899, 
+'inventory': 70, 
+'images': 'https://www.cablesdirect.co.uk/images/2m-usb-5gbps-type-c-m-to-type-a-m-cable-p7920-12589_image.jpg'",Nylon Braided Copper Core,"USB-IF Certified
+Quick Charge 3.0 Compatible
+RoHS",2 Years,Vietnam,699,899,420,INR,18,"type': 'bulk', 
+'value': 10, 
+'minQuantity': 20, 
+'validFrom': '2024-01-01T00:00:00Z', 
+'validTo': '2024-12-31T23:59:59Z', 
+'isActive': True",400,400,0,25,"minQuantity': 5, 
+'maxQuantity': 19, 
+'discountPercentage': 7
+
+'minQuantity': 20, 
+'maxQuantity': 49, 
+'discountPercentage': 10
+
+'minQuantity': 50, 
+'maxQuantity': 500, 
+'discountPercentage': 15",TRUE,TRUE,"usb
+type-a
+type-c
+fast charging
+data cable",USB 3.1 Type-A to Type-C Cable 2M | Anker,"High-speed USB 3.1 Type-A to Type-C cable with 10Gbps transfer and 3A fast charging. Durable nylon braided design, available in 1M, 2M, 3M lengths.","usb a to c cable
+fast charging cable
+anker usb cable
+usb 3.1 type-c",TRUE,TRUE,TRUE,1,Now with Quick Charge 3.0 support!,,,

@@ -1,0 +1,566 @@
+identifiers_productId,identifiers_sku,identifiers_slug,identifiers_barcode,characteristics_title,characteristics_description,characteristics_images_primary,characteristics_images_offers,characteristics_specifications,characteristics_weight_value,characteristics_weight_unit,characteristics_dimensions_length,characteristics_dimensions_width,characteristics_dimensions_height,characteristics_dimensions_unit,anchor_category,anchor_subcategory,anchor_subSubcategory,anchor_brand,anchor_manufacturer,anchor_productType,classification_variants,classification_attributes_material,classification_attributes_certification,classification_attributes_warrantyPeriod,classification_attributes_countryOfOrigin,pricing_basePrice,pricing_comparePrice,pricing_costPrice,pricing_currency,pricing_taxRate,pricing_discounts,inventory_totalQuantity,inventory_availableQuantity,inventory_reservedQuantity,inventory_lowStockThreshold,inventory_bulkQuantityTiers,inventory_trackInventory,inventory_allowBackorder,marketing_tags,marketing_metaTitle,marketing_metaDescription,marketing_keywords,marketing_isActive,marketing_isFeatured,marketing_isBestseller,marketing_featuredOrder,marketing_promotionText
+VK-ELEC-HTR-001,HTR-FAN-BAJAJ-2000W,bajaj-blow-hot-fan-heater-2000w,8.90131E+12,Bajaj Blow Hot Fan Heater - 2000W,"Compact and powerful fan heater with 2000W heating element. Features dual heat settings, thermal cut-out for safety, and a built-in fan for quick and even heating. Ideal for small to medium-sized rooms.","https://m.media-amazon.com/images/I/71w-D3M9iUL._SL1500_.jpg
+https://m.media-amazon.com/images/I/61wcUEhvg1L._SL1500_.jpg
+https://m.media-amazon.com/images/I/71gvcjxru1L._SL1500_.jpg",,"group': 'Performance'
+ 'name': 'Power'
+ 'value': '2000'
+ 'unit': 'W'
+
+
+'group': 'Performance'
+'name': 'Heat Settings'
+ 'value': '1000W / 2000W'
+'unit': ''
+
+'group': 'Performance'
+ 'name': 'Heating Method'
+ 'value': 'Fan-forced convection'
+ 'unit': ''
+
+'group': 'Electrical'
+'name': 'Voltage'
+ 'value': '230'
+ 'unit': 'V'
+
+ 
+'group': 'Physical'
+ 'name': 'Cord Length'
+ 'value': '1.5'
+ 'unit': 'm'",1.2,kg,250,120,220,mm,Electrical,Heaters,Fan Heaters,Bajaj,Bajaj Electricals Ltd.,Appliance,"type': 'color'
+ 'name': 'White'
+ 'sku': 'HTR-FAN-BAJAJ-2000W-WH'
+ 'price': 1899
+'inventory': 60
+ 'images': 'https://m.media-amazon.com/images/I/71w-D3M9iUL._SL1500_.jpg'
+
+'type': 'color'
+ 'name': 'Black'
+ 'sku': 'HTR-FAN-BAJAJ-2000W-BK'
+ 'price': 1999
+ 'inventory': 40
+ 'images': 'https://m.media-amazon.com/images/I/61wcUEhvg1L._SL1500_.jpg'",ABS Body with Metal Grill,"ISI Certified
+Overheat Protection",2 Years,India,1999,2499,1500,INR,18,"type': 'seasonal'
+ 'value': 20
+ 'minQuantity': 1
+ 'validFrom': '2024-11-01T00:00:00Z'
+ 'validTo': '2025-01-31T23:59:59Z'
+ 'isActive': True",100,100,0,5,"minQuantity': 5
+ 'maxQuantity': 9
+ 'discountPercentage': 5
+
+
+'minQuantity': 10
+ 'maxQuantity': 49
+ 'discountPercentage': 10
+
+
+'minQuantity': 50
+ 'maxQuantity': 200
+ 'discountPercentage': 15",TRUE,FALSE,"fan heater'
+ 'room heater'
+ 'bajaj heater'
+'portable heater'",Bajaj Blow Hot Fan Heater 2000W | Compact & Powerful Room Heater,"Buy Bajaj Blow Hot Fan Heater 2000W. Dual heat settings, compact design, and fast heating with fan-forced convection. Perfect for winter comfort.","bajaj fan heater'
+ 'room heater 2000w'
+ 'winter heater'
+ 'electric heater'",TRUE,TRUE,TRUE,3,Winter Sale – 20% Off
+VK-ELEC-HTR-002,FH-BAJAJ-2000W-BLKGRY,bajaj-fan-heater-2000w-black-grey,8.90123E+12,Bajaj Fan Heater 2000W - Black & Grey,"Bajaj 2000W fan heater in black & grey design with dual heat settings, overheat protection, and thermostat control.","https://m.media-amazon.com/images/I/41IrgLYwRHL._UF894,1000_QL80_.jpg
+https://www.favobliss.com/image/cache/catalog/Bajaj-Majesty-RX7-2000-W-Heat-Convector-Fan-Room-Heater-Black-favobliss-550x550.jpg",,"group': 'Electrical'
+ 'name': 'Power'
+'value': '2000'
+ 'unit': 'W'
+
+'group': 'Electrical'
+ 'name': 'Voltage'
+ 'value': '230'
+ 'unit': 'V'
+
+'group': 'Technical'
+ 'name': 'Heat Settings'
+ 'value': '1000W / 2000W'
+ 'unit': ''
+
+'group': 'Safety'
+ 'name': 'Overheat Protection'
+ 'value': 'Yes'
+ 'unit': ''",1450,grams,275,225,155,mm,Electrical,Heaters,Fan Heaters,Bajaj,Bajaj Electricals Ltd,Appliance,"type': 'color'
+ 'name': 'Black & Grey'
+ 'sku': 'FH-BAJAJ-2000W-BLKGRY'
+ 'price': 1999
+ 'inventory': 60
+ 'images': 'https://www.favobliss.com/image/cache/catalog/Bajaj-Majesty-RX7-2000-W-Heat-Convector-Fan-Room-Heater-Black-favobliss-550x550.jpg'",ABS Plastic,"ISI
+BIS",1 year,India,1999,2399,1550,INR,18,"type': 'percentage'
+ 'value': 10
+ 'minQuantity': 1
+ 'validFrom': '2025-02-01T00:00:00Z'
+'validTo': '2025-12-31T23:59:59Z'
+ 'isActive': True",60,48,12,10,"minQuantity': 5
+ 'maxQuantity': 19
+ 'discountPercentage': 5
+
+'minQuantity': 20
+ 'maxQuantity': 49
+ 'discountPercentage': 10",TRUE,FALSE,"bajaj heater'
+ 'fan heater'
+ 'winter appliance'
+ '2000W heater black grey'",Bajaj Fan Heater 2000W | Black & Grey | Room Heater,"Shop Bajaj Fan Heater 2000W Black & Grey. Features dual heat settings, overheat protection, and modern design.","bajaj fan heater black grey'
+ 'bajaj room heater 2000w'
+ 'bajaj heater dual setting'",TRUE,TRUE,FALSE,2,Stylish Black & Grey Bajaj Fan Heater for Quick Heating
+VK-ELEC-HTR-003,FH-BAJAJ-2000W-REDWHT,bajaj-fan-heater-2000w-red-white,8.90123E+12,Bajaj Fan Heater 2000W - Red & White,"Bajaj 2000W fan heater in stylish red & white finish. Compact, portable, with dual heat settings and overheat safety.","https://5.imimg.com/data5/SELLER/Default/2022/9/DU/ZJ/TE/7009920/bajaj-room-heater-500x500.png
+ https://5.imimg.com/data5/OZ/KJ/ZG/SELLER-68538007/room-heaters-convertors-500x500.jpg",,"group': 'Electrical'
+ 'name': 'Power'
+ 'value': '2000'
+ 'unit': 'W'
+
+'group': 'Electrical'
+ 'name': 'Voltage'
+ 'value': '230'
+'unit': 'V'
+
+'group': 'Technical'
+ 'name': 'Heat Settings'
+ 'value': '1000W / 2000W'
+'unit': ''
+
+'group': 'Safety'
+ 'name': 'Thermostat Control'
+ 'value': 'Yes'
+ 'unit': ''",1500,grams,280,230,160,mm,Electrical,Heaters,Room Fan Heaters,Bajaj,Bajaj Electricals Ltd,Appliance,"type': 'color'
+ 'name': 'Red & White'
+ 'sku': 'FH-BAJAJ-2000W-REDWHT'
+ 'price': 2099
+ 'inventory': 50
+ 'images': 'https://5.imimg.com/data5/SELLER/Default/2022/9/DU/ZJ/TE/7009920/bajaj-room-heater-500x500.png'",ABS Plastic,"ISI
+BIS",1 year,India,2099,2499,1650,INR,18,"type': 'flat'
+ 'value': 200
+ 'minQuantity': 1
+'validFrom': '2025-02-01T00:00:00Z'
+'validTo': '2025-12-31T23:59:59Z'
+ 'isActive': True",50,38,12,10,"minQuantity': 5
+ 'maxQuantity': 19
+ 'discountPercentage': 7
+
+
+'minQuantity': 20
+ 'maxQuantity': 49
+ 'discountPercentage': 12",TRUE,FALSE,"bajaj heater'
+ 'fan heater'
+ 'room heater'
+ 'bajaj red white heater'",Bajaj Fan Heater 2000W | Red & White | Portable Room Heater,"Buy Bajaj Fan Heater 2000W Red & White – portable, safe, and efficient with thermostat control and dual heat settings.","bajaj red white heater'
+ 'bajaj room heater 2000w'
+'bajaj portable heater'",TRUE,FALSE,TRUE,3,Bajaj Red & White Fan Heater – Style + Performance
+VK-ELEC-HTR-004,HTR-CERAMIC-BAJAJ-2000W,bajaj-ceramic-room-heater-2000w,8.90123E+12,Bajaj Majesty Ceramic Room Heater - 2000W,"Energy-efficient PTC ceramic room heater with adjustable thermostat, two heat settings, and fan-assisted heating. Compact design ideal for quick and uniform heating in small to medium-sized rooms.","https://m.media-amazon.com/images/I/61hTux21QOL._SL1500_.jpg
+https://m.media-amazon.com/images/I/61+oLXaYZZL._SL1024_.jpg
+https://m.media-amazon.com/images/I/71efzmiC13L._SL1500_.jpg",,"group': 'Performance'
+ 'name': 'Power'
+ 'value': '2000'
+ 'unit': 'W'
+
+'group': 'Performance'
+'name': 'Heat Settings'
+ 'value': '1000W / 2000W'
+ 'unit': ''
+
+'group': 'Performance'
+ 'name': 'Heating Method'
+ 'value': 'PTC Ceramic Heating Element'
+ 'unit': ''
+
+'group': 'Performance'
+ 'name': 'Thermostat'
+ 'value': 'Adjustable'
+ 'unit': ''
+
+'group': 'Electrical'
+ 'name': 'Voltage'
+ 'value': '230'
+ 'unit': 'V'
+ 
+'group': 'Safety'
+ 'name': 'Overheat Protection'
+ 'value': 'Yes'
+ 'unit': ''
+
+'group': 'Safety'
+ 'name': 'Tip-over Switch'
+ 'value': 'Yes'
+ 'unit': ''",2.5,kg,260,170,320,mm,Electrical,Heaters,Ceramic Heaters,Bajaj,Bajaj Electricals Ltd.,Appliance,"type': 'heat-setting'
+ 'name': '1000W'
+ 'sku': 'HTR-CERAMIC-BAJAJ-1000W'
+ 'price': 1999
+ 'inventory': 30
+ 'images': 'https://m.media-amazon.com/images/I/61hTux21QOL._SL1500_.jpg'
+
+
+'type': 'heat-setting'
+ 'name': '2000W'
+ 'sku': 'HTR-CERAMIC-BAJAJ-2000W'
+ 'price': 2799
+ 'inventory': 40
+ 'images': 'https://m.media-amazon.com/images/I/61+oLXaYZZL._SL1024_.jpg'",ABS Plastic + Metal Grill,"ISI Certified
+Overheat Protection",2 Years,India,2799,3499,2100,INR,18,"type': 'seasonal'
+ 'value': 20
+ 'minQuantity': 1
+ 'validFrom': '2024-12-01T00:00:00Z'
+ 'validTo': '2025-02-15T23:59:59Z'
+ 'isActive': True",70,70,0,5,"minQuantity': 5
+ 'maxQuantity': 9
+ 'discountPercentage': 5
+
+
+'minQuantity': 10
+ 'maxQuantity': 49
+ 'discountPercentage': 8
+
+
+'minQuantity': 50
+ 'maxQuantity': 200
+ 'discountPercentage': 12",TRUE,FALSE,"ceramic heater'
+ 'room heater'
+ 'bajaj heater'
+ 'ptc heater'
+ 'portable heater'",Bajaj Ceramic Room Heater 2000W | PTC Heating with Safety Protection,"Buy Bajaj Ceramic Room Heater 2000W with PTC heating element, dual heat settings, adjustable thermostat, and overheat protection. Compact, portable and safe.","bajaj ceramic heater'
+ 'ceramic room heater'
+ 'ptc room heater'
+ 'portable electric heater'",TRUE,TRUE,FALSE,5,Winter Deals – Save 20% on Ceramic Heaters
+VK-ELEC-HTR-005,FH-CROM-2000W-BEIBRN,crompton-fan-heater-2000w-beige-brown,8.90176E+12,Crompton Fan Heater 2000W - Beige & Brown,"Crompton 2000W fan heater in Beige & Brown design with dual heating options, thermostat control, and safety cut-off.","https://www.favobliss.com/image/cache/catalog/insta-comfort-2000w-fan-room-heater%20(3)-550x550.jpg
+https://www.crompton.co.in/cdn/shop/files/Untitled-1_68d81c63-cea1-486a-99df-b3e21e54c496.png?v=1694780933",,"group': 'Electrical'
+ 'name': 'Power'
+ 'value': '2000'
+ 'unit': 'W'
+
+'group': 'Electrical'
+'name': 'Voltage'
+ 'value': '230'
+ 'unit': 'V'
+
+'group': 'Technical'
+ 'name': 'Heat Settings'
+ 'value': '1000W / 2000W'
+ 'unit': ''
+
+ 
+'group': 'Safety'
+ 'name': 'Thermal Cut-off'
+ 'value': 'Yes'
+ 'unit': ''",1500,grams,280,240,155,mm,Electrical,Heaters,Room Fan Heaters,Crompton,Crompton Greaves Consumer Electricals Ltd,Appliance,"type': 'color'
+ 'name': 'Beige & Brown'
+ 'sku': 'FH-CROM-2000W-BEIBRN'
+ 'price': 2099
+ 'inventory': 45
+ 'images': 'https://www.crompton.co.in/cdn/shop/files/Untitled-1_68d81c63-cea1-486a-99df-b3e21e54c496.png?v=1694780933'",ABS Plastic,"['ISI', 'BIS']",1 year,India,2099,2599,1650,INR,18,"type': 'percentage'
+ 'value': 10
+ 'minQuantity': 1
+ 'validFrom': '2025-01-15T00:00:00Z'
+'validTo': '2025-12-31T23:59:59Z'
+ 'isActive': True",45,35,10,7,"minQuantity': 5
+ 'maxQuantity': 19
+ 'discountPercentage': 6
+
+
+'minQuantity': 20
+ 'maxQuantity': 49
+ 'discountPercentage': 12",TRUE,FALSE,"crompton heater'
+ 'fan heater'
+ 'beige brown heater'
+ 'winter appliance'",Crompton Fan Heater 2000W | Beige & Brown | Safe Room Heater,"Buy Crompton Fan Heater 2000W Beige & Brown online. Dual heat modes, thermostat control, BIS certified for safety.","crompton fan heater beige brown'
+ '2000w room heater crompton'
+ 'crompton winter fan heater'",TRUE,FALSE,FALSE,3,Classic Comfort – Crompton Beige & Brown Fan Heater
+VK-ELEC-HTR-006,FH-CROM-2000W-BLKRED,crompton-fan-heater-2000w-black-red,8.90176E+12,Crompton Fan Heater 2000W - Black & Red,Stylish Crompton 2000W fan heater in Black & Red finish with dual heat settings and advanced safety features.,"https://images-eu.ssl-images-amazon.com/images/I/711NI+A7PvL._AC_UL900_SR615,900_.jpg
+https://www.crompton.co.in/cdn/shop/files/Untitled-1_dd0e0f5a-cbc7-4212-b2f4-a84355b26e6d.png?v=1694611377
+https://www.crompton.co.in/cdn/shop/files/ProductListing4.jpg?v=1694611377&width=1445",,"group': 'Electrical'
+ 'name': 'Power' 
+ 'value': '2000'
+ 'unit': 'W'
+
+'group': 'Electrical'
+ 'name': 'Voltage'
+'value': '230'
+ 'unit': 'V'
+
+'group': 'Technical'
+'name': 'Heat Settings'
+ 'value': '1000W / 2000W' 
+ 'unit': ''
+
+'group': 'Safety'
+ 'name': 'Overheat Protection'
+'value': 'Yes'
+ 'unit': ''
+",1450,grams,275,235,150,mm,Electrical,Heaters,Room Fan Heaters,Crompton,Crompton Greaves Consumer Electricals Ltd,Appliance,"type': 'color'
+ 'name': 'Black & Red'
+ 'sku': 'FH-CROM-2000W-BLKRED'
+ 'price': 2199
+ 'inventory': 60
+ 'images': 'https://images-eu.ssl-images-amazon.com/images/I/711NI+A7PvL._AC_UL900_SR615,900_.jpg'",ABS Plastic,"ISI
+BIS",1 year,India,2199,2699,1750,INR,18,"type': 'flat'
+ 'value': 300
+ 'minQuantity': 1
+ 'validFrom': '2025-01-10T00:00:00Z'
+ 'validTo': '2025-12-31T23:59:59Z'
+ 'isActive': True",60,40,20,8,"minQuantity': 5
+ 'maxQuantity': 19
+ 'discountPercentage': 7
+
+
+'minQuantity': 20
+ 'maxQuantity': 49
+ 'discountPercentage': 15",TRUE,FALSE,"crompton heater'
+ 'fan heater'
+ 'black red heater'
+ 'winter appliance'",Crompton Fan Heater 2000W | Black & Red | Stylish Room Heater,"Shop Crompton Fan Heater 2000W Black & Red online. Dual heat modes, stylish design, ISI certified.","crompton fan heater black red'
+ '2000w room heater crompton'
+ 'crompton stylish winter heater'",TRUE,FALSE,TRUE,2,Warmth with Style – Crompton Black & Red Fan Heater
+VK-ELEC-HTR-007,FH-CROM-2000W-WHTGRY,crompton-fan-heater-2000w-white-grey,8.90176E+12,Crompton Fan Heater 2000W - White & Grey,Compact and efficient 2000W Crompton fan heater in a White & Grey finish with dual heat settings and safety cut-off.,"https://m.media-amazon.com/images/I/51PYskyQMoL.jpg
+ https://m.media-amazon.com/images/I/61P9hflxkgL._UF350,350_QL80_.jpg",https://rukminim2.flixcart.com/image/656/202/cms-rpd-images/7d143d575143440b89f5ba0a76d1b4de_17cb8668753_image.jpeg?q=90,"group': 'Electrical'
+ 'name': 'Power'
+'value': '2000'
+ 'unit': 'W'
+
+'group': 'Electrical'
+ 'name': 'Voltage'
+ 'value': '230'
+ 'unit': 'V'
+'group': 'Technical'
+ 'name': 'Heat Settings'
+ 'value': '1000W / 2000W'
+'unit': ''
+'group': 'Safety'
+ 'name': 'Thermal Cut-Off'
+ 'value': 'Yes'
+ 'unit': ''",1400,grams,270,230,140,mm,Electrical,Heaters,Fan Heaters,Crompton,Crompton Greaves Consumer Electricals Ltd,Appliance,"type': 'color'
+ 'name': 'White & Grey'
+ 'sku': 'FH-CROM-2000W-WHTGRY'
+ 'price': 2099
+ 'inventory': 75
+'images': 'https://m.media-amazon.com/images/I/51PYskyQMoL.jpg'",ABS Plastic,"ISI 
+BIS",1 year,India,2099,2599,1690,INR,18,"type': 'percentage'
+ 'value': 19
+ 'minQuantity': 1
+ 'validFrom': '2025-01-01T00:00:00Z'
+ 'validTo': '2025-12-31T23:59:59Z'
+ 'isActive': True",75,45,30,10,"minQuantity': 10
+ 'maxQuantity': 49
+ 'discountPercentage': 5
+
+
+'minQuantity': 50
+ 'maxQuantity': 99
+ 'discountPercentage': 12",TRUE,FALSE,"crompton heater'
+ 'fan heater'
+ 'winter appliance'
+ 'white grey heater'",Crompton Fan Heater 2000W | White & Grey | Room Heater,"Buy Crompton Fan Heater 2000W White & Grey online. Dual heat modes, ISI certified, and compact design.","crompton fan heater white grey'
+'2000w room heater crompton'
+ 'crompton winter heater'",TRUE,TRUE,FALSE,1,Stay Warm with Crompton – White & Grey Compact Design
+VK-ELEC-HTR-008,FH-HAV-2000W-BLKRED,havells-fan-heater-2000w-black-red,8.90176E+12,Havells Fan Heater 2000W - Black & Red,"Stylish 2000W portable fan heater with dual heat settings, thermal safety cut-off, and modern black & red finish. Ideal for quick heating in small to medium rooms.","https://www.bestomart.com/cdn/shop/files/1000064734_large.jpg?v=1690609307
+https://4.imimg.com/data4/RH/MW/MY-3252336/sunspot-isi-marked-room-heater-ktee-heat-convector-500x500.jpg",,"group': 'Electrical'
+ 'name': 'Power'
+'value': '2000'
+  'unit': 'W'
+
+
+'group': 'Electrical'
+ 'name': 'Voltage'
+ 'value': '230'
+'unit': 'V'
+
+'group': 'Technical'
+ 'name': 'Heat Settings'
+ 'value': '1000W / 2000W'
+ 'unit': ''
+
+
+'group': 'Safety'
+'name': 'Thermal Cut-off'
+ 'value': 'Yes'
+ 'unit': ''",1250,grams,260,220,130,mm,Electrical,Heaters,Room Fan Heaters,Havells,Havells India Ltd,Appliance,"type': 'color'
+ 'name': 'Black & Red'
+ 'sku': 'FH-HAV-2000W-BLKRED'
+ 'price': 2099
+ 'inventory': 95
+ 'images': 'https://4.imimg.com/data4/RH/MW/MY-3252336/sunspot-isi-marked-room-heater-ktee-heat-convector-500x500.jpg'",ABS Plastic,"ISI
+BIS",1 year,India,2099,2599,1700,INR,18,"type': 'percentage'
+ 'value': 19
+ 'minQuantity': 1
+ 'validFrom': '2025-01-01T00:00:00Z'
+ 'validTo': '2025-12-31T23:59:59Z'
+ 'isActive': True",95,35,60,15,"minQuantity': 10
+ 'maxQuantity': 49
+ 'discountPercentage': 6
+
+ 
+'minQuantity': 50
+ 'maxQuantity': 99
+ 'discountPercentage': 11",TRUE,FALSE,"heater'
+ 'fan heater'
+ 'portable'
+ 'winter'
+ 'havells'",Havells Fan Heater 2000W | Black & Red | Portable Room Heater,"Buy Havells Fan Heater 2000W (Black & Red) online. Compact, efficient, and ISI certified. Modern design with 1-year warranty.","havells black heater'
+ 'fan heater 2000w'
+ 'portable room heater'
+ 'winter appliances'",TRUE,TRUE,FALSE,2,Winter Hot Pick – Save ?500
+VK-ELEC-HTR-09,FH-HAV-2000W-BLUWHT,havells-fan-heater-2000w-blue-white,8.90176E+12,Havells Fan Heater 2000W - Blue & White,"Elegant 2000W fan heater with dual heat modes, cool air function, and stylish blue & white body. Safe, durable, and perfect for home use.","https://5.imimg.com/data5/SELLER/Default/2024/9/454167534/HF/YI/MW/139578134/electric-fan-heater-500x500.jpg 
+https://5.imimg.com/data5/SELLER/Default/2024/8/446667914/RM/EH/AH/19437153/whatsapp-image-2024-08-29-at-1-23-52-pm-500x500.jpeg",,"group': 'Electrical'
+ 'name': 'Power'
+ 'value': '2000'
+ 'unit': 'W'
+'group': 'Electrical'
+ 'name': 'Voltage'
+'value': '230'
+ 'unit': 'V'
+'group': 'Technical'
+ 'name': 'Heat Settings'
+ 'value': '1000W / 2000W'
+ 'unit': ''
+'group': 'Safety'
+ 'name': 'Overheat Protection'
+ 'value': 'Yes'
+'unit': ''",1300,grams,265,225,135,mm,Electrical,Heaters,Room Fan Heaters,Havells,Havells India Ltd,Appliance,"type': 'color'
+ 'name': 'Blue & White'
+ 'sku': 'FH-HAV-2000W-BLUWHT'
+ 'price': 2199
+ 'inventory': 85
+ 'images': 'https://5.imimg.com/data5/SELLER/Default/2024/9/454167534/HF/YI/MW/139578134/electric-fan-heater-500x500.jpg'",ABS Plastic,"ISI
+BIS",1 year,India,2199,2699,1750,INR,18,"type': 'percentage'
+ 'value': 18
+ 'minQuantity': 1
+'validFrom': '2025-01-01T00:00:00Z'
+'validTo': '2025-12-31T23:59:59Z'
+ 'isActive': True",85,40,45,12,"minQuantity': 10
+ 'maxQuantity': 49
+ 'discountPercentage': 5
+
+
+'minQuantity': 50 
+'maxQuantity': 9
+ 'discountPercentage': 10",TRUE,FALSE,"heater'
+ 'fan heater'
+ 'blue white heater'
+ 'winter appliance'
+ 'havells'",Havells Fan Heater 2000W | Blue & White | Portable Room Heater,"Buy Havells Fan Heater 2000W (Blue & White) online. Dual heating modes, overheat protection, and ISI certification.","havells fan heater blue' 
+'2000w room heater'
+ 'winter portable heater'
+ 'havells india heater'",TRUE,TRUE,TRUE,3,Special Winter Edition – Blue & White Design
+VK-ELEC-HTR-010,FH-HAV-2000W-WHTGRY,havells-fan-heater-2000w-white-grey,8.90176E+12,Havells Fan Heater 2000W - White & Grey,"Portable 2000W fan heater with dual heat settings, thermal cut-off, and elegant white & grey finish. Perfect for quick and efficient heating in medium-sized rooms.","https://m.media-amazon.com/images/I/51+h8wFByhL._UF350,350_QL80_.jpg
+https://5.imimg.com/data5/ANDROID/Default/2023/5/311938120/OM/XC/UZ/189787185/product-jpeg-500x500.jpg
+ https://m.media-amazon.com/images/I/41s4xUPFNiL._UF894,1000_QL80_.jpg",,"group': 'Electrical'
+ 'name': 'Power'
+ 'value': '2000'
+ 'unit': 'W'
+
+'group': 'Electrical'
+ 'name': 'Voltage'
+ 'value': '230'
+ 'unit': 'V'
+
+'group': 'Technical'
+ 'name': 'Heat Settings'
+ 'value': '1000W / 2000W'
+ 'unit': ''
+
+'group': 'Safety'
+ 'name': 'Thermal Cut-off'
+ 'value': 'Yes'
+ 'unit': ''",1200,grams,250,210,120,mm,Electrical,Heaters,Room Fan Heaters,Havells,Havells India Ltd,Appliance,"type': 'color'
+ 'name': 'White & Grey'
+ 'sku': 'FH-HAV-2000W-WHTGRY'
+ 'price': 1999
+ 'inventory': 120
+ 'images': 'https://5.imimg.com/data5/ANDROID/Default/2023/5/311938120/OM/XC/UZ/189787185/product-jpeg-500x500.jpg'
+",ABS Plastic,"ISI
+BIS",1 year,India,1999,2499,1600,INR,18,"type': 'percentage'
+ 'value': 20
+ 'minQuantity': 1
+ 'validFrom': '2025-01-01T00:00:00Z'
+ 'validTo': '2025-12-31T23:59:59Z'
+ 'isActive': True",120,40,80,20,"minQuantity': 10
+ 'maxQuantity': 49
+ 'discountPercentage': 5
+
+'minQuantity': 50
+ 'maxQuantity': 99
+ 'discountPercentage': 10",TRUE,FALSE,"heater'
+ 'fan heater'
+ 'portable'
+ 'winter'
+ 'havells'",Havells Fan Heater 2000W | Portable Room Heater,"Buy Havells Fan Heater 2000W (White & Grey) online. Compact, efficient, and ISI certified. 1-year warranty. Best for winter heating.","havells fan heater'
+ '2000w room heater'
+ 'portable fan heater'
+ 'winter appliances'",TRUE,TRUE,TRUE,1,20% Off – Winter Sale
+VK-ELEC-HTR-011,HTR-INFRARED-ORPAT-1200W,orpat-infrared-room-heater-1200w,8.9014E+12,Orpat Infrared Room Heater - 1200W,"Energy-efficient infrared room heater with 2 quartz heating rods. Provides instant heating with silent operation, ideal for spot heating in small to medium rooms. Safety tip-over switch and thermal cut-off included.","https://5.imimg.com/data5/SELLER/Default/2024/11/468903084/UN/NF/GA/15197128/orpat-ohh-1200-halogen-heater-1000x1000.jpg
+https://m.media-amazon.com/images/I/81Fq+6WDfUL._SL1500_.jpg
+https://cdn.moglix.com/p/J/8/H/d/MINJ8HUOIU71O-xxlarge.jpg",https://assets.gadgets360cdn.com/pricee/assets/category/201812/Room-Heaters-og_1544434442.jpg,"group': 'Performance'
+ 'name': 'Power'
+ 'value': '1200'
+ 'unit': 'W'
+
+
+'group': 'Performance'
+ 'name': 'Heat Settings'
+ 'value': '400W / 800W / 1200W'
+ 'unit': ''
+
+'group': 'Performance'
+ 'name': 'Heating Method'
+ 'value': 'Infrared Quartz Heating Rods'
+ 'unit': ''
+ 
+'group': 'Electrical'
+ 'name': 'Voltage'
+ 'value': '230'
+ 'unit': 'V'
+'group': 'Safety'
+ 'name': 'Tip-over Switch'
+ 'value': 'Yes'
+ 'unit': ''
+ 'group': 'Safety'
+ 'name': 'Thermal Cut-off'
+ 'value': 'Yes'
+'unit': ''",1.8,kg,310,150,260,mm,Electrical,Heaters,Infrared Heaters,Orpat,Orpat Electricals,Appliance,"type': 'heat-setting'
+ 'name': '400W'
+ 'sku': 'HTR-INFRARED-ORPAT-400W'
+ 'price': 999
+ 'inventory': 25
+ 'images': 'https://5.imimg.com/data5/SELLER/Default/2024/11/468903084/UN/NF/GA/15197128/orpat-ohh-1200-halogen-heater-1000x1000.jpg'
+
+
+'type': 'heat-setting'
+ 'name': '800W'
+ 'sku': 'HTR-INFRARED-ORPAT-800W'
+ 'price': 1299
+ 'inventory': 40
+ 'images': 'https://m.media-amazon.com/images/I/81Fq+6WDfUL._SL1500_.jpg'
+
+
+
+
+'type': 'heat-setting'
+ 'name': '1200W'
+ 'sku': 'HTR-INFRARED-ORPAT-1200W'
+ 'price': 1599
+ 'inventory': 50
+ 'images': 'https://cdn.moglix.com/p/J/8/H/d/MINJ8HUOIU71O-xxlarge.jpg'",ABS Plastic + Metal Grill,"ISI Certified
+Overheat Protection",1 Year,India,1599,1999,1100,INR,18,"type': 'festival'
+ 'value': 15
+ 'minQuantity': 1
+ 'validFrom': '2024-12-01T00:00:00Z'
+'validTo': '2025-01-31T23:59:59Z'
+ 'isActive': True",115,115,0,5,"minQuantity': 5
+ 'maxQuantity': 9
+ 'discountPercentage': 5
+
+
+'minQuantity': 10
+ 'maxQuantity': 49
+ 'discountPercentage': 8
+
+ 
+'minQuantity': 50
+ 'maxQuantity': 200
+ 'discountPercentage': 12",TRUE,FALSE,"infrared heater'
+ 'room heater'
+ 'orpat heater'
+ 'quartz heater'
+'winter appliance'",Orpat Infrared Room Heater 1200W | Instant Heating with Quartz Rods,"Buy Orpat Infrared Room Heater 1200W. Quartz rod heating, silent operation, instant warmth, and compact design with safety cut-off. Perfect for winter comfort.","orpat infrared heater'
+ 'infrared room heater'
+ 'quartz rod heater'
+ 'electric room heater'",TRUE,TRUE,TRUE,4,Winter Sale – Flat 15% Off
