@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        .auth-section {
+            padding: 20px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .auth-form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .auth-form input {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+        }
+
+        .auth-form button {
+            padding: 10px 20px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .auth-form button:hover {
+            background: #0056b3;
+        }
+
+        .user-info {
+            text-align: center;
+            color: #28a745;
+            font-weight: bold;
+        }
+
+        .cart-section {
+            padding: 30px;
+        }
+
+        .cart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .cart-title {
+            font-size: 1.8em;
+            color: #333;
+        }
+
+        .cart-actions {
+            display: flex;
+            gap: 15px;
+        }
+
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .btn-clear {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
+            color: white;
+        }
+
+        .btn-clear:hover {
+            background: linear-gradient(135deg, #ff5252 0%, #d32f2f 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(255, 107, 107, 0.4);
+        }
+
+        .btn-refresh {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+            color: white;
+        }
+
+        .btn-refresh:hover {
+            background: linear-gradient(135deg, #26a69a 0%, #2e7d32 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(78, 205, 196, 0.4);
+        }
+
+        .cart-items {
+            display: grid;
+            gap: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            background: #fafafa;
+            transition: all 0.3s ease;
+        }
+
+        .cart-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-right: 20px;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #666;
+            font-size: 12px;
+        }
+
+        .item-details {
+            flex: 1;
+        }
+
+        .item-title {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .item-price {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 0.9em;
+        }
+
+        .new-price {
+            color: #28a745;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .item-quantity {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 60px 20px;
+            color: #666;
+        }
+
+        .empty-cart-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #666;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 1px solid #f5c6cb;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border: 1px solid #c3e6cb;
+        }
+
+        @media (max-width: 768px) {
+            .cart-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .cart-actions {
+                justify-content: center;
+            }
+
+            .cart-item {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .item-image {
+                margin: 0 0 15px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>🛒 Shopping Cart</h1>
+            <p>Manage your cart items</p>
+        </div>
+
+        <div class="auth-section">
+            <div id="loginForm" class="auth-form">
+                <input type="email" id="email" placeholder="Email" required>
+                <input type="password" id="password" placeholder="Password" required>
+                <button onclick="login()">Login</button>
+            </div>
+            <div id="userInfo" class="user-info" style="display: none;">
+                <p>Welcome, <span id="userName"></span>! | <button onclick="logout()" style="background: none; border: none; color: #dc3545; cursor: pointer; text-decoration: underline;">Logout</button></p>
+            </div>
+        </div>
+
+        <div class="cart-section">
+            <div class="cart-header">
+                <h2 class="cart-title">Your Cart Items</h2>
+                <div class="cart-actions">
+                    <button class="btn btn-refresh" onclick="loadCart()">
+                        🔄 Refresh Cart
+                    </button>
+                    <button class="btn btn-clear" onclick="clearCart()">
+                        🗑️ Clear Cart
+                    </button>
+                </div>
+            </div>
+
+            <div id="messageArea"></div>
+
+            <div id="cartContent">
+                <div class="loading">
+                    <p>Please login to view your cart...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5000/api/user';
+        let authToken = localStorage.getItem('authToken');
+        let currentUser = JSON.parse(localStorage.getItem('currentUser') || 'null');
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            if (authToken && currentUser) {
+                showUserInfo();
+                loadCart();
+            }
+        });
+
+        // Show message to user
+        function showMessage(message, type = 'success') {
+            const messageArea = document.getElementById('messageArea');
+            messageArea.innerHTML = `<div class="${type}">${message}</div>`;
+            setTimeout(() => {
+                messageArea.innerHTML = '';
+            }, 5000);
+        }
+
+        // Login function
+        async function login() {
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            if (!email || !password) {
+                showMessage('Please enter both email and password', 'error');
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/signin`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ email, password })
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    authToken = data.token;
+                    currentUser = data.user;
+                    localStorage.setItem('authToken', authToken);
+                    localStorage.setItem('currentUser', JSON.stringify(currentUser));
+                    
+                    showUserInfo();
+                    showMessage('Login successful!');
+                    loadCart();
+                } else {
+                    showMessage(data.message || 'Login failed', 'error');
+                }
+            } catch (error) {
+                showMessage('Network error. Please try again.', 'error');
+                console.error('Login error:', error);
+            }
+        }
+
+        // Logout function
+        function logout() {
+            authToken = null;
+            currentUser = null;
+            localStorage.removeItem('authToken');
+            localStorage.removeItem('currentUser');
+            
+            document.getElementById('loginForm').style.display = 'flex';
+            document.getElementById('userInfo').style.display = 'none';
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+            
+            document.getElementById('cartContent').innerHTML = `
+                <div class="loading">
+                    <p>Please login to view your cart...</p>
+                </div>
+            `;
+            
+            showMessage('Logged out successfully');
+        }
+
+        // Show user info
+        function showUserInfo() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('userInfo').style.display = 'block';
+            document.getElementById('userName').textContent = currentUser.fullName;
+        }
+
+        // Load cart from backend
+        async function loadCart() {
+            if (!authToken) {
+                showMessage('Please login first', 'error');
+                return;
+            }
+
+            document.getElementById('cartContent').innerHTML = '<div class="loading">Loading cart...</div>';
+
+            try {
+                const response = await fetch(`${API_BASE}/cart`, {
+                    method: 'GET',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    displayCart(data.cart);
+                } else {
+                    if (response.status === 401) {
+                        logout();
+                        showMessage('Session expired. Please login again.', 'error');
+                    } else {
+                        showMessage(data.message || 'Failed to load cart', 'error');
+                    }
+                }
+            } catch (error) {
+                showMessage('Network error. Please try again.', 'error');
+                console.error('Load cart error:', error);
+            }
+        }
+
+        // Clear cart
+        async function clearCart() {
+            if (!authToken) {
+                showMessage('Please login first', 'error');
+                return;
+            }
+
+            if (!confirm('Are you sure you want to clear your entire cart? This action cannot be undone.')) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`${API_BASE}/cart`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': `Bearer ${authToken}`,
+                        'Content-Type': 'application/json',
+                    }
+                });
+
+                const data = await response.json();
+
+                if (response.ok) {
+                    showMessage('Cart cleared successfully! 🎉');
+                    displayCart([]);
+                } else {
+                    if (response.status === 401) {
+                        logout();
+                        showMessage('Session expired. Please login again.', 'error');
+                    } else {
+                        showMessage(data.message || 'Failed to clear cart', 'error');
+                    }
+                }
+            } catch (error) {
+                showMessage('Network error. Please try again.', 'error');
+                console.error('Clear cart error:', error);
+            }
+        }
+
+        // Display cart items
+        function displayCart(cartItems) {
+            const cartContent = document.getElementById('cartContent');
+
+            if (!cartItems || cartItems.length === 0) {
+                cartContent.innerHTML = `
+                    <div class="empty-cart">
+                        <div class="empty-cart-icon">🛒</div>
+                        <h3>Your cart is empty</h3>
+                        <p>Add some items to see them here!</p>
+                    </div>
+                `;
+                return;
+            }
+
+            const cartHTML = `
+                <div class="cart-items">
+                    ${cartItems.map(item => `
+                        <div class="cart-item">
+                            <div class="item-image">
+                                ${item['image-url'] ? 
+                                    `<img src="${item['image-url']}" alt="${item['product-title']}" style="width: 100%; height: 100%; object-fit: cover; border-radius: 8px;">` : 
+                                    'No Image'
+                                }
+                            </div>
+                            <div class="item-details">
+                                <div class="item-title">${item['product-title'] || 'Unknown Product'}</div>
+                                <div class="item-price">
+                                    ${item['old-price'] && item['old-price'] !== '0' ? 
+                                        `<span class="old-price">₹${item['old-price']}</span>` : ''
+                                    }
+                                    <span class="new-price">₹${item['new-price'] || item.price || '0'}</span>
+                                </div>
+                                <div class="item-quantity">Quantity: ${item.quantity || 1}</div>
+                                ${item.category ? `<div style="color: #666; font-size: 0.8em; margin-top: 5px;">Category: ${item.category}</div>` : ''}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            cartContent.innerHTML = cartHTML;
+        }
+
+        // Handle Enter key for login
+        document.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter' && (document.getElementById('email') === document.activeElement || document.getElementById('password') === document.activeElement)) {
+                login();
+            }
+        });
+    </script>
+</body>
+</html>
