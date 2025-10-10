@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
-import { ArrowLeft, Plus, Minus, Trash2, ShoppingBag } from 'lucide-react';
+import { ArrowLeft, Plus, Minus, Trash2, ShoppingBag, X } from 'lucide-react';
 
-const CartPage = ({ items, onBack, onUpdateQuantity, onRemoveItem, onCheckout, onOpenDetails }) => {
+const CartPage = ({ items, onBack, onUpdateQuantity, onRemoveItem, onClearCart, onCheckout, onOpenDetails }) => {
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo({
@@ -55,7 +55,18 @@ const CartPage = ({ items, onBack, onUpdateQuantity, onRemoveItem, onCheckout, o
               <span>Back</span>
             </button>
             <h1 className="text-lg font-semibold text-gray-900">Shopping Cart</h1>
-            <div className="w-32" />
+            <div className="w-32 flex justify-end">
+              {items.length > 0 && (
+                <button
+                  onClick={onClearCart}
+                  className="flex items-center text-red-600 hover:text-red-700 transition-colors text-sm font-medium"
+                  title="Clear all items from cart"
+                >
+                  <X className="w-4 h-4 mr-1" />
+                  <span className="hidden sm:inline">Clear Cart</span>
+                </button>
+              )}
+            </div>
           </div>
         </div>
       </div>
@@ -149,6 +160,12 @@ const CartPage = ({ items, onBack, onUpdateQuantity, onRemoveItem, onCheckout, o
               >
                 Proceed to Checkout
               </a>
+              <button
+                onClick={onClearCart}
+                className="mt-3 w-full text-center border border-red-300 text-red-600 py-2 px-4 rounded-lg hover:bg-red-50 hover:border-red-400 transition-colors font-medium text-sm"
+              >
+                Clear All Items
+              </button>
             </div>
           </div>
         )}

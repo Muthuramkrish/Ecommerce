@@ -668,6 +668,35 @@ function Root() {
     }
   };
 
+  const handleClearCart = async () => {
+    if (!currentUser) {
+      showToast('Please login to manage cart.', 'warning');
+      return;
+    }
+
+    // Show confirmation dialog
+    const confirmed = window.confirm('Are you sure you want to clear all items from your cart?');
+    if (!confirmed) {
+      return;
+    }
+
+    try {
+      await apiClearCart();
+      setCartItems([]);
+      showToast('Cart cleared successfully.', 'success');
+    } catch (error) {
+      console.error('Error clearing cart:', error);
+      
+      // Check if it's an authentication error
+      if (error.message?.includes('401') || error.message?.includes('Unauthorized')) {
+        handleTokenExpired();
+        return;
+      }
+      
+      showToast('Failed to clear cart. Please try again.', 'warning');
+    }
+  };
+
   const handleCheckout = () => {
     if (currentUser) {
       setShowCheckoutPage(true);
@@ -1117,6 +1146,7 @@ function Root() {
             onBack={() => setShowCartPage(false)}
             onUpdateQuantity={handleUpdateQuantity}
             onRemoveItem={handleRemoveItem}
+            onClearCart={handleClearCart}
             onLoginClick={handleLoginClick}
             onCheckout={handleCheckout}
             onOpenDetails={handleOpenProductDetailsPage}
