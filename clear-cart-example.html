@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clear Cart Example</title>
+</head>
+<body>
+    <h1>Clear Cart Add-on Example</h1>
+    
+    <!-- Your existing cart content goes here -->
+    <div id="cart-section">
+        <h2>Shopping Cart</h2>
+        <p>Your cart items would be displayed here...</p>
+        
+        <!-- This is where the clear cart button will be added -->
+        <div id="cart-actions"></div>
+    </div>
+
+    <!-- Include the clear cart add-on -->
+    <script src="clear-cart-addon.js"></script>
+
+    <script>
+        // Example 1: Simple usage - just add a clear cart button
+        addClearCartButton('cart-actions');
+
+        // Example 2: Custom button with options
+        addClearCartButton('cart-actions', {
+            text: '🗑️ Empty Cart',
+            className: 'my-clear-btn',
+            style: `
+                background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+                color: white;
+                border: none;
+                padding: 12px 24px;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 16px;
+                margin: 10px;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            `,
+            confirmMessage: 'This will remove all items from your cart. Continue?',
+            onSuccess: function() {
+                console.log('Cart cleared successfully!');
+                // Update your UI here
+                alert('Cart is now empty! 🛒');
+            },
+            onError: function(error) {
+                console.error('Failed to clear cart:', error);
+                alert('Could not clear cart. Please try again.');
+            }
+        });
+
+        // Example 3: Programmatic usage
+        async function clearCartProgrammatically() {
+            try {
+                // Set auth token if you have it
+                const token = 'your-jwt-token-here';
+                clearCartManager.setAuthToken(token);
+                
+                // Clear the cart
+                const result = await clearUserCart();
+                console.log('Cart cleared:', result);
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }
+
+        // Example 4: Integration with existing authentication
+        function onUserLogin(authToken) {
+            // When user logs in, set the token
+            clearCartManager.setAuthToken(authToken);
+            
+            // Now clear cart button will work
+            console.log('User authenticated, clear cart ready');
+        }
+    </script>
+</body>
+</html>
