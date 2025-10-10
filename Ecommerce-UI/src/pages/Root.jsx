@@ -1021,10 +1021,29 @@ function Root() {
     scrollToTop();
   };
 
-  const handleClearCart = () => {
-    setCartItems([]);
-    setHash('home');
-    scrollToTop();
+  const handleClearCart = async () => {
+    if (!currentUser) {
+      showToast('Please login to clear cart.', 'warning');
+      return;
+    }
+
+    try {
+      await apiClearCart();
+      setCartItems([]);
+      showToast('Cart cleared successfully.', 'success');
+      setHash('home');
+      scrollToTop();
+    } catch (error) {
+      console.error('Error clearing cart:', error);
+      
+      // Check if it's an authentication error
+      if (error.message?.includes('401') || error.message?.includes('Unauthorized')) {
+        handleTokenExpired();
+        return;
+      }
+      
+      showToast('Failed to clear cart. Please try again.', 'warning');
+    }
   };
 
   const getTotalCartItems = () => {
