@@ -1,0 +1,775 @@
+identifiers_productId,identifiers_sku,identifiers_slug,identifiers_barcode,characteristics_title,characteristics_description,characteristics_images_primary,characteristics_images_offers,characteristics_specifications,characteristics_weight_value,characteristics_weight_unit,characteristics_dimensions_length,characteristics_dimensions_width,characteristics_dimensions_height,characteristics_dimensions_unit,anchor_category,anchor_subcategory,anchor_subSubcategory,anchor_brand,anchor_manufacturer,anchor_productType,classification_variants,classification_attributes_material,classification_attributes_certification,classification_attributes_warrantyPeriod,classification_attributes_countryOfOrigin,pricing_basePrice,pricing_comparePrice,pricing_costPrice,pricing_currency,pricing_taxRate,pricing_discounts,inventory_totalQuantity,inventory_availableQuantity,inventory_reservedQuantity,inventory_lowStockThreshold,inventory_bulkQuantityTiers,inventory_trackInventory,inventory_allowBackorder,marketing_tags,marketing_metaTitle,marketing_metaDescription,marketing_keywords,marketing_isActive,marketing_isFeatured,marketing_isBestseller,marketing_featuredOrder,marketing_promotionText,classification_attributes_features
+VK-ELEC-FAN-001,FAN-DEC-1200-GLD,decorative-ceiling-fan-1200mm-golden,8.90E+12,1200mm Decorative Ceiling Fan - Golden,"Premium decorative ceiling fan with 1200mm sweep, stylish golden finish with brown trim, high-speed performance, and energy-efficient motor. Perfect for living rooms, bedrooms, and modern interiors.","https://assets.bldnxt.in/catalog/product/cache/1/image/a77c1558d860704591e3027d1ebed402/a/l/alif592730_orie592730_5c5ebdf754505.png
+https://m.media-amazon.com/images/I/31iFEVgcEzL._UF894,1000_QL80_.jpg
+https://orientelectric.com/cdn/shop/files/Image_0-copy-2_2a3d95bb-9f2f-42ce-8758-aca8086bf706.png?v=1749796715&width=990",,"group': 'Electrical'
+'name': 'Sweep Size'
+'value': '1200'
+'unit': 'mm'
+
+'group': 'Electrical'
+'name': 'Power'
+'value': '75'
+'unit': 'W'
+
+'group': 'Performance'
+'name': 'Speed'
+'value': '370'
+'unit': 'RPM'
+
+'group': 'Performance'
+'name': 'Air Delivery'
+'value': '225'
+'unit': 'CMM'
+
+'group': 'Physical'
+'name': 'Blades'
+'value': '3'
+'unit': ''
+
+'group': 'Physical'
+'name': 'Color'
+'value': 'Golden with Brown Trim'
+'unit': ''",4.5,kg,600,600,300,mm,Electrical,Fans,Ceiling Fans,Usha,Usha International Ltd,Appliance,"type': 'color'
+'name': 'Golden'
+'sku': 'FAN-DEC-1200-GLD'
+'price': 2699
+'inventory': 60
+'images': 'https://m.media-amazon.com/images/I/31iFEVgcEzL._UF894,1000_QL80_.jpg'
+
+'type': 'color'
+'name': 'Brown'
+'sku': 'FAN-DEC-1200-BRN'
+'price': 2599
+'inventory': 40
+'images': 'https://orientelectric.com/cdn/shop/files/Image_0-copy-2_2a3d95bb-9f2f-42ce-8758-aca8086bf706.png?v=1749796715&width=990'
+
+'type': 'color'
+'name': 'Ivory'
+'sku': 'FAN-DEC-1200-IVR'
+'price': 2550
+'inventory': 35
+'images': 'https://assets.bldnxt.in/catalog/product/cache/1/image/a77c1558d860704591e3027d1ebed402/a/l/alif592730_orie592730_5c5ebdf754505.png'","Aluminium Body, Powder Coated Blades","ISI'
+'BEE 3-Star'",3 Years,India,2699,3200,2100,INR,18,"type': 'percentage'
+'value': 10
+'minQuantity': 1
+'validFrom': '2025-08-01T00:00:00Z'
+'validTo': '2025-08-31T23:59:59Z'
+'isActive': True",135,15,120,20,"minQuantity': 10
+'maxQuantity': 49
+'discountPercentage': 5
+
+'minQuantity': 50
+'maxQuantity': 99
+'discountPercentage': 10
+
+'minQuantity': 100
+'maxQuantity': 500
+'discountPercentage': 15",TRUE,FALSE,"fan'
+'ceiling fan'
+'decorative'
+'golden fan'
+'usha fan'",1200mm Decorative Ceiling Fan - Golden | Usha,"Buy premium 1200mm decorative ceiling fan in golden finish. High speed, durable motor, 3 years warranty. Stylish addition to your home interiors.","decorative fan'
+'1200mm ceiling fan'
+'golden ceiling fan'
+'usha ceiling fan'
+'living room fan'",TRUE,TRUE,TRUE,2,Flat 10% Off this Month,
+VK-ELEC-FAN-002,FAN-EXH-230-GRY,exhaust-fan-230mm-black,8.90E+12,230mm Exhaust Fan - Black,"Compact 230mm exhaust fan in black finish for kitchens, bathrooms, and offices. Ensures effective ventilation with low noise operation and durable metal blades.","https://m.media-amazon.com/images/I/81Bvlxrz9jL.jpg
+https://m.media-amazon.com/images/I/71qlg-n5y9L._UF894,1000_QL80_.jpg
+https://m.media-amazon.com/images/I/81ZZmeN06pL._UF894,1000_QL80_.jpg",,"group': 'Electrical'
+'name': 'Sweep Size'
+'value': '230'
+'unit': 'mm'
+
+'group': 'Electrical'
+'name': 'Power'
+'value': '40'
+'unit': 'W'
+'group': 'Performance'
+'name': 'Speed'
+'value': '1350'
+'unit': 'RPM'
+
+'group': 'Performance'
+'name': 'Air Delivery'
+'value': '500'
+'unit': 'CMH'
+
+'group': 'Physical'
+'name': 'Blades'
+'value': '5'
+'unit': ''
+
+'group': 'Physical'
+'name': 'Color'
+'value': 'Black'
+'unit': ''",2.6,kg,250,120,250,mm,Electrical,Fans,Exhaust Fans,Usha,Usha International Ltd,Appliance,"type': 'color'
+'name': 'Black'
+'sku': 'FAN-EXH-230-GRY'
+'price': 1399
+'inventory': 120
+'images': 'https://m.media-amazon.com/images/I/81Bvlxrz9jL.jpg'
+
+'type': 'color'
+'name': 'White'
+'sku': 'FAN-EXH-230-WHT'
+'price': 1449
+'inventory': 60
+'images': 'https://m.media-amazon.com/images/I/81Bvlxrz9jL.jpg'",Metal Body with Powder Coating,ISI',1 Year,India,1399,1600,1100,INR,18,"type': 'flat'
+'value': 150
+'minQuantity': 1
+'validFrom': '2025-08-01T00:00:00Z'
+'validTo': '2025-09-15T23:59:59Z'
+'isActive': True",180,70,110,20,"minQuantity': 20
+'maxQuantity': 49
+'discountPercentage': 5
+
+'minQuantity': 50
+'maxQuantity': 100
+'discountPercentage': 12",TRUE,FALSE,"fan'
+'exhaust fan'
+'kitchen fan'
+'bathroom fan'
+'ventilation'",230mm Exhaust Fan - Grey | Usha,"Buy Usha 230mm black exhaust fan with metal body, 5 blades, and 1-year warranty. Ideal for kitchens, bathrooms, and offices.","exhaust fan'
+'usha fan'
+'grey exhaust fan'
+'ventilation fan'",TRUE,TRUE,FALSE,6,?150 OFF on Exhaust Fans,
+VK-ELEC-FAN-003,FAN-PED-400-BLK,pedestal-fan-400mm-black,8.90E+12,400mm Pedestal Fan - Black,"High-speed 400mm pedestal fan in elegant black finish. Features adjustable height, oscillation, three speed settings, and silent operation. Ideal for homes, offices, and shops.","https://m.media-amazon.com/images/I/51Qts11MjGL._UF894,1000_QL80_.jpg
+https://m.media-amazon.com/images/I/71Gzu0AzH6L._UF894,1000_QL80_.jpg
+https://mahinelectricals.com/wp-content/uploads/2024/06/crompton-pedestal-fan-gale-classic-1.jpg",,"group': 'Electrical'
+'name': 'Sweep Size'
+'value': '400'
+'unit': 'mm'
+
+'group': 'Electrical'
+'name': 'Power'
+'value': '55'
+'unit': 'W'
+
+'group': 'Performance'
+'name': 'Speed'
+'value': '1350'
+'unit': 'RPM'
+
+'group': 'Performance'
+'name': 'Air Delivery'
+'value': '75'
+'unit': 'CMM'
+
+'group': 'Physical'
+'name': 'Blades'
+'value': '3'
+'unit': ''
+
+'group': 'Physical'
+'name': 'Color'
+'value': 'Black'
+'unit': ''",6.2,kg,450,450,1350,mm,Electrical,Fans,Pedestal Fans,Bajaj,Bajaj Electricals Ltd,Appliance,"type': 'color'
+'name': 'Black', 'sku': 'FAN-PED-400-BLK'
+'price': 3299
+'inventory': 80
+'images': 'https://mahinelectricals.com/wp-content/uploads/2024/06/crompton-pedestal-fan-gale-classic-1.jpg'
+
+'type': 'color'
+'name': 'White'
+'sku': 'FAN-PED-400-WHT'
+'price': 3199
+'inventory': 50
+'images': 'https://5.imimg.com/data5/SELLER/Default/2024/7/438643423/JV/XP/CH/75336779/almonard-supreme-400-mm-high-speed-pedestal-fan-white.jpg'",Plastic Body with Metal Stand,ISI',2 Years,India,3299,3800,2700,INR,18,"type': 'flat'
+'value': 200
+'minQuantity': 1
+'validFrom': '2025-08-01T00:00:00Z'
+'validTo': '2025-09-30T23:59:59Z'
+'isActive': True",130,30,100,20,"minQuantity': 10
+'maxQuantity': 49
+'discountPercentage': 7
+
+'minQuantity': 50
+'maxQuantity': 99
+'discountPercentage': 12
+
+'minQuantity': 100
+'maxQuantity': 300
+'discountPercentage': 18",TRUE,FALSE,"fan'
+'pedestal fan'
+'black pedestal fan'
+'bajaj pedestal fan'
+'portable fan'",400mm Pedestal Fan - Black | Bajaj,"Buy Bajaj 400mm pedestal fan in black finish. High-speed, adjustable height, oscillation, and 2-year warranty. Perfect for home and office cooling.","pedestal fan'
+'400mm fan'
+'bajaj pedestal fan'
+'black fan'
+'portable pedestal fan'",TRUE,TRUE,FALSE,3,?200 Flat Off on Pedestal Fan,
+VK-ELEC-FAN-004,FAN-WALL-400-WHT,wall-fan-400mm-white,8.90E+12,400mm Wall Fan - White,"400mm wall-mounted fan in elegant white color with powerful air delivery, three speed settings, oscillation, and silent motor. Ideal for kitchens, shops, and offices where space-saving cooling is needed.","https://m.media-amazon.com/images/I/51iaLRd4z-L.jpg
+https://images.jdmagicbox.com/quickquotes/images_main/speed_air_sweep_400_mm_148015947394458600.jpg
+https://www.bajajelectricals.com/cdn/shop/files/252062NEOSPECTRUMWALL1.jpg?v=1727079057&width=800'","https://m.media-amazon.com/images/S/aplus-media-library-service-media/9ae36d2d-af23-4a2b-82e5-a50b4f40eea6.__CR0,0,970,600_PT0_SX970_V1___.jpg","group': 'Electrical'
+'name': 'Sweep Size'
+'value': '400'
+'unit': 'mm'
+
+'group': 'Electrical'
+'name': 'Power'
+'value': '50'
+'unit': 'W'
+
+'group': 'Performance'
+'name': 'Speed'
+'value': '1350'
+'unit': 'RPM'
+
+'group': 'Performance'
+'name': 'Air Delivery'
+'value': '70'
+'unit': 'CMM'
+
+'group': 'Physical'
+'name': 'Blades'
+'value': '3'
+ 'unit': ''
+
+'group': 'Physical'
+'name': 'Color'
+'value': 'White'
+'unit': ''",4.8,kg,420,200,480,mm,Electrical,Fans,Wall Fans,Orient,Orient Electric Ltd,Appliance,"type': 'color'
+'name': 'White'
+'sku': 'FAN-WALL-400-WHT'
+'price': 2499
+'inventory': 90
+'images': 'https://images.jdmagicbox.com/quickquotes/images_main/speed_air_sweep_400_mm_148015947394458600.jpg'
+
+'type': 'color'
+'name': 'Black'
+'sku': 'FAN-WALL-400-BLK'
+'price': 2599
+'inventory': 40
+'images': 'https://www.bajajelectricals.com/cdn/shop/files/252062NEOSPECTRUMWALL1.jpg?v=1727079057&width=800'",Plastic Body with Metal Grill,ISI',2 Years,India,2499,2800,2100,INR,18,"type': 'percentage'
+'value': 10
+'minQuantity': 1
+'validFrom': '2025-08-01T00:00:00Z'
+'validTo': '2025-09-30T23:59:59Z'
+'isActive': True",130,50,80,15,"minQuantity': 10
+'maxQuantity': 49
+'discountPercentage': 5
+
+'minQuantity': 50
+'maxQuantity': 99
+'discountPercentage': 10",TRUE,FALSE,"fan'
+'wall fan'
+'white wall fan'
+'orient wall fan'
+'compact fan'",400mm Wall Fan - White | Orient,"Buy Orient 400mm wall fan in white with powerful air delivery, oscillation, and 2-year warranty. Perfect for kitchens, shops, and offices.","wall fan'
+'orient wall fan'
+'400mm fan'
+'white fan'
+'space saving fan'",TRUE,TRUE,TRUE,4,10% OFF on Wall Fans,
+VK-ELEC-FAN-005,FAN-EXT-001,exhaust-fan-9-inch,8.90E+12,Exhaust Fan 225mm (9 Inch),Powerful exhaust fan for kitchens and bathrooms. Corrosion-resistant body.,"https://m.media-amazon.com/images/I/718YSlUQBIL.jpg
+https://www.bestomart.com/cdn/shop/products/1000076331_large.jpg?v=1631677927
+https://www.bestomart.com/cdn/shop/files/1000063673_large.jpg?v=1721379919",,"group': 'Performance'
+'name': 'Sweep Size'
+'value': '225'
+'unit': 'mm'
+
+'group': 'Performance'
+'name': 'Speed'
+'value': '1400'
+'unit': 'RPM'
+
+'group': 'Performance'
+'name': 'Power'
+'value': '40'
+'unit': 'W'
+
+'group': 'Design'
+'name': 'Blades'
+'value': '5'
+'unit': ''",,,225,225,120,mm,Electrical,Fans,Exhaust Fans,Bajaj,Bajaj Electricals Ltd.,Appliance,"type': 'color'
+'name': 'White'
+'sku': 'FAN-EXT-WHT'
+'price': 1299
+'inventory': 200
+'images': 'https://www.bestomart.com/cdn/shop/products/1000076331_large.jpg?v=1631677927'
+
+'type': 'color'
+'name': 'Grey'
+'sku': 'FAN-EXT-GRY'
+'price': 1399
+'inventory': 150
+'images': 'https://m.media-amazon.com/images/I/718YSlUQBIL.jpg'",,ISI',1 year,,1299,1699,,INR,18,,350,280,,,,TRUE,,"exhaust fan'
+'bajaj'
+'kitchen fan'",Bajaj Exhaust Fan 225mm,Bajaj exhaust fan for kitchen and bathroom with 1400 RPM speed and corrosion-resistant body.,,,,,,,
+VK-ELEC-FAN-006,FAN-HAV-1200MM,havells-ceiling-fan-1200mm,8.90E+12,Havells Ceiling Fan - 1200mm,"Stylish and energy-efficient ceiling fan with 1200mm sweep. Delivers high air thrust with silent operation. Premium metallic finish with rust-free blades, suitable for modern homes and offices.","https://i.pinimg.com/736x/91/f8/af/91f8af9ae10500a35ae7b67d72230faf.jpg
+https://i.pinimg.com/736x/6c/42/40/6c4240f2ad2a872e48694101383785cf.jpg
+https://i.pinimg.com/736x/5f/2c/56/5f2c56334d3ebd64fb741a89041b869c.jpg",,"group': 'Performance'
+'name': 'Sweep Size',
+'value': '1200'
+'unit': 'mm'
+
+'group': 'Performance'
+'name': 'Air Delivery'
+'value': '230'
+'unit': 'CMM'
+
+'group': 'Performance'
+'name': 'Speed'
+'value': '370'
+'unit': 'RPM'
+
+'group': 'Electrical'
+'name': 'Power Consumption'
+'value': '70'
+'unit': 'W'
+
+'group': 'Physical'
+'name': 'No. of Blades'
+'value': '3'
+'unit': ''",4.5,kg,600,250,250,mm,Electrical,Fans,Ceiling Fans,Havells,Havells India Ltd.,Appliance,"type': 'color'
+'name': 'White'
+'sku': 'FAN-HAV-1200MM-WH'
+'price': 2499
+'inventory': 70
+'images': 'https://i.pinimg.com/736x/91/f8/af/91f8af9ae10500a35ae7b67d72230faf.jpg'
+
+'type': 'color'
+'name': 'Brown'
+'sku': 'FAN-HAV-1200MM-BR'
+'price': 2599
+'inventory': 50
+'images': 'https://i.pinimg.com/736x/6c/42/40/6c4240f2ad2a872e48694101383785cf.jpg'
+
+'type': 'color'
+'name': 'Black'
+'sku': 'FAN-HAV-1200MM-BK'
+'price': 2699
+'inventory': 40
+'images': 'https://i.pinimg.com/736x/5f/2c/56/5f2c56334d3ebd64fb741a89041b869c.jpg'",Aluminium Blades with Metallic Coating,"ISI Certified'
+'BEE Star Rated'",3 Years,India,2599,2999,1900,INR,18,"type': 'seasonal'
+'value': 15
+'minQuantity': 1
+'validFrom': '2024-04-01T00:00:00Z'
+'validTo': '2024-06-30T23:59:59Z'
+'isActive': True",160,160,0,10,"minQuantity': 3
+'maxQuantity': 9
+'discountPercentage': 5
+
+'minQuantity': 10
+'maxQuantity': 24
+'discountPercentage': 8
+
+'minQuantity': 25
+'maxQuantity': 100
+'discountPercentage': 12",TRUE,FALSE,"ceiling fan'
+'havells'
+'home appliance'
+'1200mm fan'",Havells Ceiling Fan 1200mm | High Speed | Energy Efficient,"Havells ceiling fan with 1200mm sweep. Stylish design, energy-efficient, rust-free blades. Perfect for modern homes.","havells fan'
+'ceiling fan 1200mm'
+'high speed fan'
+'energy saving fan'",TRUE,TRUE,TRUE,2,Summer Sale – 15% Off,
+VK-ELEC-FAN-007,HS-PED-FAN-16-WHT,high-speed-pedestal-fan-green,8.90E+12,High-Speed Pedestal Fan - Green,"Elegant high-speed pedestal fan in green finish with sturdy base, powerful motor, and adjustable height for efficient cooling.","https://m.media-amazon.com/images/I/61jCIxuIzlL._SL1200_.jpg
+https://www.havai.in/cdn/shop/files/18INCH1_2500x2500_6c97ca29-ff15-4dfb-a6a5-514597efec1a.png?v=1699099473&width=3840 https://www.havai.in/cdn/shop/files/18INCH1_2500x2500_6c97ca29-ff15-4dfb-a6a5-514597efec1a.png?v=1699099473&width=3840",,"group': 'Performance'
+'name': 'Sweep Size'
+'value': '400'
+'unit': 'mm'
+
+'group': 'Performance'
+'name': 'Speed Control'
+'value': '3'
+'unit': 'levels'
+
+'group': 'Performance'
+'name': 'RPM'
+'value': '2100'
+'unit': 'rpm'
+
+'group': 'Power'
+'name': 'Power Consumption'
+'value': '70'
+'unit': 'W'
+
+'group': 'Physical'
+'name': 'Height Adjustment'
+'value': 'Up to 140'
+'unit': 'cm'",6.8,kg,460,460,1400,mm,Electrical,Fans,Pedestal Fans,Orient,Orient Electric Ltd,Appliance,"type': 'color'
+'name': 'Green'
+'sku': 'HS-PED-FAN-16-WHT'
+'price': 2799
+'inventory': 65
+'images': 'https://www.havai.in/cdn/shop/files/18INCH1_2500x2500_6c97ca29-ff15-4dfb-a6a5-514597efec1a.png?v=1699099473&width=3840'",ABS Plastic & Metal,"ISI' 
+'BIS'",2 years,India,2799,3299,2200,INR,18,"type': 'percentage'
+'value': 10
+'minQuantity': 1
+'validFrom': '2024-11-01T00:00:00Z'
+'validTo': '2024-11-30T23:59:59Z'
+'isActive': True",65,40,25,7,,TRUE,FALSE,"high speed pedestal fan'
+'orient fan'
+'stand fan'
+'green pedestal fan'",High-Speed Pedestal Fan Green | Orient,Buy Orient High-Speed Pedestal Fan in Green with 2100 RPM and adjustable height. Stylish and powerful cooling.,"orient high speed pedestal fan'
+'green pedestal fan'
+'stand fan high speed'
+'2100 rpm pedestal fan'",TRUE,FALSE,TRUE,,10% Off – Festive Sale,
+VK-ELEC-FAN-008,HS-PED-FAN-16-SIL,high-speed-pedestal-fan-silver,8.90E+12,High-Speed Pedestal Fan - Silver,"Premium high-speed pedestal fan in metallic silver finish with powerful motor, oscillation, and adjustable stand for modern interiors.","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTBq8EGH8-6BFH9uT6qaKQiXB-GJOju8xyBGw&s
+https://m.media-amazon.com/images/I/31Tz6dFsQyL._QL92_SH45_SS200_.jpg",,"group': 'Performance'
+'name': 'Sweep Size'
+'value': '400'
+'unit': 'mm'
+
+'group': 'Performance'
+'name': 'Speed Control'
+'value': '3'
+'unit': 'levels'
+
+'group': 'Performance'
+'name': 'RPM'
+'value': '2200'
+'unit': 'rpm'
+
+'group': 'Power'
+'name': 'Power Consumption'
+'value': '75'
+'unit': 'W'
+
+'group': 'Physical'
+ 'name': 'Height Adjustment'
+'value': 'Up to 145'
+'unit': 'cm'",7.2,kg,470,470,1450,mm,Electrical,Fans,Pedestal Fans,Havells,Havells India Ltd,Appliance,"type': 'color'
+'name': 'Silver'
+'sku': 'HS-PED-FAN-16-SIL'
+'price': 2999
+'inventory': 55
+'images': 'https://m.media-amazon.com/images/I/31Tz6dFsQyL._QL92_SH45_SS200_.jpg'",Metallic Body & ABS Plastic,"ISI'
+'BIS'",2 years,India,2999,3599,2400,INR,18,"type': 'flat'
+'value': 300,
+'minQuantity': 1
+'validFrom': '2024-12-01T00:00:00Z'
+'validTo': '2024-12-31T23:59:59Z', 'isActive': True",55,35,20,8,,TRUE,FALSE,"high speed pedestal fan'
+'havells pedestal fan'
+'silver stand fan'
+'2200 rpm pedestal fan'",High-Speed Pedestal Fan Silver | Havells,"Shop Havells High-Speed Pedestal Fan in Silver finish with 2200 RPM motor, strong airflow, and adjustable height stand.","havells high speed pedestal fan'
+'silver pedestal fan'
+'stand fan high speed'
+'2200 rpm pedestal fan'",TRUE,TRUE,FALSE,,Flat ?300 Off – Winter Sale,
+VK-ELEC-FAN-009,HS-PED-FAN-16-BLK,high-speed-pedestal-fan-white,8.90E+12,High-Speed Pedestal Fan - White,"Durable high-speed pedestal fan in white finish with powerful motor, 3-speed settings, and height adjustment for superior cooling.","https://5.imimg.com/data5/SELLER/Default/2024/7/438643423/JV/XP/CH/75336779/almonard-supreme-400-mm-high-speed-pedestal-fan-white.jpg
+https://www.mrgcenter.com/images/detailed/19/CK2813_-07__77097_large.jpg
+https://5.imimg.com/data5/LQ/IX/MY-56514226/18-inch-pedestal-fan-500x500.jpg",,"group': 'Performance'
+'name': 'Sweep Size'
+'value': '400'
+'unit': 'mm'
+
+'group': 'Performance'
+'name': 'Speed Control'
+'value': '3'
+'unit': 'levels'
+
+'group': 'Performance'
+'name': 'RPM'
+'value': '2000'
+'unit': 'rpm'
+
+'group': 'Power'
+'name': 'Power Consumption'
+'value': '65'
+'unit': 'W'
+
+'group': 'Physical'
+'name': 'Height Adjustment'
+'value': 'Up to 135'
+'unit': 'cm'",6.5,kg,450,450,1350,mm,Electrical,Fans,Pedestal Fans,Usha,Usha International Ltd,Appliance,"type': 'color'
+'name': 'White'
+'sku': 'HS-PED-FAN-16-BLK'
+'price': 2699
+'inventory': 80
+'images':'https://5.imimg.com/data5/LQ/IX/MY-56514226/18-inch-pedestal-fan-500x500.jpg'",ABS Plastic & Metal,"ISI'
+'BIS'",2 years,India,2699,3199,2100,INR,18,"type': 'flat'
+'value': 200
+'minQuantity': 1
+'validFrom': '2024-10-01T00:00:00Z'
+'validTo': '2024-10-31T23:59:59Z'
+'isActive': True",80,30,50,8,,TRUE,FALSE,"high speed pedestal fan'
+'usha fan'
+'stand fan'
+'white pedestal fan'",High-Speed Pedestal Fan White | Usha,Shop Usha High-Speed Pedestal Fan in White with 2000 RPM and height adjustment. Stylish and powerful cooling solution.,"usha high speed pedestal fan'
+'white pedestal fan'
+'stand fan high speed'
+'2000 rpm pedestal fan'",TRUE,FALSE,TRUE,,Flat ?200 Off – Limited Time,
+VK-ELEC-FAN-010,FAN-CEIL-1200-WD,ceiling-fan-1200mm-wooden-finish,8.91E+12,Premium Ceiling Fan 1200mm - Wooden Finish,Energy-efficient premium ceiling fan with elegant wooden finish blades. Features aerodynamically designed blades for maximum air delivery with minimal noise. Comes with decorative lights and remote control.,"https://i.pinimg.com/736x/f4/b3/0c/f4b30c8d8db6050c44e2685dac3fdcd7.jpg
+https://i.pinimg.com/736x/e1/27/3f/e1273ff05476bb139f95414f2b0b0888.jpg
+https://i.pinimg.com/736x/f2/84/b3/f284b31e467f4b52bcd249273df829fc.jpg",,"group': 'Performance'
+'name': 'Sweep Size'
+'value': '1200'
+'unit': 'mm'
+
+'group': 'Performance'
+'name': 'Air Delivery'
+'value': '220'
+'unit': 'CMM'
+
+'group': 'Electrical'
+'name': 'Power Consumption'
+'value': '75'
+'unit': 'watts'
+
+'group': 'Performance'
+'name': 'RPM'
+'value': '380'
+'unit': 'RPM'
+
+'group': 'Technical'
+'name': 'Number of Blades'
+'value': '3'
+'unit': ''
+
+'group': 'Technical'
+'name': 'Motor Type'
+'value': 'BLDC'
+'unit': ''",6.5,kg,1200,1200,400,mm,Electrical,Fans,Ceiling Fans,Usha,Usha International Ltd,Appliance,"type': 'finish'
+'name': 'Wooden Finish'
+'sku': 'FAN-CEIL-1200-WD'
+'price': 8500
+'inventory': 25
+'images': 'https://i.pinimg.com/736x/f4/b3/0c/f4b30c8d8db6050c44e2685dac3fdcd7.jpg'
+
+'type': 'finish'
+'name': 'Metallic Silver'
+'sku': 'FAN-CEIL-1200-MS'
+'price': 7800
+'inventory': 18
+'images': 'https://i.pinimg.com/736x/e1/27/3f/e1273ff05476bb139f95414f2b0b0888.jpg'
+
+'type': 'finish'
+'name': 'White'
+'sku': 'FAN-CEIL-1200-WH'
+'price': 7200
+'inventory': 32
+'images': 'https://i.pinimg.com/736x/f2/84/b3/f284b31e467f4b52bcd249273df829fc.jpg'",Metal Body with Wooden Blades,"ISI' 
+'BEE 5 Star' 
+'BIS'",2 years comprehensive,India,8500,10500,6200,INR,18,"type': 'percentage'
+'value': 20
+'minQuantity': 1
+'validFrom': '2024-08-01T00:00:00Z'
+'validTo': '2024-08-31T23:59:59Z'
+'isActive': True",75,70,5,10,"minQuantity': 3
+'maxQuantity': 9
+'discountPercentage': 8
+
+'minQuantity': 10
+'maxQuantity': 19
+'discountPercentage': 12
+
+'minQuantity': 20
+'maxQuantity': 999
+'discountPercentage': 18",TRUE,FALSE,"ceiling fan'
+'premium'
+'wooden finish'
+'energy efficient'
+'remote control'
+'BLDC'",Premium Ceiling Fan 1200mm Wooden Finish | Energy Efficient | Usha,"Buy premium 1200mm ceiling fan with elegant wooden finish. BLDC motor, remote control, decorative lights. 5-star energy rating. 2-year warranty.","ceiling fan'
+'wooden finish fan'
+'1200mm fan'
+'energy efficient fan'
+'usha fan'
+'BLDC motor fan'",TRUE,TRUE,FALSE,2,20% Off + Free Installation,
+VK-ELEC-FAN-011,FAN-SMRT-001,smart-bldc-ceiling-fan-wifi-remote,8.90E+12,Smart BLDC Ceiling Fan with Wi-Fi & Remote,"Energy-efficient BLDC ceiling fan with Wi-Fi, app control, and voice assistant support (Alexa/Google).","https://img.drz.lazcdn.com/static/bd/p/2d7cf2a1f91a594b2645d86d1e32230b.jpg_720x720q80.jpg
+https://orientelectric.com/cdn/shop/files/Aeon_smart.White.Camera_3.png?v=1749796520
+https://5.imimg.com/data5/SELLER/Default/2023/2/RE/DU/WN/99141902/01-7-1000--500x500.jpg",,"group': 'Performance'
+'name': 'Sweep Size'
+'value': '1200'
+'unit': 'mm'
+
+'group': 'Performance'
+'name': 'Speed'
+'value': '350'
+'unit': 'RPM'
+
+'group': 'Performance'
+'name': 'Power'
+'value': '35'
+'unit': 'W'
+
+'group': 'Smart Features'
+'name': 'Voice Control'
+'value': 'AlexaGoogle Assistant'
+'unit': ''",,,1200,1200,400,mm,Electrical,Fans,Smart Fans,Atomberg,Atomberg Technologies,Appliance,"type': 'color'
+'name': 'White'
+'sku': 'FAN-SMRT-WHT'
+'price': 3499
+'inventory': 100
+'images': 'https://orientelectric.com/cdn/shop/files/Aeon_smart.White.Camera_3.png?v=1749796520'
+
+'type': 'color'
+'name': 'Black'
+'sku': 'FAN-SMRT-BLK'
+'price': 3599
+'inventory': 80
+'images': 'https://m.media-amazon.com/images/I/51rEl9uoLaL.jpg'",,"BEE 5 Star'
+'CE'
+'RoHS'",3 years,,3499,3999,,INR,18,,180,150,,,,TRUE,,"smart fan'
+'bldc'
+'atomberg'
+'wifi'",Atomberg Smart BLDC Ceiling Fan,"Smart BLDC fan with Wi-Fi, remote, app, Alexa/Google voice support, and 65% energy saving.",,,,,,,
+VK-ELEC-FAN-012,FAN-TWR-001-BLK,tower-fan-slim-black,8.90E+12,Tower Fan Slim - Black,"Slim tower fan in elegant black finish with 3-speed settings, oscillation function, and energy-efficient operation. Perfect for bedrooms, living rooms, and offices.","https://m.media-amazon.com/images/I/51b514c5y+S._UF894,1000_QL80_.jpg
+https://i5.walmartimages.com/seo/Air-Monster-30-Inch-3-Speed-Oscillating-Tower-Fan-in-Black_18f033dc-5615-47a9-9564-26b4b8864aa4.1b02b49ad861a520c0b13b41bb9e40c5.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF",,"group': 'Electrical'
+'name': 'Power'
+'value': '45'
+'unit': 'W'
+
+'group': 'Performance'
+'name': 'Speed Settings'
+'value': '3'
+'unit': 'Levels'
+
+'group': 'Performance'
+'name': 'Air Delivery'
+'value': '1250'
+'unit': 'm³/hr'
+
+'group': 'Physical'
+'name': 'Color'
+'value': 'Black'
+'unit': ''
+
+'group': 'Physical'
+'name': 'Height'
+'value': '74'
+'unit': 'cm'",3.8,kg,20,20,740,mm,Electrical,Fans,Tower Fans,Crompton,Crompton Greaves Ltd,Appliance,"type': 'color'
+'name': 'Black'
+'sku': 'FAN-TWR-001-BLK'
+'price': 3499
+'inventory': 50
+'images': 'https://i5.walmartimages.com/seo/Air-Monster-30-Inch-3-Speed-Oscillating-Tower-Fan-in-Black_18f033dc-5615-47a9-9564-26b4b8864aa4.1b02b49ad861a520c0b13b41bb9e40c5.jpeg?odnHeight=768&odnWidth=768&odnBg=FFFFFF'",ABS Plastic Body,,2 Years,India,3499,3999,,INR,18,,50,45,5,,,TRUE,FALSE,"tower fan'
+'slim fan'
+'crompton fan'",Tower Fan Slim Black | Crompton,"Buy Crompton Slim Tower Fan in Black with 3-speed settings, oscillation, and silent operation. Perfect for modern interiors.",,TRUE,TRUE,TRUE,,Flat ?500 OFF on Crompton Tower Fans,"Oscillation'
+'3-Speed Control'
+'Silent Operation'"
+VK-ELEC-FAN-013,FAN-TWR-003-SLV,tower-fan-slim-silver,8.90E+12,Tower Fan Slim - Silver,"Slim tower fan in stylish silver finish with 3-speed settings, oscillation function, and energy-efficient performance. Ideal for modern interiors, bedrooms, and offices.","https://m.media-amazon.com/images/I/61RUw+enzEL._UF894,1000_QL80_.jpg
+https://i.ebayimg.com/images/g/XLAAAOSwjehirawn/s-l225.jpg",,"group': 'Electrical'
+'name': 'Power'
+'value': '45'
+'unit': 'W'
+
+'group': 'Performance'
+'name': 'Speed Settings'
+'value': '3'
+'unit': 'Levels'
+
+'group': 'Performance'
+'name': 'Air Delivery'
+'value': '1250'
+'unit': 'm³/hr'
+
+'group': 'Physical'
+'name': 'Color'
+'value': 'Silver'
+'unit': ''
+
+'group': 'Physical'
+'name': 'Height'
+'value': '74'
+'unit': 'cm'",3.8,kg,20,20,740,mm,Electrical,Fans,Tower Fans,Crompton,Crompton Greaves Ltd,Appliance,"type': 'color'
+'name': 'Silver'
+'sku': 'FAN-TWR-003-SLV'
+'price': 3699
+'inventory': 35
+'images': 'https://m.media-amazon.com/images/I/61RUw+enzEL._UF894,1000_QL80_.jpg'",ABS Plastic Body,,2 Years,India,3699,4199,,INR,18,,35,32,3,,,TRUE,FALSE,"tower fan'
+'slim fan'
+'crompton fan silver'",Tower Fan Slim Silver | Crompton,"Buy Crompton Slim Tower Fan in Silver with 3-speed settings, oscillation, and silent operation. Perfect for stylish interiors.",,TRUE,TRUE,TRUE,,Flat ?500 OFF on Crompton Tower Fans,"Oscillation'
+'3-Speed Control'
+'Silent Operation'"
+VK-ELEC-FAN-014,FAN-TWR-002-WHT,tower-fan-slim-white,8.90E+12,Tower Fan Slim - White,"Slim tower fan in elegant white finish with 3-speed settings, oscillation function, and energy-efficient operation. Perfect for bedrooms, living rooms, and offices.","https://tiimg.tistatic.com/fp/1/002/987/tower-fan-922.jpg
+https://5.imimg.com/data5/HQ/WM/MY-3447894/surya-classic-tower-fan-1000mm-500x500.jpg
+https://3.imimg.com/data3/HN/JU/MY-1136450/tower-fan-500x500.jpg",,"group': 'Electrical'
+'name': 'Power'
+'value': '45'
+'unit': 'W'
+
+'group': 'Performance'
+'name': 'Speed Settings'
+'value': '3'
+'unit': 'Levels'
+
+'group': 'Performance'
+'name': 'Air Delivery'
+'value': '1250'
+'unit': 'm³/hr'
+
+'group': 'Physical'
+'name': 'Color'
+'value': 'White'
+'unit': ''
+
+'group': 'Physical'
+'name': 'Height'
+'value': '74'
+'unit': 'cm'",3.8,kg,20,20,740,mm,Electrical,Fans,Tower Fans,Crompton,Crompton Greaves Ltd,Appliance,"type': 'color'
+'name': 'White'
+'sku': 'FAN-TWR-002-WHT'
+'price': 3599
+'inventory': 40
+'images': 'https://3.imimg.com/data3/HN/JU/MY-1136450/tower-fan-500x500.jpg'",ABS Plastic Body,,2 Years,India,3599,4099,,INR,18,,40,36,4,,,TRUE,FALSE,"tower fan'
+'slim fan'
+'crompton fan white'",Tower Fan Slim White | Crompton,"Buy Crompton Slim Tower Fan in White with 3-speed settings, oscillation, and silent operation. Perfect for modern interiors.",,TRUE,TRUE,,,Flat ?500 OFF on Crompton Tower Fans,"Oscillation'
+'3-Speed Control'
+'Silent Operation'"
+VK-ELEC-FAN-015,FAN-USHA-400MM,usha-table-fan-400mm,8.90E+12,Usha Table Fan - 400mm High Speed,Compact and powerful Usha table fan with 400mm sweep. Provides high-speed air delivery with 3-speed control. Adjustable tilt and oscillation for wider coverage. Energy-efficient motor with silent operation.,"https://i.pinimg.com/1200x/b1/00/db/b100dbe13df663caa7ceea21b149667a.jpg
+https://i.pinimg.com/736x/95/9b/af/959baf856f26a1784c0ff56124358d3f.jpg
+https://i.pinimg.com/736x/b9/c8/d9/b9c8d9451e88a6685d40a32004833c72.jpg",,"group': 'Performance'
+'name': 'Sweep Size'
+'value': '400'
+'unit': 'mm'
+
+'group': 'Performance'
+'name': 'Air Delivery'
+'value': '65'
+'unit': 'CMM'
+
+'group': 'Performance'
+'name': 'Speed'
+'value': '1350'
+'unit': 'RPM'
+
+'group': 'Electrical'
+'name': 'Power Consumption'
+'value': '55'
+'unit': 'W'
+
+'group': 'Physical'
+'name': 'No. of Blades'
+'value': '3'
+'unit': ''",3.2,kg,450,250,500,mm,Electrical,Fans,Table Fans,Usha,Usha International Ltd.,Appliance,"type': 'color'
+'name': 'White'
+'sku': 'FAN-USHA-400MM-WH'
+'price': 1799
+'inventory': 90
+'images': 'https://i.pinimg.com/1200x/b1/00/db/b100dbe13df663caa7ceea21b149667a.jpg'
+
+'type': 'color'
+'name': 'Blue'
+'sku': 'FAN-USHA-400MM-BL'
+'price': 1899
+'inventory': 70
+'images': 'https://i.pinimg.com/736x/95/9b/af/959baf856f26a1784c0ff56124358d3f.jpg'
+
+'type': 'color'
+'name': 'Black'
+'sku': 'FAN-USHA-400MM-BK'
+'price': 1999
+'inventory': 50
+'images': 'https://i.pinimg.com/736x/b9/c8/d9/b9c8d9451e88a6685d40a32004833c72.jpg'",ABS Body with Aluminium Blades,"ISI Certified'
+'BEE Star Rated'",2 Years,India,1899,2199,1450,INR,18,"type': 'festival'
+'value': 10
+'minQuantity': 1
+'validFrom': '2024-08-01T00:00:00Z'
+'validTo': '2024-08-31T23:59:59Z'
+'isActive': True",210,210,0,12,"minQuantity': 3
+'maxQuantity': 9
+'discountPercentage': 5
+
+'minQuantity': 10
+'maxQuantity': 24
+'discountPercentage': 8
+
+'minQuantity': 25
+'maxQuantity': 100
+'discountPercentage': 12",TRUE,TRUE,"table fan'
+'usha'
+'portable fan'
+'400mm fan'",Usha Table Fan 400mm | High Speed | Portable Fan,"Usha high-speed table fan with 400mm sweep. Portable design, silent motor, 3-speed control, perfect for home & office use.","usha table fan'
+'portable fan'
+'400mm fan'
+'high speed fan'",TRUE,TRUE,TRUE,3,Festival Offer – 10% Off,
