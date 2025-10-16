@@ -228,42 +228,47 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
                   target.src = 'https://www.hafele.co.uk/INTERSHOP/static/WFS/Haefele-HUK-Site/-/Haefele-HUK/en_GB/opentext/assets/huk/special-offers-header.jpg';
                 }}
               />
-              {/* Overlay */}
-              <div className="absolute inset-0 bg-black/50"></div>
+              {/* Overlay for better text contrast */}
+              <div className="absolute inset-0 bg-black/60"></div>
 
               {/* Gradient Overlay */}
-              <div className={`absolute inset-0 bg-gradient-to-r ${slide.accent} opacity-20`}></div>
+              <div className={`absolute inset-0 bg-gradient-to-r ${slide.accent} opacity-30`}></div>
+              
+              {/* Additional overlay for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20"></div>
 
               {/* Content */}
               <div className="relative h-full flex items-center">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                   <div className="max-w-3xl pr-4 sm:pr-8">
+                    {/* Text content with enhanced background for better contrast */}
+                    <div className="bg-black/30 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/10">
+                      <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-extrabold leading-tight text-white mb-3 md:mb-4 animate-fade-in drop-shadow-2xl">
+                        {slide.title}
+                      </h1>
 
-                    <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-extrabold leading-tight text-white mb-3 md:mb-4 animate-fade-in">
-                      {slide.title}
-                    </h1>
+                      <p className="text-base sm:text-lg md:text-xl text-white mb-2 md:mb-3 font-medium drop-shadow-lg">
+                        {slide.subtitle}
+                      </p>
 
-                    <p className="text-base sm:text-lg md:text-xl text-blue-100 mb-2 md:mb-3 font-medium">
-                      {slide.subtitle}
-                    </p>
+                      <p className="text-sm sm:text-base text-gray-100 mb-4 md:mb-6 max-w-2xl leading-relaxed drop-shadow-md">
+                        {slide.description}
+                      </p>
 
-                    <p className="text-sm sm:text-base text-gray-200 mb-4 md:mb-6 max-w-2xl leading-relaxed">
-                      {slide.description}
-                    </p>
-
-                    <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 md:gap-4 mb-3 sm:mb-4 md:mb-6">
-                      <button
-                        onClick={() => handleHeroCta1(slide)}
-                        className={`px-4 md:px-6 py-2.5 md:py-3 bg-gradient-to-r ${slide.accent} text-white rounded-full font-bold text-sm md:text-base hover:shadow-2xl hover:scale-105 transition-all duration-300`}
-                      >
-                        {slide.cta1}
-                      </button>
-                      <button
-                        onClick={() => handleHeroCta2(slide)}
-                        className="px-4 md:px-6 py-2.5 md:py-3 bg-white/20 backdrop-blur-sm text-white rounded-full font-semibold text-sm md:text-base hover:bg-white/30 transition-all duration-300 border border-white/30"
-                      >
-                        {slide.cta2}
-                      </button>
+                      <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 md:gap-4 mb-3 sm:mb-4 md:mb-6">
+                        <button
+                          onClick={() => handleHeroCta1(slide)}
+                          className={`px-4 md:px-6 py-2.5 md:py-3 bg-gradient-to-r ${slide.accent} text-white rounded-full font-bold text-sm md:text-base hover:shadow-2xl hover:scale-105 transition-all duration-300 drop-shadow-lg`}
+                        >
+                          {slide.cta1}
+                        </button>
+                        <button
+                          onClick={() => handleHeroCta2(slide)}
+                          className="px-4 md:px-6 py-2.5 md:py-3 bg-white/30 backdrop-blur-sm text-white rounded-full font-semibold text-sm md:text-base hover:bg-white/40 transition-all duration-300 border border-white/40 drop-shadow-lg"
+                        >
+                          {slide.cta2}
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -275,36 +280,36 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
         {/* Navigation Arrows */}
         <button
           onClick={prevSlide}
-          className="absolute left-2 md:left-0 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-1.5 md:p-2 rounded-r-full transition-all duration-300 hover:scale-110 z-10"
+          className="absolute left-2 md:left-0 top-1/2 transform -translate-y-1/2 bg-black/40 backdrop-blur-sm hover:bg-black/60 text-white p-1.5 md:p-2 rounded-r-full transition-all duration-300 hover:scale-110 z-10 border border-white/20 drop-shadow-lg"
         >
-          <ChevronLeft className="w-3 h-3 md:w-4 md:h-4" />
+          <ChevronLeft className="w-3 h-3 md:w-4 md:h-4 drop-shadow-sm" />
         </button>
 
         <button
           onClick={nextSlide}
-          className="absolute right-2 md:right-0 top-1/2 transform -translate-y-1/2 bg-white/20 backdrop-blur-sm hover:bg-white/30 text-white p-1.5 md:p-2 rounded-l-full transition-all duration-300 hover:scale-110 z-10"
+          className="absolute right-2 md:right-0 top-1/2 transform -translate-y-1/2 bg-black/40 backdrop-blur-sm hover:bg-black/60 text-white p-1.5 md:p-2 rounded-l-full transition-all duration-300 hover:scale-110 z-10 border border-white/20 drop-shadow-lg"
         >
-          <ChevronRight className="w-3 h-3 md:w-4 md:h-4" />
+          <ChevronRight className="w-3 h-3 md:w-4 md:h-4 drop-shadow-sm" />
         </button>
 
         {/* Slide Indicators */}
-        <div className="absolute bottom-4 md:bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2 md:space-x-3 z-10">
+        <div className="absolute bottom-4 md:bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2 md:space-x-3 z-10 bg-black/30 backdrop-blur-sm rounded-full px-3 py-2">
           {finalSlides.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 ${index === currentSlide
-                  ? 'bg-white scale-125'
-                  : 'bg-white/50 hover:bg-white/70'
+              className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 drop-shadow-sm ${index === currentSlide
+                  ? 'bg-white scale-125 shadow-lg'
+                  : 'bg-white/60 hover:bg-white/80 border border-white/20'
                 }`}
             />
           ))}
         </div>
 
         {/* Progress Bar */}
-        <div className="absolute bottom-0 left-0 w-full h-1 bg-white/20 z-10">
+        <div className="absolute bottom-0 left-0 w-full h-1 bg-black/30 z-10 border-t border-white/10">
           <div
-            className="h-full bg-gradient-to-r from-blue-400 to-purple-400 transition-all duration-4000 ease-linear"
+            className="h-full bg-gradient-to-r from-white via-blue-200 to-white transition-all duration-4000 ease-linear drop-shadow-sm"
             style={{
               width: `${finalSlides.length ? (((currentSlide + 1) / finalSlides.length) * 100) : 0}%`
             }}
