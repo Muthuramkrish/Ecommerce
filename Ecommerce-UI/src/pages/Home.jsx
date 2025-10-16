@@ -98,17 +98,17 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
     };
   }).filter(Boolean);
 
-  // Ensure we always have at least one slide
+  // Ensure we always have at least one slide with professional content
   const finalSlides = slides.length > 0 ? slides : [{
     id: 1,
     product: null,
-    title: 'Top Electrical Deals',
-    subtitle: 'Shop Now',
-    description: 'Discover premium electrical products with great offers and reliable performance.',
+    title: 'Professional Electrical Solutions',
+    subtitle: 'Premium Quality • Certified Products • Trusted Performance',
+    description: 'Discover VIKOSHIYA\'s comprehensive range of professional-grade electrical products. From LED lighting to industrial switches, we provide certified solutions that meet the highest safety and performance standards.',
     image: 'https://www.hafele.co.uk/INTERSHOP/static/WFS/Haefele-HUK-Site/-/Haefele-HUK/en_GB/opentext/assets/huk/special-offers-header.jpg',
-    cta1: 'Browse Categories',
-    cta2: 'View Details',
-    accent: 'from-blue-600 to-purple-600',
+    cta1: 'Explore Products',
+    cta2: 'Learn More',
+    accent: 'from-blue-600 to-indigo-600',
     category: 'Electrical'
   }];
 
@@ -209,7 +209,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-[58vh] sm:h-[64vh] md:h-[85vh] overflow-hidden">
+      <section className="relative h-[60vh] sm:h-[70vh] md:h-[90vh] overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
         {/* Slides */}
         <div className="relative w-full h-full">
           {finalSlides.map((slide, index) => (
@@ -228,43 +228,52 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
                   target.src = 'https://www.hafele.co.uk/INTERSHOP/static/WFS/Haefele-HUK-Site/-/Haefele-HUK/en_GB/opentext/assets/huk/special-offers-header.jpg';
                 }}
               />
-              {/* Overlay for better text contrast */}
-              <div className="absolute inset-0 bg-black/60"></div>
+              {/* Professional overlay for better text contrast */}
+              <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/30"></div>
 
-              {/* Gradient Overlay */}
-              <div className={`absolute inset-0 bg-gradient-to-r ${slide.accent} opacity-30`}></div>
+              {/* Brand accent overlay */}
+              <div className={`absolute inset-0 bg-gradient-to-r ${slide.accent} opacity-20`}></div>
               
-              {/* Additional overlay for text readability */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20"></div>
+              {/* Professional gradient for depth */}
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-blue-900/30"></div>
 
               {/* Content */}
               <div className="relative h-full flex items-center">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                  <div className="max-w-3xl pr-4 sm:pr-8">
-                    {/* Text content with enhanced background for better contrast */}
-                    <div className="bg-black/30 backdrop-blur-sm rounded-2xl p-6 md:p-8 border border-white/10">
-                      <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-6xl font-extrabold leading-tight text-white mb-3 md:mb-4 animate-fade-in drop-shadow-2xl">
-                        {slide.title}
-                      </h1>
+                  <div className="max-w-4xl pr-4 sm:pr-8">
+                    {/* Professional text content container */}
+                    <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl">
+                      <div className="space-y-6">
+                        <div className="inline-block px-4 py-2 bg-yellow-400/20 rounded-full border border-yellow-400/30">
+                          <span className="text-yellow-300 text-sm font-semibold tracking-wide uppercase">Premium Quality</span>
+                        </div>
+                        
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight text-white mb-4 tracking-tight">
+                          {slide.title}
+                        </h1>
 
-                      <p className="text-base sm:text-lg md:text-xl text-white mb-2 md:mb-3 font-medium drop-shadow-lg">
-                        {slide.subtitle}
-                      </p>
+                        <p className="text-lg sm:text-xl md:text-2xl text-blue-100 mb-3 font-medium leading-relaxed">
+                          {slide.subtitle}
+                        </p>
 
-                      <p className="text-sm sm:text-base text-gray-100 mb-4 md:mb-6 max-w-2xl leading-relaxed drop-shadow-md">
-                        {slide.description}
-                      </p>
+                        <p className="text-base sm:text-lg text-gray-200 mb-6 max-w-3xl leading-relaxed font-light">
+                          {slide.description}
+                        </p>
+                      </div>
 
-                      <div className="flex flex-col sm:flex-row gap-2.5 sm:gap-3 md:gap-4 mb-3 sm:mb-4 md:mb-6">
+                      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 pt-4">
                         <button
                           onClick={() => handleHeroCta1(slide)}
-                          className={`px-4 md:px-6 py-2.5 md:py-3 bg-gradient-to-r ${slide.accent} text-white rounded-full font-bold text-sm md:text-base hover:shadow-2xl hover:scale-105 transition-all duration-300 drop-shadow-lg`}
+                          className="group px-8 py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 rounded-xl font-bold text-base md:text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
                         >
-                          {slide.cta1}
+                          <span>{slide.cta1}</span>
+                          <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                          </svg>
                         </button>
                         <button
                           onClick={() => handleHeroCta2(slide)}
-                          className="px-4 md:px-6 py-2.5 md:py-3 bg-white/30 backdrop-blur-sm text-white rounded-full font-semibold text-sm md:text-base hover:bg-white/40 transition-all duration-300 border border-white/40 drop-shadow-lg"
+                          className="px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-xl font-semibold text-base md:text-lg hover:bg-white/20 transition-all duration-300 border border-white/30 hover:border-white/50"
                         >
                           {slide.cta2}
                         </button>
@@ -277,61 +286,121 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
           ))}
         </div>
 
-        {/* Navigation Arrows */}
+        {/* Professional Navigation Arrows */}
         <button
           onClick={prevSlide}
-          className="absolute left-2 md:left-0 top-1/2 transform -translate-y-1/2 bg-black/40 backdrop-blur-sm hover:bg-black/60 text-white p-1.5 md:p-2 rounded-r-full transition-all duration-300 hover:scale-110 z-10 border border-white/20 drop-shadow-lg"
+          className="absolute left-4 md:left-6 top-1/2 transform -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white p-3 md:p-4 rounded-full transition-all duration-300 hover:scale-110 z-10 border border-white/30 shadow-xl group"
         >
-          <ChevronLeft className="w-3 h-3 md:w-4 md:h-4 drop-shadow-sm" />
+          <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 group-hover:-translate-x-0.5 transition-transform" />
         </button>
 
         <button
           onClick={nextSlide}
-          className="absolute right-2 md:right-0 top-1/2 transform -translate-y-1/2 bg-black/40 backdrop-blur-sm hover:bg-black/60 text-white p-1.5 md:p-2 rounded-l-full transition-all duration-300 hover:scale-110 z-10 border border-white/20 drop-shadow-lg"
+          className="absolute right-4 md:right-6 top-1/2 transform -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white p-3 md:p-4 rounded-full transition-all duration-300 hover:scale-110 z-10 border border-white/30 shadow-xl group"
         >
-          <ChevronRight className="w-3 h-3 md:w-4 md:h-4 drop-shadow-sm" />
+          <ChevronRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-0.5 transition-transform" />
         </button>
 
-        {/* Slide Indicators */}
-        <div className="absolute bottom-4 md:bottom-6 left-1/2 transform -translate-x-1/2 flex space-x-2 md:space-x-3 z-10 bg-black/30 backdrop-blur-sm rounded-full px-3 py-2">
+        {/* Professional Slide Indicators */}
+        <div className="absolute bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-10 bg-white/10 backdrop-blur-md rounded-full px-6 py-3 border border-white/20">
           {finalSlides.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-2 h-2 md:w-3 md:h-3 rounded-full transition-all duration-300 drop-shadow-sm ${index === currentSlide
-                  ? 'bg-white scale-125 shadow-lg'
-                  : 'bg-white/60 hover:bg-white/80 border border-white/20'
+              className={`w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 ${index === currentSlide
+                  ? 'bg-yellow-400 scale-125 shadow-lg'
+                  : 'bg-white/50 hover:bg-white/80 hover:scale-110'
                 }`}
             />
           ))}
         </div>
 
-        {/* Progress Bar */}
-        <div className="absolute bottom-0 left-0 w-full h-1 bg-black/30 z-10 border-t border-white/10">
+        {/* Professional Progress Bar */}
+        <div className="absolute bottom-0 left-0 w-full h-1 bg-white/10 z-10">
           <div
-            className="h-full bg-gradient-to-r from-white via-blue-200 to-white transition-all duration-4000 ease-linear drop-shadow-sm"
+            className="h-full bg-gradient-to-r from-yellow-400 via-orange-400 to-yellow-400 transition-all duration-1000 ease-out shadow-lg"
             style={{
               width: `${finalSlides.length ? (((currentSlide + 1) / finalSlides.length) * 100) : 0}%`
             }}
           />
         </div>
 
-        {/* Floating Elements */}
-        <div className="absolute top-8 md:top-16 right-8 md:right-16 animate-bounce opacity-20">
-          <Zap className="w-8 h-8 md:w-12 md:h-12 text-yellow-300" />
+        {/* Professional Floating Elements */}
+        <div className="absolute top-12 md:top-20 right-12 md:right-20 animate-bounce opacity-30">
+          <div className="relative">
+            <Zap className="w-10 h-10 md:w-16 md:h-16 text-yellow-400 filter drop-shadow-lg" />
+            <div className="absolute inset-0 animate-ping">
+              <Zap className="w-10 h-10 md:w-16 md:h-16 text-yellow-400 opacity-20" />
+            </div>
+          </div>
         </div>
-        <div className="absolute bottom-16 md:bottom-24 left-8 md:left-16 animate-pulse opacity-10">
-          <div className="w-16 h-16 md:w-24 md:h-24 rounded-full bg-gradient-to-r from-blue-400 to-purple-400" />
+        <div className="absolute bottom-20 md:bottom-32 left-12 md:left-20 animate-pulse opacity-20">
+          <div className="w-20 h-20 md:w-32 md:h-32 rounded-full bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 blur-xl" />
+        </div>
+        <div className="absolute top-1/3 right-1/4 animate-bounce opacity-10">
+          <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white/30" />
+        </div>
+      </section>
+
+      {/* Trust Indicators Section */}
+      <section className="py-12 md:py-16 bg-white border-y border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+            <div className="text-center group">
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <svg className="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Premium Quality</h3>
+              <p className="text-sm md:text-base text-gray-600">Certified electrical products with international standards</p>
+            </div>
+            
+            <div className="text-center group">
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <svg className="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Fast Delivery</h3>
+              <p className="text-sm md:text-base text-gray-600">Quick and secure shipping across India</p>
+            </div>
+            
+            <div className="text-center group">
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <svg className="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                </svg>
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Secure Payment</h3>
+              <p className="text-sm md:text-base text-gray-600">Safe and encrypted payment processing</p>
+            </div>
+            
+            <div className="text-center group">
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                <svg className="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 11-9.75 9.75A9.75 9.75 0 0112 2.25z" />
+                </svg>
+              </div>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">24/7 Support</h3>
+              <p className="text-sm md:text-base text-gray-600">Round-the-clock customer assistance</p>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* Categories Section */}
-      <section className="py-8 md:py-16 bg-white" id="categories">
+      <section className="py-16 md:py-24 bg-gradient-to-br from-gray-50 via-white to-blue-50" id="categories">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 md:mb-12">
-            <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4">Shop by Category</h2>
-            <p className="text-sm md:text-base text-gray-600 max-w-2xl mx-auto px-4">
-              Explore our comprehensive range of electrical products organized by category
+          <div className="text-center mb-12 md:mb-16">
+            <div className="inline-block px-6 py-2 bg-blue-100 rounded-full mb-6">
+              <span className="text-blue-800 text-sm font-semibold tracking-wide uppercase">Product Categories</span>
+            </div>
+            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
+              Shop by <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Category</span>
+            </h2>
+            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+              Discover our comprehensive range of premium electrical products, carefully organized by category for your convenience
             </p>
           </div>
 
@@ -340,10 +409,10 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
             {canScrollLeft && (
               <button
                 onClick={scrollLeft}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-xl rounded-full p-2 md:p-3 hover:bg-gray-50 transition-all duration-200 border border-gray-200 hover:scale-110"
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-2xl rounded-full p-3 md:p-4 hover:bg-blue-50 transition-all duration-300 border border-blue-100 hover:scale-110 group"
                 aria-label="Scroll left"
               >
-                <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 text-gray-700" />
+                <ChevronLeft className="w-6 h-6 md:w-7 md:h-7 text-blue-600 group-hover:-translate-x-0.5 transition-transform" />
               </button>
             )}
 
@@ -351,10 +420,10 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
             {canScrollRight && (
               <button
                 onClick={scrollRight}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-xl rounded-full p-2 md:p-3 hover:bg-gray-50 transition-all duration-200 border border-gray-200 hover:scale-110"
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-2xl rounded-full p-3 md:p-4 hover:bg-blue-50 transition-all duration-300 border border-blue-100 hover:scale-110 group"
                 aria-label="Scroll right"
               >
-                <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-gray-700" />
+                <ChevronRight className="w-6 h-6 md:w-7 md:h-7 text-blue-600 group-hover:translate-x-0.5 transition-transform" />
               </button>
             )}
 
@@ -377,23 +446,31 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
                       e.preventDefault();
                       handleCategorySelect(category.name);
                     }}
-                    className="group block flex-shrink-0 overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-lg transition-all duration-300 hover:-translate-y-3 hover:shadow-2xl w-[280px] h-fit"
+                    className="group block flex-shrink-0 overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl hover:border-blue-200 w-[300px] h-fit"
                   >
-                    <div className="relative h-32 overflow-hidden">
+                    <div className="relative h-40 overflow-hidden">
                       <img
                         src={category.image}
                         alt={category.name}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-blue-900/40 to-transparent"></div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/50 to-transparent"></div>
+                      <div className="absolute top-4 right-4">
+                        <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                          </svg>
+                        </div>
+                      </div>
                     </div>
-                    <div className="p-6 text-center">
-                      <h3 className="font-bold text-gray-900 mb-2 text-lg leading-tight group-hover:text-blue-900 transition-colors">
+                    <div className="p-8 text-center">
+                      <h3 className="font-bold text-gray-900 mb-3 text-xl leading-tight group-hover:text-blue-700 transition-colors">
                         {category.name}
                       </h3>
-                      <p className="text-sm text-gray-500 font-medium">
+                      <p className="text-base text-gray-600 font-medium mb-2">
                         {category.productCount} products
                       </p>
+                      <div className="w-12 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
                   </a>
                 ))}
@@ -447,11 +524,19 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
 
       {/* Product Grid Section */}
       {products && products.length > 0 && (
-        <section id="products" className="py-8 md:py-16 bg-gray-50">
+        <section id="products" className="py-16 md:py-24 bg-gradient-to-br from-white via-gray-50 to-blue-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-8 md:mb-12">
-              <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3 md:mb-4">Featured Products</h2>
-              <div className="w-16 md:w-24 h-1 bg-yellow-400 mx-auto"></div>
+            <div className="text-center mb-12 md:mb-16">
+              <div className="inline-block px-6 py-2 bg-yellow-100 rounded-full mb-6">
+                <span className="text-yellow-800 text-sm font-semibold tracking-wide uppercase">Best Sellers</span>
+              </div>
+              <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
+                Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-orange-500">Products</span>
+              </h2>
+              <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
+                Handpicked premium electrical products with exceptional quality and unbeatable prices
+              </p>
+              <div className="w-24 md:w-32 h-1 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 mx-auto rounded-full"></div>
             </div>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
@@ -476,6 +561,88 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
           </div>
         </section>
       )}
+
+      {/* Professional Statistics Section */}
+      <section className="py-16 md:py-20 bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-30">
+          <div className="w-full h-full" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundSize: '60px 60px'
+          }}></div>
+        </div>
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
+              Trusted by Thousands of Customers
+            </h2>
+            <p className="text-xl text-blue-100 max-w-2xl mx-auto">
+              Join our growing community of satisfied customers across India
+            </p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-bold text-yellow-400 mb-2">50K+</div>
+              <div className="text-blue-100 text-lg font-medium">Happy Customers</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-bold text-yellow-400 mb-2">10K+</div>
+              <div className="text-blue-100 text-lg font-medium">Products Sold</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-bold text-yellow-400 mb-2">500+</div>
+              <div className="text-blue-100 text-lg font-medium">Product Range</div>
+            </div>
+            <div className="text-center">
+              <div className="text-4xl md:text-5xl font-bold text-yellow-400 mb-2">99%</div>
+              <div className="text-blue-100 text-lg font-medium">Satisfaction Rate</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Professional CTA Section */}
+      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-gray-100">
+            <div className="inline-block p-3 bg-blue-100 rounded-full mb-6">
+              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+              Ready to Power Your Projects?
+            </h2>
+            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
+              Discover our complete range of professional-grade electrical products. 
+              From residential to industrial applications, we have everything you need.
+            </p>
+            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+              <button
+                onClick={() => {
+                  const el = document.getElementById('categories');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-bold text-lg hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+              >
+                <span>Browse Categories</span>
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
+                </svg>
+              </button>
+              <button
+                onClick={() => {
+                  const el = document.getElementById('products');
+                  if (el) el.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className="px-8 py-4 bg-white text-blue-600 rounded-xl font-bold text-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border-2 border-blue-600 hover:bg-blue-50"
+              >
+                View Featured Products
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
