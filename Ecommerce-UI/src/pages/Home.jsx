@@ -1,6 +1,8 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { ChevronLeft, ChevronRight, Zap } from 'lucide-react';
+import React, { useRef, useState, useEffect, useMemo, useCallback } from 'react';
+import { ChevronLeft, ChevronRight, Zap, Star, Shield, Truck, Headphones } from 'lucide-react';
 import ProductCard from '../components/ProductCard';
+import { useScrollAnimation, useStaggeredAnimation } from '../hooks/useScrollAnimation';
+import { useReducedMotion, getAnimationClasses } from '../hooks/useReducedMotion';
 
 const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, onCategorySelect, onOpenDetails, favorites = [], categories = [] }) => {
   // Hero component state
@@ -14,15 +16,23 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
   // Product modal state
   const [selectedProduct, setSelectedProduct] = useState(null);
 
+  // Scroll animations
+  const [trustSectionRef, isTrustVisible] = useScrollAnimation();
+  const [categoriesSectionRef, isCategoriesVisible] = useScrollAnimation();
+  const [productsSectionRef, isProductsVisible] = useScrollAnimation();
+  const [statsSectionRef, isStatsVisible] = useScrollAnimation();
+  const [ctaSectionRef, isCtaVisible] = useScrollAnimation();
+  
+  // Reduced motion support
+  const prefersReducedMotion = useReducedMotion();
+
   const defaultCategories = categories && categories.length ? categories : [];
 
-  // Get featured products for hero slides
-  const getFeaturedProducts = () => {
+  // Get featured products for hero slides (memoized for performance)
+  const featuredProducts = useMemo(() => {
     const featured = products.filter(p => p.raw?.marketing?.isFeatured);
     return featured.length >= 4 ? featured.slice(0, 4) : products.slice(0, 4);
-  };
-
-  const featuredProducts = getFeaturedProducts();
+  }, [products]);
 
   const normalizeImageUrl = (url) => {
     if (typeof url !== 'string') return null;
@@ -182,27 +192,25 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
     }
   };
 
-  // Handle category selection - use the prop if available, otherwise log
-  const handleCategorySelect = (categoryName) => {
+  // Handle category selection - use the prop if available, otherwise log (memoized)
+  const handleCategorySelect = useCallback((categoryName) => {
     if (onCategorySelect) {
       onCategorySelect(categoryName);
-    } else {
-
     }
-  };
+  }, [onCategorySelect]);
 
-  // Handle hero button clicks
-  const handleHeroCta1 = (slide) => {
+  // Handle hero button clicks (memoized)
+  const handleHeroCta1 = useCallback((slide) => {
     if (slide.category) {
       handleCategorySelect(slide.category);
     }
-  };
+  }, [handleCategorySelect]);
 
-  const handleHeroCta2 = (slide) => {
+  const handleHeroCta2 = useCallback((slide) => {
     if (slide.product && onOpenDetails) {
       onOpenDetails(slide.product);
     }
-  };
+  }, [onOpenDetails]);
 
 
 
@@ -210,72 +218,100 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
     <div>
       {/* Hero Section */}
       <section className="relative h-[60vh] sm:h-[70vh] md:h-[90vh] overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
+        {/* Animated Background Elements */}
+        <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
+          <div className="absolute bottom-1/4 right-1/4 w-80 h-80 bg-purple-500/10 rounded-full blur-3xl animate-pulse delay-1000"></div>
+          <div className="absolute top-1/2 right-1/3 w-64 h-64 bg-yellow-500/10 rounded-full blur-3xl animate-pulse delay-2000"></div>
+        </div>
+
         {/* Slides */}
         <div className="relative w-full h-full">
           {finalSlides.map((slide, index) => (
             <div
               key={slide.id}
-              className={`absolute inset-0 transition-all duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-full'
+              className={`absolute inset-0 transition-all duration-1000 ease-in-out ${index === currentSlide ? 'opacity-100 translate-x-0 scale-100' : 'opacity-0 translate-x-full scale-105'
                 }`}
             >
-              {/* Background Image */}
-              <img
-                src={slide.image}
-                alt={slide.title || 'Offer'}
-                className="absolute inset-0 w-full h-full object-cover"
-                onError={(e) => {
-                  const target = e.target;
-                  target.src = 'https://www.hafele.co.uk/INTERSHOP/static/WFS/Haefele-HUK-Site/-/Haefele-HUK/en_GB/opentext/assets/huk/special-offers-header.jpg';
-                }}
-              />
-              {/* Professional overlay for better text contrast */}
-              <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/30"></div>
+              {/* Background Image with Parallax Effect */}
+              <div className="absolute inset-0 overflow-hidden">
+                <img
+                  src={slide.image}
+                  alt={slide.title || 'Offer'}
+                  className="absolute inset-0 w-full h-full object-cover transform scale-110 group-hover:scale-100 transition-transform duration-1000"
+                  onError={(e) => {
+                    const target = e.target;
+                    target.src = 'https://www.hafele.co.uk/INTERSHOP/static/WFS/Haefele-HUK-Site/-/Haefele-HUK/en_GB/opentext/assets/huk/special-offers-header.jpg';
+                  }}
+                />
+                {/* Animated overlay gradients */}
+                <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-black/50 to-black/30"></div>
+                <div className={`absolute inset-0 bg-gradient-to-r ${slide.accent} opacity-20 animate-pulse`}></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-blue-900/30"></div>
+                
+                {/* Floating particles effect */}
+                <div className="absolute inset-0">
+                  {[...Array(20)].map((_, i) => (
+                    <div
+                      key={i}
+                      className="absolute w-1 h-1 bg-white/30 rounded-full animate-ping"
+                      style={{
+                        left: `${Math.random() * 100}%`,
+                        top: `${Math.random() * 100}%`,
+                        animationDelay: `${Math.random() * 3}s`,
+                        animationDuration: `${2 + Math.random() * 2}s`
+                      }}
+                    />
+                  ))}
+                </div>
+              </div>
 
-              {/* Brand accent overlay */}
-              <div className={`absolute inset-0 bg-gradient-to-r ${slide.accent} opacity-20`}></div>
-              
-              {/* Professional gradient for depth */}
-              <div className="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-blue-900/30"></div>
-
-              {/* Content */}
+              {/* Content with Staggered Animations */}
               <div className="relative h-full flex items-center">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
                   <div className="max-w-4xl pr-4 sm:pr-8">
-                    {/* Professional text content container */}
-                    <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl">
+                    {/* Professional text content container with enhanced animations */}
+                    <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl transform transition-all duration-1000 hover:scale-105 hover:shadow-3xl">
                       <div className="space-y-6">
-                        <div className="inline-block px-4 py-2 bg-yellow-400/20 rounded-full border border-yellow-400/30">
-                          <span className="text-yellow-300 text-sm font-semibold tracking-wide uppercase">Premium Quality</span>
+                        <div className="inline-block px-4 py-2 bg-yellow-400/20 rounded-full border border-yellow-400/30 animate-bounce">
+                          <span className="text-yellow-300 text-sm font-semibold tracking-wide uppercase flex items-center space-x-2">
+                            <Star className="w-4 h-4" />
+                            <span>Premium Quality</span>
+                          </span>
                         </div>
                         
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight text-white mb-4 tracking-tight">
-                          {slide.title}
+                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight text-white mb-4 tracking-tight animate-fade-in-up">
+                          <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent animate-pulse">
+                            {slide.title}
+                          </span>
                         </h1>
 
-                        <p className="text-lg sm:text-xl md:text-2xl text-blue-100 mb-3 font-medium leading-relaxed">
+                        <p className="text-lg sm:text-xl md:text-2xl text-blue-100 mb-3 font-medium leading-relaxed animate-fade-in-up delay-200">
                           {slide.subtitle}
                         </p>
 
-                        <p className="text-base sm:text-lg text-gray-200 mb-6 max-w-3xl leading-relaxed font-light">
+                        <p className="text-base sm:text-lg text-gray-200 mb-6 max-w-3xl leading-relaxed font-light animate-fade-in-up delay-300">
                           {slide.description}
                         </p>
                       </div>
 
-                      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 pt-4">
+                      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 pt-4 animate-fade-in-up delay-500">
                         <button
                           onClick={() => handleHeroCta1(slide)}
-                          className="group px-8 py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 rounded-xl font-bold text-base md:text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
+                          className="group px-8 py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 rounded-xl font-bold text-base md:text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 relative overflow-hidden"
                         >
-                          <span>{slide.cta1}</span>
-                          <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-orange-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          <span className="relative z-10">{slide.cta1}</span>
+                          <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                           </svg>
                         </button>
                         <button
                           onClick={() => handleHeroCta2(slide)}
-                          className="px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-xl font-semibold text-base md:text-lg hover:bg-white/20 transition-all duration-300 border border-white/30 hover:border-white/50"
+                          className="px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-xl font-semibold text-base md:text-lg hover:bg-white/20 transition-all duration-300 border border-white/30 hover:border-white/50 group relative overflow-hidden"
                         >
-                          {slide.cta2}
+                          <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                          <span className="relative z-10">{slide.cta2}</span>
                         </button>
                       </div>
                     </div>
@@ -325,72 +361,85 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
           />
         </div>
 
-        {/* Professional Floating Elements */}
-        <div className="absolute top-12 md:top-20 right-12 md:right-20 animate-bounce opacity-30">
+        {/* Professional Floating Elements with reduced motion support */}
+        <div className={`absolute top-12 md:top-20 right-12 md:right-20 opacity-30 ${getAnimationClasses('animate-bounce', '', prefersReducedMotion)}`}>
           <div className="relative">
             <Zap className="w-10 h-10 md:w-16 md:h-16 text-yellow-400 filter drop-shadow-lg" />
-            <div className="absolute inset-0 animate-ping">
+            <div className={`absolute inset-0 ${getAnimationClasses('animate-ping', '', prefersReducedMotion)}`}>
               <Zap className="w-10 h-10 md:w-16 md:h-16 text-yellow-400 opacity-20" />
             </div>
           </div>
         </div>
-        <div className="absolute bottom-20 md:bottom-32 left-12 md:left-20 animate-pulse opacity-20">
+        <div className={`absolute bottom-20 md:bottom-32 left-12 md:left-20 opacity-20 ${getAnimationClasses('animate-pulse', '', prefersReducedMotion)}`}>
           <div className="w-20 h-20 md:w-32 md:h-32 rounded-full bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 blur-xl" />
         </div>
-        <div className="absolute top-1/3 right-1/4 animate-bounce opacity-10">
+        <div className={`absolute top-1/3 right-1/4 opacity-10 ${getAnimationClasses('animate-bounce', '', prefersReducedMotion)}`}>
           <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white/30" />
         </div>
       </section>
 
       {/* Trust Indicators Section */}
-      <section className="py-12 md:py-16 bg-white border-y border-gray-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section 
+        ref={trustSectionRef}
+        className={`py-12 md:py-16 bg-gradient-to-r from-white via-gray-50 to-white border-y border-gray-100 relative overflow-hidden transition-all duration-1000 ${
+          isTrustVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
+        {/* Background Pattern */}
+        <div className="absolute inset-0 opacity-5">
+          <div className="w-full h-full" style={{
+            backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.1'%3E%3Cpath d='M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z'/%3E%3C/g%3E%3C/svg%3E")`,
+            backgroundSize: '40px 40px'
+          }}></div>
+        </div>
+        
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
-            <div className="text-center group">
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                <svg className="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                </svg>
+            <div className="text-center group animate-fade-in-up">
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
+                <Shield className="w-8 h-8 md:w-10 md:h-10 text-white group-hover:animate-bounce" />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Premium Quality</h3>
-              <p className="text-sm md:text-base text-gray-600">Certified electrical products with international standards</p>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">Premium Quality</h3>
+              <p className="text-sm md:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Certified electrical products with international standards</p>
             </div>
             
-            <div className="text-center group">
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                <svg className="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+            <div className="text-center group animate-fade-in-up delay-200">
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
+                <Truck className="w-8 h-8 md:w-10 md:h-10 text-white group-hover:animate-bounce" />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Fast Delivery</h3>
-              <p className="text-sm md:text-base text-gray-600">Quick and secure shipping across India</p>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors duration-300">Fast Delivery</h3>
+              <p className="text-sm md:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Quick and secure shipping across India</p>
             </div>
             
-            <div className="text-center group">
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                <svg className="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="text-center group animate-fade-in-up delay-400">
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
+                <svg className="w-8 h-8 md:w-10 md:h-10 text-white group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">Secure Payment</h3>
-              <p className="text-sm md:text-base text-gray-600">Safe and encrypted payment processing</p>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors duration-300">Secure Payment</h3>
+              <p className="text-sm md:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Safe and encrypted payment processing</p>
             </div>
             
-            <div className="text-center group">
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg">
-                <svg className="w-8 h-8 md:w-10 md:h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M12 2.25a9.75 9.75 0 11-9.75 9.75A9.75 9.75 0 0112 2.25z" />
-                </svg>
+            <div className="text-center group animate-fade-in-up delay-600">
+              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
+                <Headphones className="w-8 h-8 md:w-10 md:h-10 text-white group-hover:animate-bounce" />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2">24/7 Support</h3>
-              <p className="text-sm md:text-base text-gray-600">Round-the-clock customer assistance</p>
+              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors duration-300">24/7 Support</h3>
+              <p className="text-sm md:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Round-the-clock customer assistance</p>
             </div>
           </div>
         </div>
       </section>
 
       {/* Categories Section */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-gray-50 via-white to-blue-50" id="categories">
+      <section 
+        ref={categoriesSectionRef}
+        className={`py-16 md:py-24 bg-gradient-to-br from-gray-50 via-white to-blue-50 transition-all duration-1000 ${
+          isCategoriesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`} 
+        id="categories"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12 md:mb-16">
             <div className="inline-block px-6 py-2 bg-blue-100 rounded-full mb-6">
@@ -438,7 +487,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
                   WebkitScrollbar: 'none',
                 }}
               >
-                {defaultCategories.map((category) => (
+                {defaultCategories.map((category, index) => (
                   <a
                     key={category.id}
                     href={`#category-${category.id}`}
@@ -446,7 +495,14 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
                       e.preventDefault();
                       handleCategorySelect(category.name);
                     }}
-                    className="group block flex-shrink-0 overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl transition-all duration-500 hover:-translate-y-4 hover:shadow-2xl hover:border-blue-200 w-[300px] h-fit"
+                    className={`group block flex-shrink-0 overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl transition-all duration-700 hover:-translate-y-4 hover:shadow-2xl hover:border-blue-200 w-[300px] h-fit transform ${
+                      isCategoriesVisible 
+                        ? 'opacity-100 translate-y-0 scale-100' 
+                        : 'opacity-0 translate-y-8 scale-95'
+                    }`}
+                    style={{
+                      transitionDelay: `${index * 150}ms`
+                    }}
                   >
                     <div className="relative h-40 overflow-hidden">
                       <img
@@ -488,7 +544,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
                   WebkitScrollbar: 'none',
                 }}
               >
-                {defaultCategories.map((category) => (
+                {defaultCategories.map((category, index) => (
                   <a
                     key={category.id}
                     href={`#category-${category.id}`}
@@ -496,7 +552,14 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
                       e.preventDefault();
                       handleCategorySelect(category.name);
                     }}
-                    className="group block flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-xl w-[200px] h-fit"
+                    className={`group block flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-xl w-[200px] h-fit transform ${
+                      isCategoriesVisible 
+                        ? 'opacity-100 translate-y-0 scale-100' 
+                        : 'opacity-0 translate-y-6 scale-95'
+                    }`}
+                    style={{
+                      transitionDelay: `${index * 100}ms`
+                    }}
                   >
                     <div className="relative h-24 overflow-hidden">
                       <img
@@ -524,7 +587,13 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
 
       {/* Product Grid Section */}
       {products && products.length > 0 && (
-        <section id="products" className="py-16 md:py-24 bg-gradient-to-br from-white via-gray-50 to-blue-50">
+        <section 
+          ref={productsSectionRef}
+          id="products" 
+          className={`py-16 md:py-24 bg-gradient-to-br from-white via-gray-50 to-blue-50 transition-all duration-1000 ${
+            isProductsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+          }`}
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12 md:mb-16">
               <div className="inline-block px-6 py-2 bg-yellow-100 rounded-full mb-6">
@@ -543,7 +612,14 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
               {products.map((product, index) => (
                 <div
                   key={`${product['product-id'] || product['product-title']}-${index}`}
-                  className="cursor-pointer"
+                  className={`cursor-pointer transform transition-all duration-700 ${
+                    isProductsVisible 
+                      ? 'opacity-100 translate-y-0 scale-100' 
+                      : 'opacity-0 translate-y-8 scale-95'
+                  }`}
+                  style={{
+                    transitionDelay: `${index * 100}ms`
+                  }}
                 >
                   <ProductCard
                     product={product}
@@ -563,7 +639,12 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
       )}
 
       {/* Professional Statistics Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 relative overflow-hidden">
+      <section 
+        ref={statsSectionRef}
+        className={`py-16 md:py-20 bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 relative overflow-hidden transition-all duration-1000 ${
+          isStatsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
         <div className="absolute inset-0 opacity-30">
           <div className="w-full h-full" style={{
             backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
@@ -602,7 +683,12 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
       </section>
 
       {/* Professional CTA Section */}
-      <section className="py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white">
+      <section 
+        ref={ctaSectionRef}
+        className={`py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white transition-all duration-1000 ${
+          isCtaVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+        }`}
+      >
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-gray-100">
             <div className="inline-block p-3 bg-blue-100 rounded-full mb-6">
