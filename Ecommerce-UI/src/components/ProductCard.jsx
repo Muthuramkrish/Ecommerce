@@ -124,10 +124,12 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
             e.stopPropagation();
             onAddToCart?.(product);
           }}
-          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-4 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 flex items-center justify-center space-x-2 font-semibold inline-block mt-auto group/btn relative overflow-hidden"
+          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-4 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 flex items-center justify-center space-x-2 font-semibold inline-block mt-auto group/btn relative overflow-hidden hover:scale-105 hover:shadow-xl"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
-          <ShoppingCart className="w-4 h-4 relative z-10 group-hover/btn:animate-bounce" />
+          <svg className="w-4 h-4 relative z-10 group-hover/btn:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01" />
+          </svg>
           <span className="relative z-10">Add to Cart</span>
           <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
         </a>
