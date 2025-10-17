@@ -558,19 +558,20 @@ const BulkOrderPage = ({ onBack }) => {
           <div className="flex items-center justify-between h-14 md:h-16">
             <button 
               onClick={backAction}
-              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors text-sm md:text-base"
+              className="flex items-center text-gray-600 hover:text-gray-900 transition-all duration-500 text-sm md:text-base hover:scale-110 group bg-white/50 backdrop-blur-sm rounded-xl px-4 py-2 hover:bg-white/80 hover:shadow-lg border border-gray-200/50 hover:border-gray-300"
             >
-              <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-              <span className="hidden sm:inline">Back</span>
+              <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 mr-2 group-hover:-translate-x-1 group-hover:scale-110 transition-all duration-300" />
+              <span className="hidden sm:inline font-medium">Back</span>
             </button>
             <h1 className="text-base md:text-lg font-semibold text-gray-900 text-center flex-1">{title}</h1>
             {currentView === 'list' && (
               <button
                 onClick={() => setCurrentView('create')}
-                className="flex items-center gap-2 bg-blue-600 text-white px-3 py-2 rounded-lg hover:bg-blue-700 transition-colors text-sm"
+                className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-500 text-sm font-bold hover:scale-110 hover:shadow-2xl group relative overflow-hidden"
               >
-                <Plus className="w-4 h-4" />
-                <span className="hidden sm:inline">New Order</span>
+                <Plus className="w-4 h-4 group-hover:animate-bounce" />
+                <span className="hidden sm:inline relative z-10">New Order</span>
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
               </button>
             )}
           </div>
@@ -955,10 +956,11 @@ const BulkOrderPage = ({ onBack }) => {
                   <button
                     type="button"
                     onClick={addItem}
-                    className="flex items-center px-4 py-2 bg-green-600 text-white rounded-lg hover:bg-green-700 transition-colors"
+                    className="flex items-center px-4 py-2 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-xl hover:from-green-700 hover:to-green-800 transition-all duration-500 font-bold hover:scale-110 hover:shadow-2xl group relative overflow-hidden"
                   >
-                    <Plus className="w-4 h-4 mr-2" />
-                    Add Item
+                    <Plus className="w-4 h-4 mr-2 group-hover:animate-bounce" />
+                    <span className="relative z-10">Add Item</span>
+                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
                   </button>
                 </div>
 
@@ -992,7 +994,7 @@ const BulkOrderPage = ({ onBack }) => {
                                   <div
                                     key={product.id}
                                     onClick={() => handleProductSelect(index, product)}
-                                    className="flex items-center p-3 hover:bg-blue-50 cursor-pointer border-b border-gray-100 last:border-b-0 transition-colors"
+                                    className="flex items-center p-4 hover:bg-blue-50 cursor-pointer border-b border-gray-100 last:border-b-0 transition-all duration-300 hover:scale-105 hover:shadow-md rounded-lg"
                                   >
                                     <img
                                       src={product.image}
@@ -1104,9 +1106,9 @@ const BulkOrderPage = ({ onBack }) => {
                               <button
                                 type="button"
                                 onClick={() => removeItem(index)}
-                                className="px-3 py-2 text-red-600 hover:text-red-800 transition-colors flex-shrink-0"
+                                className="px-3 py-2 text-red-600 hover:text-red-800 transition-all duration-300 flex-shrink-0 hover:scale-110 hover:bg-red-50 rounded-lg group/btn"
                               >
-                                <Trash2 className="w-5 h-5" />
+                                <Trash2 className="w-5 h-5 group-hover/btn:animate-bounce" />
                               </button>
                             )}
                           </div>
@@ -1140,9 +1142,19 @@ const BulkOrderPage = ({ onBack }) => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-6 rounded-lg font-semibold text-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-6 rounded-2xl font-bold text-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed hover:scale-105 hover:shadow-2xl group relative overflow-hidden"
                 >
-                  {isSubmitting ? 'Submitting...' : 'Submit Bulk Order Request'}
+                  {isSubmitting ? (
+                    <div className="flex items-center justify-center">
+                      <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
+                      <span className="relative z-10">Submitting...</span>
+                    </div>
+                  ) : (
+                    <>
+                      <span className="relative z-10">Submit Bulk Order Request</span>
+                      <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+                    </>
+                  )}
                 </button>
                 <p className="text-center text-sm text-gray-600 mt-3">
                   We'll review your request and contact you within 24 hours with pricing and delivery options.
@@ -1168,9 +1180,10 @@ const BulkOrderPage = ({ onBack }) => {
             <p className="text-gray-600 mb-4">{error}</p>
             <button
               onClick={() => window.location.reload()}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-500 font-bold hover:scale-110 hover:shadow-2xl group relative overflow-hidden"
             >
-              Try Again
+              <span className="relative z-10">Try Again</span>
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
             </button>
           </div>
         ) : bulkOrders.length === 0 ? (
@@ -1180,9 +1193,10 @@ const BulkOrderPage = ({ onBack }) => {
             <p className="text-gray-600 mb-6">You haven't submitted any bulk orders yet. Create your first bulk order request!</p>
             <button
               onClick={() => setCurrentView('create')}
-              className="bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition-colors font-medium"
+              className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-500 font-bold hover:scale-110 hover:shadow-2xl group relative overflow-hidden"
             >
-              Create First Bulk Order
+              <span className="relative z-10">Create First Bulk Order</span>
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
             </button>
           </div>
         ) : (
@@ -1224,10 +1238,11 @@ const BulkOrderPage = ({ onBack }) => {
                   </div>
                   <button
                     onClick={() => handleViewBulkOrder(bulkOrder.bulkOrderId)}
-                    className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                    className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-2 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-500 font-bold hover:scale-110 hover:shadow-2xl group relative overflow-hidden"
                   >
-                    <Eye className="w-4 h-4" />
-                    View Details
+                    <Eye className="w-4 h-4 group-hover:animate-bounce" />
+                    <span className="relative z-10">View Details</span>
+                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
                   </button>
                 </div>
 

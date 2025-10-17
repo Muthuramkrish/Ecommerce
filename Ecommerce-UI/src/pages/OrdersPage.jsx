@@ -72,19 +72,19 @@ const OrdersPage = ({ onBack }) => {
   const getStatusColor = (status) => {
     switch (status) {
       case 'pending':
-        return 'text-yellow-600 bg-yellow-50 border-yellow-200';
+        return 'text-yellow-700 bg-gradient-to-r from-yellow-50 to-amber-50 border-yellow-300 hover:shadow-lg';
       case 'confirmed':
-        return 'text-blue-600 bg-blue-50 border-blue-200';
+        return 'text-blue-700 bg-gradient-to-r from-blue-50 to-indigo-50 border-blue-300 hover:shadow-lg';
       case 'processing':
-        return 'text-purple-600 bg-purple-50 border-purple-200';
+        return 'text-purple-700 bg-gradient-to-r from-purple-50 to-violet-50 border-purple-300 hover:shadow-lg';
       case 'shipped':
-        return 'text-orange-600 bg-orange-50 border-orange-200';
+        return 'text-orange-700 bg-gradient-to-r from-orange-50 to-amber-50 border-orange-300 hover:shadow-lg';
       case 'delivered':
-        return 'text-green-600 bg-green-50 border-green-200';
+        return 'text-green-700 bg-gradient-to-r from-green-50 to-emerald-50 border-green-300 hover:shadow-lg';
       case 'cancelled':
-        return 'text-red-600 bg-red-50 border-red-200';
+        return 'text-red-700 bg-gradient-to-r from-red-50 to-rose-50 border-red-300 hover:shadow-lg';
       default:
-        return 'text-gray-600 bg-gray-50 border-gray-200';
+        return 'text-gray-700 bg-gradient-to-r from-gray-50 to-slate-50 border-gray-300 hover:shadow-lg';
     }
   };
 
@@ -107,10 +107,10 @@ const OrdersPage = ({ onBack }) => {
             <div className="flex items-center justify-between h-16">
               <button
                 onClick={() => setShowOrderDetails(false)}
-                className="flex items-center text-gray-600 hover:text-gray-900 transition-colors text-sm md:text-base"
+                className="flex items-center text-gray-600 hover:text-gray-900 transition-all duration-500 text-sm md:text-base hover:scale-110 group bg-white/50 backdrop-blur-sm rounded-xl px-4 py-2 hover:bg-white/80 hover:shadow-lg border border-gray-200/50 hover:border-gray-300"
               >
-                <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-                <span className="hidden sm:inline">Back to Orders</span>
+                <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 mr-2 group-hover:-translate-x-1 group-hover:scale-110 transition-all duration-300" />
+                <span className="hidden sm:inline font-medium">Back to Orders</span>
               </button>
               <h1 className="text-lg font-semibold text-gray-900 text-center flex-1">
                 Order Details
@@ -120,15 +120,17 @@ const OrdersPage = ({ onBack }) => {
         </div>
 
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <div className="bg-white rounded-xl shadow-lg p-6 mb-6">
+          <div className="bg-white rounded-2xl shadow-lg p-6 mb-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 group border border-gray-100/50">
             <div className="flex items-center justify-between mb-6">
               <div>
                 <h2 className="text-2xl font-bold text-gray-900">Order #{selectedOrder.orderId}</h2>
                 <p className="text-gray-600">Placed on {formatDate(selectedOrder.createdAt)}</p>
               </div>
-              <div className={`px-3 py-1 rounded-full border flex items-center gap-2 ${getStatusColor(selectedOrder.status)}`}>
-                {getStatusIcon(selectedOrder.status)}
-                <span className="font-medium capitalize">{selectedOrder.status}</span>
+              <div className={`px-4 py-2 rounded-2xl border flex items-center gap-2 ${getStatusColor(selectedOrder.status)} group-hover:scale-110 transition-all duration-300 shadow-lg`}>
+                <div className="group-hover:animate-bounce">
+                  {getStatusIcon(selectedOrder.status)}
+                </div>
+                <span className="font-bold capitalize">{selectedOrder.status}</span>
               </div>
             </div>
 
@@ -230,10 +232,10 @@ const OrdersPage = ({ onBack }) => {
           <div className="flex items-center justify-between h-16">
             <button
               onClick={onBack}
-              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors text-sm md:text-base"
+              className="flex items-center text-gray-600 hover:text-gray-900 transition-all duration-500 text-sm md:text-base hover:scale-110 group bg-white/50 backdrop-blur-sm rounded-xl px-4 py-2 hover:bg-white/80 hover:shadow-lg border border-gray-200/50 hover:border-gray-300"
             >
-              <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-              <span className="hidden sm:inline">Back</span>
+              <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 mr-2 group-hover:-translate-x-1 group-hover:scale-110 transition-all duration-300" />
+              <span className="hidden sm:inline font-medium">Back</span>
             </button>
             <h1 className="text-lg font-semibold text-gray-900 text-center flex-1">My Orders</h1>
           </div>
@@ -252,9 +254,10 @@ const OrdersPage = ({ onBack }) => {
             <p className="text-gray-600 mb-4">{error}</p>
             <button
               onClick={fetchOrders}
-              className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+              className="bg-gradient-to-r from-blue-600 to-blue-700 text-white px-6 py-3 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-500 font-bold hover:scale-110 hover:shadow-2xl group relative overflow-hidden"
             >
-              Try Again
+              <span className="relative z-10">Try Again</span>
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
             </button>
           </div>
         ) : orders.length === 0 ? (
@@ -266,15 +269,17 @@ const OrdersPage = ({ onBack }) => {
         ) : (
           <div className="space-y-4">
             {orders.map((order) => (
-              <div key={order.orderId} className="bg-white rounded-xl shadow-lg p-6">
+              <div key={order.orderId} className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 group border border-gray-100/50">
                 <div className="flex items-center justify-between mb-4">
                   <div>
                     <h3 className="text-lg font-semibold text-gray-900">Order #{order.orderId}</h3>
                     <p className="text-gray-600">Placed on {formatDate(order.createdAt)}</p>
                   </div>
-                  <div className={`px-3 py-1 rounded-full border flex items-center gap-2 ${getStatusColor(order.status)}`}>
-                    {getStatusIcon(order.status)}
-                    <span className="font-medium capitalize">{order.status}</span>
+                  <div className={`px-4 py-2 rounded-2xl border flex items-center gap-2 ${getStatusColor(order.status)} group-hover:scale-110 transition-all duration-300 shadow-lg`}>
+                    <div className="group-hover:animate-bounce">
+                      {getStatusIcon(order.status)}
+                    </div>
+                    <span className="font-bold capitalize">{order.status}</span>
                   </div>
                 </div>
 
@@ -289,10 +294,11 @@ const OrdersPage = ({ onBack }) => {
                   </div>
                   <button
                     onClick={() => handleViewOrder(order.orderId)}
-                    className="flex items-center gap-2 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                    className="flex items-center gap-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white px-4 py-2 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-500 font-bold hover:scale-110 hover:shadow-2xl group relative overflow-hidden"
                   >
-                    <Eye className="w-4 h-4" />
-                    View Details
+                    <Eye className="w-4 h-4 group-hover:animate-bounce" />
+                    <span className="relative z-10">View Details</span>
+                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
                   </button>
                 </div>
 
