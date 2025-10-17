@@ -45,6 +45,7 @@ const CategoryListPage = ({
   const [priceRange, setPriceRange] = React.useState([minPrice, maxPrice]);
   const [selectedBrands, setSelectedBrands] = React.useState(initialFilters?.brand || []);
   const [selectedProductTypes, setSelectedProductTypes] = React.useState(initialFilters?.productType || []);
+  const [selectedCategories, setSelectedCategories] = React.useState(initialFilters?.category || []);
   const [selectedSubcategories, setSelectedSubcategories] = React.useState(initialFilters?.subcategory || []);
   const [selectedSubSubcategories, setSelectedSubSubcategories] = React.useState(initialFilters?.subSubcategory || []);
   const [selectedPowerRanges, setSelectedPowerRanges] = React.useState([]);
@@ -64,11 +65,13 @@ const CategoryListPage = ({
     if (initialFilters) {
       setSelectedBrands(initialFilters.brand || []);
       setSelectedProductTypes(initialFilters.productType || []);
+      setSelectedCategories(initialFilters.category || []);
       setSelectedSubcategories(initialFilters.subcategory || []);
       setSelectedSubSubcategories(initialFilters.subSubcategory || []);
     } else {
       setSelectedBrands([]);
       setSelectedProductTypes([]);
+      setSelectedCategories([]);
       setSelectedSubcategories([]);
       setSelectedSubSubcategories([]);
     }
@@ -108,6 +111,14 @@ const CategoryListPage = ({
       return productType;
     }).filter(productType => productType && typeof productType === 'string' && productType.trim() !== '');
     return [...new Set(productTypes)].sort();
+  };
+
+  const getAvailableCategories = () => {
+    const categories = filteredProducts.map(product => {
+      const category = product.raw?.anchor?.category;
+      return category;
+    }).filter(category => category && typeof category === 'string' && category.trim() !== '');
+    return [...new Set(categories)].sort();
   };
 
   const getAvailableSubcategories = () => {
@@ -243,6 +254,7 @@ const CategoryListPage = ({
   // Use available options based on current filtered products
   const brands = getAvailableBrands();
   const productTypes = getAvailableProductTypes();
+  const categories = getAvailableCategories();
   const subcategories = getAvailableSubcategories();
   const subSubcategories = getAvailableSubSubcategories();
   const powerRanges = getAvailablePowerRanges();
@@ -260,6 +272,15 @@ const CategoryListPage = ({
       const validBrands = selectedBrands.filter(brand => availableBrands.includes(brand));
       if (validBrands.length !== selectedBrands.length) {
         setSelectedBrands(validBrands);
+      }
+    }
+
+    // Remove categories that are no longer available
+    if (selectedCategories.length > 0) {
+      const availableCategories = categories;
+      const validCategories = selectedCategories.filter(category => availableCategories.includes(category));
+      if (validCategories.length !== selectedCategories.length) {
+        setSelectedCategories(validCategories);
       }
     }
 
@@ -343,7 +364,7 @@ const CategoryListPage = ({
         setSelectedMaterials(validMaterials);
       }
     }
-  }, [brands, productTypes, subcategories, subSubcategories, powerRanges, colors, sizes, materials, certifications, warranties, selectedBrands, selectedProductTypes, selectedSubcategories, selectedSubSubcategories, selectedPowerRanges, selectedColors, selectedSizes, selectedMaterials, selectedCertifications, selectedWarranties]);
+  }, [brands, productTypes, categories, subcategories, subSubcategories, powerRanges, colors, sizes, materials, certifications, warranties, selectedBrands, selectedProductTypes, selectedCategories, selectedSubcategories, selectedSubSubcategories, selectedPowerRanges, selectedColors, selectedSizes, selectedMaterials, selectedCertifications, selectedWarranties]);
 
   // Apply filters
   React.useEffect(() => {
@@ -373,6 +394,14 @@ const CategoryListPage = ({
         filtered = filtered.filter(product => {
           const productType = product.raw?.anchor?.productType;
           return selectedProductTypes.includes(productType);
+        });
+      }
+
+      // Category filter
+      if (selectedCategories.length > 0) {
+        filtered = filtered.filter(product => {
+          const category = product.raw?.anchor?.category;
+          return selectedCategories.includes(category);
         });
       }
 
@@ -529,7 +558,7 @@ const CategoryListPage = ({
     }, 300); // 300ms delay to show loading state
 
     return () => clearTimeout(timeoutId);
-  }, [products, priceRange, selectedBrands, selectedProductTypes,
+  }, [products, priceRange, selectedBrands, selectedProductTypes, selectedCategories,
     selectedSubcategories, selectedSubSubcategories, selectedPowerRanges,
     selectedColors, selectedSizes, selectedMaterials, selectedCertifications, 
     selectedWarranties, showOnlyDiscounted, selectedDiscountBucket, showOnlyInStock]);
@@ -590,6 +619,15 @@ const CategoryListPage = ({
       prev.includes(productType)
         ? prev.filter(pt => pt !== productType)
         : [...prev, productType]
+    );
+    scrollToTop();
+  };
+
+  const handleCategoryToggle = (category) => {
+    setSelectedCategories(prev =>
+      prev.includes(category)
+        ? prev.filter(cat => cat !== category)
+        : [...prev, category]
     );
     scrollToTop();
   };
@@ -671,6 +709,7 @@ const CategoryListPage = ({
     setPriceRange([minPrice, maxPrice]);
     setSelectedBrands([]);
     setSelectedProductTypes([]);
+    setSelectedCategories([]);
     setSelectedSubcategories([]);
     setSelectedSubSubcategories([]);
     setSelectedPowerRanges([]);
@@ -706,6 +745,11 @@ const CategoryListPage = ({
     type: 'productType',
     label: pt,
     onRemove: () => setSelectedProductTypes(prev => prev.filter(x => x !== pt))
+  }));
+  selectedCategories.forEach(cat => chips.push({
+    type: 'category',
+    label: cat,
+    onRemove: () => setSelectedCategories(prev => prev.filter(x => x !== cat))
   }));
   selectedSubcategories.forEach(sc => chips.push({
     type: 'subcategory',
@@ -914,6 +958,8 @@ const CategoryListPage = ({
                     setBrandQuery={setBrandQuery}
                     selectedProductTypes={selectedProductTypes}
                     handleProductTypeToggle={handleProductTypeToggle}
+                    selectedCategories={selectedCategories}
+                    handleCategoryToggle={handleCategoryToggle}
                     selectedSubcategories={selectedSubcategories}
                     handleSubcategoryToggle={handleSubcategoryToggle}
                     selectedSubSubcategories={selectedSubSubcategories}
@@ -938,6 +984,7 @@ const CategoryListPage = ({
                     setShowOnlyInStock={setShowOnlyInStock}
                     brands={brands}
                     productTypes={productTypes}
+                    categories={categories}
                     subcategories={subcategories}
                     subSubcategories={subSubcategories}
                     powerRanges={powerRanges}
@@ -970,6 +1017,8 @@ const CategoryListPage = ({
                   setBrandQuery={setBrandQuery}
                   selectedProductTypes={selectedProductTypes}
                   handleProductTypeToggle={handleProductTypeToggle}
+                  selectedCategories={selectedCategories}
+                  handleCategoryToggle={handleCategoryToggle}
                   selectedSubcategories={selectedSubcategories}
                   handleSubcategoryToggle={handleSubcategoryToggle}
                   selectedSubSubcategories={selectedSubSubcategories}
@@ -994,6 +1043,7 @@ const CategoryListPage = ({
                   setShowOnlyInStock={setShowOnlyInStock}
                   brands={brands}
                   productTypes={productTypes}
+                  categories={categories}
                   subcategories={subcategories}
                   subSubcategories={subSubcategories}
                   powerRanges={powerRanges}
@@ -1339,6 +1389,8 @@ const FilterPanel = ({
   setBrandQuery,
   selectedProductTypes,
   handleProductTypeToggle,
+  selectedCategories,
+  handleCategoryToggle,
   selectedSubcategories,
   handleSubcategoryToggle,
   selectedSubSubcategories,
@@ -1363,6 +1415,7 @@ const FilterPanel = ({
   setShowOnlyInStock,
   brands,
   productTypes,
+  categories,
   subcategories,
   subSubcategories,
   powerRanges,
@@ -1523,6 +1576,34 @@ const FilterPanel = ({
               {showAllProductTypes ? 'Show less' : 'Show more'}
             </button>
           )}
+        </div>
+      )}
+
+      {/* Category Filter */}
+      {categories.length > 1 && (
+        <div className="border-b border-gray-200 pb-6">
+          <h3 className="text-sm font-medium text-gray-900 mb-3">Categories ({categories.length})</h3>
+          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
+            {categories.map((category) => (
+              <label key={category} className="flex items-center cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={selectedCategories.includes(category)}
+                  onChange={() => handleCategoryToggle(category)}
+                  className="sr-only"
+                />
+                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedCategories.includes(category)
+                  ? 'bg-blue-900 border-blue-900'
+                  : 'border-gray-300'
+                  }`}>
+                  {selectedCategories.includes(category) && (
+                    <Check className="w-3 h-3 text-white" />
+                  )}
+                </div>
+                <span className="text-sm text-gray-700">{category}</span>
+              </label>
+            ))}
+          </div>
         </div>
       )}
 

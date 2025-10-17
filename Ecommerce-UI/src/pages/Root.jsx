@@ -212,14 +212,14 @@ function Root() {
             const type = rest[2];
             const valueParam = rest[3];
             const value = decodeURIComponent(valueParam || '');
-            const next = { brand: [], subcategory: [], subSubcategory: [], productType: [] };
+            const next = { brand: [], subcategory: [], subSubcategory: [], productType: [], category: [categoryName] };
             if (type === 'brand') next.brand = [value];
             if (type === 'subcategory') next.subcategory = [value];
             if (type === 'sub-subcategory') next.subSubcategory = [value];
             if (type === 'product-type') next.productType = [value];
             setInitialCategoryFilters(next);
           } else {
-            setInitialCategoryFilters({ brand: [], subcategory: [], subSubcategory: [], productType: [] });
+            setInitialCategoryFilters({ brand: [], subcategory: [], subSubcategory: [], productType: [], category: [categoryName] });
           }
           setShowCategoryList(true);
         }
@@ -229,7 +229,7 @@ function Root() {
         const subcategoryName = decodeURIComponent((rest[0] || '').replace(/-/g, ' '));
         if (subcategoryName) {
           setSelectedCategoryForList(subcategoryName);
-          setInitialCategoryFilters({ brand: [], subcategory: [subcategoryName], subSubcategory: [], productType: [] });
+          setInitialCategoryFilters({ brand: [], subcategory: [subcategoryName], subSubcategory: [], productType: [], category: [] });
           setShowCategoryList(true);
         }
         break;
@@ -238,7 +238,7 @@ function Root() {
         const subSubcategoryName = decodeURIComponent((rest[0] || '').replace(/-/g, ' '));
         if (subSubcategoryName) {
           setSelectedCategoryForList(subSubcategoryName);
-          setInitialCategoryFilters({ brand: [], subcategory: [], subSubcategory: [subSubcategoryName], productType: [] });
+          setInitialCategoryFilters({ brand: [], subcategory: [], subSubcategory: [subSubcategoryName], productType: [], category: [] });
           setShowCategoryList(true);
         }
         break;
@@ -247,7 +247,7 @@ function Root() {
         const brandName = decodeURIComponent((rest[0] || '').replace(/-/g, ' '));
         if (brandName) {
           setSelectedCategoryForList(brandName);
-          setInitialCategoryFilters({ brand: [brandName], subcategory: [], subSubcategory: [], productType: [] });
+          setInitialCategoryFilters({ brand: [brandName], subcategory: [], subSubcategory: [], productType: [], category: [] });
           setShowCategoryList(true);
         }
         break;
@@ -290,7 +290,7 @@ function Root() {
       case 'home':
       default:
         // Home/reset
-        setInitialCategoryFilters({ brand: [], subcategory: [], subSubcategory: [], productType: [] });
+        setInitialCategoryFilters({ brand: [], subcategory: [], subSubcategory: [], productType: [], category: [] });
         break;
     }
     // Scroll to top after navigation
@@ -622,13 +622,14 @@ function Root() {
     setSelectedCategoryForList(value);
     
     // Set up appropriate filters based on the level
-    const filters = { brand: [], subcategory: [], subSubcategory: [], productType: [] };
-    if (level === 'sub-subcategory') {
+    const filters = { brand: [], subcategory: [], subSubcategory: [], productType: [], category: [] };
+    if (level === 'category') {
+      filters.category = [value];
+    } else if (level === 'sub-subcategory') {
       filters.subSubcategory = [value];
     } else if (level === 'subcategory') {
       filters.subcategory = [value];
     }
-    // For category level, no specific filter needed as it's handled by selectedCategoryForList
     
     setInitialCategoryFilters(filters);
     setHash(`${level}/${encodeURIComponent(slugify(value))}`);
