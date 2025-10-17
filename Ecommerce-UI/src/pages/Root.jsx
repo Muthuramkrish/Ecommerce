@@ -229,6 +229,7 @@ function Root() {
         const subcategoryName = decodeURIComponent((rest[0] || '').replace(/-/g, ' '));
         if (subcategoryName) {
           setSelectedCategoryForList(subcategoryName);
+          setInitialCategoryFilters({ brand: [], subcategory: [subcategoryName], subSubcategory: [], productType: [] });
           setShowCategoryList(true);
         }
         break;
@@ -237,6 +238,7 @@ function Root() {
         const subSubcategoryName = decodeURIComponent((rest[0] || '').replace(/-/g, ' '));
         if (subSubcategoryName) {
           setSelectedCategoryForList(subSubcategoryName);
+          setInitialCategoryFilters({ brand: [], subcategory: [], subSubcategory: [subSubcategoryName], productType: [] });
           setShowCategoryList(true);
         }
         break;
@@ -245,6 +247,7 @@ function Root() {
         const brandName = decodeURIComponent((rest[0] || '').replace(/-/g, ' '));
         if (brandName) {
           setSelectedCategoryForList(brandName);
+          setInitialCategoryFilters({ brand: [brandName], subcategory: [], subSubcategory: [], productType: [] });
           setShowCategoryList(true);
         }
         break;
