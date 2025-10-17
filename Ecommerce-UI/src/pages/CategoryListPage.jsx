@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowLeft, Grid, List, Filter, X, Check } from 'lucide-react';
 import LoadingSpinner from '../components/LoadingSpinner';
+import { useScrollAnimation } from '../hooks/useScrollAnimation';
+import { useReducedMotion, getAnimationClasses } from '../hooks/useReducedMotion';
 
 const CategoryListPage = ({
   category,
@@ -17,6 +19,14 @@ const CategoryListPage = ({
   const [showFilters, setShowFilters] = React.useState(false);
   const [isDesktop, setIsDesktop] = React.useState(typeof window !== 'undefined' ? window.innerWidth >= 1024 : false);
   const subcategorySectionRef = React.useRef(null);
+
+  // Scroll animations
+  const [headerSectionRef, isHeaderVisible] = useScrollAnimation();
+  const [filterSectionRef, isFilterVisible] = useScrollAnimation();
+  const [productsSectionRef, isProductsVisible] = useScrollAnimation();
+  
+  // Reduced motion support
+  const prefersReducedMotion = useReducedMotion();
 
   React.useEffect(() => {
     const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
@@ -805,37 +815,50 @@ const CategoryListPage = ({
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
       {/* Header */}
-      <div className="bg-white shadow-sm border-b">
+      <div 
+        ref={headerSectionRef}
+        className={`bg-white shadow-sm border-b transition-all duration-1000 ${
+          isHeaderVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-6">
           <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-0">
-            <div className="flex items-center space-x-3 md:space-x-4">
+            <div className={`flex items-center space-x-3 md:space-x-4 transition-all duration-700 ${
+              isHeaderVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
+            }`}>
               <button
                 onClick={() => window.history.back()}
-                className="flex items-center text-gray-600 hover:text-gray-900 transition-colors text-sm md:text-base"
+                className="flex items-center text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm md:text-base hover:scale-105 group"
               >
-                <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 mr-2" />
+                <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 mr-2 group-hover:-translate-x-1 transition-transform duration-300" />
                 <span>Back</span>
               </button>
-              <div className="h-5 md:h-6 w-px bg-gray-300"></div>
-              <div>
-                <h1 className="text-xl md:text-2xl font-bold text-gray-900">{formatCategoryTitle(category)}</h1>
-                <p className="text-sm md:text-base text-gray-600 mt-0.5 md:mt-1">{sortedProducts.length} products available</p>
+              <div className="h-5 md:h-6 w-px bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
+              <div className="animate-fade-in-up">
+                <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-gray-900 to-blue-600 bg-clip-text text-transparent">
+                  {formatCategoryTitle(category)}
+                </h1>
+                <p className="text-sm md:text-base text-gray-600 mt-0.5 md:mt-1">
+                  <span className="font-semibold text-blue-600">{sortedProducts.length}</span> products available
+                </p>
               </div>
             </div>
 
             {/* View Controls */}
-            <div className="flex items-center space-x-3 md:space-x-4">
+            <div className={`flex items-center space-x-3 md:space-x-4 transition-all duration-700 delay-200 ${
+              isHeaderVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
+            }`}>
               {/* Mobile Filter Button */}
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="lg:hidden flex items-center space-x-2 bg-blue-900 text-white px-3 py-2 rounded-lg hover:bg-blue-800 transition-colors text-sm"
+                className="lg:hidden flex items-center space-x-2 bg-gradient-to-r from-blue-900 to-blue-800 text-white px-3 py-2 rounded-lg hover:from-blue-800 hover:to-blue-700 transition-all duration-300 text-sm hover:scale-105 hover:shadow-lg group"
               >
-                <Filter className="w-4 h-4" />
+                <Filter className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
                 <span>Filters</span>
                 {activeFiltersCount > 0 && (
-                  <span className="bg-white text-blue-900 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
+                  <span className="bg-white text-blue-900 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center animate-bounce">
                     {activeFiltersCount}
                   </span>
                 )}
@@ -854,18 +877,18 @@ const CategoryListPage = ({
                 </select>
               </div>
 
-              <div className="hidden sm:flex border border-gray-300 rounded-lg overflow-hidden">
+              <div className="hidden sm:flex border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
                 <button
                   onClick={() => setViewMode('grid')}
-                  className={`p-2 ${viewMode === 'grid' ? 'bg-blue-900 text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
+                  className={`p-2 transition-all duration-300 ${viewMode === 'grid' ? 'bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-inner' : 'bg-white text-gray-600 hover:bg-blue-50 hover:text-blue-600'}`}
                 >
-                  <Grid className="w-4 h-4" />
+                  <Grid className="w-4 h-4 hover:scale-110 transition-transform duration-200" />
                 </button>
                 <button
                   onClick={() => setViewMode('list')}
-                  className={`p-2 ${viewMode === 'list' ? 'bg-blue-900 text-white' : 'bg-white text-gray-600 hover:bg-gray-50'}`}
+                  className={`p-2 transition-all duration-300 ${viewMode === 'list' ? 'bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-inner' : 'bg-white text-gray-600 hover:bg-blue-50 hover:text-blue-600'}`}
                 >
-                  <List className="w-4 h-4" />
+                  <List className="w-4 h-4 hover:scale-110 transition-transform duration-200" />
                 </button>
               </div>
             </div>
@@ -873,16 +896,22 @@ const CategoryListPage = ({
 
           {/* Applied Filter Chips */}
           {chips.length > 0 && (
-            <div className="mt-4 flex flex-wrap gap-2">
+            <div className={`mt-4 flex flex-wrap gap-2 transition-all duration-700 delay-300 ${
+              isHeaderVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+            }`}>
               {chips.map((chip, idx) => (
-                <span key={idx} className="inline-flex items-center bg-blue-50 text-blue-900 px-3 py-1 rounded-full text-sm border border-blue-100">
+                <span 
+                  key={idx} 
+                  className="inline-flex items-center bg-gradient-to-r from-blue-50 to-blue-100 text-blue-900 px-3 py-1 rounded-full text-sm border border-blue-200 shadow-sm hover:shadow-md transition-all duration-300 animate-fade-in-up"
+                  style={{ animationDelay: `${idx * 50}ms` }}
+                >
                   {chip.label}
-                  <button onClick={chip.onRemove} className="ml-2 hover:text-blue-700" aria-label={`Remove ${chip.type}`}>
-                    <X className="w-4 h-4" />
+                  <button onClick={chip.onRemove} className="ml-2 hover:text-blue-700 hover:scale-110 transition-all duration-200 group" aria-label={`Remove ${chip.type}`}>
+                    <X className="w-4 h-4 group-hover:rotate-90 transition-transform duration-200" />
                   </button>
                 </span>
               ))}
-              <button onClick={clearAllFilters} className="text-sm text-gray-600 hover:text-gray-800 underline ml-1">Clear all</button>
+              <button onClick={clearAllFilters} className="text-sm text-gray-600 hover:text-blue-600 underline ml-1 hover:scale-105 transition-all duration-200 font-medium">Clear all</button>
             </div>
           )}
 
@@ -1028,7 +1057,12 @@ const CategoryListPage = ({
           )}
 
           {/* Products Section */}
-          <div className="flex-1">
+          <div 
+            ref={productsSectionRef}
+            className={`flex-1 transition-all duration-1000 ${
+              isProductsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+            }`}
+          >
             {totalResults === 0 ? (
               <div className="text-center py-16">
                 <div className="text-gray-400 mb-4">
@@ -1046,7 +1080,9 @@ const CategoryListPage = ({
             ) : (
               <>
                 {/* Result meta and pagination top */}
-                <div className="flex items-center justify-between mb-4 text-sm text-gray-600">
+                <div className={`flex items-center justify-between mb-4 text-sm text-gray-600 transition-all duration-700 ${
+                  isProductsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
+                }`}>
                   <div>
                     Showing <span className="font-medium text-gray-900">{currentStart + 1}</span> – <span className="font-medium text-gray-900">{currentEnd}</span> of <span className="font-medium text-gray-900">{totalResults}</span> results
                   </div>
@@ -1070,9 +1106,10 @@ const CategoryListPage = ({
                         key={index}
                         className={
                           viewMode === "grid"
-                            ? "bg-white rounded-xl shadow-sm hover:shadow-lg transition-all duration-300 border border-gray-100 overflow-hidden group cursor-pointer h-full flex flex-col"
-                            : "bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300 border border-gray-100 overflow-hidden cursor-pointer"
+                            ? `bg-white rounded-xl shadow-sm hover:shadow-2xl transition-all duration-500 border border-gray-100 overflow-hidden group cursor-pointer h-full flex flex-col transform hover:-translate-y-2 hover:scale-105 animate-fade-in-up`
+                            : `bg-white rounded-lg shadow-sm hover:shadow-lg transition-all duration-500 border border-gray-100 overflow-hidden cursor-pointer transform hover:-translate-y-1 animate-fade-in-up`
                         }
+                        style={{ animationDelay: `${index * 100}ms` }}
                         onClick={() => onOpenDetails && onOpenDetails(product)}
                       >
                         {viewMode === "grid" ? (
@@ -1080,13 +1117,17 @@ const CategoryListPage = ({
                           <>
                             {/* Image Container */}
                             <div className="relative h-40 overflow-hidden">
+                              {/* Animated background gradient */}
+                              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
                               <img
                                 src={product.__activeImage || product["image-url"]}
                                 alt={product["product-title"]}
-                                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                               />
+                              {/* Shimmer effect */}
+                              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
                               {product["old-price"] !== product["new-price"] && (
-                                <div className="absolute top-2.5 left-2.5 bg-red-500 text-white px-2 py-0.5 rounded-full text-xs font-semibold">
+                                <div className="absolute top-2.5 left-2.5 bg-gradient-to-r from-red-500 to-red-600 text-white px-2 py-0.5 rounded-full text-xs font-semibold shadow-lg animate-pulse">
                                   {calculateDiscount(
                                     parseInt(product["old-price"]),
                                     parseInt(product["new-price"])
@@ -1099,9 +1140,9 @@ const CategoryListPage = ({
                                   e.stopPropagation();
                                   onAddToWishlist(product);
                                 }}
-                                className={`absolute top-2.5 right-2.5 p-2 rounded-full transition-all duration-200 ${isInWishlist(product)
-                                  ? "bg-pink-500 text-white"
-                                  : "bg-white text-gray-600 hover:bg-pink-50 hover:text-pink-500"
+                                className={`absolute top-2.5 right-2.5 p-2 rounded-full transition-all duration-300 shadow-lg hover:scale-110 ${isInWishlist(product)
+                                  ? "bg-gradient-to-r from-pink-500 to-red-500 text-white animate-pulse"
+                                  : "bg-white/90 backdrop-blur-sm text-gray-600 hover:bg-pink-50 hover:text-pink-500 opacity-0 group-hover:opacity-100"
                                   }`}
                               >
                                 <svg
@@ -1121,8 +1162,10 @@ const CategoryListPage = ({
                             </div>
 
                             {/* Content */}
-                            <div className="p-3.5 flex flex-col flex-1">
-                              <h3 className="font-semibold text-gray-900 mb-1.5 line-clamp-2 group-hover:text-blue-900 transition-colors text-[15px]">
+                            <div className="p-3.5 flex flex-col flex-1 relative overflow-hidden">
+                              {/* Subtle background animation */}
+                              <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 via-purple-50/0 to-pink-50/0 group-hover:from-blue-50/50 group-hover:via-purple-50/30 group-hover:to-pink-50/50 transition-all duration-700"></div>
+                              <h3 className="font-semibold text-gray-900 mb-1.5 line-clamp-2 group-hover:text-blue-600 transition-all duration-300 text-[15px] relative z-10">
                                 {product["product-title"]}
                               </h3>
 
@@ -1184,9 +1227,11 @@ const CategoryListPage = ({
                                   e.stopPropagation();
                                   onAddToCart(product);
                                 }}
-                                className="w-full bg-blue-900 text-white py-2 px-4 rounded-lg hover:bg-blue-800 transition-colors font-medium text-sm mt-auto"
+                                className="w-full bg-gradient-to-r from-blue-900 to-blue-800 text-white py-2 px-4 rounded-lg hover:from-blue-800 hover:to-blue-700 transition-all duration-300 font-medium text-sm mt-auto hover:scale-105 hover:shadow-lg relative z-10 group/btn overflow-hidden"
                               >
-                                Add to Cart
+                                <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
+                                <span className="relative z-10">Add to Cart</span>
+                                <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
                               </button>
                             </div>
                           </>
