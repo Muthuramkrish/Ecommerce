@@ -191,18 +191,18 @@ const ProductDetailsPage = ({
       {/* Header */}
       <div 
         ref={headerSectionRef}
-        className={`bg-white shadow-sm border-b transition-all duration-1000 ${
+        className={`bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-100 transition-all duration-1000 ${
           isHeaderVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-14 md:h-16">
-          <button 
+            <button 
               onClick={() => window.history.back()}
-              className={`flex items-center text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm md:text-base hover:scale-105 group ${getAnimationClasses('animate-slide-in-left', '', prefersReducedMotion)}`}
+              className={`flex items-center text-gray-600 hover:text-gray-900 transition-all duration-500 text-sm md:text-base hover:scale-110 group bg-white/50 backdrop-blur-sm rounded-xl px-4 py-2 hover:bg-white/80 hover:shadow-lg border border-gray-200/50 hover:border-gray-300 ${getAnimationClasses('animate-slide-in-left', '', prefersReducedMotion)}`}
             >
-              <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 mr-2 group-hover:-translate-x-1 transition-transform duration-300" />
-              <span className="hidden sm:inline">Back</span>
+              <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 mr-2 group-hover:-translate-x-1 group-hover:scale-110 transition-all duration-300" />
+              <span className="hidden sm:inline font-medium">Back</span>
             </button>
             <div className={`flex items-center space-x-4 ${getAnimationClasses('animate-slide-in-right', '', prefersReducedMotion)}`}>
               <a
@@ -211,12 +211,13 @@ const ProductDetailsPage = ({
                   e.preventDefault();
                   handleAddToWishlist();
                 }}
-                className={`p-1.5 md:p-2 rounded-full transition-all duration-300 hover:scale-110 ${isInWishlist
-                    ? 'text-red-500 bg-gradient-to-r from-red-50 to-pink-50 animate-pulse'
-                    : 'text-gray-400 hover:text-red-500 hover:bg-red-50'
+                className={`p-2 md:p-3 rounded-xl transition-all duration-500 hover:scale-110 group relative overflow-hidden ${isInWishlist
+                    ? 'text-red-500 bg-gradient-to-r from-red-50 to-pink-50 shadow-lg border border-red-200 animate-pulse'
+                    : 'text-gray-400 hover:text-red-500 hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50 hover:shadow-lg border border-gray-200 hover:border-red-200'
                   }`}
               >
-                <Heart className="w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 hover:scale-110" fill={isInWishlist ? 'currentColor' : 'none'} />
+                <div className="absolute inset-0 bg-gradient-to-r from-red-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <Heart className="w-5 h-5 md:w-6 md:h-6 relative z-10 transition-all duration-300 group-hover:scale-110 group-hover:animate-bounce" fill={isInWishlist ? 'currentColor' : 'none'} />
               </a>
               <a
                 href="#cart"
@@ -224,17 +225,17 @@ const ProductDetailsPage = ({
                   e.preventDefault();
                   handleAddToCart();
                 }}
-                className="flex items-center px-3 md:px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 text-sm md:text-base hover:scale-105 hover:shadow-lg group relative overflow-hidden"
+                className="flex items-center px-4 md:px-6 py-2.5 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-500 text-sm md:text-base hover:scale-110 hover:shadow-2xl group relative overflow-hidden border border-blue-500/20 hover:border-blue-400/40"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <ShoppingCart className="w-4 h-4 md:w-5 md:h-5 mr-2 relative z-10 group-hover:animate-bounce" />
-                <span className="relative z-10">Add to Cart</span>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <ShoppingCart className="w-4 h-4 md:w-5 md:h-5 mr-2 relative z-10 group-hover:animate-bounce group-hover:scale-110 transition-all duration-300" />
+                <span className="relative z-10 font-semibold">Add to Cart</span>
                 {cartQuantity > 0 && (
-                  <span className="ml-2 bg-white text-blue-600 text-[10px] md:text-xs rounded-full w-4 h-4 md:w-5 md:h-5 flex items-center justify-center animate-bounce relative z-10">
+                  <span className="ml-2 bg-white text-blue-600 text-[10px] md:text-xs rounded-full w-4 h-4 md:w-5 md:h-5 flex items-center justify-center animate-bounce relative z-10 font-bold shadow-sm">
                     {cartQuantity}
                   </span>
                 )}
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
               </a>
             </div>
           </div>
@@ -244,14 +245,14 @@ const ProductDetailsPage = ({
       {(anchor.subcategory || anchor.subSubcategory || anchor.brand || anchor.productType) && (
         <div 
           ref={breadcrumbSectionRef}
-          className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 transition-all duration-1000 ${
+          className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 transition-all duration-1000 ${
             isBreadcrumbVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
-          <div className="text-sm text-gray-700 flex flex-wrap items-center animate-fade-in-up">
+          <div className="text-sm text-gray-700 flex flex-wrap items-center bg-white/50 backdrop-blur-sm rounded-xl px-4 py-3 border border-gray-200/50 shadow-sm hover:shadow-md transition-all duration-500 animate-fade-in-up">
             {anchor.subcategory && (
               <>
-                <button className="text-blue-600 hover:text-blue-800 hover:underline transition-all duration-300 hover:scale-105 font-medium" onClick={() => navigateTo('subcategory', anchor.subcategory)}>
+                <button className="text-blue-600 hover:text-blue-800 hover:underline transition-all duration-500 hover:scale-110 font-medium bg-blue-50/50 hover:bg-blue-100/80 px-3 py-1 rounded-lg hover:shadow-md" onClick={() => navigateTo('subcategory', anchor.subcategory)}>
                   {anchor.subcategory}
                 </button>
                 {(anchor.subSubcategory || anchor.brand || anchor.productType) && <span className="mx-2 text-gray-400">&gt;</span>}
@@ -259,7 +260,7 @@ const ProductDetailsPage = ({
             )}
             {anchor.subSubcategory && (
               <>
-                <button className="text-blue-600 hover:underline" onClick={() => navigateTo('sub-subcategory', anchor.subSubcategory)}>
+                <button className="text-blue-600 hover:text-blue-800 hover:underline transition-all duration-500 hover:scale-110 font-medium bg-blue-50/50 hover:bg-blue-100/80 px-3 py-1 rounded-lg hover:shadow-md" onClick={() => navigateTo('sub-subcategory', anchor.subSubcategory)}>
                   {anchor.subSubcategory}
                 </button>
                 {(anchor.brand || anchor.productType) && <span className="mx-2">&gt;</span>}
@@ -267,14 +268,14 @@ const ProductDetailsPage = ({
             )}
             {anchor.brand && (
               <>
-                <button className="text-blue-600 hover:underline" onClick={() => navigateTo('brand', anchor.brand)}>
+                <button className="text-blue-600 hover:text-blue-800 hover:underline transition-all duration-500 hover:scale-110 font-medium bg-blue-50/50 hover:bg-blue-100/80 px-3 py-1 rounded-lg hover:shadow-md" onClick={() => navigateTo('brand', anchor.brand)}>
                   {anchor.brand}
                 </button>
                 {anchor.productType && <span className="mx-2">&gt;</span>}
               </>
             )}
             {anchor.productType && (
-              <button className="text-blue-600 hover:underline" onClick={() => navigateTo('product-type', anchor.productType)}>
+              <button className="text-blue-600 hover:text-blue-800 hover:underline transition-all duration-500 hover:scale-110 font-medium bg-blue-50/50 hover:bg-blue-100/80 px-3 py-1 rounded-lg hover:shadow-md" onClick={() => navigateTo('product-type', anchor.productType)}>
                 {anchor.productType}
               </button>
             )}
@@ -293,7 +294,7 @@ const ProductDetailsPage = ({
             }`}
           >
             <div
-              className="aspect-square bg-white rounded-2xl overflow-hidden shadow-2xl cursor-pointer group relative hover:shadow-3xl transition-all duration-500 hover:scale-105"
+              className="aspect-square bg-white rounded-3xl overflow-hidden shadow-2xl cursor-pointer group relative hover:shadow-3xl transition-all duration-700 hover:scale-105 border border-gray-100/50 hover:border-blue-200/50"
               onClick={() => {
                 if (variants.length && variantsRef.current) {
                   variantsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -302,8 +303,9 @@ const ProductDetailsPage = ({
                 }
               }}
             >
-              {/* Animated background gradient */}
+              {/* Enhanced animated background gradient */}
               <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 via-purple-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+              <div className="absolute inset-0 bg-gradient-to-t from-black/5 via-transparent to-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
               <img
                 src={displayedImages[selectedImage]}
                 alt={product['product-title']}
@@ -314,8 +316,10 @@ const ProductDetailsPage = ({
                   // No action needed other than stopping propagation.
                 }}
               />
-              {/* Shimmer effect */}
-              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+              {/* Enhanced shimmer effect */}
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
+              {/* Glow effect */}
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-pink-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"></div>
               {/* Floating particles effect */}
               <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700">
                 {[...Array(8)].map((_, i) => (
@@ -341,10 +345,10 @@ const ProductDetailsPage = ({
                       // Change only the displayed photo, do not switch variant.
                       setSelectedImage(index);
                     }}
-                    className={`aspect-square bg-white rounded-xl overflow-hidden border-2 transition-all duration-300 hover:scale-105 hover:shadow-lg group ${
+                    className={`aspect-square bg-white rounded-xl overflow-hidden border-2 transition-all duration-500 hover:scale-110 hover:shadow-xl group relative ${
                       selectedImage === index 
-                        ? 'border-blue-500 shadow-lg ring-2 ring-blue-200' 
-                        : 'border-gray-200 hover:border-blue-300'
+                        ? 'border-blue-500 shadow-xl ring-2 ring-blue-200 bg-gradient-to-br from-blue-50 to-indigo-50' 
+                        : 'border-gray-200 hover:border-blue-300 hover:bg-gradient-to-br hover:from-blue-50/50 hover:to-indigo-50/50'
                     } ${getAnimationClasses('animate-scale-in', '', prefersReducedMotion)}`}
                     style={{ animationDelay: `${index * 100}ms` }}
                   >
@@ -429,21 +433,24 @@ const ProductDetailsPage = ({
             }`}
           >
             <div className={getAnimationClasses('animate-fade-in-up', '', prefersReducedMotion)}>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-2 leading-tight">
+              <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-2 leading-tight animate-pulse-slow">
                 {displayedTitle}
               </h1>
               
               <div className={`flex items-center space-x-4 mb-6 ${getAnimationClasses('animate-slide-in-left delay-200', '', prefersReducedMotion)}`}>
-                <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent animate-pulse-slow">
-                  ₹{displayedPrice}
-                </span>
+                <div className="relative">
+                  <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent animate-pulse-slow">
+                    ₹{displayedPrice}
+                  </span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-blue-600/20 to-purple-600/20 blur-lg opacity-0 animate-pulse-slow"></div>
+                </div>
                 {product['old-price'] !== displayedPrice && product['old-price'] != null && (
                   <span className="text-xl text-gray-500 line-through">
                     ₹{product['old-price']}
                   </span>
                 )}
                 {product['old-price'] !== displayedPrice && product['old-price'] != null && (
-                  <span className="text-sm bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 px-3 py-1 rounded-full font-semibold shadow-sm animate-bounce">
+                  <span className="text-sm bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 px-4 py-2 rounded-full font-bold shadow-lg animate-bounce border border-green-200 hover:scale-110 transition-all duration-300">
                     {Math.round(((parseFloat(product['old-price']) - parseFloat(displayedPrice)) / parseFloat(product['old-price'])) * 100)}% OFF
                   </span>
                 )}
@@ -453,7 +460,7 @@ const ProductDetailsPage = ({
             {/* Category */}
             <div className={getAnimationClasses('animate-fade-in-up delay-300', '', prefersReducedMotion)}>
               <span className="text-sm text-gray-500">Category:</span>
-              <span className="ml-2 text-sm bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 px-3 py-1 rounded-full font-medium shadow-sm hover:shadow-md transition-shadow duration-300 hover:scale-105 inline-block">
+              <span className="ml-2 text-sm bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 px-4 py-2 rounded-full font-semibold shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-110 inline-block border border-blue-200 hover:border-blue-300">
                 {product.category}
               </span>
             </div>
@@ -583,12 +590,12 @@ const ProductDetailsPage = ({
             <div className={getAnimationClasses('animate-fade-in-up delay-500', '', prefersReducedMotion)}>
               <h3 className="text-lg font-semibold text-gray-900 mb-3">Quantity</h3>
               <div className="flex items-center space-x-4">
-                <div className="flex items-center border border-gray-300 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 bg-white">
+                <div className="flex items-center border border-gray-300 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-500 bg-white hover:scale-105 group">
                   <button
                     onClick={() => handleQuantityChange(quantity - 1)}
-                    className="p-2 hover:bg-blue-50 transition-all duration-300 rounded-l-xl hover:text-blue-600 hover:scale-110 group"
+                    className="p-3 hover:bg-blue-50 transition-all duration-500 rounded-l-2xl hover:text-blue-600 hover:scale-110 group/btn"
                   >
-                    <Minus className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
+                    <Minus className="w-4 h-4 group-hover/btn:scale-110 group-hover/btn:animate-bounce transition-all duration-300" />
                   </button>
                   <input
                     type="number"
@@ -602,7 +609,7 @@ const ProductDetailsPage = ({
                       const next = Math.min(Math.max(1, parsed), maxQty);
                       handleQuantityChange(next);
                     }}
-                    className="w-16 text-center px-2 py-2 text-lg font-medium focus:outline-none focus:bg-blue-50 transition-colors duration-300"
+                    className="w-20 text-center px-3 py-3 text-lg font-bold focus:outline-none focus:bg-blue-50 transition-all duration-300 focus:scale-105"
                   />
                   <button
                     onClick={() => {
@@ -612,7 +619,7 @@ const ProductDetailsPage = ({
                       }
                       handleQuantityChange(quantity + 1);
                     }}
-                    className={`p-2 transition-all duration-300 rounded-r-xl group ${
+                    className={`p-3 transition-all duration-500 rounded-r-2xl group/btn ${
                       (inventory?.availableQuantity ?? (product?.raw?.inventory?.availableQuantity ?? undefined)) != null && 
                       quantity >= (inventory?.availableQuantity ?? (product?.raw?.inventory?.availableQuantity ?? undefined))
                         ? 'text-gray-300 cursor-not-allowed' 
@@ -621,11 +628,11 @@ const ProductDetailsPage = ({
                     disabled={(inventory?.availableQuantity ?? (product?.raw?.inventory?.availableQuantity ?? undefined)) != null && 
                       quantity >= (inventory?.availableQuantity ?? (product?.raw?.inventory?.availableQuantity ?? undefined))}
                   >
-                    <Plus className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
+                    <Plus className="w-4 h-4 group-hover/btn:scale-110 group-hover/btn:animate-bounce transition-all duration-300" />
                   </button>
                 </div>
-                <span className="text-sm text-gray-600 bg-gradient-to-r from-gray-100 to-blue-100 px-3 py-2 rounded-full font-medium shadow-sm">
-                  {quantity} × ₹{displayedPrice} = <span className="font-bold text-blue-600">₹{(quantity * parseFloat(displayedPrice)).toFixed(2)}</span>
+                <span className="text-sm text-gray-600 bg-gradient-to-r from-gray-100 to-blue-100 px-4 py-3 rounded-2xl font-semibold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 border border-gray-200">
+                  {quantity} × ₹{displayedPrice} = <span className="font-bold text-blue-600 text-lg">₹{(quantity * parseFloat(displayedPrice)).toFixed(2)}</span>
                 </span>
               </div>
             </div>
@@ -638,12 +645,12 @@ const ProductDetailsPage = ({
                   e.preventDefault();
                   handleAddToCart();
                 }}
-                className="flex-1 flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-medium hover:scale-105 hover:shadow-xl group relative overflow-hidden"
+                className="flex-1 flex items-center justify-center px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-2xl hover:from-blue-700 hover:to-blue-800 transition-all duration-500 font-bold hover:scale-110 hover:shadow-2xl group relative overflow-hidden border border-blue-500/20 hover:border-blue-400/40"
               >
-                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <ShoppingCart className="w-5 h-5 mr-2 relative z-10 group-hover:animate-bounce" />
-                <span className="relative z-10">Add to Cart</span>
-                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+                <ShoppingCart className="w-5 h-5 mr-3 relative z-10 group-hover:animate-bounce group-hover:scale-110 transition-all duration-300" />
+                <span className="relative z-10 text-lg">Add to Cart</span>
+                <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
               </a>
               <a
                 href="#wishlist"
@@ -651,29 +658,30 @@ const ProductDetailsPage = ({
                   e.preventDefault();
                   handleAddToWishlist();
                 }}
-                className={`flex items-center justify-center px-6 py-3 rounded-xl border-2 transition-all duration-300 font-medium hover:scale-105 hover:shadow-lg group ${isInWishlist
-                    ? 'border-red-500 text-red-500 bg-gradient-to-r from-red-50 to-pink-50 animate-pulse'
-                    : 'border-gray-300 text-gray-700 hover:border-red-500 hover:text-red-500 hover:bg-red-50'
+                className={`flex items-center justify-center px-8 py-4 rounded-2xl border-2 transition-all duration-500 font-bold hover:scale-110 hover:shadow-xl group relative overflow-hidden ${isInWishlist
+                    ? 'border-red-500 text-red-500 bg-gradient-to-r from-red-50 to-pink-50 animate-pulse shadow-lg'
+                    : 'border-gray-300 text-gray-700 hover:border-red-500 hover:text-red-500 hover:bg-gradient-to-r hover:from-red-50 hover:to-pink-50'
                   }`}
               >
-                <Heart className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-300" fill={isInWishlist ? 'currentColor' : 'none'} />
-                {isInWishlist ? 'In Wishlist' : 'Add to Wishlist'}
+                <div className="absolute inset-0 bg-gradient-to-r from-red-500/10 to-pink-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                <Heart className="w-5 h-5 mr-3 relative z-10 group-hover:scale-110 group-hover:animate-bounce transition-all duration-300" fill={isInWishlist ? 'currentColor' : 'none'} />
+                <span className="relative z-10 text-lg">{isInWishlist ? 'In Wishlist' : 'Add to Wishlist'}</span>
               </a>
             </div>
 
-            {/* Additional Info */}
-            <div className={`bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-xl p-4 border border-blue-100 shadow-sm hover:shadow-md transition-all duration-300 ${getAnimationClasses('animate-scale-in delay-700', '', prefersReducedMotion)}`}>
-              <div className="flex items-start space-x-3">
+            {/* Enhanced Additional Info */}
+            <div className={`bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-2xl p-6 border border-blue-100 shadow-lg hover:shadow-xl transition-all duration-500 hover:scale-105 ${getAnimationClasses('animate-scale-in delay-700', '', prefersReducedMotion)}`}>
+              <div className="flex items-start space-x-4">
                 <div className="flex-shrink-0">
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-full flex items-center justify-center animate-pulse-slow">
-                    <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-10 h-10 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-full flex items-center justify-center animate-pulse-slow shadow-md">
+                    <svg className="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-sm font-medium text-blue-900">Free Shipping</h4>
-                  <p className="text-sm text-blue-700">Free delivery on orders above ₹500</p>
+                  <h4 className="text-base font-bold text-blue-900 mb-1">Free Shipping</h4>
+                  <p className="text-sm text-blue-700 font-medium">Free delivery on orders above ₹500</p>
                 </div>
               </div>
             </div>

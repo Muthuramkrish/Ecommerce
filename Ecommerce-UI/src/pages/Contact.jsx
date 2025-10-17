@@ -91,9 +91,9 @@ const Contact = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Phone */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col justify-center">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Phone className="w-8 h-8 text-green-600" />
+            <div className="bg-white rounded-3xl shadow-lg p-8 text-center hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:scale-105 h-full flex flex-col justify-center group border border-gray-100/50">
+              <div className="w-16 h-16 bg-gradient-to-r from-green-100 to-emerald-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
+                <Phone className="w-8 h-8 text-green-600 group-hover:animate-bounce" />
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-3">Call Us</h3>
               <p className="text-gray-600 text-sm mb-4">Mon - Sat: 9:00 AM - 6:00 PM</p>
@@ -103,9 +103,9 @@ const Contact = () => {
             </div>
 
             {/* Email */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col justify-center">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Mail className="w-8 h-8 text-blue-600" />
+            <div className="bg-white rounded-3xl shadow-lg p-8 text-center hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:scale-105 h-full flex flex-col justify-center group border border-gray-100/50">
+              <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
+                <Mail className="w-8 h-8 text-blue-600 group-hover:animate-bounce" />
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-3">Email Us</h3>
               <p className="text-gray-600 text-sm mb-4">We'll respond within 24 hours</p>
@@ -115,9 +115,9 @@ const Contact = () => {
             </div>
 
             {/* Location */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col justify-center">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <MapPin className="w-8 h-8 text-purple-600" />
+            <div className="bg-white rounded-3xl shadow-lg p-8 text-center hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:scale-105 h-full flex flex-col justify-center group border border-gray-100/50">
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-100 to-pink-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
+                <MapPin className="w-8 h-8 text-purple-600 group-hover:animate-bounce" />
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-3">Visit Us</h3>
               <p className="text-gray-600 text-sm mb-4">Come see our showroom</p>
@@ -127,9 +127,9 @@ const Contact = () => {
             </div>
 
             {/* Support */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300 hover:-translate-y-2 h-full flex flex-col justify-center">
-              <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Headphones className="w-8 h-8 text-orange-600" />
+            <div className="bg-white rounded-3xl shadow-lg p-8 text-center hover:shadow-2xl transition-all duration-500 hover:-translate-y-2 hover:scale-105 h-full flex flex-col justify-center group border border-gray-100/50">
+              <div className="w-16 h-16 bg-gradient-to-r from-orange-100 to-red-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
+                <Headphones className="w-8 h-8 text-orange-600 group-hover:animate-bounce" />
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-3">Live Support</h3>
               <p className="text-gray-600 text-sm mb-4">Chat with our experts</p>
@@ -167,7 +167,7 @@ const Contact = () => {
                       value={formData.name}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-500 hover:border-blue-300 focus:scale-105"
                       placeholder="Your full name"
                     />
                   </div>
@@ -182,7 +182,7 @@ const Contact = () => {
                       value={formData.email}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-500 hover:border-blue-300 focus:scale-105"
                       placeholder="your@email.com"
                     />
                   </div>
@@ -199,7 +199,7 @@ const Contact = () => {
                       name="phone"
                       value={formData.phone}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-500 hover:border-blue-300 focus:scale-105"
                       placeholder="+91 1234567890"
                     />
                   </div>
@@ -212,7 +212,7 @@ const Contact = () => {
                       name="inquiryType"
                       value={formData.inquiryType}
                       onChange={handleInputChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-200"
+                      className="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-500 hover:border-blue-300 focus:scale-105"
                     >
                       <option value="general">General Inquiry</option>
                       <option value="product">Product Information</option>
@@ -258,17 +258,18 @@ const Contact = () => {
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-6 rounded-lg font-semibold text-lg hover:shadow-xl hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                  className="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-4 px-6 rounded-2xl font-bold text-lg hover:shadow-2xl hover:scale-110 transition-all duration-500 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center group relative overflow-hidden"
                 >
                   {isSubmitting ? (
                     <div className="flex items-center">
                       <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
-                      Sending...
+                      <span className="relative z-10">Sending...</span>
                     </div>
                   ) : (
                     <div className="flex items-center">
-                      <Send className="w-5 h-5 mr-2" />
-                      Send Message
+                      <Send className="w-5 h-5 mr-3 relative z-10 group-hover:animate-bounce" />
+                      <span className="relative z-10">Send Message</span>
+                      <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
                     </div>
                   )}
                 </button>
@@ -347,7 +348,7 @@ const Contact = () => {
 
           <div className="space-y-6">
             {/* FAQ Item 1 */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+            <div className="bg-white rounded-3xl shadow-lg p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 group border border-gray-100/50">
               <h3 className="text-lg font-bold text-gray-900 mb-3">Do you provide installation services?</h3>
               <p className="text-gray-600 leading-relaxed">
                 While we don't provide direct installation services, we work with a network of certified electricians 
@@ -357,7 +358,7 @@ const Contact = () => {
             </div>
 
             {/* FAQ Item 2 */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+            <div className="bg-white rounded-3xl shadow-lg p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 group border border-gray-100/50">
               <h3 className="text-lg font-bold text-gray-900 mb-3">What is your return policy?</h3>
               <p className="text-gray-600 leading-relaxed">
                 We offer a 30-day return policy for unused products in original packaging. Items must be in 
@@ -367,7 +368,7 @@ const Contact = () => {
             </div>
 
             {/* FAQ Item 3 */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+            <div className="bg-white rounded-3xl shadow-lg p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 group border border-gray-100/50">
               <h3 className="text-lg font-bold text-gray-900 mb-3">Do you offer bulk pricing for large orders?</h3>
               <p className="text-gray-600 leading-relaxed">
                 Yes, we offer competitive bulk pricing for contractors, builders, and large projects. 
@@ -377,7 +378,7 @@ const Contact = () => {
             </div>
 
             {/* FAQ Item 4 */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+            <div className="bg-white rounded-3xl shadow-lg p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 group border border-gray-100/50">
               <h3 className="text-lg font-bold text-gray-900 mb-3">How can I verify product authenticity?</h3>
               <p className="text-gray-600 leading-relaxed">
                 All our products come with manufacturer warranties and authenticity certificates. 
@@ -387,7 +388,7 @@ const Contact = () => {
             </div>
 
             {/* FAQ Item 5 */}
-            <div className="bg-white rounded-2xl shadow-lg p-6 hover:shadow-xl transition-all duration-300">
+            <div className="bg-white rounded-3xl shadow-lg p-6 hover:shadow-2xl transition-all duration-500 hover:scale-105 group border border-gray-100/50">
               <h3 className="text-lg font-bold text-gray-900 mb-3">What areas do you deliver to?</h3>
               <p className="text-gray-600 leading-relaxed">
                 We deliver throughout Tamil Nadu and surrounding regions. Delivery times vary by location, 
