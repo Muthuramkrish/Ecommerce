@@ -96,9 +96,9 @@ const About = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Mission */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300">
-              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Target className="w-8 h-8 text-blue-600" />
+            <div className="bg-white rounded-3xl shadow-lg p-8 text-center hover:shadow-2xl transition-all duration-500 hover:scale-105 group border border-gray-100/50">
+              <div className="w-16 h-16 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
+                <Target className="w-8 h-8 text-blue-600 group-hover:animate-bounce" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-4">Our Mission</h3>
               <p className="text-gray-600 leading-relaxed">
@@ -109,9 +109,9 @@ const About = () => {
             </div>
 
             {/* Vision */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Eye className="w-8 h-8 text-purple-600" />
+            <div className="bg-white rounded-3xl shadow-lg p-8 text-center hover:shadow-2xl transition-all duration-500 hover:scale-105 group border border-gray-100/50">
+              <div className="w-16 h-16 bg-gradient-to-r from-purple-100 to-pink-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
+                <Eye className="w-8 h-8 text-purple-600 group-hover:animate-bounce" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-4">Our Vision</h3>
               <p className="text-gray-600 leading-relaxed">
@@ -122,9 +122,9 @@ const About = () => {
             </div>
 
             {/* Values */}
-            <div className="bg-white rounded-2xl shadow-lg p-8 text-center hover:shadow-xl transition-all duration-300">
-              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Heart className="w-8 h-8 text-red-600" />
+            <div className="bg-white rounded-3xl shadow-lg p-8 text-center hover:shadow-2xl transition-all duration-500 hover:scale-105 group border border-gray-100/50">
+              <div className="w-16 h-16 bg-gradient-to-r from-red-100 to-pink-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
+                <Heart className="w-8 h-8 text-red-600 group-hover:animate-bounce" />
               </div>
               <h3 className="text-xl font-bold text-gray-900 mb-4">Our Values</h3>
               <p className="text-gray-600 leading-relaxed">
@@ -151,8 +151,8 @@ const About = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {/* Quality Assurance */}
             <div className="text-center group">
-              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                <Shield className="w-10 h-10 text-white" />
+              <div className="w-20 h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
+                <Shield className="w-10 h-10 text-white group-hover:animate-bounce" />
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-3">Quality Assurance</h3>
               <p className="text-gray-600 text-sm leading-relaxed">
@@ -163,8 +163,8 @@ const About = () => {
 
             {/* Expert Support */}
             <div className="text-center group">
-              <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                <Users className="w-10 h-10 text-white" />
+              <div className="w-20 h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
+                <Users className="w-10 h-10 text-white group-hover:animate-bounce" />
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-3">Expert Support</h3>
               <p className="text-gray-600 text-sm leading-relaxed">
@@ -175,8 +175,8 @@ const About = () => {
 
             {/* Fast Service */}
             <div className="text-center group">
-              <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                <Clock className="w-10 h-10 text-white" />
+              <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
+                <Clock className="w-10 h-10 text-white group-hover:animate-bounce" />
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-3">Fast Service</h3>
               <p className="text-gray-600 text-sm leading-relaxed">
@@ -187,8 +187,8 @@ const About = () => {
 
             {/* Trusted Brands */}
             <div className="text-center group">
-              <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 transition-all duration-300 shadow-lg">
-                <Award className="w-10 h-10 text-white" />
+              <div className="w-20 h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
+                <Award className="w-10 h-10 text-white group-hover:animate-bounce" />
               </div>
               <h3 className="text-lg font-bold text-gray-900 mb-3">Trusted Brands</h3>
               <p className="text-gray-600 text-sm leading-relaxed">
@@ -210,11 +210,13 @@ const About = () => {
             Experience the VIKOSHIYA difference. Let us help you find the perfect electrical solutions for your needs.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <a href="#home" className="px-8 py-4 bg-white text-blue-600 rounded-full font-bold text-lg hover:shadow-xl hover:scale-105 transition-all duration-300">
-              Browse Products
+            <a href="#home" className="px-8 py-4 bg-white text-blue-600 rounded-full font-bold text-lg hover:shadow-2xl hover:scale-110 transition-all duration-500 group relative overflow-hidden">
+              <span className="relative z-10">Browse Products</span>
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-blue-100/50 to-transparent"></div>
             </a>
-            <a href="#contact" className="px-8 py-4 bg-white/20 backdrop-blur-sm text-white rounded-full font-semibold text-lg hover:bg-white/30 transition-all duration-300 border border-white/30">
-              Contact Us
+            <a href="#contact" className="px-8 py-4 bg-white/20 backdrop-blur-sm text-white rounded-full font-bold text-lg hover:bg-white/30 hover:scale-110 transition-all duration-500 border border-white/30 hover:shadow-2xl group relative overflow-hidden">
+              <span className="relative z-10">Contact Us</span>
+              <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
             </a>
           </div>
         </div>
