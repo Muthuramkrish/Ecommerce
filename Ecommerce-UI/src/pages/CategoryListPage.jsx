@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowLeft, Grid, List, Filter, X, Check } from 'lucide-react';
+import { ArrowLeft, Grid, List, Filter, X, Check, ShoppingCart } from 'lucide-react';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useReducedMotion, getAnimationClasses } from '../hooks/useReducedMotion';
@@ -1230,9 +1230,7 @@ const CategoryListPage = ({
                                 className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-4 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-semibold text-sm mt-auto hover:scale-105 hover:shadow-xl relative z-10 group/btn overflow-hidden flex items-center justify-center space-x-2"
                               >
                                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
-                                <svg className="w-4 h-4 relative z-10 group-hover/btn:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01" />
-                                </svg>
+                                <ShoppingCart className="w-4 h-4 relative z-10 group-hover/btn:animate-bounce" />
                                 <span className="relative z-10">Add to Cart</span>
                                 <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
                               </button>
@@ -1340,9 +1338,7 @@ const CategoryListPage = ({
                                 className="bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-6 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-semibold hover:scale-105 hover:shadow-xl group relative overflow-hidden flex items-center space-x-2"
                               >
                                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                                <svg className="w-4 h-4 relative z-10 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5 5M7 13l2.5 5m6-5v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6m8 0V9a2 2 0 00-2-2H9a2 2 0 00-2 2v4.01" />
-                                </svg>
+                                <ShoppingCart className="w-4 h-4 relative z-10 group-hover:animate-bounce" />
                                 <span className="relative z-10">Add to Cart</span>
                                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
                               </button>
