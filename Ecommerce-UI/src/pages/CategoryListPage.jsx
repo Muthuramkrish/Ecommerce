@@ -59,6 +59,7 @@ const CategoryListPage = ({
   const [filteredProducts, setFilteredProducts] = React.useState(products);
   const [isFiltering, setIsFiltering] = useState(false);
   const [filterCleanupMessage, setFilterCleanupMessage] = useState('');
+  const [lastCleanupTime, setLastCleanupTime] = useState(0);
 
   // Sync selected filters when route-provided initialFilters or category changes
   React.useEffect(() => {
@@ -257,6 +258,7 @@ const CategoryListPage = ({
   React.useEffect(() => {
     let cleanupCount = 0;
     let cleanupMessage = '';
+    let hasSignificantCleanup = false;
 
     // Remove brands that are no longer available
     if (selectedBrands.length > 0) {
@@ -266,6 +268,7 @@ const CategoryListPage = ({
         setSelectedBrands(validBrands);
         cleanupCount += selectedBrands.length - validBrands.length;
         cleanupMessage += `${selectedBrands.length - validBrands.length} brand(s) removed. `;
+        hasSignificantCleanup = true;
       }
     }
 
@@ -277,6 +280,7 @@ const CategoryListPage = ({
         setSelectedProductTypes(validProductTypes);
         cleanupCount += selectedProductTypes.length - validProductTypes.length;
         cleanupMessage += `${selectedProductTypes.length - validProductTypes.length} product type(s) removed. `;
+        hasSignificantCleanup = true;
       }
     }
 
@@ -288,6 +292,7 @@ const CategoryListPage = ({
         setSelectedSubcategories(validSubcategories);
         cleanupCount += selectedSubcategories.length - validSubcategories.length;
         cleanupMessage += `${selectedSubcategories.length - validSubcategories.length} subcategory(ies) removed. `;
+        hasSignificantCleanup = true;
       }
     }
 
@@ -299,6 +304,7 @@ const CategoryListPage = ({
         setSelectedSubSubcategories(validSubSubcategories);
         cleanupCount += selectedSubSubcategories.length - validSubSubcategories.length;
         cleanupMessage += `${selectedSubSubcategories.length - validSubSubcategories.length} sub-subcategory(ies) removed. `;
+        hasSignificantCleanup = true;
       }
     }
 
@@ -310,6 +316,7 @@ const CategoryListPage = ({
         setSelectedPowerRanges(validPowerRanges);
         cleanupCount += selectedPowerRanges.length - validPowerRanges.length;
         cleanupMessage += `${selectedPowerRanges.length - validPowerRanges.length} power range(s) removed. `;
+        hasSignificantCleanup = true;
       }
     }
 
@@ -321,6 +328,7 @@ const CategoryListPage = ({
         setSelectedCertifications(validCertifications);
         cleanupCount += selectedCertifications.length - validCertifications.length;
         cleanupMessage += `${selectedCertifications.length - validCertifications.length} certification(s) removed. `;
+        hasSignificantCleanup = true;
       }
     }
 
@@ -332,6 +340,7 @@ const CategoryListPage = ({
         setSelectedWarranties(validWarranties);
         cleanupCount += selectedWarranties.length - validWarranties.length;
         cleanupMessage += `${selectedWarranties.length - validWarranties.length} warranty(ies) removed. `;
+        hasSignificantCleanup = true;
       }
     }
 
@@ -343,6 +352,7 @@ const CategoryListPage = ({
         setSelectedColors(validColors);
         cleanupCount += selectedColors.length - validColors.length;
         cleanupMessage += `${selectedColors.length - validColors.length} color(s) removed. `;
+        hasSignificantCleanup = true;
       }
     }
 
@@ -354,6 +364,7 @@ const CategoryListPage = ({
         setSelectedSizes(validSizes);
         cleanupCount += selectedSizes.length - validSizes.length;
         cleanupMessage += `${selectedSizes.length - validSizes.length} size(s) removed. `;
+        hasSignificantCleanup = true;
       }
     }
 
@@ -365,14 +376,23 @@ const CategoryListPage = ({
         setSelectedMaterials(validMaterials);
         cleanupCount += selectedMaterials.length - validMaterials.length;
         cleanupMessage += `${selectedMaterials.length - validMaterials.length} material(s) removed. `;
+        hasSignificantCleanup = true;
       }
     }
 
-    // Show cleanup message if any filters were removed
-    if (cleanupCount > 0) {
-      setFilterCleanupMessage(`${cleanupCount} filter(s) were automatically removed as they would result in no products being displayed.`);
-      // Clear the message after 3 seconds
-      setTimeout(() => setFilterCleanupMessage(''), 3000);
+    // Show cleanup message only for significant cleanups and not too frequently
+    if (cleanupCount > 0 && hasSignificantCleanup) {
+      const now = Date.now();
+      // Only show message if it's been more than 2 seconds since last cleanup
+      if (now - lastCleanupTime > 2000) {
+        const message = cleanupCount === 1 
+          ? `1 filter was automatically removed as it would result in no products being displayed.`
+          : `${cleanupCount} filters were automatically removed as they would result in no products being displayed.`;
+        setFilterCleanupMessage(message);
+        setLastCleanupTime(now);
+        // Clear the message after 5 seconds
+        setTimeout(() => setFilterCleanupMessage(''), 5000);
+      }
     }
   }, [brands, productTypes, subcategories, subSubcategories, powerRanges, colors, sizes, materials, certifications, warranties, selectedBrands, selectedProductTypes, selectedSubcategories, selectedSubSubcategories, selectedPowerRanges, selectedColors, selectedSizes, selectedMaterials, selectedCertifications, selectedWarranties]);
 
@@ -917,15 +937,25 @@ const CategoryListPage = ({
 
           {/* Filter Cleanup Message */}
           {filterCleanupMessage && (
-            <div className="mt-4 bg-yellow-50 border border-yellow-200 rounded-lg p-3">
+            <div className="mt-4 bg-blue-50 border border-blue-200 rounded-lg p-3 animate-fade-in">
               <div className="flex items-center">
                 <div className="flex-shrink-0">
-                  <svg className="h-5 w-5 text-yellow-400" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M8.257 3.099c.765-1.36 2.722-1.36 3.486 0l5.58 9.92c.75 1.334-.213 2.98-1.742 2.98H4.42c-1.53 0-2.493-1.646-1.743-2.98l5.58-9.92zM11 13a1 1 0 11-2 0 1 1 0 012 0zm-1-8a1 1 0 00-1 1v3a1 1 0 002 0V6a1 1 0 00-1-1z" clipRule="evenodd" />
+                  <svg className="h-5 w-5 text-blue-400" viewBox="0 0 20 20" fill="currentColor">
+                    <path fillRule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clipRule="evenodd" />
                   </svg>
                 </div>
                 <div className="ml-3">
-                  <p className="text-sm text-yellow-800">{filterCleanupMessage}</p>
+                  <p className="text-sm text-blue-800 font-medium">{filterCleanupMessage}</p>
+                </div>
+                <div className="ml-auto">
+                  <button
+                    onClick={() => setFilterCleanupMessage('')}
+                    className="text-blue-400 hover:text-blue-600 transition-colors duration-200"
+                  >
+                    <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    </svg>
+                  </button>
                 </div>
               </div>
             </div>
