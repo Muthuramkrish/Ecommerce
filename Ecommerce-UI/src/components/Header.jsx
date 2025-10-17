@@ -43,7 +43,6 @@ const Header = ({
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeSubcategory, setActiveSubcategory] = useState(null);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
-  const [isNavigating, setIsNavigating] = useState(false);
 
   // Local helper to build URL-safe anchors
   const slugify = (text) => {
@@ -162,22 +161,19 @@ const Header = ({
                             }}
                             onClick={(e) => {
                               e.preventDefault();
-                              setIsNavigating(true);
                               setIsLeftMenuOpen(false);
                               onNavigateTaxonomy &&
                                 onNavigateTaxonomy("category", cat.name);
-                              // Reset navigation state after a short delay
-                              setTimeout(() => setIsNavigating(false), 500);
                             }}
-                            className={`group w-full flex items-center justify-between px-3 py-2 text-base hover:bg-blue-50 hover:shadow-sm transition-all duration-200 ${
+                            className={`w-full flex items-center justify-between px-3 py-2 text-base hover:bg-blue-50 ${
                               activeCategory === cat.name
-                                ? "bg-blue-50 text-blue-900 shadow-sm"
+                                ? "bg-blue-50 text-blue-900"
                                 : ""
                             }`}
-                            title={`Explore ${cat.name} category`}
+                            title={cat.name}
                           >
-                            <span className="truncate group-hover:font-semibold transition-all duration-200">{cat.name}</span>
-                            <span className="text-lg text-gray-900 font-bold group-hover:text-blue-600 transition-colors duration-200">
+                            <span className="truncate">{cat.name}</span>
+                            <span className="text-lg text-gray-900 font-bold">
                               ›
                             </span>
                           </a>
@@ -217,27 +213,24 @@ const Header = ({
                                         }
                                         onClick={(e) => {
                                           e.preventDefault();
-                                          setIsNavigating(true);
                                           setIsLeftMenuOpen(false);
                                           onNavigateTaxonomy &&
                                             onNavigateTaxonomy(
                                               "subcategory",
                                               sub.name
                                             );
-                                          // Reset navigation state after a short delay
-                                          setTimeout(() => setIsNavigating(false), 500);
                                         }}
-                                        className={`group w-full flex items-center justify-between px-3 py-2 text-base rounded-lg hover:bg-gray-50 hover:shadow-sm transition-all duration-200 ${
+                                        className={`w-full flex items-center justify-between px-3 py-2 text-base rounded-lg hover:bg-gray-50 ${
                                           activeSubcategory === sub.name
-                                            ? "bg-gray-50 shadow-sm"
+                                            ? "bg-gray-50"
                                             : ""
                                         }`}
-                                        title={`View ${sub.name} products`}
+                                        title={sub.name}
                                       >
-                                        <span className="truncate font-medium text-gray-800 group-hover:text-blue-700 transition-colors duration-200">
+                                        <span className="truncate font-medium text-gray-800">
                                           {sub.name}
                                         </span>
-                                        <span className="text-lg text-gray-400 group-hover:text-blue-500 transition-colors duration-200">
+                                        <span className="text-lg text-gray-400">
                                           ›
                                         </span>
                                       </a>
@@ -259,34 +252,31 @@ const Header = ({
                                         <div className="text-base font-semibold text-gray-700 mb-2">
                                           {sub ? sub.name : "Subcategories"}
                                         </div>
-                                        <div className="grid grid-cols-1 gap-1 max-h-[60vh] overflow-auto">
+                                        <div className="grid grid-cols-2 gap-2 max-h-[60vh] overflow-auto">
                                           {subSubs.map((ss) => (
-                                            <button
+                                            <a
                                               key={ss.name}
+                                              href={`#sub-subcategory/${encodeURIComponent(
+                                                slugify(ss.name)
+                                              )}`}
                                               onClick={(e) => {
                                                 e.preventDefault();
-                                                setIsNavigating(true);
                                                 setIsLeftMenuOpen(false);
                                                 onNavigateTaxonomy &&
                                                   onNavigateTaxonomy(
                                                     "sub-subcategory",
                                                     ss.name
                                                   );
-                                                // Reset navigation state after a short delay
-                                                setTimeout(() => setIsNavigating(false), 500);
                                               }}
-                                              className="group text-left text-sm px-3 py-2 rounded-lg hover:bg-blue-50 hover:text-blue-700 transition-all duration-200 truncate border border-transparent hover:border-blue-200 hover:shadow-sm"
-                                              title={`Filter by ${ss.name}`}
+                                              className="text-left text-base px-2 py-1.5 rounded hover:bg-gray-50 truncate"
+                                              title={ss.name}
                                             >
-                                              <span className="flex items-center">
-                                                <span className="w-2 h-2 bg-blue-300 rounded-full mr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-200"></span>
-                                                <span className="font-medium group-hover:font-semibold transition-all duration-200">{ss.name}</span>
-                                              </span>
-                                            </button>
+                                              {ss.name}
+                                            </a>
                                           ))}
                                           {subSubs.length === 0 && (
-                                            <div className="text-xs text-gray-400 px-3 py-2 italic">
-                                              No sub-categories available
+                                            <div className="text-xs text-gray-400">
+                                              No deeper levels
                                             </div>
                                           )}
                                         </div>
@@ -636,15 +626,12 @@ const Header = ({
                                   {/* View All Category Button */}
                                   <button
                                     onClick={() => {
-                                      setIsNavigating(true);
                                       setIsMobileMenuOpen(false);
                                       onNavigateTaxonomy &&
                                         onNavigateTaxonomy(
                                           "category",
                                           category.name
                                         );
-                                      // Reset navigation state after a short delay
-                                      setTimeout(() => setIsNavigating(false), 500);
                                     }}
                                     className="w-full px-4 py-2 text-left text-base font-medium text-blue-600 hover:bg-blue-50 transition-colors border-b border-gray-200 truncate"
                                   >
@@ -693,15 +680,12 @@ const Header = ({
                                             {/* View All Subcategory Button */}
                                             <button
                                               onClick={() => {
-                                                setIsNavigating(true);
                                                 setIsMobileMenuOpen(false);
                                                 onNavigateTaxonomy &&
                                                   onNavigateTaxonomy(
                                                     "subcategory",
                                                     subcategory.name
                                                   );
-                                                // Reset navigation state after a short delay
-                                                setTimeout(() => setIsNavigating(false), 500);
                                               }}
                                               className="w-full text-left px-6 py-2 text-base font-medium text-blue-600 hover:bg-blue-50 transition-colors border-b border-gray-200 truncate"
                                             >
@@ -713,22 +697,16 @@ const Header = ({
                                                 <button
                                                   key={subSubcategory.name}
                                                   onClick={() => {
-                                                    setIsNavigating(true);
                                                     setIsMobileMenuOpen(false);
                                                     onNavigateTaxonomy &&
                                                       onNavigateTaxonomy(
                                                         "sub-subcategory",
                                                         subSubcategory.name
                                                       );
-                                                    // Reset navigation state after a short delay
-                                                    setTimeout(() => setIsNavigating(false), 500);
                                                   }}
-                                                  className="w-full text-left px-6 py-2 text-sm text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors truncate border-l-2 border-transparent hover:border-blue-300 rounded-r-lg"
+                                                  className="w-full text-left px-6 py-2 text-base text-gray-600 hover:bg-gray-200 transition-colors truncate"
                                                 >
-                                                  <span className="flex items-center">
-                                                    <span className="w-2 h-2 bg-gray-300 rounded-full mr-2 flex-shrink-0"></span>
-                                                    <span className="font-medium">{subSubcategory.name}</span>
-                                                  </span>
+                                                  {subSubcategory.name}
                                                 </button>
                                               )
                                             )}
