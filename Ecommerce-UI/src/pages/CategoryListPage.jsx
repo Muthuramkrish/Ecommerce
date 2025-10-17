@@ -836,6 +836,64 @@ const CategoryListPage = ({
                 <span>Back</span>
               </button>
               <div className="h-5 md:h-6 w-px bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
+              
+              {/* Display active filters if present */}
+              {(selectedSubSubcategories.length > 0 || selectedSubcategories.length > 0 || selectedBrands.length > 0) && (
+                <>
+                  <div className="flex items-center space-x-2">
+                    <span className="text-sm text-gray-500">Filtered by:</span>
+                    <div className="flex flex-wrap gap-2">
+                      {/* Subsubcategories */}
+                      {selectedSubSubcategories.map((subSubcategory) => (
+                        <span
+                          key={`subsub-${subSubcategory}`}
+                          className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-blue-100 text-blue-800 border border-blue-200"
+                        >
+                          {subSubcategory}
+                          <button
+                            onClick={() => setSelectedSubSubcategories(prev => prev.filter(ssc => ssc !== subSubcategory))}
+                            className="ml-2 text-blue-600 hover:text-blue-800 transition-colors"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </span>
+                      ))}
+                      {/* Subcategories */}
+                      {selectedSubcategories.map((subcategory) => (
+                        <span
+                          key={`sub-${subcategory}`}
+                          className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-green-100 text-green-800 border border-green-200"
+                        >
+                          {subcategory}
+                          <button
+                            onClick={() => setSelectedSubcategories(prev => prev.filter(sc => sc !== subcategory))}
+                            className="ml-2 text-green-600 hover:text-green-800 transition-colors"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </span>
+                      ))}
+                      {/* Brands */}
+                      {selectedBrands.map((brand) => (
+                        <span
+                          key={`brand-${brand}`}
+                          className="inline-flex items-center px-3 py-1 rounded-full text-xs font-medium bg-purple-100 text-purple-800 border border-purple-200"
+                        >
+                          {brand}
+                          <button
+                            onClick={() => setSelectedBrands(prev => prev.filter(b => b !== brand))}
+                            className="ml-2 text-purple-600 hover:text-purple-800 transition-colors"
+                          >
+                            <X className="w-3 h-3" />
+                          </button>
+                        </span>
+                      ))}
+                    </div>
+                  </div>
+                  <div className="h-5 md:h-6 w-px bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
+                </>
+              )}
+              
               <div className="animate-fade-in-up">
                 <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-gray-900 to-blue-600 bg-clip-text text-transparent">
                   {formatCategoryTitle(category)}
