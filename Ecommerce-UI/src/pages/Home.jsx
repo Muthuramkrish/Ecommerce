@@ -639,7 +639,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
       )}
 
       {/* Professional Statistics Section */}
-      <section 
+      {/* <section 
         ref={statsSectionRef}
         className={`py-16 md:py-20 bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 relative overflow-hidden transition-all duration-1000 ${
           isStatsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
@@ -680,10 +680,10 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* Professional CTA Section */}
-      <section 
+      {/* <section 
         ref={ctaSectionRef}
         className={`py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white transition-all duration-1000 ${
           isCtaVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
@@ -728,7 +728,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
     </div>
   );
 };
