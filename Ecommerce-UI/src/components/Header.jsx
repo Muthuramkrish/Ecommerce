@@ -448,7 +448,7 @@ const Header = ({
             className="fixed inset-0 bg-black bg-opacity-50"
             onClick={() => setIsMobileMenuOpen(false)}
           ></div>
-          <div className="mobile-menu fixed top-0 left-0 w-72 xs:w-80 sm:w-96 max-w-[90vw] h-full bg-white shadow-xl transform transition-transform duration-300 ease-in-out">
+          <div className="mobile-menu fixed top-0 left-0 w-72 xs:w-80 sm:w-96 max-w-[90vw] h-full bg-white shadow-xl transform transition-transform duration-300 ease-in-out overflow-y-auto">
             {/* Mobile Menu Header */}
             <div className="bg-blue-900 text-white p-3 xs:p-4 flex items-center justify-between">
               <div className="flex items-center space-x-2">

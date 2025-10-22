@@ -823,53 +823,53 @@ const CategoryListPage = ({
           isHeaderVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 md:py-6">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-3 md:gap-0">
-            <div className={`flex items-center space-x-3 md:space-x-4 transition-all duration-700 ${
+        <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10 py-3 xs:py-4 md:py-6">
+          <div className="flex flex-col xs:flex-row md:items-center md:justify-between gap-2 xs:gap-3 md:gap-0">
+            <div className={`flex items-center space-x-2 xs:space-x-3 md:space-x-4 transition-all duration-700 ${
               isHeaderVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-4'
             }`}>
               <button
                 onClick={() => window.history.back()}
-                className="flex items-center text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm md:text-base hover:scale-105 group"
+                className="flex items-center text-gray-600 hover:text-gray-900 transition-all duration-300 text-xs xs:text-sm md:text-base hover:scale-105 group"
               >
-                <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 mr-2 group-hover:-translate-x-1 transition-transform duration-300" />
-                <span>Back</span>
+                <ArrowLeft className="w-3.5 h-3.5 xs:w-4 xs:h-4 md:w-5 md:h-5 mr-1.5 xs:mr-2 group-hover:-translate-x-1 transition-transform duration-300" />
+                <span className="hidden xs:inline">Back</span>
               </button>
-              <div className="h-5 md:h-6 w-px bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
+              <div className="h-4 xs:h-5 md:h-6 w-px bg-gradient-to-b from-transparent via-gray-300 to-transparent"></div>
               <div className="animate-fade-in-up">
-                <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-gray-900 to-blue-600 bg-clip-text text-transparent">
+                <h1 className="text-lg xs:text-xl md:text-2xl font-bold bg-gradient-to-r from-gray-900 to-blue-600 bg-clip-text text-transparent">
                   {formatCategoryTitle(category)}
                 </h1>
-                <p className="text-sm md:text-base text-gray-600 mt-0.5 md:mt-1">
+                <p className="text-xs xs:text-sm md:text-base text-gray-600 mt-0.5 md:mt-1">
                   <span className="font-semibold text-blue-600">{sortedProducts.length}</span> products available
                 </p>
               </div>
             </div>
 
             {/* View Controls */}
-            <div className={`flex items-center space-x-3 md:space-x-4 transition-all duration-700 delay-200 ${
+            <div className={`flex items-center space-x-2 xs:space-x-3 md:space-x-4 transition-all duration-700 delay-200 ${
               isHeaderVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
             }`}>
               {/* Mobile Filter Button */}
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="lg:hidden flex items-center space-x-2 bg-gradient-to-r from-blue-900 to-blue-800 text-white px-3 py-2 rounded-lg hover:from-blue-800 hover:to-blue-700 transition-all duration-300 text-sm hover:scale-105 hover:shadow-lg group"
+                className="lg:hidden flex items-center space-x-1.5 xs:space-x-2 bg-gradient-to-r from-blue-900 to-blue-800 text-white px-2.5 xs:px-3 py-1.5 xs:py-2 rounded-lg hover:from-blue-800 hover:to-blue-700 transition-all duration-300 text-xs xs:text-sm hover:scale-105 hover:shadow-lg group"
               >
-                <Filter className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
+                <Filter className="w-3.5 h-3.5 xs:w-4 xs:h-4 group-hover:rotate-12 transition-transform duration-300" />
                 <span>Filters</span>
                 {activeFiltersCount > 0 && (
-                  <span className="bg-white text-blue-900 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center animate-bounce">
+                  <span className="bg-white text-blue-900 text-xs font-bold rounded-full w-4 h-4 xs:w-5 xs:h-5 flex items-center justify-center animate-bounce">
                     {activeFiltersCount}
                   </span>
                 )}
               </button>
 
-              <div className="hidden sm:flex items-center space-x-2">
-                <span className="text-sm text-gray-600">Sort by:</span>
+              <div className="hidden xs:flex items-center space-x-1.5 xs:space-x-2">
+                <span className="text-xs xs:text-sm text-gray-600">Sort by:</span>
                 <select
                   value={sortBy}
                   onChange={(e) => setSortBy(e.target.value)}
-                  className="border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                  className="border border-gray-300 rounded-lg px-2 xs:px-3 py-1.5 xs:py-2 text-xs xs:text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                 >
                   <option value="name">Name</option>
                   <option value="price-low">Price: Low to High</option>
@@ -877,18 +877,18 @@ const CategoryListPage = ({
                 </select>
               </div>
 
-              <div className="hidden sm:flex border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
+              <div className="hidden xs:flex border border-gray-300 rounded-lg overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300">
                 <button
                   onClick={() => setViewMode('grid')}
-                  className={`p-2 transition-all duration-300 ${viewMode === 'grid' ? 'bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-inner' : 'bg-white text-gray-600 hover:bg-blue-50 hover:text-blue-600'}`}
+                  className={`p-1.5 xs:p-2 transition-all duration-300 ${viewMode === 'grid' ? 'bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-inner' : 'bg-white text-gray-600 hover:bg-blue-50 hover:text-blue-600'}`}
                 >
-                  <Grid className="w-4 h-4 hover:scale-110 transition-transform duration-200" />
+                  <Grid className="w-3.5 h-3.5 xs:w-4 xs:h-4 hover:scale-110 transition-transform duration-200" />
                 </button>
                 <button
                   onClick={() => setViewMode('list')}
-                  className={`p-2 transition-all duration-300 ${viewMode === 'list' ? 'bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-inner' : 'bg-white text-gray-600 hover:bg-blue-50 hover:text-blue-600'}`}
+                  className={`p-1.5 xs:p-2 transition-all duration-300 ${viewMode === 'list' ? 'bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-inner' : 'bg-white text-gray-600 hover:bg-blue-50 hover:text-blue-600'}`}
                 >
-                  <List className="w-4 h-4 hover:scale-110 transition-transform duration-200" />
+                  <List className="w-3.5 h-3.5 xs:w-4 xs:h-4 hover:scale-110 transition-transform duration-200" />
                 </button>
               </div>
             </div>
@@ -934,12 +934,12 @@ const CategoryListPage = ({
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
-        <div className="flex gap-6 md:gap-8">
+      <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10 py-4 xs:py-6 md:py-8">
+        <div className="flex gap-4 xs:gap-6 md:gap-8">
           {/* Mobile Filter Overlay */}
           {showFilters && (
             <div className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-50">
-              <div className="absolute right-0 top-0 h-full w-72 sm:w-80 bg-white shadow-xl overflow-y-auto">
+              <div className="absolute right-0 top-0 h-full w-72 xs:w-80 sm:w-96 bg-white shadow-xl overflow-y-auto">
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-6">
                     <button
@@ -1003,7 +1003,7 @@ const CategoryListPage = ({
 
           {/* Desktop Filter Sidebar (render only on desktop to avoid duplicate on mobile) */}
           {isDesktop && (
-            <div className="hidden lg:block w-80 flex-shrink-0">
+            <div className="hidden lg:block w-72 xl:w-80 flex-shrink-0">
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pr-2">
                 <FilterPanel
                   priceRange={priceRange}
@@ -1097,7 +1097,7 @@ const CategoryListPage = ({
                   <div
                     className={
                       viewMode === "grid"
-                        ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 md:gap-8 lg:gap-10 items-stretch"
+                        ? "grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 2xl:grid-cols-4 gap-4 xs:gap-6 md:gap-8 lg:gap-10 items-stretch"
                         : "space-y-4"
                     }
                   >

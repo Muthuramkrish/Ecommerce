@@ -268,7 +268,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
 
               {/* Content with Staggered Animations */}
               <div className="relative h-full flex items-center">
-                <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10 w-full">
+                <div className="max-w-7xl 2xl:max-w-8xl 3xl:max-w-9xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 3xl:px-16 w-full">
                   <div className="max-w-3xl xs:max-w-4xl pr-2 xs:pr-4 sm:pr-8">
                     {/* Professional text content container with enhanced animations */}
                     <div className="bg-white/5 backdrop-blur-md rounded-2xl xs:rounded-3xl p-4 xs:p-6 sm:p-8 md:p-10 lg:p-12 border border-white/20 shadow-2xl transform transition-all duration-1000 hover:scale-105 hover:shadow-3xl">
@@ -393,7 +393,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
           }}></div>
         </div>
         
-        <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10 relative">
+        <div className="max-w-7xl 2xl:max-w-8xl 3xl:max-w-9xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 3xl:px-16 relative">
           <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-6 xs:gap-8 md:gap-12">
             <div className="text-center group animate-fade-in-up">
               <div className="w-12 h-12 xs:w-16 xs:h-16 md:w-20 md:h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl xs:rounded-2xl flex items-center justify-center mx-auto mb-3 xs:mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
@@ -440,7 +440,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
         }`} 
         id="categories"
       >
-        <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10">
+        <div className="max-w-7xl 2xl:max-w-8xl 3xl:max-w-9xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 3xl:px-16">
           <div className="text-center mb-8 xs:mb-12 md:mb-16">
             <div className="inline-block px-4 xs:px-6 py-1.5 xs:py-2 bg-blue-100 rounded-full mb-4 xs:mb-6">
               <span className="text-blue-800 text-xs xs:text-sm font-semibold tracking-wide uppercase">Product Categories</span>
@@ -594,7 +594,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
             isProductsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10">
+          <div className="max-w-7xl 2xl:max-w-8xl 3xl:max-w-9xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10 2xl:px-12 3xl:px-16">
             <div className="text-center mb-8 xs:mb-12 md:mb-16">
               <div className="inline-block px-4 xs:px-6 py-1.5 xs:py-2 bg-yellow-100 rounded-full mb-4 xs:mb-6">
                 <span className="text-yellow-800 text-xs xs:text-sm font-semibold tracking-wide uppercase">Best Sellers</span>
