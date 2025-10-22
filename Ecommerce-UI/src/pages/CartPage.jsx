@@ -45,41 +45,41 @@ const CartPage = ({ items, onBack, onUpdateQuantity, onRemoveItem, onCheckout, c
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+        <div className="max-w-7xl mx-auto px-2 xs:px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-14 xs:h-16">
             <button 
               onClick={() => window.history.back()}
-              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors text-sm md:text-base"
+              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors text-sm xs:text-base"
             >
-              <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-              <span className="hidden sm:inline">Back</span>
+              <ArrowLeft className="w-4 h-4 xs:w-5 xs:h-5 mr-1 xs:mr-2" />
+              <span className="hidden xs:inline">Back</span>
             </button>
-            <h1 className="text-lg font-semibold text-gray-900 text-center flex-1">Shopping Cart</h1>
+            <h1 className="text-base xs:text-lg font-semibold text-gray-900 text-center flex-1">Shopping Cart</h1>
             <button 
               onClick={() => clearCart()}
-              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors text-sm md:text-base"
+              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors text-sm xs:text-base"
             >
-              <Trash2 className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-              <span className="hidden sm:inline">Clear Cart</span>
+              <Trash2 className="w-4 h-4 xs:w-5 xs:h-5 mr-1 xs:mr-2" />
+              <span className="hidden xs:inline">Clear Cart</span>
             </button>
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-2 xs:px-4 sm:px-6 lg:px-8 py-4 xs:py-6 sm:py-8">
         {items.length === 0 ? (
-          <div className="text-center py-16">
-            <ShoppingBag className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500 text-lg mb-2">Your cart is empty</p>
-            <p className="text-gray-400">Add some products to get started</p>
+          <div className="text-center py-12 xs:py-16">
+            <ShoppingBag className="w-12 h-12 xs:w-16 xs:h-16 text-gray-300 mx-auto mb-3 xs:mb-4" />
+            <p className="text-gray-500 text-base xs:text-lg mb-2">Your cart is empty</p>
+            <p className="text-gray-400 text-sm xs:text-base">Add some products to get started</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-4 xs:gap-6 lg:gap-8">
             {/* Items */}
-            <div className="lg:col-span-2 space-y-4">
+            <div className="lg:col-span-2 space-y-3 xs:space-y-4">
               {items.map((item, index) => (
-                <div key={index} className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-sm border border-gray-100">
+                <div key={index} className="flex items-center space-x-2 xs:space-x-3 sm:space-x-4 p-3 xs:p-4 bg-white rounded-lg shadow-sm border border-gray-100">
                   <button
                     onClick={() => onOpenDetails && onOpenDetails(item)}
                     className="focus:outline-none"

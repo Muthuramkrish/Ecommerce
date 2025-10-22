@@ -18,21 +18,21 @@ const Footer = ({
 }) => {
   return (
     <footer className="bg-blue-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="max-w-7xl mx-auto px-2 xs:px-4 sm:px-6 lg:px-8 py-8 xs:py-10 sm:py-12">
+        <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-6 xs:gap-8">
           {/* Company Info */}
-          <div className="space-y-4">
-          <img src={v1Logo} alt="Vikoshiya Technologies logo" className="h-12 bg-gray-50 rounded-full w-auto mb-4" />
-          <p className="text-blue-100 leading-relaxed">
+          <div className="space-y-3 xs:space-y-4 xs:col-span-2 lg:col-span-1">
+          <img src={v1Logo} alt="Vikoshiya Technologies logo" className="h-10 xs:h-12 bg-gray-50 rounded-full w-auto mb-3 xs:mb-4" />
+          <p className="text-blue-100 leading-relaxed text-sm xs:text-base">
           Vikoshiya – Your trusted destination for high-quality electrical products, built on reliability, safety, and innovation.
             </p>
            
           </div>
 
           {/* Quick Links */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-yellow-400">Quick Links</h4>
-            <ul className="space-y-2">
+          <div className="space-y-3 xs:space-y-4">
+            <h4 className="text-base xs:text-lg font-semibold text-yellow-400">Quick Links</h4>
+            <ul className="space-y-1.5 xs:space-y-2">
               <li>
                 <button onClick={onHomeClick} className="text-blue-100 hover:text-white transition-colors">
                   Home

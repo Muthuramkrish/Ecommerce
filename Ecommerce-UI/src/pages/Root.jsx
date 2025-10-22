@@ -1258,7 +1258,7 @@ function Root() {
           currentUser={currentUser || undefined}
         />
       )}
-      <main className={isLoginOpen ? "" : "pt-16 md:pt-20"}>
+      <main className={isLoginOpen ? "" : "pt-14 xs:pt-16 lg:pt-20"}>
         {isLoginOpen ? (
           <LoginPage
             onLoginSuccess={handleLoginSuccess}
@@ -1416,8 +1416,8 @@ function Root() {
                 </div>
 
                 {/* Content */}
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 items-stretch">
+                <div className="max-w-7xl mx-auto px-2 xs:px-4 sm:px-6 lg:px-8 py-4 xs:py-6 sm:py-8">
+                  <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-3 xs:gap-4 sm:gap-5 lg:gap-6 items-stretch">
                     {filteredProducts.map((product, index) => (
                       <div
                         key={`${product['product-id'] || product['product-title']}-${index}`}
