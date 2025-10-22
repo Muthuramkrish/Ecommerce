@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowLeft, Grid, List, Filter, X, Check, ShoppingCart } from 'lucide-react';
 import LoadingSpinner from '../components/LoadingSpinner';
+import HierarchicalCategoryFilter from '../components/HierarchicalCategoryFilter';
+import CollapsibleBrandFilter from '../components/CollapsibleBrandFilter';
+import CollapsibleFilter from '../components/CollapsibleFilter';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useReducedMotion, getAnimationClasses } from '../hooks/useReducedMotion';
 
@@ -18,7 +21,6 @@ const CategoryListPage = ({
   const [sortedProducts, setSortedProducts] = React.useState(products);
   const [showFilters, setShowFilters] = React.useState(false);
   const [isDesktop, setIsDesktop] = React.useState(typeof window !== 'undefined' ? window.innerWidth >= 1024 : false);
-  const subcategorySectionRef = React.useRef(null);
 
   // Scroll animations
   const [headerSectionRef, isHeaderVisible] = useScrollAnimation();
@@ -92,8 +94,6 @@ const CategoryListPage = ({
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   }, [currentPage]);
 
-  // Brand search UI state
-  const [brandQuery, setBrandQuery] = React.useState('');
 
 
   // Get available filter options based on current filtered products
@@ -954,8 +954,6 @@ const CategoryListPage = ({
                     maxPrice={maxPrice}
                     selectedBrands={selectedBrands}
                     handleBrandToggle={handleBrandToggle}
-                    brandQuery={brandQuery}
-                    setBrandQuery={setBrandQuery}
                     selectedProductTypes={selectedProductTypes}
                     handleProductTypeToggle={handleProductTypeToggle}
                     selectedCategories={selectedCategories}
@@ -995,7 +993,7 @@ const CategoryListPage = ({
                     warranties={warranties}
                     clearAllFilters={clearAllFilters}
                     activeFiltersCount={activeFiltersCount}
-                    subcategorySectionRef={subcategorySectionRef}
+                    filteredProducts={filteredProducts}
                   />
                 </div>
               </div>
@@ -1013,8 +1011,6 @@ const CategoryListPage = ({
                   maxPrice={maxPrice}
                   selectedBrands={selectedBrands}
                   handleBrandToggle={handleBrandToggle}
-                  brandQuery={brandQuery}
-                  setBrandQuery={setBrandQuery}
                   selectedProductTypes={selectedProductTypes}
                   handleProductTypeToggle={handleProductTypeToggle}
                   selectedCategories={selectedCategories}
@@ -1054,7 +1050,7 @@ const CategoryListPage = ({
                   warranties={warranties}
                   clearAllFilters={clearAllFilters}
                   activeFiltersCount={activeFiltersCount}
-                  subcategorySectionRef={subcategorySectionRef}
+                  filteredProducts={filteredProducts}
                 />
               </div>
             </div>
@@ -1385,8 +1381,6 @@ const FilterPanel = ({
   maxPrice,
   selectedBrands,
   handleBrandToggle,
-  brandQuery,
-  setBrandQuery,
   selectedProductTypes,
   handleProductTypeToggle,
   selectedCategories,
@@ -1426,30 +1420,8 @@ const FilterPanel = ({
   warranties,
   clearAllFilters,
   activeFiltersCount,
-  subcategorySectionRef
+  filteredProducts
 }) => {
-  const [showAllBrands, setShowAllBrands] = React.useState(false);
-  const [showAllProductTypes, setShowAllProductTypes] = React.useState(false);
-  const [showAllSubcategories, setShowAllSubcategories] = React.useState(false);
-  const [showAllSubSubcategories, setShowAllSubSubcategories] = React.useState(false);
-  const [showAllPowerRanges, setShowAllPowerRanges] = React.useState(false);
-  const [showAllColors, setShowAllColors] = React.useState(false);
-  const [showAllSizes, setShowAllSizes] = React.useState(false);
-  const [showAllMaterials, setShowAllMaterials] = React.useState(false);
-  const [showAllCertifications, setShowAllCertifications] = React.useState(false);
-  const [showAllWarranties, setShowAllWarranties] = React.useState(false);
-
-  const filteredBrands = brands.filter(b => b.toLowerCase().includes(brandQuery.toLowerCase()));
-  const visibleBrands = showAllBrands ? filteredBrands : filteredBrands.slice(0, 5);
-  const visibleProductTypes = showAllProductTypes ? productTypes : productTypes.slice(0, 5);
-  const visibleSubcategories = showAllSubcategories ? subcategories : subcategories.slice(0, 5);
-  const visibleSubSubcategories = showAllSubSubcategories ? subSubcategories : subSubcategories.slice(0, 5);
-  const visiblePowerRanges = showAllPowerRanges ? powerRanges : powerRanges.slice(0, 5);
-  const visibleColors = showAllColors ? colors : colors.slice(0, 5);
-  const visibleSizes = showAllSizes ? sizes : sizes.slice(0, 5);
-  const visibleMaterials = showAllMaterials ? materials : materials.slice(0, 5);
-  const visibleCertifications = showAllCertifications ? certifications : certifications.slice(0, 5);
-  const visibleWarranties = showAllWarranties ? warranties : warranties.slice(0, 5);
 
   return (
     <div className="space-y-6">
@@ -1502,374 +1474,100 @@ const FilterPanel = ({
       </div>
 
       {/* Brand Filter */}
-      {brands.length > 1 && (
-      <div className="border-b border-gray-200 pb-6">
-        <h3 className="text-sm font-medium text-gray-900 mb-3">Brand ({brands.length})</h3>
-        <div className="relative mb-3">
-          <input
-            type="text"
-            value={brandQuery}
-            onChange={(e) => setBrandQuery(e.target.value)}
-            placeholder="Search brand"
-            className="w-full border border-gray-300 rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-          />
-        </div>
-        <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
-          {visibleBrands.map((brand) => (
-            <label key={brand} className="flex items-center cursor-pointer">
-              <input
-                type="checkbox"
-                checked={selectedBrands.includes(brand)}
-                onChange={() => handleBrandToggle(brand)}
-                className="sr-only"
-              />
-              <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedBrands.includes(brand)
-                ? 'bg-blue-900 border-blue-900'
-                : 'border-gray-300'
-                }`}>
-                {selectedBrands.includes(brand) && (
-                  <Check className="w-3 h-3 text-white" />
-                )}
-              </div>
-              <span className="text-sm text-gray-700">{brand}</span>
-            </label>
-          ))}
-          {filteredBrands.length === 0 && (
-            <div className="text-xs text-gray-500">No brands found</div>
-          )}
-        </div>
-        {filteredBrands.length > 5 && (
-          <button onClick={() => setShowAllBrands(!showAllBrands)} className="mt-3 text-xs text-blue-700 hover:text-blue-900 font-medium">
-            {showAllBrands ? 'Show less' : 'Show more'}
-          </button>
-        )}
-      </div>
-      )}
+      <CollapsibleBrandFilter
+        brands={brands}
+        selectedBrands={selectedBrands}
+        onBrandToggle={handleBrandToggle}
+        onClearAll={() => setSelectedBrands([])}
+        title="Brand"
+      />
 
       {/* Product Type Filter */}
-      {productTypes.length > 1 && (
-        <div className="border-b border-gray-200 pb-6">
-          <h3 className="text-sm font-medium text-gray-900 mb-3">Product Type ({productTypes.length})</h3>
-          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
-            {visibleProductTypes.map((productType) => (
-              <label key={productType} className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={selectedProductTypes.includes(productType)}
-                  onChange={() => handleProductTypeToggle(productType)}
-                  className="sr-only"
-                />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedProductTypes.includes(productType)
-                  ? 'bg-blue-900 border-blue-900'
-                  : 'border-gray-300'
-                  }`}>
-                  {selectedProductTypes.includes(productType) && (
-                    <Check className="w-3 h-3 text-white" />
-                  )}
-                </div>
-                <span className="text-sm text-gray-700">{productType}</span>
-              </label>
-            ))}
-          </div>
-          {productTypes.length > 5 && (
-            <button onClick={() => setShowAllProductTypes(!showAllProductTypes)} className="mt-3 text-xs text-blue-700 hover:text-blue-900 font-medium">
-              {showAllProductTypes ? 'Show less' : 'Show more'}
-            </button>
-          )}
-        </div>
-      )}
+      <CollapsibleFilter
+        items={productTypes}
+        selectedItems={selectedProductTypes}
+        onItemToggle={handleProductTypeToggle}
+        onClearAll={() => setSelectedProductTypes([])}
+        title="Product Type"
+        maxVisible={6}
+      />
 
-      {/* Category Filter */}
-      {categories.length > 1 && (
-        <div className="border-b border-gray-200 pb-6">
-          <h3 className="text-sm font-medium text-gray-900 mb-3">Categories ({categories.length})</h3>
-          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
-            {categories.map((category) => (
-              <label key={category} className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={selectedCategories.includes(category)}
-                  onChange={() => handleCategoryToggle(category)}
-                  className="sr-only"
-                />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedCategories.includes(category)
-                  ? 'bg-blue-900 border-blue-900'
-                  : 'border-gray-300'
-                  }`}>
-                  {selectedCategories.includes(category) && (
-                    <Check className="w-3 h-3 text-white" />
-                  )}
-                </div>
-                <span className="text-sm text-gray-700">{category}</span>
-              </label>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Subcategory Filter */}
-      {subcategories.length > 1 && (
-        <div ref={subcategorySectionRef} className="border-b border-gray-200 pb-6">
-          <h3 className="text-sm font-medium text-gray-900 mb-3">Subcategory ({subcategories.length})</h3>
-          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
-            {visibleSubcategories.map((subcategory) => (
-              <label key={subcategory} className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={selectedSubcategories.includes(subcategory)}
-                  onChange={() => handleSubcategoryToggle(subcategory)}
-                  className="sr-only"
-                />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedSubcategories.includes(subcategory)
-                  ? 'bg-blue-900 border-blue-900'
-                  : 'border-gray-300'
-                  }`}>
-                  {selectedSubcategories.includes(subcategory) && (
-                    <Check className="w-3 h-3 text-white" />
-                  )}
-                </div>
-                <span className="text-sm text-gray-700">{subcategory}</span>
-              </label>
-            ))}
-          </div>
-          {subcategories.length > 5 && (
-            <button onClick={() => setShowAllSubcategories(!showAllSubcategories)} className="mt-3 text-xs text-blue-700 hover:text-blue-900 font-medium">
-              {showAllSubcategories ? 'Show less' : 'Show more'}
-            </button>
-          )}
-        </div>
-      )}
-
-      {/* Sub-subcategory Filter */}
-      {subSubcategories.length > 1 && (
-        <div className="border-b border-gray-200 pb-6">
-          <h3 className="text-sm font-medium text-gray-900 mb-3">Sub-subcategory ({subSubcategories.length})</h3>
-          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
-            {visibleSubSubcategories.map((subSubcategory) => (
-              <label key={subSubcategory} className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={selectedSubSubcategories.includes(subSubcategory)}
-                  onChange={() => handleSubSubcategoryToggle(subSubcategory)}
-                  className="sr-only"
-                />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedSubSubcategories.includes(subSubcategory)
-                  ? 'bg-blue-900 border-blue-900'
-                  : 'border-gray-300'
-                  }`}>
-                  {selectedSubSubcategories.includes(subSubcategory) && (
-                    <Check className="w-3 h-3 text-white" />
-                  )}
-                </div>
-                <span className="text-sm text-gray-700">{subSubcategory}</span>
-              </label>
-            ))}
-          </div>
-          {subSubcategories.length > 5 && (
-            <button onClick={() => setShowAllSubSubcategories(!showAllSubSubcategories)} className="mt-3 text-xs text-blue-700 hover:text-blue-900 font-medium">
-              {showAllSubSubcategories ? 'Show less' : 'Show more'}
-            </button>
-          )}
-        </div>
-      )}
+      {/* Hierarchical Category Filter */}
+      <HierarchicalCategoryFilter
+        products={filteredProducts}
+        selectedCategories={selectedCategories}
+        selectedSubcategories={selectedSubcategories}
+        selectedSubSubcategories={selectedSubSubcategories}
+        onCategoryToggle={handleCategoryToggle}
+        onSubcategoryToggle={handleSubcategoryToggle}
+        onSubSubcategoryToggle={handleSubSubcategoryToggle}
+        onClearAll={() => {
+          setSelectedCategories([]);
+          setSelectedSubcategories([]);
+          setSelectedSubSubcategories([]);
+        }}
+        title="Shop by Category"
+      />
 
       {/* Power Range Filter */}
-      {powerRanges.length > 1 && (
-        <div className="border-b border-gray-200 pb-6">
-          <h3 className="text-sm font-medium text-gray-900 mb-3">Power Range ({powerRanges.length})</h3>
-          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
-            {visiblePowerRanges.map((powerRange) => (
-              <label key={powerRange} className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={selectedPowerRanges.includes(powerRange)}
-                  onChange={() => handlePowerRangeToggle(powerRange)}
-                  className="sr-only"
-                />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedPowerRanges.includes(powerRange)
-                  ? 'bg-blue-900 border-blue-900'
-                  : 'border-gray-300'
-                  }`}>
-                  {selectedPowerRanges.includes(powerRange) && (
-                    <Check className="w-3 h-3 text-white" />
-                  )}
-                </div>
-                <span className="text-sm text-gray-700">{powerRange}</span>
-              </label>
-            ))}
-          </div>
-          {powerRanges.length > 5 && (
-            <button onClick={() => setShowAllPowerRanges(!showAllPowerRanges)} className="mt-3 text-xs text-blue-700 hover:text-blue-900 font-medium">
-              {showAllPowerRanges ? 'Show less' : 'Show more'}
-            </button>
-          )}
-        </div>
-      )}
+      <CollapsibleFilter
+        items={powerRanges}
+        selectedItems={selectedPowerRanges}
+        onItemToggle={handlePowerRangeToggle}
+        onClearAll={() => setSelectedPowerRanges([])}
+        title="Power Range"
+        maxVisible={6}
+      />
 
       {/* Color Filter */}
-      {colors.length > 1 && (
-        <div className="border-b border-gray-200 pb-6">
-          <h3 className="text-sm font-medium text-gray-900 mb-3">Color ({colors.length})</h3>
-          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
-            {visibleColors.map((color) => (
-              <label key={color} className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={selectedColors.includes(color)}
-                  onChange={() => handleColorToggle(color)}
-                  className="sr-only"
-                />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedColors.includes(color)
-                  ? 'bg-blue-900 border-blue-900'
-                  : 'border-gray-300'
-                  }`}>
-                  {selectedColors.includes(color) && (
-                    <Check className="w-3 h-3 text-white" />
-                  )}
-                </div>
-                <span className="text-sm text-gray-700">{color}</span>
-              </label>
-            ))}
-          </div>
-          {colors.length > 5 && (
-            <button onClick={() => setShowAllColors(!showAllColors)} className="mt-3 text-xs text-blue-700 hover:text-blue-900 font-medium">
-              {showAllColors ? 'Show less' : 'Show more'}
-            </button>
-          )}
-        </div>
-      )}
+      <CollapsibleFilter
+        items={colors}
+        selectedItems={selectedColors}
+        onItemToggle={handleColorToggle}
+        onClearAll={() => setSelectedColors([])}
+        title="Color"
+        maxVisible={6}
+      />
 
       {/* Size Filter */}
-      {sizes.length > 1 && (
-        <div className="border-b border-gray-200 pb-6">
-          <h3 className="text-sm font-medium text-gray-900 mb-3">Size ({sizes.length})</h3>
-          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
-            {visibleSizes.map((size) => (
-              <label key={size} className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={selectedSizes.includes(size)}
-                  onChange={() => handleSizeToggle(size)}
-                  className="sr-only"
-                />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedSizes.includes(size)
-                  ? 'bg-blue-900 border-blue-900'
-                  : 'border-gray-300'
-                  }`}>
-                  {selectedSizes.includes(size) && (
-                    <Check className="w-3 h-3 text-white" />
-                  )}
-                </div>
-                <span className="text-sm text-gray-700">{size}</span>
-              </label>
-            ))}
-          </div>
-          {sizes.length > 5 && (
-            <button onClick={() => setShowAllSizes(!showAllSizes)} className="mt-3 text-xs text-blue-700 hover:text-blue-900 font-medium">
-              {showAllSizes ? 'Show less' : 'Show more'}
-            </button>
-          )}
-        </div>
-      )}
+      <CollapsibleFilter
+        items={sizes}
+        selectedItems={selectedSizes}
+        onItemToggle={handleSizeToggle}
+        onClearAll={() => setSelectedSizes([])}
+        title="Size"
+        maxVisible={6}
+      />
 
       {/* Material Filter */}
-      {materials.length > 1 && (
-        <div className="border-b border-gray-200 pb-6">
-          <h3 className="text-sm font-medium text-gray-900 mb-3">Material ({materials.length})</h3>
-          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
-            {visibleMaterials.map((material) => (
-              <label key={material} className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={selectedMaterials.includes(material)}
-                  onChange={() => handleMaterialToggle(material)}
-                  className="sr-only"
-                />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedMaterials.includes(material)
-                  ? 'bg-blue-900 border-blue-900'
-                  : 'border-gray-300'
-                  }`}>
-                  {selectedMaterials.includes(material) && (
-                    <Check className="w-3 h-3 text-white" />
-                  )}
-                </div>
-                <span className="text-sm text-gray-700">{material}</span>
-              </label>
-            ))}
-          </div>
-          {materials.length > 5 && (
-            <button onClick={() => setShowAllMaterials(!showAllMaterials)} className="mt-3 text-xs text-blue-700 hover:text-blue-900 font-medium">
-              {showAllMaterials ? 'Show less' : 'Show more'}
-            </button>
-          )}
-        </div>
-      )}
+      <CollapsibleFilter
+        items={materials}
+        selectedItems={selectedMaterials}
+        onItemToggle={handleMaterialToggle}
+        onClearAll={() => setSelectedMaterials([])}
+        title="Material"
+        maxVisible={6}
+      />
 
       {/* Certification Filter */}
-      {certifications.length > 1 && (
-        <div className="border-b border-gray-200 pb-6">
-          <h3 className="text-sm font-medium text-gray-900 mb-3">Certification ({certifications.length})</h3>
-          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
-            {visibleCertifications.map((certification) => (
-              <label key={certification} className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={selectedCertifications.includes(certification)}
-                  onChange={() => handleCertificationToggle(certification)}
-                  className="sr-only"
-                />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedCertifications.includes(certification)
-                  ? 'bg-blue-900 border-blue-900'
-                  : 'border-gray-300'
-                  }`}>
-                  {selectedCertifications.includes(certification) && (
-                    <Check className="w-3 h-3 text-white" />
-                  )}
-                </div>
-                <span className="text-sm text-gray-700">{certification}</span>
-              </label>
-            ))}
-          </div>
-          {certifications.length > 5 && (
-            <button onClick={() => setShowAllCertifications(!showAllCertifications)} className="mt-3 text-xs text-blue-700 hover:text-blue-900 font-medium">
-              {showAllCertifications ? 'Show less' : 'Show more'}
-            </button>
-          )}
-        </div>
-      )}
+      <CollapsibleFilter
+        items={certifications}
+        selectedItems={selectedCertifications}
+        onItemToggle={handleCertificationToggle}
+        onClearAll={() => setSelectedCertifications([])}
+        title="Certification"
+        maxVisible={6}
+      />
 
       {/* Warranty Filter */}
-      {warranties.length > 1 && (
-        <div className="border-b border-gray-200 pb-6">
-          <h3 className="text-sm font-medium text-gray-900 mb-3">Warranty ({warranties.length})</h3>
-          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
-            {visibleWarranties.map((warranty) => (
-              <label key={warranty} className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={selectedWarranties.includes(warranty)}
-                  onChange={() => handleWarrantyToggle(warranty)}
-                  className="sr-only"
-                />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedWarranties.includes(warranty)
-                  ? 'bg-blue-900 border-blue-900'
-                  : 'border-gray-300'
-                  }`}>
-                  {selectedWarranties.includes(warranty) && (
-                    <Check className="w-3 h-3 text-white" />
-                  )}
-                </div>
-                <span className="text-sm text-gray-700">{warranty}</span>
-              </label>
-            ))}
-          </div>
-          {warranties.length > 5 && (
-            <button onClick={() => setShowAllWarranties(!showAllWarranties)} className="mt-3 text-xs text-blue-700 hover:text-blue-900 font-medium">
-              {showAllWarranties ? 'Show less' : 'Show more'}
-            </button>
-          )}
-        </div>
-      )}
+      <CollapsibleFilter
+        items={warranties}
+        selectedItems={selectedWarranties}
+        onItemToggle={handleWarrantyToggle}
+        onClearAll={() => setSelectedWarranties([])}
+        title="Warranty"
+        maxVisible={6}
+      />
 
 
 
