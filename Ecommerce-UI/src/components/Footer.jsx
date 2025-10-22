@@ -18,23 +18,23 @@ const Footer = ({
 }) => {
   return (
     <footer className="bg-blue-900 text-white">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+      <div className="container-responsive py-responsive-lg">
+        <div className="grid-responsive-1 sm:grid-cols-2 lg:grid-cols-4">
           {/* Company Info */}
-          <div className="space-y-4">
-          <img src={v1Logo} alt="Vikoshiya Technologies logo" className="h-12 bg-gray-50 rounded-full w-auto mb-4" />
-          <p className="text-blue-100 leading-relaxed">
+          <div className="space-responsive-sm">
+          <img src={v1Logo} alt="Vikoshiya Technologies logo" className="h-10 sm:h-12 bg-gray-50 rounded-full w-auto mb-4" />
+          <p className="text-blue-100 leading-relaxed text-responsive-sm">
           Vikoshiya – Your trusted destination for high-quality electrical products, built on reliability, safety, and innovation.
             </p>
            
           </div>
 
           {/* Quick Links */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-yellow-400">Quick Links</h4>
-            <ul className="space-y-2">
+          <div className="space-responsive-sm">
+            <h4 className="text-responsive-lg font-semibold text-yellow-400">Quick Links</h4>
+            <ul className="space-responsive-sm">
               <li>
-                <button onClick={onHomeClick} className="text-blue-100 hover:text-white transition-colors">
+                <button onClick={onHomeClick} className="text-blue-100 hover:text-white transition-colors text-responsive-sm touch-target text-left">
                   Home
                 </button>
               </li>
@@ -67,9 +67,9 @@ const Footer = ({
           </div>
 
           {/* Customer Service */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-yellow-400">Customer Service</h4>
-            <ul className="space-y-2">
+          <div className="space-responsive-sm">
+            <h4 className="text-responsive-lg font-semibold text-yellow-400">Customer Service</h4>
+            <ul className="space-responsive-sm">
               <li>
                 <button onClick={onHelpClick} className="text-blue-100 hover:text-white transition-colors">Help Center</button>
               </li>
@@ -89,39 +89,39 @@ const Footer = ({
           </div>
 
           {/* Contact Info */}
-          <div className="space-y-4">
-            <h4 className="text-lg font-semibold text-yellow-400">Contact Us</h4>
-            <div className="space-y-3">
+          <div className="space-responsive-sm">
+            <h4 className="text-responsive-lg font-semibold text-yellow-400">Contact Us</h4>
+            <div className="space-responsive-sm">
               <div className="flex items-center space-x-3">
-                <Mail className="w-5 h-5 text-White-400" />
-                <span className="text-blue-100">support@vikoshiya.com</span>
+                <Mail className="w-4 h-4 sm:w-5 sm:h-5 text-White-400 flex-shrink-0" />
+                <span className="text-blue-100 text-responsive-sm">support@vikoshiya.com</span>
               </div>
               <div className="flex items-center space-x-3">
-                <Phone className="w-5 h-5 text-White-400" />
-                <span className="text-blue-100">+91 1234567890</span>
+                <Phone className="w-4 h-4 sm:w-5 sm:h-5 text-White-400 flex-shrink-0" />
+                <span className="text-blue-100 text-responsive-sm">+91 1234567890</span>
               </div>
               <div className="flex items-center space-x-3">
-                  <MapPin className="w-5 h-5 text-White-400" />
-                <span className="text-blue-100">Virudhunagar, Tamil Nadu, India</span>
+                  <MapPin className="w-4 h-4 sm:w-5 sm:h-5 text-White-400 flex-shrink-0" />
+                <span className="text-blue-100 text-responsive-sm">Virudhunagar, Tamil Nadu, India</span>
               </div>
             </div>
           </div>
         </div>
 
         {/* Bottom Bar */}
-        <div className="border-t border-blue-800 mt-8 pt-8 text-center">
-          <p className="text-blue-200">
+        <div className="border-t border-blue-800 mt-responsive-md pt-responsive-md text-center">
+          <p className="text-blue-200 text-responsive-sm">
             © 2025 VIKOSHIYA. All rights reserved. | {' '}
             <button 
               onClick={onPrivacyPolicyClick} 
-              className="text-blue-200 hover:text-white transition-colors "
+              className="text-blue-200 hover:text-white transition-colors touch-target"
             >
               Privacy Policy
             </button>
             {' '} | {' '}
             <button 
               onClick={onTermsOfServiceClick} 
-              className="text-blue-200 hover:text-white transition-colors "
+              className="text-blue-200 hover:text-white transition-colors touch-target"
             >
               Terms of Service
             </button>

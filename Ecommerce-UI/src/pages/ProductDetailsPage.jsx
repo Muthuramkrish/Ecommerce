@@ -195,11 +195,11 @@ const ProductDetailsPage = ({
           isHeaderVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14 md:h-16">
+        <div className="container-responsive">
+          <div className="flex items-center justify-between h-14 sm:h-16 md:h-18 lg:h-20">
           <button 
               onClick={() => window.history.back()}
-              className={`flex items-center text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm md:text-base hover:scale-105 group ${getAnimationClasses('animate-slide-in-left', '', prefersReducedMotion)}`}
+              className={`flex items-center text-gray-600 hover:text-gray-900 transition-all duration-300 text-responsive-sm hover:scale-105 group touch-target ${getAnimationClasses('animate-slide-in-left', '', prefersReducedMotion)}`}
             >
               <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 mr-2 group-hover:-translate-x-1 transition-transform duration-300" />
               <span className="hidden sm:inline">Back</span>
@@ -224,7 +224,7 @@ const ProductDetailsPage = ({
                   e.preventDefault();
                   handleAddToCart();
                 }}
-                className="flex items-center px-3 md:px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 text-sm md:text-base hover:scale-105 hover:shadow-lg group relative overflow-hidden"
+                className="flex items-center px-3 md:px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 text-responsive-sm hover:scale-105 hover:shadow-lg group relative overflow-hidden touch-target-large"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                 <ShoppingCart className="w-4 h-4 md:w-5 md:h-5 mr-2 relative z-10 group-hover:animate-bounce" />
@@ -244,7 +244,7 @@ const ProductDetailsPage = ({
       {(anchor.subcategory || anchor.subSubcategory || anchor.brand || anchor.productType) && (
         <div 
           ref={breadcrumbSectionRef}
-          className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 transition-all duration-1000 ${
+          className={`container-responsive pt-6 transition-all duration-1000 ${
             isBreadcrumbVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
@@ -283,8 +283,8 @@ const ProductDetailsPage = ({
       )}
 
       {/* Product Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="container-responsive py-responsive-md">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-responsive-lg">
           {/* Product Images */}
           <div 
             ref={imagesSectionRef}
@@ -429,21 +429,21 @@ const ProductDetailsPage = ({
             }`}
           >
             <div className={getAnimationClasses('animate-fade-in-up', '', prefersReducedMotion)}>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-2 leading-tight">
+              <h1 className="text-responsive-2xl sm:text-responsive-3xl font-bold bg-gradient-to-r from-gray-900 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-2 leading-tight">
                 {displayedTitle}
               </h1>
               
               <div className={`flex items-center space-x-4 mb-6 ${getAnimationClasses('animate-slide-in-left delay-200', '', prefersReducedMotion)}`}>
-                <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent animate-pulse-slow">
+                <span className="text-responsive-2xl sm:text-responsive-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent animate-pulse-slow">
                   ₹{displayedPrice}
                 </span>
                 {product['old-price'] !== displayedPrice && product['old-price'] != null && (
-                  <span className="text-xl text-gray-500 line-through">
+                  <span className="text-responsive-lg text-gray-500 line-through">
                     ₹{product['old-price']}
                   </span>
                 )}
                 {product['old-price'] !== displayedPrice && product['old-price'] != null && (
-                  <span className="text-sm bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 px-3 py-1 rounded-full font-semibold shadow-sm animate-bounce">
+                  <span className="text-responsive-sm bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 px-3 py-1 rounded-full font-semibold shadow-sm animate-bounce">
                     {Math.round(((parseFloat(product['old-price']) - parseFloat(displayedPrice)) / parseFloat(product['old-price'])) * 100)}% OFF
                   </span>
                 )}

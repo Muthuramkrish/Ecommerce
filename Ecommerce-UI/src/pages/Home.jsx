@@ -217,7 +217,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-[60vh] sm:h-[70vh] md:h-[90vh] overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
+      <section className="relative h-[50vh] xs:h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[90vh] xl:h-[95vh] overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -268,47 +268,47 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
 
               {/* Content with Staggered Animations */}
               <div className="relative h-full flex items-center">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                  <div className="max-w-4xl pr-4 sm:pr-8">
+                <div className="container-responsive-wide w-full">
+                  <div className="max-w-4xl lg:max-w-5xl xl:max-w-6xl pr-4 sm:pr-8 lg:pr-12">
                     {/* Professional text content container with enhanced animations */}
-                    <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl transform transition-all duration-1000 hover:scale-105 hover:shadow-3xl">
-                      <div className="space-y-6">
+                    <div className="bg-white/5 backdrop-blur-md rounded-3xl p-responsive-md lg:p-responsive-lg border border-white/20 shadow-2xl transform transition-all duration-1000 hover:scale-105 hover:shadow-3xl">
+                      <div className="space-responsive-md">
                         <div className="inline-block px-4 py-2 bg-yellow-400/20 rounded-full border border-yellow-400/30 animate-bounce">
-                          <span className="text-yellow-300 text-sm font-semibold tracking-wide uppercase flex items-center space-x-2">
+                          <span className="text-yellow-300 text-responsive-sm font-semibold tracking-wide uppercase flex items-center space-x-2">
                             <Star className="w-4 h-4" />
                             <span>Premium Quality</span>
                           </span>
                         </div>
                         
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight text-white mb-4 tracking-tight animate-fade-in-up">
+                        <h1 className="text-responsive-3xl sm:text-responsive-4xl md:text-responsive-5xl font-bold leading-tight text-white mb-4 tracking-tight animate-fade-in-up">
                           <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent animate-pulse">
                             {slide.title}
                           </span>
                         </h1>
 
-                        <p className="text-lg sm:text-xl md:text-2xl text-blue-100 mb-3 font-medium leading-relaxed animate-fade-in-up delay-200">
+                        <p className="text-responsive-lg sm:text-responsive-xl text-blue-100 mb-3 font-medium leading-relaxed animate-fade-in-up delay-200">
                           {slide.subtitle}
                         </p>
 
-                        <p className="text-base sm:text-lg text-gray-200 mb-6 max-w-3xl leading-relaxed font-light animate-fade-in-up delay-300">
+                        <p className="text-responsive-base sm:text-responsive-lg text-gray-200 mb-6 max-w-3xl leading-relaxed font-light animate-fade-in-up delay-300">
                           {slide.description}
                         </p>
                       </div>
 
-                      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 pt-4 animate-fade-in-up delay-500">
+                      <div className="flex flex-col sm:flex-row gap-responsive-sm pt-4 animate-fade-in-up delay-500">
                         <button
                           onClick={() => handleHeroCta1(slide)}
-                          className="group px-8 py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 rounded-xl font-bold text-base md:text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 relative overflow-hidden"
+                          className="group touch-target-large px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 rounded-xl font-bold text-responsive-base hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 relative overflow-hidden"
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-orange-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                           <span className="relative z-10">{slide.cta1}</span>
-                          <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-4 h-4 sm:w-5 sm:h-5 group-hover:translate-x-1 transition-transform relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                           </svg>
                         </button>
                         <button
                           onClick={() => handleHeroCta2(slide)}
-                          className="px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-xl font-semibold text-base md:text-lg hover:bg-white/20 transition-all duration-300 border border-white/30 hover:border-white/50 group relative overflow-hidden"
+                          className="touch-target-large px-6 sm:px-8 py-3 sm:py-4 bg-white/10 backdrop-blur-md text-white rounded-xl font-semibold text-responsive-base hover:bg-white/20 transition-all duration-300 border border-white/30 hover:border-white/50 group relative overflow-hidden"
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                           <span className="relative z-10">{slide.cta2}</span>
@@ -325,14 +325,14 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
         {/* Professional Navigation Arrows */}
         <button
           onClick={prevSlide}
-          className="absolute left-4 md:left-6 top-1/2 transform -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white p-3 md:p-4 rounded-full transition-all duration-300 hover:scale-110 z-10 border border-white/30 shadow-xl group"
+          className="absolute left-2 sm:left-4 md:left-6 top-1/2 transform -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white touch-target-large rounded-full transition-all duration-300 hover:scale-110 z-10 border border-white/30 shadow-xl group"
         >
           <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 group-hover:-translate-x-0.5 transition-transform" />
         </button>
 
         <button
           onClick={nextSlide}
-          className="absolute right-4 md:right-6 top-1/2 transform -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white p-3 md:p-4 rounded-full transition-all duration-300 hover:scale-110 z-10 border border-white/30 shadow-xl group"
+          className="absolute right-2 sm:right-4 md:right-6 top-1/2 transform -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white touch-target-large rounded-full transition-all duration-300 hover:scale-110 z-10 border border-white/30 shadow-xl group"
         >
           <ChevronRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-0.5 transition-transform" />
         </button>
@@ -381,7 +381,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
       {/* Trust Indicators Section */}
       <section 
         ref={trustSectionRef}
-        className={`py-12 md:py-16 bg-gradient-to-r from-white via-gray-50 to-white border-y border-gray-100 relative overflow-hidden transition-all duration-1000 ${
+        className={`py-responsive-lg bg-gradient-to-r from-white via-gray-50 to-white border-y border-gray-100 relative overflow-hidden transition-all duration-1000 ${
           isTrustVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
@@ -393,14 +393,14 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
           }}></div>
         </div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+        <div className="container-responsive relative">
+          <div className="grid-responsive-2 sm:grid-cols-2 md:grid-cols-4">
             <div className="text-center group animate-fade-in-up">
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
-                <Shield className="w-8 h-8 md:w-10 md:h-10 text-white group-hover:animate-bounce" />
+              <div className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 lg:w-24 lg:h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
+                <Shield className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 lg:w-12 lg:h-12 text-white group-hover:animate-bounce" />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">Premium Quality</h3>
-              <p className="text-sm md:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Certified electrical products with international standards</p>
+              <h3 className="text-responsive-lg md:text-responsive-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">Premium Quality</h3>
+              <p className="text-responsive-sm text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Certified electrical products with international standards</p>
             </div>
             
             <div className="text-center group animate-fade-in-up delay-200">
@@ -435,20 +435,20 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
       {/* Categories Section */}
       <section 
         ref={categoriesSectionRef}
-        className={`py-16 md:py-24 bg-gradient-to-br from-gray-50 via-white to-blue-50 transition-all duration-1000 ${
+        className={`py-responsive-xl bg-gradient-to-br from-gray-50 via-white to-blue-50 transition-all duration-1000 ${
           isCategoriesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`} 
         id="categories"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 md:mb-16">
+        <div className="container-responsive">
+          <div className="text-center mb-responsive-lg">
             <div className="inline-block px-6 py-2 bg-blue-100 rounded-full mb-6">
-              <span className="text-blue-800 text-sm font-semibold tracking-wide uppercase">Product Categories</span>
+              <span className="text-blue-800 text-responsive-sm font-semibold tracking-wide uppercase">Product Categories</span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
+            <h2 className="text-responsive-3xl md:text-responsive-4xl lg:text-responsive-5xl font-bold text-gray-900 mb-6 tracking-tight">
               Shop by <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Category</span>
             </h2>
-            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-responsive-lg text-gray-600 max-w-4xl mx-auto leading-relaxed">
               Discover our comprehensive range of premium electrical products, carefully organized by category for your convenience
             </p>
           </div>
@@ -480,7 +480,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
             <div className="hidden md:block">
               <div
                 ref={scrollContainer}
-                className="flex overflow-x-auto scrollbar-hide gap-6 px-12 py-4"
+                className="flex overflow-x-auto scrollbar-hide gap-responsive-md px-6 lg:px-12 py-4"
                 style={{
                   scrollbarWidth: 'none',
                   msOverflowStyle: 'none',
@@ -495,7 +495,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
                       e.preventDefault();
                       handleCategorySelect(category.name);
                     }}
-                    className={`group block flex-shrink-0 overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl transition-all duration-700 hover:-translate-y-4 hover:shadow-2xl hover:border-blue-200 w-[300px] h-fit transform ${
+                    className={`group block flex-shrink-0 overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl transition-all duration-700 hover:-translate-y-4 hover:shadow-2xl hover:border-blue-200 w-[280px] md:w-[300px] lg:w-[320px] xl:w-[350px] h-fit transform ${
                       isCategoriesVisible 
                         ? 'opacity-100 translate-y-0 scale-100' 
                         : 'opacity-0 translate-y-8 scale-95'
@@ -519,11 +519,11 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
                         </div>
                       </div>
                     </div>
-                    <div className="p-8 text-center">
-                      <h3 className="font-bold text-gray-900 mb-3 text-xl leading-tight group-hover:text-blue-700 transition-colors">
+                    <div className="p-responsive-md text-center">
+                      <h3 className="font-bold text-gray-900 mb-3 text-responsive-lg leading-tight group-hover:text-blue-700 transition-colors">
                         {category.name}
                       </h3>
-                      <p className="text-base text-gray-600 font-medium mb-2">
+                      <p className="text-responsive-base text-gray-600 font-medium mb-2">
                         {category.productCount} products
                       </p>
                       <div className="w-12 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
@@ -537,7 +537,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
             <div className="md:hidden">
               <div
                 ref={scrollContainer}
-                className="flex overflow-x-auto scrollbar-hide gap-4 px-4 py-4"
+                className="flex overflow-x-auto scrollbar-hide gap-responsive-sm px-4 py-4"
                 style={{
                   scrollbarWidth: 'none',
                   msOverflowStyle: 'none',
@@ -552,7 +552,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
                       e.preventDefault();
                       handleCategorySelect(category.name);
                     }}
-                    className={`group block flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-xl w-[200px] h-fit transform ${
+                    className={`group block flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-xl w-[180px] xs:w-[200px] sm:w-[220px] h-fit transform ${
                       isCategoriesVisible 
                         ? 'opacity-100 translate-y-0 scale-100' 
                         : 'opacity-0 translate-y-6 scale-95'
@@ -569,11 +569,11 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-blue-900/40 to-transparent"></div>
                     </div>
-                    <div className="p-4 text-center">
-                      <h3 className="font-semibold text-gray-900 mb-1 text-sm leading-tight group-hover:text-blue-900 transition-colors">
+                    <div className="p-responsive-sm text-center">
+                      <h3 className="font-semibold text-gray-900 mb-1 text-responsive-sm leading-tight group-hover:text-blue-900 transition-colors">
                         {category.name}
                       </h3>
-                      <p className="text-xs text-gray-500 font-medium">
+                      <p className="text-responsive-xs text-gray-500 font-medium">
                         {category.productCount} products
                       </p>
                     </div>
