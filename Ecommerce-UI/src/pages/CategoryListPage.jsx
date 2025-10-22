@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ArrowLeft, Grid, List, Filter, X, Check, ShoppingCart } from 'lucide-react';
+import { ArrowLeft, Grid, List, X, Check, ShoppingCart } from 'lucide-react';
 import LoadingSpinner from '../components/LoadingSpinner';
 import Breadcrumb, { buildBreadcrumbItems, buildFilterBreadcrumbs } from '../components/Breadcrumb';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
@@ -866,6 +866,16 @@ const CategoryListPage = ({
 
   // Handle breadcrumb navigation
   const handleBreadcrumbNavigation = (path, type, value) => {
+    if (type === 'home') {
+      // Navigate to home page
+      if (onNavigate) {
+        onNavigate('/', 'home');
+      } else {
+        window.location.hash = '#/';
+      }
+      return;
+    }
+    
     if (onNavigate) {
       onNavigate(path, type, value);
     } else {
@@ -912,18 +922,15 @@ const CategoryListPage = ({
             <div className={`flex items-center space-x-3 md:space-x-4 transition-all duration-700 delay-200 ${
               isHeaderVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-4'
             }`}>
-              {/* Mobile Filter Button */}
+              {/* Mobile Navigation Button */}
               <button
                 onClick={() => setShowFilters(!showFilters)}
                 className="lg:hidden flex items-center space-x-2 bg-gradient-to-r from-blue-900 to-blue-800 text-white px-3 py-2 rounded-lg hover:from-blue-800 hover:to-blue-700 transition-all duration-300 text-sm hover:scale-105 hover:shadow-lg group"
               >
-                <Filter className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
-                <span>Filters</span>
-                {activeFiltersCount > 0 && (
-                  <span className="bg-white text-blue-900 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center animate-bounce">
-                    {activeFiltersCount}
-                  </span>
-                )}
+                <svg className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                </svg>
+                <span>Navigate</span>
               </button>
 
               <div className="hidden sm:flex items-center space-x-2">
@@ -1003,12 +1010,13 @@ const CategoryListPage = ({
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
         <div className="flex gap-6 md:gap-8">
-          {/* Mobile Filter Overlay */}
+          {/* Mobile Breadcrumb Overlay */}
           {showFilters && (
             <div className="lg:hidden fixed inset-0 bg-black bg-opacity-50 z-50">
               <div className="absolute right-0 top-0 h-full w-72 sm:w-80 bg-white shadow-xl overflow-y-auto">
                 <div className="p-6">
                   <div className="flex items-center justify-between mb-6">
+                    <h2 className="text-lg font-semibold text-gray-900">Navigation</h2>
                     <button
                       onClick={() => setShowFilters(false)}
                       className="text-gray-400 hover:text-gray-600"
@@ -1016,115 +1024,146 @@ const CategoryListPage = ({
                       <X className="w-5 h-5" />
                     </button>
                   </div>
-                  <FilterPanel
-                    priceRange={priceRange}
-                    setPriceRange={setPriceRange}
-                    minPrice={minPrice}
-                    maxPrice={maxPrice}
-                    selectedBrands={selectedBrands}
-                    handleBrandToggle={handleBrandToggle}
-                    brandQuery={brandQuery}
-                    setBrandQuery={setBrandQuery}
-                    selectedProductTypes={selectedProductTypes}
-                    handleProductTypeToggle={handleProductTypeToggle}
-                    selectedCategories={selectedCategories}
-                    handleCategoryToggle={handleCategoryToggle}
-                    selectedSubcategories={selectedSubcategories}
-                    handleSubcategoryToggle={handleSubcategoryToggle}
-                    selectedSubSubcategories={selectedSubSubcategories}
-                    handleSubSubcategoryToggle={handleSubSubcategoryToggle}
-                    selectedPowerRanges={selectedPowerRanges}
-                    handlePowerRangeToggle={handlePowerRangeToggle}
-                    selectedColors={selectedColors}
-                    handleColorToggle={handleColorToggle}
-                    selectedSizes={selectedSizes}
-                    handleSizeToggle={handleSizeToggle}
-                    selectedMaterials={selectedMaterials}
-                    handleMaterialToggle={handleMaterialToggle}
-                    selectedCertifications={selectedCertifications}
-                    handleCertificationToggle={handleCertificationToggle}
-                    selectedWarranties={selectedWarranties}
-                    handleWarrantyToggle={handleWarrantyToggle}
-                    showOnlyDiscounted={showOnlyDiscounted}
-                    setShowOnlyDiscounted={setShowOnlyDiscounted}
-                    selectedDiscountBucket={selectedDiscountBucket}
-                    setSelectedDiscountBucket={setSelectedDiscountBucket}
-                    showOnlyInStock={showOnlyInStock}
-                    setShowOnlyInStock={setShowOnlyInStock}
-                    brands={brands}
-                    productTypes={productTypes}
-                    categories={categories}
-                    subcategories={subcategories}
-                    subSubcategories={subSubcategories}
-                    powerRanges={powerRanges}
-                    colors={colors}
-                    sizes={sizes}
-                    materials={materials}
-                    certifications={certifications}
-                    warranties={warranties}
-                    clearAllFilters={clearAllFilters}
-                    activeFiltersCount={activeFiltersCount}
-                    subcategorySectionRef={subcategorySectionRef}
-                  />
+                  <div className="space-y-4">
+                    <Breadcrumb
+                      items={breadcrumbItems}
+                      onNavigate={handleBreadcrumbNavigation}
+                      className="text-base"
+                      showHome={true}
+                      separator="chevron"
+                    />
+                    {breadcrumbItems.length > 0 && (
+                      <div className="mt-6">
+                        <h3 className="text-sm font-medium text-gray-900 mb-3">Quick Navigation</h3>
+                        <div className="space-y-2">
+                          {breadcrumbItems.map((item, index) => (
+                            <button
+                              key={index}
+                              onClick={() => {
+                                handleBreadcrumbNavigation(item.path, item.type, item.value);
+                                setShowFilters(false);
+                              }}
+                              className="w-full text-left p-3 rounded-lg bg-gray-50 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300 text-sm border border-gray-200 hover:border-blue-300"
+                            >
+                              <div className="font-medium">{item.label}</div>
+                              {item.title && (
+                                <div className="text-xs text-gray-500 mt-1">{item.title}</div>
+                              )}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             </div>
           )}
 
-          {/* Desktop Filter Sidebar (render only on desktop to avoid duplicate on mobile) */}
+          {/* Desktop Breadcrumb Sidebar */}
           {isDesktop && (
             <div className="hidden lg:block w-80 flex-shrink-0">
               <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6 sticky top-20 max-h-[calc(100vh-6rem)] overflow-y-auto pr-2">
-                <FilterPanel
-                  priceRange={priceRange}
-                  setPriceRange={setPriceRange}
-                  minPrice={minPrice}
-                  maxPrice={maxPrice}
-                  selectedBrands={selectedBrands}
-                  handleBrandToggle={handleBrandToggle}
-                  brandQuery={brandQuery}
-                  setBrandQuery={setBrandQuery}
-                  selectedProductTypes={selectedProductTypes}
-                  handleProductTypeToggle={handleProductTypeToggle}
-                  selectedCategories={selectedCategories}
-                  handleCategoryToggle={handleCategoryToggle}
-                  selectedSubcategories={selectedSubcategories}
-                  handleSubcategoryToggle={handleSubcategoryToggle}
-                  selectedSubSubcategories={selectedSubSubcategories}
-                  handleSubSubcategoryToggle={handleSubSubcategoryToggle}
-                  selectedPowerRanges={selectedPowerRanges}
-                  handlePowerRangeToggle={handlePowerRangeToggle}
-                  selectedColors={selectedColors}
-                  handleColorToggle={handleColorToggle}
-                  selectedSizes={selectedSizes}
-                  handleSizeToggle={handleSizeToggle}
-                  selectedMaterials={selectedMaterials}
-                  handleMaterialToggle={handleMaterialToggle}
-                  selectedCertifications={selectedCertifications}
-                  handleCertificationToggle={handleCertificationToggle}
-                  selectedWarranties={selectedWarranties}
-                  handleWarrantyToggle={handleWarrantyToggle}
-                  showOnlyDiscounted={showOnlyDiscounted}
-                  setShowOnlyDiscounted={setShowOnlyDiscounted}
-                  selectedDiscountBucket={selectedDiscountBucket}
-                  setSelectedDiscountBucket={setSelectedDiscountBucket}
-                  showOnlyInStock={showOnlyInStock}
-                  setShowOnlyInStock={setShowOnlyInStock}
-                  brands={brands}
-                  productTypes={productTypes}
-                  categories={categories}
-                  subcategories={subcategories}
-                  subSubcategories={subSubcategories}
-                  powerRanges={powerRanges}
-                  colors={colors}
-                  sizes={sizes}
-                  materials={materials}
-                  certifications={certifications}
-                  warranties={warranties}
-                  clearAllFilters={clearAllFilters}
-                  activeFiltersCount={activeFiltersCount}
-                  subcategorySectionRef={subcategorySectionRef}
-                />
+                <div className="space-y-6">
+                  {/* Header */}
+                  <div className="flex items-center justify-between">
+                    <h2 className="text-lg font-semibold text-gray-900">Navigation</h2>
+                  </div>
+
+                  {/* Main Breadcrumb */}
+                  <div className="border-b border-gray-200 pb-4">
+                    <Breadcrumb
+                      items={breadcrumbItems}
+                      onNavigate={handleBreadcrumbNavigation}
+                      className="text-base"
+                      showHome={true}
+                      separator="chevron"
+                    />
+                  </div>
+
+                  {/* Category Navigation */}
+                  {breadcrumbItems.length > 0 && (
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-900 mb-3">Quick Navigation</h3>
+                      <div className="space-y-2">
+                        {breadcrumbItems.map((item, index) => (
+                          <button
+                            key={index}
+                            onClick={() => handleBreadcrumbNavigation(item.path, item.type, item.value)}
+                            className="w-full text-left p-3 rounded-lg bg-gray-50 hover:bg-blue-50 hover:text-blue-600 transition-all duration-300 text-sm border border-gray-200 hover:border-blue-300 hover:shadow-sm"
+                          >
+                            <div className="font-medium">{item.label}</div>
+                            {item.title && (
+                              <div className="text-xs text-gray-500 mt-1">{item.title}</div>
+                            )}
+                          </button>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* Category Hierarchy */}
+                  {(categories.length > 1 || subcategories.length > 1 || subSubcategories.length > 1) && (
+                    <div>
+                      <h3 className="text-sm font-medium text-gray-900 mb-3">Browse Categories</h3>
+                      <div className="space-y-3">
+                        {/* Categories */}
+                        {categories.length > 1 && (
+                          <div>
+                            <h4 className="text-xs font-medium text-gray-700 mb-2">Categories</h4>
+                            <div className="space-y-1">
+                              {categories.slice(0, 5).map((cat) => (
+                                <button
+                                  key={cat}
+                                  onClick={() => handleBreadcrumbNavigation(`#category/${encodeURIComponent(cat)}`, 'category', cat)}
+                                  className="w-full text-left px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-all duration-200"
+                                >
+                                  {cat}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Subcategories */}
+                        {subcategories.length > 1 && (
+                          <div>
+                            <h4 className="text-xs font-medium text-gray-700 mb-2">Subcategories</h4>
+                            <div className="space-y-1">
+                              {subcategories.slice(0, 5).map((subcat) => (
+                                <button
+                                  key={subcat}
+                                  onClick={() => handleBreadcrumbNavigation(`#subcategory/${encodeURIComponent(subcat)}`, 'subcategory', subcat)}
+                                  className="w-full text-left px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-all duration-200"
+                                >
+                                  {subcat}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+
+                        {/* Sub-subcategories */}
+                        {subSubcategories.length > 1 && (
+                          <div>
+                            <h4 className="text-xs font-medium text-gray-700 mb-2">Sub-categories</h4>
+                            <div className="space-y-1">
+                              {subSubcategories.slice(0, 5).map((subsubcat) => (
+                                <button
+                                  key={subsubcat}
+                                  onClick={() => handleBreadcrumbNavigation(`#sub-subcategory/${encodeURIComponent(subsubcat)}`, 'sub-subcategory', subsubcat)}
+                                  className="w-full text-left px-3 py-2 text-sm text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-md transition-all duration-200"
+                                >
+                                  {subsubcat}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           )}
