@@ -217,7 +217,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
   return (
     <div>
       {/* Hero Section */}
-      <section className="relative h-[60vh] sm:h-[70vh] md:h-[90vh] overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
+      <section className="relative h-[50vh] xs:h-[60vh] sm:h-[70vh] md:h-[80vh] lg:h-[90vh] overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-indigo-900">
         {/* Animated Background Elements */}
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-blue-500/10 rounded-full blur-3xl animate-pulse"></div>
@@ -268,47 +268,47 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
 
               {/* Content with Staggered Animations */}
               <div className="relative h-full flex items-center">
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
-                  <div className="max-w-4xl pr-4 sm:pr-8">
+                <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10 w-full">
+                  <div className="max-w-3xl xs:max-w-4xl pr-2 xs:pr-4 sm:pr-8">
                     {/* Professional text content container with enhanced animations */}
-                    <div className="bg-white/5 backdrop-blur-md rounded-3xl p-8 md:p-12 border border-white/20 shadow-2xl transform transition-all duration-1000 hover:scale-105 hover:shadow-3xl">
-                      <div className="space-y-6">
-                        <div className="inline-block px-4 py-2 bg-yellow-400/20 rounded-full border border-yellow-400/30 animate-bounce">
-                          <span className="text-yellow-300 text-sm font-semibold tracking-wide uppercase flex items-center space-x-2">
-                            <Star className="w-4 h-4" />
+                    <div className="bg-white/5 backdrop-blur-md rounded-2xl xs:rounded-3xl p-4 xs:p-6 sm:p-8 md:p-10 lg:p-12 border border-white/20 shadow-2xl transform transition-all duration-1000 hover:scale-105 hover:shadow-3xl">
+                      <div className="space-y-4 xs:space-y-5 sm:space-y-6">
+                        <div className="inline-block px-3 xs:px-4 py-1.5 xs:py-2 bg-yellow-400/20 rounded-full border border-yellow-400/30 animate-bounce">
+                          <span className="text-yellow-300 text-xs xs:text-sm font-semibold tracking-wide uppercase flex items-center space-x-1.5 xs:space-x-2">
+                            <Star className="w-3 h-3 xs:w-4 xs:h-4" />
                             <span>Premium Quality</span>
                           </span>
                         </div>
                         
-                        <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-7xl font-bold leading-tight text-white mb-4 tracking-tight animate-fade-in-up">
+                        <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight text-white mb-3 xs:mb-4 tracking-tight animate-fade-in-up">
                           <span className="bg-gradient-to-r from-white via-blue-100 to-white bg-clip-text text-transparent animate-pulse">
                             {slide.title}
                           </span>
                         </h1>
 
-                        <p className="text-lg sm:text-xl md:text-2xl text-blue-100 mb-3 font-medium leading-relaxed animate-fade-in-up delay-200">
+                        <p className="text-base xs:text-lg sm:text-xl md:text-2xl text-blue-100 mb-2 xs:mb-3 font-medium leading-relaxed animate-fade-in-up delay-200">
                           {slide.subtitle}
                         </p>
 
-                        <p className="text-base sm:text-lg text-gray-200 mb-6 max-w-3xl leading-relaxed font-light animate-fade-in-up delay-300">
+                        <p className="text-sm xs:text-base sm:text-lg text-gray-200 mb-4 xs:mb-6 max-w-3xl leading-relaxed font-light animate-fade-in-up delay-300">
                           {slide.description}
                         </p>
                       </div>
 
-                      <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 pt-4 animate-fade-in-up delay-500">
+                      <div className="flex flex-col xs:flex-row gap-3 xs:gap-4 sm:gap-6 pt-3 xs:pt-4 animate-fade-in-up delay-500">
                         <button
                           onClick={() => handleHeroCta1(slide)}
-                          className="group px-8 py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 rounded-xl font-bold text-base md:text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2 relative overflow-hidden"
+                          className="group px-6 xs:px-8 py-3 xs:py-4 bg-gradient-to-r from-yellow-400 to-orange-500 text-gray-900 rounded-lg xs:rounded-xl font-bold text-sm xs:text-base md:text-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-1.5 xs:space-x-2 relative overflow-hidden"
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-yellow-300 to-orange-400 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                           <span className="relative z-10">{slide.cta1}</span>
-                          <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <svg className="w-4 h-4 xs:w-5 xs:h-5 group-hover:translate-x-1 transition-transform relative z-10" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                           </svg>
                         </button>
                         <button
                           onClick={() => handleHeroCta2(slide)}
-                          className="px-8 py-4 bg-white/10 backdrop-blur-md text-white rounded-xl font-semibold text-base md:text-lg hover:bg-white/20 transition-all duration-300 border border-white/30 hover:border-white/50 group relative overflow-hidden"
+                          className="px-6 xs:px-8 py-3 xs:py-4 bg-white/10 backdrop-blur-md text-white rounded-lg xs:rounded-xl font-semibold text-sm xs:text-base md:text-lg hover:bg-white/20 transition-all duration-300 border border-white/30 hover:border-white/50 group relative overflow-hidden"
                         >
                           <div className="absolute inset-0 bg-gradient-to-r from-blue-500/20 to-purple-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                           <span className="relative z-10">{slide.cta2}</span>
@@ -325,25 +325,25 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
         {/* Professional Navigation Arrows */}
         <button
           onClick={prevSlide}
-          className="absolute left-4 md:left-6 top-1/2 transform -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white p-3 md:p-4 rounded-full transition-all duration-300 hover:scale-110 z-10 border border-white/30 shadow-xl group"
+          className="absolute left-2 xs:left-4 md:left-6 top-1/2 transform -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white p-2 xs:p-3 md:p-4 rounded-full transition-all duration-300 hover:scale-110 z-10 border border-white/30 shadow-xl group"
         >
-          <ChevronLeft className="w-5 h-5 md:w-6 md:h-6 group-hover:-translate-x-0.5 transition-transform" />
+          <ChevronLeft className="w-4 h-4 xs:w-5 xs:h-5 md:w-6 md:h-6 group-hover:-translate-x-0.5 transition-transform" />
         </button>
 
         <button
           onClick={nextSlide}
-          className="absolute right-4 md:right-6 top-1/2 transform -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white p-3 md:p-4 rounded-full transition-all duration-300 hover:scale-110 z-10 border border-white/30 shadow-xl group"
+          className="absolute right-2 xs:right-4 md:right-6 top-1/2 transform -translate-y-1/2 bg-white/10 backdrop-blur-md hover:bg-white/20 text-white p-2 xs:p-3 md:p-4 rounded-full transition-all duration-300 hover:scale-110 z-10 border border-white/30 shadow-xl group"
         >
-          <ChevronRight className="w-5 h-5 md:w-6 md:h-6 group-hover:translate-x-0.5 transition-transform" />
+          <ChevronRight className="w-4 h-4 xs:w-5 xs:h-5 md:w-6 md:h-6 group-hover:translate-x-0.5 transition-transform" />
         </button>
 
         {/* Professional Slide Indicators */}
-        <div className="absolute bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-3 z-10 bg-white/10 backdrop-blur-md rounded-full px-6 py-3 border border-white/20">
+        <div className="absolute bottom-4 xs:bottom-6 md:bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 xs:space-x-3 z-10 bg-white/10 backdrop-blur-md rounded-full px-4 xs:px-6 py-2 xs:py-3 border border-white/20">
           {finalSlides.map((_, index) => (
             <button
               key={index}
               onClick={() => goToSlide(index)}
-              className={`w-3 h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 ${index === currentSlide
+              className={`w-2.5 h-2.5 xs:w-3 xs:h-3 md:w-4 md:h-4 rounded-full transition-all duration-300 ${index === currentSlide
                   ? 'bg-yellow-400 scale-125 shadow-lg'
                   : 'bg-white/50 hover:bg-white/80 hover:scale-110'
                 }`}
@@ -362,26 +362,26 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
         </div>
 
         {/* Professional Floating Elements with reduced motion support */}
-        <div className={`absolute top-12 md:top-20 right-12 md:right-20 opacity-30 ${getAnimationClasses('animate-bounce', '', prefersReducedMotion)}`}>
+        <div className={`absolute top-8 xs:top-12 md:top-20 right-8 xs:right-12 md:right-20 opacity-30 ${getAnimationClasses('animate-bounce', '', prefersReducedMotion)}`}>
           <div className="relative">
-            <Zap className="w-10 h-10 md:w-16 md:h-16 text-yellow-400 filter drop-shadow-lg" />
+            <Zap className="w-8 h-8 xs:w-10 xs:h-10 md:w-16 md:h-16 text-yellow-400 filter drop-shadow-lg" />
             <div className={`absolute inset-0 ${getAnimationClasses('animate-ping', '', prefersReducedMotion)}`}>
-              <Zap className="w-10 h-10 md:w-16 md:h-16 text-yellow-400 opacity-20" />
+              <Zap className="w-8 h-8 xs:w-10 xs:h-10 md:w-16 md:h-16 text-yellow-400 opacity-20" />
             </div>
           </div>
         </div>
-        <div className={`absolute bottom-20 md:bottom-32 left-12 md:left-20 opacity-20 ${getAnimationClasses('animate-pulse', '', prefersReducedMotion)}`}>
-          <div className="w-20 h-20 md:w-32 md:h-32 rounded-full bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 blur-xl" />
+        <div className={`absolute bottom-16 xs:bottom-20 md:bottom-32 left-8 xs:left-12 md:left-20 opacity-20 ${getAnimationClasses('animate-pulse', '', prefersReducedMotion)}`}>
+          <div className="w-16 h-16 xs:w-20 xs:h-20 md:w-32 md:h-32 rounded-full bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 blur-xl" />
         </div>
         <div className={`absolute top-1/3 right-1/4 opacity-10 ${getAnimationClasses('animate-bounce', '', prefersReducedMotion)}`}>
-          <div className="w-6 h-6 md:w-8 md:h-8 rounded-full bg-white/30" />
+          <div className="w-4 h-4 xs:w-6 xs:h-6 md:w-8 md:h-8 rounded-full bg-white/30" />
         </div>
       </section>
 
       {/* Trust Indicators Section */}
       <section 
         ref={trustSectionRef}
-        className={`py-12 md:py-16 bg-gradient-to-r from-white via-gray-50 to-white border-y border-gray-100 relative overflow-hidden transition-all duration-1000 ${
+        className={`py-8 xs:py-10 sm:py-12 md:py-16 bg-gradient-to-r from-white via-gray-50 to-white border-y border-gray-100 relative overflow-hidden transition-all duration-1000 ${
           isTrustVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`}
       >
@@ -393,40 +393,40 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
           }}></div>
         </div>
         
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-12">
+        <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10 relative">
+          <div className="grid grid-cols-1 xs:grid-cols-2 md:grid-cols-4 gap-6 xs:gap-8 md:gap-12">
             <div className="text-center group animate-fade-in-up">
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
-                <Shield className="w-8 h-8 md:w-10 md:h-10 text-white group-hover:animate-bounce" />
+              <div className="w-12 h-12 xs:w-16 xs:h-16 md:w-20 md:h-20 bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl xs:rounded-2xl flex items-center justify-center mx-auto mb-3 xs:mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
+                <Shield className="w-6 h-6 xs:w-8 xs:h-8 md:w-10 md:h-10 text-white group-hover:animate-bounce" />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">Premium Quality</h3>
-              <p className="text-sm md:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Certified electrical products with international standards</p>
+              <h3 className="text-lg xs:text-xl md:text-2xl font-bold text-gray-900 mb-1.5 xs:mb-2 group-hover:text-blue-600 transition-colors duration-300">Premium Quality</h3>
+              <p className="text-xs xs:text-sm md:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Certified electrical products with international standards</p>
             </div>
             
             <div className="text-center group animate-fade-in-up delay-200">
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
-                <Truck className="w-8 h-8 md:w-10 md:h-10 text-white group-hover:animate-bounce" />
+              <div className="w-12 h-12 xs:w-16 xs:h-16 md:w-20 md:h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-xl xs:rounded-2xl flex items-center justify-center mx-auto mb-3 xs:mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
+                <Truck className="w-6 h-6 xs:w-8 xs:h-8 md:w-10 md:h-10 text-white group-hover:animate-bounce" />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors duration-300">Fast Delivery</h3>
-              <p className="text-sm md:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Quick and secure shipping across India</p>
+              <h3 className="text-lg xs:text-xl md:text-2xl font-bold text-gray-900 mb-1.5 xs:mb-2 group-hover:text-green-600 transition-colors duration-300">Fast Delivery</h3>
+              <p className="text-xs xs:text-sm md:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Quick and secure shipping across India</p>
             </div>
             
             <div className="text-center group animate-fade-in-up delay-400">
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
-                <svg className="w-8 h-8 md:w-10 md:h-10 text-white group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-12 h-12 xs:w-16 xs:h-16 md:w-20 md:h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-xl xs:rounded-2xl flex items-center justify-center mx-auto mb-3 xs:mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
+                <svg className="w-6 h-6 xs:w-8 xs:h-8 md:w-10 md:h-10 text-white group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors duration-300">Secure Payment</h3>
-              <p className="text-sm md:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Safe and encrypted payment processing</p>
+              <h3 className="text-lg xs:text-xl md:text-2xl font-bold text-gray-900 mb-1.5 xs:mb-2 group-hover:text-purple-600 transition-colors duration-300">Secure Payment</h3>
+              <p className="text-xs xs:text-sm md:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Safe and encrypted payment processing</p>
             </div>
             
             <div className="text-center group animate-fade-in-up delay-600">
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
-                <Headphones className="w-8 h-8 md:w-10 md:h-10 text-white group-hover:animate-bounce" />
+              <div className="w-12 h-12 xs:w-16 xs:h-16 md:w-20 md:h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-xl xs:rounded-2xl flex items-center justify-center mx-auto mb-3 xs:mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
+                <Headphones className="w-6 h-6 xs:w-8 xs:h-8 md:w-10 md:h-10 text-white group-hover:animate-bounce" />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors duration-300">24/7 Support</h3>
-              <p className="text-sm md:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Round-the-clock customer assistance</p>
+              <h3 className="text-lg xs:text-xl md:text-2xl font-bold text-gray-900 mb-1.5 xs:mb-2 group-hover:text-orange-600 transition-colors duration-300">24/7 Support</h3>
+              <p className="text-xs xs:text-sm md:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Round-the-clock customer assistance</p>
             </div>
           </div>
         </div>
@@ -435,20 +435,20 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
       {/* Categories Section */}
       <section 
         ref={categoriesSectionRef}
-        className={`py-16 md:py-24 bg-gradient-to-br from-gray-50 via-white to-blue-50 transition-all duration-1000 ${
+        className={`py-12 xs:py-16 md:py-24 bg-gradient-to-br from-gray-50 via-white to-blue-50 transition-all duration-1000 ${
           isCategoriesVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
         }`} 
         id="categories"
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12 md:mb-16">
-            <div className="inline-block px-6 py-2 bg-blue-100 rounded-full mb-6">
-              <span className="text-blue-800 text-sm font-semibold tracking-wide uppercase">Product Categories</span>
+        <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10">
+          <div className="text-center mb-8 xs:mb-12 md:mb-16">
+            <div className="inline-block px-4 xs:px-6 py-1.5 xs:py-2 bg-blue-100 rounded-full mb-4 xs:mb-6">
+              <span className="text-blue-800 text-xs xs:text-sm font-semibold tracking-wide uppercase">Product Categories</span>
             </div>
-            <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
+            <h2 className="text-2xl xs:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 xs:mb-6 tracking-tight">
               Shop by <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-purple-600">Category</span>
             </h2>
-            <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+            <p className="text-base xs:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Discover our comprehensive range of premium electrical products, carefully organized by category for your convenience
             </p>
           </div>
@@ -458,10 +458,10 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
             {canScrollLeft && (
               <button
                 onClick={scrollLeft}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-2xl rounded-full p-3 md:p-4 hover:bg-blue-50 transition-all duration-300 border border-blue-100 hover:scale-110 group"
+                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-2xl rounded-full p-2 xs:p-3 md:p-4 hover:bg-blue-50 transition-all duration-300 border border-blue-100 hover:scale-110 group"
                 aria-label="Scroll left"
               >
-                <ChevronLeft className="w-6 h-6 md:w-7 md:h-7 text-blue-600 group-hover:-translate-x-0.5 transition-transform" />
+                <ChevronLeft className="w-5 h-5 xs:w-6 xs:h-6 md:w-7 md:h-7 text-blue-600 group-hover:-translate-x-0.5 transition-transform" />
               </button>
             )}
 
@@ -469,10 +469,10 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
             {canScrollRight && (
               <button
                 onClick={scrollRight}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-2xl rounded-full p-3 md:p-4 hover:bg-blue-50 transition-all duration-300 border border-blue-100 hover:scale-110 group"
+                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-2xl rounded-full p-2 xs:p-3 md:p-4 hover:bg-blue-50 transition-all duration-300 border border-blue-100 hover:scale-110 group"
                 aria-label="Scroll right"
               >
-                <ChevronRight className="w-6 h-6 md:w-7 md:h-7 text-blue-600 group-hover:translate-x-0.5 transition-transform" />
+                <ChevronRight className="w-5 h-5 xs:w-6 xs:h-6 md:w-7 md:h-7 text-blue-600 group-hover:translate-x-0.5 transition-transform" />
               </button>
             )}
 
@@ -480,7 +480,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
             <div className="hidden md:block">
               <div
                 ref={scrollContainer}
-                className="flex overflow-x-auto scrollbar-hide gap-6 px-12 py-4"
+                className="flex overflow-x-auto scrollbar-hide gap-4 lg:gap-6 px-8 lg:px-12 py-4"
                 style={{
                   scrollbarWidth: 'none',
                   msOverflowStyle: 'none',
@@ -495,7 +495,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
                       e.preventDefault();
                       handleCategorySelect(category.name);
                     }}
-                    className={`group block flex-shrink-0 overflow-hidden rounded-3xl border border-gray-200 bg-white shadow-xl transition-all duration-700 hover:-translate-y-4 hover:shadow-2xl hover:border-blue-200 w-[300px] h-fit transform ${
+                    className={`group block flex-shrink-0 overflow-hidden rounded-2xl lg:rounded-3xl border border-gray-200 bg-white shadow-xl transition-all duration-700 hover:-translate-y-4 hover:shadow-2xl hover:border-blue-200 w-[280px] lg:w-[300px] h-fit transform ${
                       isCategoriesVisible 
                         ? 'opacity-100 translate-y-0 scale-100' 
                         : 'opacity-0 translate-y-8 scale-95'
@@ -504,29 +504,29 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
                       transitionDelay: `${index * 150}ms`
                     }}
                   >
-                    <div className="relative h-40 overflow-hidden">
+                    <div className="relative h-36 lg:h-40 overflow-hidden">
                       <img
                         src={category.image}
                         alt={category.name}
                         className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-blue-900/90 via-blue-900/50 to-transparent"></div>
-                      <div className="absolute top-4 right-4">
-                        <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
-                          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <div className="absolute top-3 lg:top-4 right-3 lg:right-4">
+                        <div className="w-6 h-6 lg:w-8 lg:h-8 bg-white/20 backdrop-blur-sm rounded-full flex items-center justify-center">
+                          <svg className="w-3 h-3 lg:w-4 lg:h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
                           </svg>
                         </div>
                       </div>
                     </div>
-                    <div className="p-8 text-center">
-                      <h3 className="font-bold text-gray-900 mb-3 text-xl leading-tight group-hover:text-blue-700 transition-colors">
+                    <div className="p-6 lg:p-8 text-center">
+                      <h3 className="font-bold text-gray-900 mb-2 lg:mb-3 text-lg lg:text-xl leading-tight group-hover:text-blue-700 transition-colors">
                         {category.name}
                       </h3>
-                      <p className="text-base text-gray-600 font-medium mb-2">
+                      <p className="text-sm lg:text-base text-gray-600 font-medium mb-2">
                         {category.productCount} products
                       </p>
-                      <div className="w-12 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="w-10 lg:w-12 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                     </div>
                   </a>
                 ))}
@@ -537,7 +537,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
             <div className="md:hidden">
               <div
                 ref={scrollContainer}
-                className="flex overflow-x-auto scrollbar-hide gap-4 px-4 py-4"
+                className="flex overflow-x-auto scrollbar-hide gap-3 xs:gap-4 px-3 xs:px-4 py-4"
                 style={{
                   scrollbarWidth: 'none',
                   msOverflowStyle: 'none',
@@ -552,7 +552,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
                       e.preventDefault();
                       handleCategorySelect(category.name);
                     }}
-                    className={`group block flex-shrink-0 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-xl w-[200px] h-fit transform ${
+                    className={`group block flex-shrink-0 overflow-hidden rounded-lg xs:rounded-xl border border-gray-100 bg-white shadow-md transition-all duration-500 hover:-translate-y-2 hover:shadow-xl w-[180px] xs:w-[200px] h-fit transform ${
                       isCategoriesVisible 
                         ? 'opacity-100 translate-y-0 scale-100' 
                         : 'opacity-0 translate-y-6 scale-95'
@@ -561,7 +561,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
                       transitionDelay: `${index * 100}ms`
                     }}
                   >
-                    <div className="relative h-24 overflow-hidden">
+                    <div className="relative h-20 xs:h-24 overflow-hidden">
                       <img
                         src={category.image}
                         alt={category.name}
@@ -569,8 +569,8 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-blue-900/80 via-blue-900/40 to-transparent"></div>
                     </div>
-                    <div className="p-4 text-center">
-                      <h3 className="font-semibold text-gray-900 mb-1 text-sm leading-tight group-hover:text-blue-900 transition-colors">
+                    <div className="p-3 xs:p-4 text-center">
+                      <h3 className="font-semibold text-gray-900 mb-1 text-xs xs:text-sm leading-tight group-hover:text-blue-900 transition-colors">
                         {category.name}
                       </h3>
                       <p className="text-xs text-gray-500 font-medium">
@@ -590,25 +590,25 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
         <section 
           ref={productsSectionRef}
           id="products" 
-          className={`py-16 md:py-24 bg-gradient-to-br from-white via-gray-50 to-blue-50 transition-all duration-1000 ${
+          className={`py-12 xs:py-16 md:py-24 bg-gradient-to-br from-white via-gray-50 to-blue-50 transition-all duration-1000 ${
             isProductsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
           }`}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-12 md:mb-16">
-              <div className="inline-block px-6 py-2 bg-yellow-100 rounded-full mb-6">
-                <span className="text-yellow-800 text-sm font-semibold tracking-wide uppercase">Best Sellers</span>
+          <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10">
+            <div className="text-center mb-8 xs:mb-12 md:mb-16">
+              <div className="inline-block px-4 xs:px-6 py-1.5 xs:py-2 bg-yellow-100 rounded-full mb-4 xs:mb-6">
+                <span className="text-yellow-800 text-xs xs:text-sm font-semibold tracking-wide uppercase">Best Sellers</span>
               </div>
-              <h2 className="text-3xl md:text-5xl font-bold text-gray-900 mb-6 tracking-tight">
+              <h2 className="text-2xl xs:text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 xs:mb-6 tracking-tight">
                 Featured <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 to-orange-500">Products</span>
               </h2>
-              <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-8">
+              <p className="text-base xs:text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed mb-6 xs:mb-8">
                 Handpicked premium electrical products with exceptional quality and unbeatable prices
               </p>
-              <div className="w-24 md:w-32 h-1 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 mx-auto rounded-full"></div>
+              <div className="w-20 xs:w-24 md:w-32 h-1 bg-gradient-to-r from-yellow-400 via-orange-400 to-red-400 mx-auto rounded-full"></div>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+            <div className="grid grid-cols-1 xs:grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-3 xl:grid-cols-4 gap-3 xs:gap-4 md:gap-6">
               {products.map((product, index) => (
                 <div
                   key={`${product['product-id'] || product['product-title']}-${index}`}

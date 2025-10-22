@@ -45,50 +45,50 @@ const CartPage = ({ items, onBack, onUpdateQuantity, onRemoveItem, onCheckout, c
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
       <div className="bg-white shadow-sm border-b">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-16">
+        <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10">
+          <div className="flex items-center justify-between h-14 xs:h-16">
             <button 
               onClick={() => window.history.back()}
-              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors text-sm md:text-base"
+              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors text-xs xs:text-sm md:text-base"
             >
-              <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-              <span className="hidden sm:inline">Back</span>
+              <ArrowLeft className="w-3.5 h-3.5 xs:w-4 xs:h-4 md:w-5 md:h-5 mr-1.5 xs:mr-2" />
+              <span className="hidden xs:inline">Back</span>
             </button>
-            <h1 className="text-lg font-semibold text-gray-900 text-center flex-1">Shopping Cart</h1>
+            <h1 className="text-base xs:text-lg font-semibold text-gray-900 text-center flex-1">Shopping Cart</h1>
             <button 
               onClick={() => clearCart()}
-              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors text-sm md:text-base"
+              className="flex items-center text-gray-600 hover:text-gray-900 transition-colors text-xs xs:text-sm md:text-base"
             >
-              <Trash2 className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-              <span className="hidden sm:inline">Clear Cart</span>
+              <Trash2 className="w-3.5 h-3.5 xs:w-4 xs:h-4 md:w-5 md:h-5 mr-1.5 xs:mr-2" />
+              <span className="hidden xs:inline">Clear Cart</span>
             </button>
           </div>
         </div>
       </div>
 
       {/* Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10 py-6 xs:py-8">
         {items.length === 0 ? (
-          <div className="text-center py-16">
-            <ShoppingBag className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <p className="text-gray-500 text-lg mb-2">Your cart is empty</p>
-            <p className="text-gray-400">Add some products to get started</p>
+          <div className="text-center py-12 xs:py-16">
+            <ShoppingBag className="w-12 h-12 xs:w-16 xs:h-16 text-gray-300 mx-auto mb-3 xs:mb-4" />
+            <p className="text-gray-500 text-base xs:text-lg mb-1 xs:mb-2">Your cart is empty</p>
+            <p className="text-gray-400 text-sm xs:text-base">Add some products to get started</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 xs:gap-8">
             {/* Items */}
-            <div className="lg:col-span-2 space-y-4">
+            <div className="lg:col-span-2 space-y-3 xs:space-y-4">
               {items.map((item, index) => (
-                <div key={index} className="flex items-center space-x-4 p-4 bg-white rounded-lg shadow-sm border border-gray-100">
+                <div key={index} className="flex items-center space-x-3 xs:space-x-4 p-3 xs:p-4 bg-white rounded-lg shadow-sm border border-gray-100">
                   <button
                     onClick={() => onOpenDetails && onOpenDetails(item)}
-                    className="focus:outline-none"
+                    className="focus:outline-none flex-shrink-0"
                     title={item['product-title']}
                   >
                     <img
                       src={item['image-url']}
                       alt={item['product-title']}
-                      className="w-20 h-20 object-cover rounded-lg"
+                      className="w-16 h-16 xs:w-20 xs:h-20 object-cover rounded-lg"
                       onError={(e) => {
                         const target = e.target;
                         target.src = 'https://images.pexels.com/photos/257736/pexels-photo-257736.jpeg?auto=compress&cs=tinysrgb&w=100';
@@ -98,15 +98,15 @@ const CartPage = ({ items, onBack, onUpdateQuantity, onRemoveItem, onCheckout, c
                   <div className="flex-1 min-w-0">
                     <button
                       onClick={() => onOpenDetails && onOpenDetails(item)}
-                      className="text-left text-sm font-medium text-gray-900 truncate hover:underline"
+                      className="text-left text-xs xs:text-sm font-medium text-gray-900 truncate hover:underline"
                       title={item['product-title']}
                     >
                       {item['product-title']}
                     </button>
-                    <p className="text-sm text-gray-500">₹{parseFloat(item['new-price']).toLocaleString()}</p>
-                    <div className="flex items-center space-x-2 mt-2">
-                      <button onClick={() => onUpdateQuantity(index, Math.max(1, item.quantity - 1))} className="p-1 hover:bg-gray-100 rounded">
-                        <Minus className="w-4 h-4" />
+                    <p className="text-xs xs:text-sm text-gray-500">₹{parseFloat(item['new-price']).toLocaleString()}</p>
+                    <div className="flex items-center space-x-1.5 xs:space-x-2 mt-1.5 xs:mt-2">
+                      <button onClick={() => onUpdateQuantity(index, Math.max(1, item.quantity - 1))} className="p-0.5 xs:p-1 hover:bg-gray-100 rounded">
+                        <Minus className="w-3.5 h-3.5 xs:w-4 xs:h-4" />
                       </button>
                       <input
                         type="number"
@@ -121,7 +121,7 @@ const CartPage = ({ items, onBack, onUpdateQuantity, onRemoveItem, onCheckout, c
                           const clamped = Math.max(minQty, maxQty != null ? Math.min(parsed, maxQty) : parsed);
                           onUpdateQuantity(index, clamped);
                         }}
-                        className="w-16 text-center px-2 py-1 text-sm font-medium border border-gray-200 rounded"
+                        className="w-12 xs:w-16 text-center px-1.5 xs:px-2 py-0.5 xs:py-1 text-xs xs:text-sm font-medium border border-gray-200 rounded"
                       />
                       <button 
                         onClick={() => {
@@ -131,7 +131,7 @@ const CartPage = ({ items, onBack, onUpdateQuantity, onRemoveItem, onCheckout, c
                           }
                           onUpdateQuantity(index, item.quantity + 1);
                         }} 
-                        className={`p-1 rounded transition-colors ${
+                        className={`p-0.5 xs:p-1 rounded transition-colors ${
                           (item?.raw?.inventory?.availableQuantity ?? item?.inventory?.availableQuantity) != null && 
                           item.quantity >= (item?.raw?.inventory?.availableQuantity ?? item?.inventory?.availableQuantity)
                             ? 'text-gray-300 cursor-not-allowed' 
@@ -140,14 +140,14 @@ const CartPage = ({ items, onBack, onUpdateQuantity, onRemoveItem, onCheckout, c
                         disabled={(item?.raw?.inventory?.availableQuantity ?? item?.inventory?.availableQuantity) != null && 
                           item.quantity >= (item?.raw?.inventory?.availableQuantity ?? item?.inventory?.availableQuantity)}
                       >
-                        <Plus className="w-4 h-4" />
+                        <Plus className="w-3.5 h-3.5 xs:w-4 xs:h-4" />
                       </button>
-                      <button onClick={() => onRemoveItem(index)} className="p-1 hover:bg-red-100 rounded text-red-500 ml-2">
-                        <Trash2 className="w-4 h-4" />
+                      <button onClick={() => onRemoveItem(index)} className="p-0.5 xs:p-1 hover:bg-red-100 rounded text-red-500 ml-1 xs:ml-2">
+                        <Trash2 className="w-3.5 h-3.5 xs:w-4 xs:h-4" />
                       </button>
                     </div>
                   </div>
-                  <div className="text-sm font-medium text-gray-900">
+                  <div className="text-xs xs:text-sm font-medium text-gray-900 flex-shrink-0">
                     ₹{(parseFloat(item['new-price']) * item.quantity).toLocaleString()}
                   </div>
                 </div>
@@ -155,19 +155,19 @@ const CartPage = ({ items, onBack, onUpdateQuantity, onRemoveItem, onCheckout, c
             </div>
 
             {/* Summary */}
-            <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-6 h-fit">
-              <h2 className="text-lg font-semibold text-gray-900 mb-4">Order Summary</h2>
-              <div className="space-y-2 text-sm">
+            <div className="bg-white rounded-lg shadow-sm border border-gray-100 p-4 xs:p-6 h-fit">
+              <h2 className="text-base xs:text-lg font-semibold text-gray-900 mb-3 xs:mb-4">Order Summary</h2>
+              <div className="space-y-1.5 xs:space-y-2 text-xs xs:text-sm">
                 <div className="flex justify-between"><span>Subtotal</span><span>₹{subtotal.toLocaleString()}</span></div>
                 <div className="flex justify-between"><span>Shipping</span><span>{shipping === 0 ? 'Free' : `₹${shipping}`}</span></div>
                 <div className="flex justify-between"><span>Tax</span><span>₹{tax.toLocaleString()}</span></div>
                 <div className="flex justify-between"><span>Round Off</span><span>₹{roundOff.toFixed(2)}</span></div>
-                <div className="flex justify-between font-semibold text-base border-t pt-3"><span>Grand Total</span><span>₹{roundedTotal.toLocaleString()}</span></div>
+                <div className="flex justify-between font-semibold text-sm xs:text-base border-t pt-2 xs:pt-3"><span>Grand Total</span><span>₹{roundedTotal.toLocaleString()}</span></div>
               </div>
               <a
                 href="#checkout"
                 onClick={(e) => { e.preventDefault(); onCheckout(); }}
-                className="mt-6 w-full inline-block text-center bg-blue-900 text-white py-3 px-4 rounded-lg hover:bg-blue-800 transition-colors font-medium"
+                className="mt-4 xs:mt-6 w-full inline-block text-center bg-blue-900 text-white py-2.5 xs:py-3 px-3 xs:px-4 rounded-lg hover:bg-blue-800 transition-colors font-medium text-sm xs:text-base"
               >
                 {isGuestUser ? 'Login to Checkout' : 'Proceed to Checkout'}
               </a>

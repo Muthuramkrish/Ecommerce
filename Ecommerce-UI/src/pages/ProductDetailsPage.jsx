@@ -195,28 +195,28 @@ const ProductDetailsPage = ({
           isHeaderVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
         }`}
       >
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-between h-14 md:h-16">
+        <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10">
+          <div className="flex items-center justify-between h-12 xs:h-14 md:h-16">
           <button 
               onClick={() => window.history.back()}
-              className={`flex items-center text-gray-600 hover:text-gray-900 transition-all duration-300 text-sm md:text-base hover:scale-105 group ${getAnimationClasses('animate-slide-in-left', '', prefersReducedMotion)}`}
+              className={`flex items-center text-gray-600 hover:text-gray-900 transition-all duration-300 text-xs xs:text-sm md:text-base hover:scale-105 group ${getAnimationClasses('animate-slide-in-left', '', prefersReducedMotion)}`}
             >
-              <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 mr-2 group-hover:-translate-x-1 transition-transform duration-300" />
-              <span className="hidden sm:inline">Back</span>
+              <ArrowLeft className="w-3.5 h-3.5 xs:w-4 xs:h-4 md:w-5 md:h-5 mr-1.5 xs:mr-2 group-hover:-translate-x-1 transition-transform duration-300" />
+              <span className="hidden xs:inline">Back</span>
             </button>
-            <div className={`flex items-center space-x-4 ${getAnimationClasses('animate-slide-in-right', '', prefersReducedMotion)}`}>
+            <div className={`flex items-center space-x-2 xs:space-x-3 md:space-x-4 ${getAnimationClasses('animate-slide-in-right', '', prefersReducedMotion)}`}>
               <a
                 href="#wishlist"
                 onClick={(e) => {
                   e.preventDefault();
                   handleAddToWishlist();
                 }}
-                className={`p-1.5 md:p-2 rounded-full transition-all duration-300 hover:scale-110 ${isInWishlist
+                className={`p-1 xs:p-1.5 md:p-2 rounded-full transition-all duration-300 hover:scale-110 ${isInWishlist
                     ? 'text-red-500 bg-gradient-to-r from-red-50 to-pink-50 animate-pulse'
                     : 'text-gray-400 hover:text-red-500 hover:bg-red-50'
                   }`}
               >
-                <Heart className="w-5 h-5 md:w-6 md:h-6 transition-transform duration-300 hover:scale-110" fill={isInWishlist ? 'currentColor' : 'none'} />
+                <Heart className="w-4 h-4 xs:w-5 xs:h-5 md:w-6 md:h-6 transition-transform duration-300 hover:scale-110" fill={isInWishlist ? 'currentColor' : 'none'} />
               </a>
               <a
                 href="#cart"
@@ -224,13 +224,14 @@ const ProductDetailsPage = ({
                   e.preventDefault();
                   handleAddToCart();
                 }}
-                className="flex items-center px-3 md:px-4 py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 text-sm md:text-base hover:scale-105 hover:shadow-lg group relative overflow-hidden"
+                className="flex items-center px-2 xs:px-3 md:px-4 py-1.5 xs:py-2 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 text-xs xs:text-sm md:text-base hover:scale-105 hover:shadow-lg group relative overflow-hidden"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <ShoppingCart className="w-4 h-4 md:w-5 md:h-5 mr-2 relative z-10 group-hover:animate-bounce" />
-                <span className="relative z-10">Add to Cart</span>
+                <ShoppingCart className="w-3.5 h-3.5 xs:w-4 xs:h-4 md:w-5 md:h-5 mr-1.5 xs:mr-2 relative z-10 group-hover:animate-bounce" />
+                <span className="relative z-10 hidden xs:inline">Add to Cart</span>
+                <span className="relative z-10 xs:hidden">Add</span>
                 {cartQuantity > 0 && (
-                  <span className="ml-2 bg-white text-blue-600 text-[10px] md:text-xs rounded-full w-4 h-4 md:w-5 md:h-5 flex items-center justify-center animate-bounce relative z-10">
+                  <span className="ml-1.5 xs:ml-2 bg-white text-blue-600 text-[9px] xs:text-[10px] md:text-xs rounded-full w-3.5 h-3.5 xs:w-4 xs:h-4 md:w-5 md:h-5 flex items-center justify-center animate-bounce relative z-10">
                     {cartQuantity}
                   </span>
                 )}
@@ -244,11 +245,11 @@ const ProductDetailsPage = ({
       {(anchor.subcategory || anchor.subSubcategory || anchor.brand || anchor.productType) && (
         <div 
           ref={breadcrumbSectionRef}
-          className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 transition-all duration-1000 ${
+          className={`max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10 pt-4 xs:pt-6 transition-all duration-1000 ${
             isBreadcrumbVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
-          <div className="text-sm text-gray-700 flex flex-wrap items-center animate-fade-in-up">
+          <div className="text-xs xs:text-sm text-gray-700 flex flex-wrap items-center animate-fade-in-up">
             {anchor.subcategory && (
               <>
                 <button className="text-blue-600 hover:text-blue-800 hover:underline transition-all duration-300 hover:scale-105 font-medium" onClick={() => navigateTo('subcategory', anchor.subcategory)}>
@@ -283,8 +284,8 @@ const ProductDetailsPage = ({
       )}
 
       {/* Product Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
+      <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10 py-6 xs:py-8">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 xs:gap-10 lg:gap-12">
           {/* Product Images */}
           <div 
             ref={imagesSectionRef}
@@ -293,7 +294,7 @@ const ProductDetailsPage = ({
             }`}
           >
             <div
-              className="aspect-square bg-white rounded-2xl overflow-hidden shadow-2xl cursor-pointer group relative hover:shadow-3xl transition-all duration-500 hover:scale-105"
+              className="aspect-square bg-white rounded-xl xs:rounded-2xl overflow-hidden shadow-2xl cursor-pointer group relative hover:shadow-3xl transition-all duration-500 hover:scale-105"
               onClick={() => {
                 if (variants.length && variantsRef.current) {
                   variantsRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
@@ -333,7 +334,7 @@ const ProductDetailsPage = ({
               </div>
             </div>
             {displayedImages.length > 1 && (
-              <div className="grid grid-cols-4 gap-3">
+              <div className="grid grid-cols-3 xs:grid-cols-4 gap-2 xs:gap-3">
                 {displayedImages.map((image, index) => (
                   <button
                     key={index}
@@ -341,7 +342,7 @@ const ProductDetailsPage = ({
                       // Change only the displayed photo, do not switch variant.
                       setSelectedImage(index);
                     }}
-                    className={`aspect-square bg-white rounded-xl overflow-hidden border-2 transition-all duration-300 hover:scale-105 hover:shadow-lg group ${
+                    className={`aspect-square bg-white rounded-lg xs:rounded-xl overflow-hidden border-2 transition-all duration-300 hover:scale-105 hover:shadow-lg group ${
                       selectedImage === index 
                         ? 'border-blue-500 shadow-lg ring-2 ring-blue-200' 
                         : 'border-gray-200 hover:border-blue-300'
@@ -356,8 +357,8 @@ const ProductDetailsPage = ({
                     {/* Selection indicator */}
                     {selectedImage === index && (
                       <div className="absolute inset-0 bg-blue-500/20 flex items-center justify-center">
-                        <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center animate-bounce">
-                          <div className="w-2 h-2 bg-white rounded-full"></div>
+                        <div className="w-4 h-4 xs:w-6 xs:h-6 bg-blue-500 rounded-full flex items-center justify-center animate-bounce">
+                          <div className="w-1.5 h-1.5 xs:w-2 xs:h-2 bg-white rounded-full"></div>
                         </div>
                       </div>
                     )}
@@ -374,8 +375,8 @@ const ProductDetailsPage = ({
                   isSpecsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
                 } ${getAnimationClasses('animate-fade-in-up', '', prefersReducedMotion)}`}
               >
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Attributes</h3>
-                <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-4 space-y-2 text-sm border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <h3 className="text-base xs:text-lg font-semibold text-gray-900 mb-2 xs:mb-3">Attributes</h3>
+                <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg xs:rounded-xl p-3 xs:p-4 space-y-1.5 xs:space-y-2 text-xs xs:text-sm border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
                   {displayedAttributes.material && <div><span className="text-gray-500">Material:</span> <span className="font-medium text-gray-900">{displayedAttributes.material}</span></div>}
                   {Array.isArray(displayedAttributes.certification) && displayedAttributes.certification.length > 0 && (
                     <div><span className="text-gray-500">Certifications:</span> <span className="font-medium text-gray-900">{displayedAttributes.certification.join(', ')}</span></div>
@@ -389,16 +390,16 @@ const ProductDetailsPage = ({
             {/* Specifications (grouped array) */}
             {Array.isArray(displayedSpecs) && displayedSpecs.length > 0 && (
               <div className={getAnimationClasses('animate-fade-in-up delay-200', '', prefersReducedMotion)}>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Specifications</h3>
-                <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-4 space-y-2 text-sm border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <h3 className="text-base xs:text-lg font-semibold text-gray-900 mb-2 xs:mb-3">Specifications</h3>
+                <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg xs:rounded-xl p-3 xs:p-4 space-y-1.5 xs:space-y-2 text-xs xs:text-sm border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
                   {displayedSpecs.map((s, i) => (
                     <div 
                       key={`${s.group}-${s.name}-${i}`} 
-                      className="flex justify-between hover:bg-white/50 rounded-lg p-2 -m-2 transition-all duration-300 hover:shadow-sm"
+                      className="flex justify-between hover:bg-white/50 rounded-lg p-1.5 xs:p-2 -m-1.5 xs:-m-2 transition-all duration-300 hover:shadow-sm"
                       style={{ animationDelay: `${i * 50}ms` }}
                     >
-                      <span className="text-gray-600">{s.group} — {s.name}</span>
-                      <span className="font-medium text-gray-900">{s.value}{s.unit ? ` ${s.unit}` : ''}</span>
+                      <span className="text-gray-600 truncate pr-2">{s.group} — {s.name}</span>
+                      <span className="font-medium text-gray-900 flex-shrink-0">{s.value}{s.unit ? ` ${s.unit}` : ''}</span>
                     </div>
                   ))}
                 </div>
@@ -408,8 +409,8 @@ const ProductDetailsPage = ({
             {/* Physical */}
             {(displayedWeight || displayedDimensions) && (
               <div className={getAnimationClasses('animate-fade-in-up delay-300', '', prefersReducedMotion)}>
-                <h3 className="text-lg font-semibold text-gray-900 mb-3">Physical</h3>
-                <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-4 grid grid-cols-1 md:grid-cols-2 gap-3 text-sm border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
+                <h3 className="text-base xs:text-lg font-semibold text-gray-900 mb-2 xs:mb-3">Physical</h3>
+                <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg xs:rounded-xl p-3 xs:p-4 grid grid-cols-1 xs:grid-cols-2 gap-2 xs:gap-3 text-xs xs:text-sm border border-gray-100 shadow-sm hover:shadow-md transition-shadow duration-300">
                   {displayedWeight && (
                     <div><span className="text-gray-500">Weight:</span> <span className="font-medium text-gray-900">{displayedWeight.value} {displayedWeight.unit}</span></div>
                   )}
@@ -429,21 +430,21 @@ const ProductDetailsPage = ({
             }`}
           >
             <div className={getAnimationClasses('animate-fade-in-up', '', prefersReducedMotion)}>
-              <h1 className="text-3xl font-bold bg-gradient-to-r from-gray-900 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-2 leading-tight">
+              <h1 className="text-xl xs:text-2xl sm:text-3xl font-bold bg-gradient-to-r from-gray-900 via-blue-600 to-purple-600 bg-clip-text text-transparent mb-2 leading-tight">
                 {displayedTitle}
               </h1>
               
-              <div className={`flex items-center space-x-4 mb-6 ${getAnimationClasses('animate-slide-in-left delay-200', '', prefersReducedMotion)}`}>
-                <span className="text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent animate-pulse-slow">
+              <div className={`flex flex-wrap items-center gap-2 xs:gap-4 mb-4 xs:mb-6 ${getAnimationClasses('animate-slide-in-left delay-200', '', prefersReducedMotion)}`}>
+                <span className="text-2xl xs:text-3xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent animate-pulse-slow">
                   ₹{displayedPrice}
                 </span>
                 {product['old-price'] !== displayedPrice && product['old-price'] != null && (
-                  <span className="text-xl text-gray-500 line-through">
+                  <span className="text-lg xs:text-xl text-gray-500 line-through">
                     ₹{product['old-price']}
                   </span>
                 )}
                 {product['old-price'] !== displayedPrice && product['old-price'] != null && (
-                  <span className="text-sm bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 px-3 py-1 rounded-full font-semibold shadow-sm animate-bounce">
+                  <span className="text-xs xs:text-sm bg-gradient-to-r from-green-100 to-emerald-100 text-green-800 px-2 xs:px-3 py-1 rounded-full font-semibold shadow-sm animate-bounce">
                     {Math.round(((parseFloat(product['old-price']) - parseFloat(displayedPrice)) / parseFloat(product['old-price'])) * 100)}% OFF
                   </span>
                 )}
@@ -452,17 +453,17 @@ const ProductDetailsPage = ({
 
             {/* Category */}
             <div className={getAnimationClasses('animate-fade-in-up delay-300', '', prefersReducedMotion)}>
-              <span className="text-sm text-gray-500">Category:</span>
-              <span className="ml-2 text-sm bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 px-3 py-1 rounded-full font-medium shadow-sm hover:shadow-md transition-shadow duration-300 hover:scale-105 inline-block">
+              <span className="text-xs xs:text-sm text-gray-500">Category:</span>
+              <span className="ml-1.5 xs:ml-2 text-xs xs:text-sm bg-gradient-to-r from-blue-100 to-blue-200 text-blue-800 px-2 xs:px-3 py-0.5 xs:py-1 rounded-full font-medium shadow-sm hover:shadow-md transition-shadow duration-300 hover:scale-105 inline-block">
                 {product.category}
               </span>
             </div>
 
             {/* Description */}
             <div className={getAnimationClasses('animate-fade-in-up delay-400', '', prefersReducedMotion)}>
-              <h3 className="text-lg font-semibold text-gray-900 mb-2">Description</h3>
-              <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-xl p-4 border border-gray-100">
-                <p className="text-gray-600 leading-relaxed">
+              <h3 className="text-base xs:text-lg font-semibold text-gray-900 mb-1.5 xs:mb-2">Description</h3>
+              <div className="bg-gradient-to-r from-gray-50 to-blue-50 rounded-lg xs:rounded-xl p-3 xs:p-4 border border-gray-100">
+                <p className="text-gray-600 leading-relaxed text-sm xs:text-base">
                   {displayedDescription}
                 </p>
               </div>
@@ -581,14 +582,14 @@ const ProductDetailsPage = ({
 
             {/* Quantity Selector */}
             <div className={getAnimationClasses('animate-fade-in-up delay-500', '', prefersReducedMotion)}>
-              <h3 className="text-lg font-semibold text-gray-900 mb-3">Quantity</h3>
-              <div className="flex items-center space-x-4">
-                <div className="flex items-center border border-gray-300 rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 bg-white">
+              <h3 className="text-base xs:text-lg font-semibold text-gray-900 mb-2 xs:mb-3">Quantity</h3>
+              <div className="flex flex-col xs:flex-row items-start xs:items-center gap-3 xs:gap-4">
+                <div className="flex items-center border border-gray-300 rounded-lg xs:rounded-xl shadow-sm hover:shadow-md transition-shadow duration-300 bg-white">
                   <button
                     onClick={() => handleQuantityChange(quantity - 1)}
-                    className="p-2 hover:bg-blue-50 transition-all duration-300 rounded-l-xl hover:text-blue-600 hover:scale-110 group"
+                    className="p-1.5 xs:p-2 hover:bg-blue-50 transition-all duration-300 rounded-l-lg xs:rounded-l-xl hover:text-blue-600 hover:scale-110 group"
                   >
-                    <Minus className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
+                    <Minus className="w-3.5 h-3.5 xs:w-4 xs:h-4 group-hover:scale-110 transition-transform duration-200" />
                   </button>
                   <input
                     type="number"
@@ -602,7 +603,7 @@ const ProductDetailsPage = ({
                       const next = Math.min(Math.max(1, parsed), maxQty);
                       handleQuantityChange(next);
                     }}
-                    className="w-16 text-center px-2 py-2 text-lg font-medium focus:outline-none focus:bg-blue-50 transition-colors duration-300"
+                    className="w-12 xs:w-16 text-center px-1.5 xs:px-2 py-1.5 xs:py-2 text-sm xs:text-lg font-medium focus:outline-none focus:bg-blue-50 transition-colors duration-300"
                   />
                   <button
                     onClick={() => {
@@ -612,7 +613,7 @@ const ProductDetailsPage = ({
                       }
                       handleQuantityChange(quantity + 1);
                     }}
-                    className={`p-2 transition-all duration-300 rounded-r-xl group ${
+                    className={`p-1.5 xs:p-2 transition-all duration-300 rounded-r-lg xs:rounded-r-xl group ${
                       (inventory?.availableQuantity ?? (product?.raw?.inventory?.availableQuantity ?? undefined)) != null && 
                       quantity >= (inventory?.availableQuantity ?? (product?.raw?.inventory?.availableQuantity ?? undefined))
                         ? 'text-gray-300 cursor-not-allowed' 
@@ -621,27 +622,27 @@ const ProductDetailsPage = ({
                     disabled={(inventory?.availableQuantity ?? (product?.raw?.inventory?.availableQuantity ?? undefined)) != null && 
                       quantity >= (inventory?.availableQuantity ?? (product?.raw?.inventory?.availableQuantity ?? undefined))}
                   >
-                    <Plus className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
+                    <Plus className="w-3.5 h-3.5 xs:w-4 xs:h-4 group-hover:scale-110 transition-transform duration-200" />
                   </button>
                 </div>
-                <span className="text-sm text-gray-600 bg-gradient-to-r from-gray-100 to-blue-100 px-3 py-2 rounded-full font-medium shadow-sm">
+                <span className="text-xs xs:text-sm text-gray-600 bg-gradient-to-r from-gray-100 to-blue-100 px-2 xs:px-3 py-1.5 xs:py-2 rounded-full font-medium shadow-sm">
                   {quantity} × ₹{displayedPrice} = <span className="font-bold text-blue-600">₹{(quantity * parseFloat(displayedPrice)).toFixed(2)}</span>
                 </span>
               </div>
             </div>
 
             {/* Action Buttons */}
-            <div className={`flex space-x-4 pt-6 ${getAnimationClasses('animate-slide-in-bottom delay-600', '', prefersReducedMotion)}`}>
+            <div className={`flex flex-col xs:flex-row gap-3 xs:gap-4 pt-4 xs:pt-6 ${getAnimationClasses('animate-slide-in-bottom delay-600', '', prefersReducedMotion)}`}>
               <a
                 href="#cart"
                 onClick={(e) => {
                   e.preventDefault();
                   handleAddToCart();
                 }}
-                className="flex-1 flex items-center justify-center px-6 py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-medium hover:scale-105 hover:shadow-xl group relative overflow-hidden"
+                className="flex-1 flex items-center justify-center px-4 xs:px-6 py-2.5 xs:py-3 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-lg xs:rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-medium hover:scale-105 hover:shadow-xl group relative overflow-hidden text-sm xs:text-base"
               >
                 <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                <ShoppingCart className="w-5 h-5 mr-2 relative z-10 group-hover:animate-bounce" />
+                <ShoppingCart className="w-4 h-4 xs:w-5 xs:h-5 mr-1.5 xs:mr-2 relative z-10 group-hover:animate-bounce" />
                 <span className="relative z-10">Add to Cart</span>
                 <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
               </a>
@@ -651,29 +652,30 @@ const ProductDetailsPage = ({
                   e.preventDefault();
                   handleAddToWishlist();
                 }}
-                className={`flex items-center justify-center px-6 py-3 rounded-xl border-2 transition-all duration-300 font-medium hover:scale-105 hover:shadow-lg group ${isInWishlist
+                className={`flex items-center justify-center px-4 xs:px-6 py-2.5 xs:py-3 rounded-lg xs:rounded-xl border-2 transition-all duration-300 font-medium hover:scale-105 hover:shadow-lg group text-sm xs:text-base ${isInWishlist
                     ? 'border-red-500 text-red-500 bg-gradient-to-r from-red-50 to-pink-50 animate-pulse'
                     : 'border-gray-300 text-gray-700 hover:border-red-500 hover:text-red-500 hover:bg-red-50'
                   }`}
               >
-                <Heart className="w-5 h-5 mr-2 group-hover:scale-110 transition-transform duration-300" fill={isInWishlist ? 'currentColor' : 'none'} />
-                {isInWishlist ? 'In Wishlist' : 'Add to Wishlist'}
+                <Heart className="w-4 h-4 xs:w-5 xs:h-5 mr-1.5 xs:mr-2 group-hover:scale-110 transition-transform duration-300" fill={isInWishlist ? 'currentColor' : 'none'} />
+                <span className="hidden xs:inline">{isInWishlist ? 'In Wishlist' : 'Add to Wishlist'}</span>
+                <span className="xs:hidden">{isInWishlist ? 'In Wishlist' : 'Wishlist'}</span>
               </a>
             </div>
 
             {/* Additional Info */}
-            <div className={`bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-xl p-4 border border-blue-100 shadow-sm hover:shadow-md transition-all duration-300 ${getAnimationClasses('animate-scale-in delay-700', '', prefersReducedMotion)}`}>
-              <div className="flex items-start space-x-3">
+            <div className={`bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-lg xs:rounded-xl p-3 xs:p-4 border border-blue-100 shadow-sm hover:shadow-md transition-all duration-300 ${getAnimationClasses('animate-scale-in delay-700', '', prefersReducedMotion)}`}>
+              <div className="flex items-start space-x-2 xs:space-x-3">
                 <div className="flex-shrink-0">
-                  <div className="w-8 h-8 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-full flex items-center justify-center animate-pulse-slow">
-                    <svg className="w-4 h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <div className="w-6 h-6 xs:w-8 xs:h-8 bg-gradient-to-r from-blue-100 to-indigo-100 rounded-full flex items-center justify-center animate-pulse-slow">
+                    <svg className="w-3 h-3 xs:w-4 xs:h-4 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
                   </div>
                 </div>
                 <div>
-                  <h4 className="text-sm font-medium text-blue-900">Free Shipping</h4>
-                  <p className="text-sm text-blue-700">Free delivery on orders above ₹500</p>
+                  <h4 className="text-xs xs:text-sm font-medium text-blue-900">Free Shipping</h4>
+                  <p className="text-xs xs:text-sm text-blue-700">Free delivery on orders above ₹500</p>
                 </div>
               </div>
             </div>

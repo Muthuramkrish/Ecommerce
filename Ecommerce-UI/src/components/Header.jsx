@@ -99,21 +99,21 @@ const Header = ({
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-blue-900 text-white z-50 shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+      <div className="max-w-7xl mx-auto px-3 xs:px-4 sm:px-6 lg:px-8 xl:px-10">
+        <div className="flex items-center justify-between h-14 xs:h-16 sm:h-18 md:h-20 lg:h-22">
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center space-x-2 relative">
+          <div className="flex-shrink-0 flex items-center space-x-1 xs:space-x-2 relative">
             <button onClick={onLogoClick} className="flex items-center">
-              <img src={vLogo} alt="V Logo" className="h-8 md:h-10 w-auto" />
+              <img src={vLogo} alt="V Logo" className="h-6 xs:h-7 sm:h-8 md:h-9 lg:h-10 xl:h-11 w-auto" />
             </button>
 
             {/* Desktop Category Menu Button */}
             <button
               onClick={() => setIsLeftMenuOpen(!isLeftMenuOpen)}
-              className="left-menu-toggle hidden md:block p-2 hover:bg-blue-800 rounded-full transition-colors relative mt-3"
+              className="left-menu-toggle hidden md:block p-1.5 xs:p-2 hover:bg-blue-800 rounded-full transition-colors relative mt-2 xs:mt-3"
               title="Categories"
             >
-              <Menu className="w-6 h-6" />
+              <Menu className="w-5 h-5 xs:w-6 xs:h-6" />
               {isLeftMenuOpen && (
                 <span className="absolute left-1/2 -bottom-1 h-2 w-2 bg-white rotate-45 border-l border-t border-gray-100"></span>
               )}
@@ -122,13 +122,13 @@ const Header = ({
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="mobile-menu-toggle md:hidden p-2 hover:bg-blue-800 rounded-full transition-colors relative mt-3"
+              className="mobile-menu-toggle md:hidden p-1.5 xs:p-2 hover:bg-blue-800 rounded-full transition-colors relative mt-2 xs:mt-3"
               title="Menu"
             >
               {isMobileMenuOpen ? (
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5 xs:w-6 xs:h-6" />
               ) : (
-                <Menu className="w-6 h-6" />
+                <Menu className="w-5 h-5 xs:w-6 xs:h-6" />
               )}
             </button>
 
@@ -297,25 +297,25 @@ const Header = ({
           </div>
 
           {/* Search Bar - Desktop */}
-          <div className="hidden md:flex flex-1 max-w-xl mx-8">
+          <div className="hidden md:flex flex-1 max-w-sm lg:max-w-md xl:max-w-xl mx-4 lg:mx-6 xl:mx-8">
             <div className="relative w-full">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
                 placeholder="Search for products, brands, categories..."
-                className="w-full px-4 py-3 pl-12 text-gray-900 bg-white rounded-full border-0 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full px-3 lg:px-4 py-2.5 lg:py-3 pl-10 lg:pl-12 text-gray-900 bg-white rounded-full border-0 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm lg:text-base"
               />
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-3 lg:left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 lg:w-5 lg:h-5" />
             </div>
           </div>
 
           {/* Navigation Icons */}
-          <div className="flex items-center space-x-1 md:space-x-4">
+          <div className="flex items-center space-x-1 xs:space-x-2 sm:space-x-3 md:space-x-4">
             {/* Bulk Order Button - Desktop Only */}
             <button
               onClick={onBulkOrderClick}
-              className="hidden md:flex px-3 md:px-4 py-1.5 md:py-2 bg-white text-blue-900 rounded-full font-semibold hover:bg-blue-50 transition-colors items-center space-x-1 md:space-x-2 text-sm md:text-base"
+              className="hidden lg:flex px-3 xl:px-4 py-1.5 xl:py-2 bg-white text-blue-900 rounded-full font-semibold hover:bg-blue-50 transition-colors items-center space-x-1 xl:space-x-2 text-sm xl:text-base"
             >
               <span>Bulk Order</span>
             </button>
@@ -323,10 +323,10 @@ const Header = ({
             {/* Mobile Search Icon - Only visible on mobile */}
             <button
               onClick={() => setIsMobileSearchOpen(!isMobileSearchOpen)}
-              className="p-1.5 md:hidden hover:bg-blue-800 rounded-full transition-colors"
+              className="p-1.5 xs:p-2 md:hidden hover:bg-blue-800 rounded-full transition-colors"
               aria-label="Search"
             >
-              <Search className="w-5 h-5" />
+              <Search className="w-4 h-4 xs:w-5 xs:h-5" />
             </button>
 
             {/* Login/User Menu - Desktop Only */}
@@ -334,12 +334,12 @@ const Header = ({
               <div className="relative user-menu hidden md:block">
                 <button
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
-                  className="flex items-center space-x-1 md:space-x-2 p-1.5 md:p-2 hover:bg-blue-800 rounded-full transition-colors"
+                  className="flex items-center space-x-1 lg:space-x-2 p-1.5 lg:p-2 hover:bg-blue-800 rounded-full transition-colors"
                 >
-                  <span className="text-xs md:text-sm text-blue-100">
+                  <span className="text-xs lg:text-sm text-blue-100 hidden xl:inline">
                     Hi, {currentUser?.fullName || currentUser?.name || "User"}
                   </span>
-                  <User className="w-5 h-5 md:w-6 md:h-6" />
+                  <User className="w-4 h-4 lg:w-5 lg:h-5 xl:w-6 xl:h-6" />
                 </button>
 
                 {isUserMenuOpen && (
@@ -385,7 +385,7 @@ const Header = ({
             ) : (
               <button
                 onClick={onLoginClick}
-                className="hidden md:flex px-3 md:px-4 py-1.5 md:py-2 bg-white text-blue-900 rounded-full font-semibold hover:bg-blue-50 transition-colors text-sm md:text-base"
+                className="hidden md:flex px-3 lg:px-4 py-1.5 lg:py-2 bg-white text-blue-900 rounded-full font-semibold hover:bg-blue-50 transition-colors text-sm lg:text-base"
               >
                 Login
               </button>
@@ -394,11 +394,11 @@ const Header = ({
             {/* Cart Icon - Desktop Only (always visible) */}
             <button
               onClick={onCartClick}
-              className="relative hidden md:block p-1.5 md:p-2 hover:bg-blue-800 rounded-full transition-colors"
+              className="relative hidden md:block p-1.5 lg:p-2 hover:bg-blue-800 rounded-full transition-colors"
             >
-              <ShoppingCart className="w-5 h-5 md:w-6 md:h-6" />
+              <ShoppingCart className="w-4 h-4 lg:w-5 lg:h-5 xl:w-6 xl:h-6" />
               {cartItemCount > 0 && (
-                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 md:w-5 md:h-5 flex items-center justify-center text-xs">
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full w-4 h-4 lg:w-5 lg:h-5 flex items-center justify-center text-xs">
                   {cartItemCount}
                 </span>
               )}
@@ -411,11 +411,11 @@ const Header = ({
                   e.preventDefault();
                   onFavoritesClick();
                 }}
-                className="relative hidden md:block p-1.5 md:p-2 hover:bg-blue-800 rounded-full transition-colors"
+                className="relative hidden md:block p-1.5 lg:p-2 hover:bg-blue-800 rounded-full transition-colors"
               >
-                <Heart className="w-5 h-5 md:w-6 md:h-6" />
+                <Heart className="w-4 h-4 lg:w-5 lg:h-5 xl:w-6 xl:h-6" />
                 {favoritesCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs rounded-full w-4 h-4 md:w-5 md:h-5 flex items-center justify-center text-xs">
+                  <span className="absolute -top-1 -right-1 bg-pink-500 text-white text-xs rounded-full w-4 h-4 lg:w-5 lg:h-5 flex items-center justify-center text-xs">
                     {favoritesCount}
                   </span>
                 )}
@@ -426,16 +426,16 @@ const Header = ({
 
         {/* Mobile Search */}
         {isMobileSearchOpen && (
-          <div className="md:hidden pb-3">
+          <div className="md:hidden pb-3 px-3 xs:px-4">
             <div className="relative">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
                 placeholder="Search products..."
-                className="w-full px-4 py-2.5 pl-10 text-gray-900 bg-white rounded-full border-0 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+                className="w-full px-3 xs:px-4 py-2 xs:py-2.5 pl-9 xs:pl-10 text-gray-900 bg-white rounded-full border-0 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
               />
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
+              <Search className="absolute left-2.5 xs:left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
             </div>
           </div>
         )}
@@ -448,18 +448,18 @@ const Header = ({
             className="fixed inset-0 bg-black bg-opacity-50"
             onClick={() => setIsMobileMenuOpen(false)}
           ></div>
-          <div className="mobile-menu fixed top-0 left-0 w-80 max-w-[85vw] h-full bg-white shadow-xl transform transition-transform duration-300 ease-in-out">
+          <div className="mobile-menu fixed top-0 left-0 w-72 xs:w-80 sm:w-96 max-w-[90vw] h-full bg-white shadow-xl transform transition-transform duration-300 ease-in-out">
             {/* Mobile Menu Header */}
-            <div className="bg-blue-900 text-white p-4 flex items-center justify-between">
+            <div className="bg-blue-900 text-white p-3 xs:p-4 flex items-center justify-between">
               <div className="flex items-center space-x-2">
-                <img src={vLogo} alt="V Logo" className="h-8 w-auto" />
-                <span className="font-semibold text-lg">Menu</span>
+                <img src={vLogo} alt="V Logo" className="h-6 xs:h-7 sm:h-8 w-auto" />
+                <span className="font-semibold text-base xs:text-lg">Menu</span>
               </div>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
                 className="p-1 hover:bg-blue-800 rounded-full transition-colors"
               >
-                <X className="w-6 h-6" />
+                <X className="w-5 h-5 xs:w-6 xs:h-6" />
               </button>
             </div>
 
