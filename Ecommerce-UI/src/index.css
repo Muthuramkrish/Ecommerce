@@ -382,6 +382,17 @@
     padding-left: clamp(1rem, 4vw, 2rem);
     padding-right: clamp(1rem, 4vw, 2rem);
   }
+  
+  /* Improved text alignment utilities */
+  .text-align-responsive {
+    text-align: left;
+  }
+  
+  @media (max-width: 640px) {
+    .text-align-responsive {
+      text-align: center;
+    }
+  }
 
   .container-responsive-wide {
     width: 100%;
@@ -407,12 +418,20 @@
     min-width: 44px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
   }
 
   .touch-target-large {
     min-height: 48px;
     min-width: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .touch-target-center {
+    min-height: 44px;
+    min-width: 44px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -423,18 +442,35 @@
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr));
     gap: clamp(1rem, 3vw, 2rem);
+    align-items: start;
   }
 
   .grid-responsive-2 { 
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
     gap: clamp(1rem, 3vw, 1.5rem);
+    align-items: start;
   }
 
   .grid-responsive-3 { 
     display: grid; 
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
     gap: clamp(0.75rem, 2vw, 1.25rem);
+    align-items: start;
+  }
+  
+  /* Enhanced flex utilities for better alignment */
+  .flex-responsive {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  @media (min-width: 640px) {
+    .flex-responsive {
+      flex-direction: row;
+      align-items: center;
+    }
   }
 
   /* High DPI screen optimizations */

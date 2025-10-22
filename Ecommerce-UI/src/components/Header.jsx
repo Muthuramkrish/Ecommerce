@@ -102,7 +102,7 @@ const Header = ({
       <div className="container-responsive-wide">
         <div className="flex items-center justify-between h-16 sm:h-18 md:h-20 lg:h-22 xl:h-24">
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center space-responsive-sm relative">
+          <div className="flex-shrink-0 flex items-center space-x-2 md:space-x-3 relative">
             <button onClick={onLogoClick} className="flex items-center touch-target">
               <img src={vLogo} alt="V Logo" className="h-8 sm:h-9 md:h-10 lg:h-11 xl:h-12 w-auto" />
             </button>
@@ -311,7 +311,7 @@ const Header = ({
           </div>
 
           {/* Navigation Icons */}
-          <div className="flex items-center space-responsive-sm">
+          <div className="flex items-center space-x-2 md:space-x-3">
             {/* Bulk Order Button - Desktop Only */}
             <button
               onClick={onBulkOrderClick}
@@ -472,7 +472,7 @@ const Header = ({
                     <div className="bg-blue-100 rounded-full p-2 flex-shrink-0">
                       <User className="w-6 h-6 text-blue-600" />
                     </div>
-                    <div className="min-w-0 flex-1">
+                    <div className="min-w-0 flex-1 text-left">
                       <div className="font-medium text-gray-900 truncate">
                         {currentUser?.fullName || currentUser?.name || "User"}
                       </div>
@@ -489,7 +489,7 @@ const Header = ({
                       setIsMobileMenuOpen(false);
                       onLoginClick && onLoginClick();
                     }}
-                    className="w-full bg-blue-600 text-white py-2 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                    className="w-full bg-blue-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-blue-700 transition-colors text-center"
                   >
                     Sign In
                   </button>
@@ -498,17 +498,17 @@ const Header = ({
 
               {/* Main Navigation */}
               <nav className="flex-1 py-4 overflow-y-auto">
-                <div className="space-y-2 pb-20">
+                <div className="space-y-1 pb-20">
                   {/* Added padding bottom to ensure scroll clearance */}
                   <button
                     onClick={() => {
                       setIsMobileMenuOpen(false);
                       onHomeClick && onHomeClick();
                     }}
-                    className="w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-gray-50 transition-colors"
+                    className="w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-gray-50 transition-colors rounded-lg mx-2"
                   >
-                    <Home className="w-5 h-5 text-gray-500" />
-                    <span className="font-medium">Home</span>
+                    <Home className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                    <span className="font-medium text-gray-900">Home</span>
                   </button>
 
                   <button
@@ -516,10 +516,10 @@ const Header = ({
                       setIsMobileMenuOpen(false);
                       onBulkOrderClick && onBulkOrderClick();
                     }}
-                    className="w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-gray-50 transition-colors"
+                    className="w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-gray-50 transition-colors rounded-lg mx-2"
                   >
-                    <Package className="w-5 h-5 text-gray-500" />
-                    <span className="font-medium">Bulk Order</span>
+                    <Package className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                    <span className="font-medium text-gray-900">Bulk Order</span>
                   </button>
 
                   <button
@@ -527,14 +527,14 @@ const Header = ({
                       setIsMobileMenuOpen(false);
                       onCartClick && onCartClick();
                     }}
-                    className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-gray-50 transition-colors"
+                    className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-gray-50 transition-colors rounded-lg mx-2"
                   >
                     <div className="flex items-center space-x-3">
-                      <ShoppingCart className="w-5 h-5 text-gray-500" />
-                      <span className="font-medium">Cart</span>
+                      <ShoppingCart className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                      <span className="font-medium text-gray-900">Cart</span>
                     </div>
                     {cartItemCount > 0 && (
-                      <span className="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                      <span className="bg-red-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0">
                         {cartItemCount}
                       </span>
                     )}
@@ -546,14 +546,14 @@ const Header = ({
                         setIsMobileMenuOpen(false);
                         onFavoritesClick && onFavoritesClick();
                       }}
-                      className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-gray-50 transition-colors"
+                      className="w-full flex items-center justify-between px-4 py-3 text-left hover:bg-gray-50 transition-colors rounded-lg mx-2"
                     >
                       <div className="flex items-center space-x-3">
-                        <Heart className="w-5 h-5 text-gray-500" />
-                        <span className="font-medium">Wishlist</span>
+                        <Heart className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                        <span className="font-medium text-gray-900">Wishlist</span>
                       </div>
                       {favoritesCount > 0 && (
-                        <span className="bg-pink-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">
+                        <span className="bg-pink-500 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center flex-shrink-0">
                           {favoritesCount}
                         </span>
                       )}
@@ -729,10 +729,10 @@ const Header = ({
                         setIsMobileMenuOpen(false);
                         onAboutClick && onAboutClick();
                       }}
-                      className="w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-gray-50 transition-colors"
+                      className="w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-gray-50 transition-colors rounded-lg mx-2"
                     >
-                      <Info className="w-5 h-5 text-gray-500" />
-                      <span className="font-medium">About</span>
+                      <Info className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                      <span className="font-medium text-gray-900">About</span>
                     </button>
 
                     <button
@@ -740,10 +740,10 @@ const Header = ({
                         setIsMobileMenuOpen(false);
                         onContactClick && onContactClick();
                       }}
-                      className="w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-gray-50 transition-colors"
+                      className="w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-gray-50 transition-colors rounded-lg mx-2"
                     >
-                      <Phone className="w-5 h-5 text-gray-500" />
-                      <span className="font-medium">Contact</span>
+                      <Phone className="w-5 h-5 text-gray-500 flex-shrink-0" />
+                      <span className="font-medium text-gray-900">Contact</span>
                     </button>
 
                     {/* Sign Out Button - Next to Contact */}

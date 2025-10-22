@@ -394,39 +394,39 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
         </div>
         
         <div className="container-responsive relative">
-          <div className="grid-responsive-2 sm:grid-cols-2 md:grid-cols-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8">
             <div className="text-center group animate-fade-in-up">
               <div className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 lg:w-24 lg:h-24 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
                 <Shield className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 lg:w-12 lg:h-12 text-white group-hover:animate-bounce" />
               </div>
-              <h3 className="text-responsive-lg md:text-responsive-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">Premium Quality</h3>
-              <p className="text-responsive-sm text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Certified electrical products with international standards</p>
+              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 group-hover:text-blue-600 transition-colors duration-300">Premium Quality</h3>
+              <p className="text-sm md:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300 text-center">Certified electrical products with international standards</p>
             </div>
             
             <div className="text-center group animate-fade-in-up delay-200">
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
-                <Truck className="w-8 h-8 md:w-10 md:h-10 text-white group-hover:animate-bounce" />
+              <div className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 lg:w-24 lg:h-24 bg-gradient-to-br from-green-500 to-green-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
+                <Truck className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 lg:w-12 lg:h-12 text-white group-hover:animate-bounce" />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors duration-300">Fast Delivery</h3>
-              <p className="text-sm md:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Quick and secure shipping across India</p>
+              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 group-hover:text-green-600 transition-colors duration-300">Fast Delivery</h3>
+              <p className="text-sm md:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300 text-center">Quick and secure shipping across India</p>
             </div>
             
             <div className="text-center group animate-fade-in-up delay-400">
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
-                <svg className="w-8 h-8 md:w-10 md:h-10 text-white group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <div className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 lg:w-24 lg:h-24 bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
+                <svg className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 lg:w-12 lg:h-12 text-white group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                 </svg>
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors duration-300">Secure Payment</h3>
-              <p className="text-sm md:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Safe and encrypted payment processing</p>
+              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 group-hover:text-purple-600 transition-colors duration-300">Secure Payment</h3>
+              <p className="text-sm md:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300 text-center">Safe and encrypted payment processing</p>
             </div>
             
             <div className="text-center group animate-fade-in-up delay-600">
-              <div className="w-16 h-16 md:w-20 md:h-20 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
-                <Headphones className="w-8 h-8 md:w-10 md:h-10 text-white group-hover:animate-bounce" />
+              <div className="w-16 h-16 sm:w-18 sm:h-18 md:w-20 md:h-20 lg:w-24 lg:h-24 bg-gradient-to-br from-orange-500 to-orange-600 rounded-2xl flex items-center justify-center mx-auto mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg hover:shadow-2xl">
+                <Headphones className="w-8 h-8 sm:w-9 sm:h-9 md:w-10 md:h-10 lg:w-12 lg:h-12 text-white group-hover:animate-bounce" />
               </div>
-              <h3 className="text-xl md:text-2xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors duration-300">24/7 Support</h3>
-              <p className="text-sm md:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300">Round-the-clock customer assistance</p>
+              <h3 className="text-lg md:text-xl font-bold text-gray-900 mb-2 group-hover:text-orange-600 transition-colors duration-300">24/7 Support</h3>
+              <p className="text-sm md:text-base text-gray-600 group-hover:text-gray-700 transition-colors duration-300 text-center">Round-the-clock customer assistance</p>
             </div>
           </div>
         </div>

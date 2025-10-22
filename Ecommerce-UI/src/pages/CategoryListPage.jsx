@@ -1097,7 +1097,7 @@ const CategoryListPage = ({
                   <div
                     className={
                       viewMode === "grid"
-                        ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-3 gap-6 md:gap-8 lg:gap-10 items-stretch"
+                        ? "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6 items-stretch"
                         : "space-y-4"
                     }
                   >
@@ -1162,10 +1162,10 @@ const CategoryListPage = ({
                             </div>
 
                             {/* Content */}
-                            <div className="p-3.5 flex flex-col flex-1 relative overflow-hidden">
+                            <div className="p-3 sm:p-4 flex flex-col flex-1 relative overflow-hidden">
                               {/* Subtle background animation */}
                               <div className="absolute inset-0 bg-gradient-to-br from-blue-50/0 via-purple-50/0 to-pink-50/0 group-hover:from-blue-50/50 group-hover:via-purple-50/30 group-hover:to-pink-50/50 transition-all duration-700"></div>
-                              <h3 className="font-semibold text-gray-900 mb-1.5 line-clamp-2 group-hover:text-blue-600 transition-all duration-300 text-[15px] relative z-10">
+                              <h3 className="font-semibold text-gray-900 mb-2 line-clamp-2 group-hover:text-blue-600 transition-all duration-300 text-sm sm:text-base relative z-10 text-left leading-tight">
                                 {product["product-title"]}
                               </h3>
 
@@ -1208,17 +1208,22 @@ const CategoryListPage = ({
                                 )}
 
                               {/* Price */}
-                              <div className="flex items-center justify-between mb-2 mt-1.5">
-                                <div className="flex items-center space-x-2">
-                                  <span className="text-lg font-bold text-gray-900">
+                              <div className="flex flex-col items-start mb-3 mt-2">
+                                <div className="flex items-center space-x-2 mb-1">
+                                  <span className="text-lg sm:text-xl font-bold text-gray-900 text-left">
                                     {formatPrice(product["new-price"])}
                                   </span>
                                   {product["old-price"] !== product["new-price"] && (
-                                    <span className="text-sm text-gray-500 line-through">
+                                    <span className="text-sm text-gray-500 line-through text-left">
                                       {formatPrice(product["old-price"])}
                                     </span>
                                   )}
                                 </div>
+                                {product["old-price"] !== product["new-price"] && (
+                                  <div className="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded-full">
+                                    Save {formatPrice(product["old-price"] - product["new-price"])}
+                                  </div>
+                                )}
                               </div>
 
                               {/* Add to Cart Button pinned bottom */}
@@ -1227,7 +1232,7 @@ const CategoryListPage = ({
                                   e.stopPropagation();
                                   onAddToCart(product);
                                 }}
-                                className="w-full bg-gradient-to-r from-blue-900 to-blue-800 text-white py-2 px-4 rounded-lg hover:from-blue-800 hover:to-blue-700 transition-all duration-300 font-medium text-sm mt-auto hover:scale-105 hover:shadow-lg relative z-10 group/btn overflow-hidden"
+                                className="w-full bg-gradient-to-r from-blue-900 to-blue-800 text-white py-2.5 sm:py-3 px-4 rounded-lg hover:from-blue-800 hover:to-blue-700 transition-all duration-300 font-medium text-sm sm:text-base mt-auto hover:scale-105 hover:shadow-lg relative z-10 group/btn overflow-hidden text-center flex items-center justify-center space-x-2"
                               >
                                 <div className="absolute inset-0 bg-gradient-to-r from-blue-700 to-blue-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
                                 <span className="relative z-10">Add to Cart</span>

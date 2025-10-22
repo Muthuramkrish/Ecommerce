@@ -86,31 +86,31 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
       </div>
 
       {/* Content with Enhanced Styling */}
-      <div className="p-responsive-sm flex flex-col flex-1">
-        <h3 className="font-bold text-gray-800 mb-2 line-clamp-2 text-responsive-sm group-hover:text-blue-600 transition-colors duration-300">
+      <div className="p-3 sm:p-4 flex flex-col flex-1">
+        <h3 className="font-bold text-gray-800 mb-2 line-clamp-2 text-sm sm:text-base group-hover:text-blue-600 transition-colors duration-300 text-left leading-tight">
           {product['product-title']}
         </h3>
 
         {product.category && (
-          <p className="text-responsive-xs text-gray-500 mb-3 font-medium bg-gray-100 px-2 py-1 rounded-full inline-block w-fit">
+          <p className="text-xs text-gray-500 mb-3 font-medium bg-gray-100 px-2 py-1 rounded-full inline-block w-fit text-left">
             {product.category}
           </p>
         )}
 
         {/* Price with Enhanced Styling */}
-        <div className="flex items-center justify-between mb-4">
-          <div className="flex items-center space-x-2">
-            <span className="text-responsive-lg font-bold text-blue-900 group-hover:text-blue-600 transition-colors duration-300">
+        <div className="flex items-start justify-between mb-4 gap-2">
+          <div className="flex flex-col items-start space-y-1 min-w-0 flex-1">
+            <span className="text-lg sm:text-xl font-bold text-blue-900 group-hover:text-blue-600 transition-colors duration-300 text-left">
               ₹{newPrice.toLocaleString()}
             </span>
             {oldPrice > newPrice && (
-              <span className="text-responsive-sm text-gray-500 line-through">
+              <span className="text-sm text-gray-500 line-through text-left">
                 ₹{oldPrice.toLocaleString()}
               </span>
             )}
           </div>
           {oldPrice > newPrice && (
-            <div className="text-responsive-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded-full">
+            <div className="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded-full flex-shrink-0 text-center">
               Save ₹{(oldPrice - newPrice).toLocaleString()}
             </div>
           )}
@@ -124,11 +124,11 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
             e.stopPropagation();
             onAddToCart?.(product);
           }}
-          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-2.5 sm:py-3 px-4 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 flex items-center justify-center space-x-2 font-semibold inline-block mt-auto group/btn relative overflow-hidden touch-target-large"
+          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-2.5 sm:py-3 px-4 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 flex items-center justify-center space-x-2 font-semibold inline-block mt-auto group/btn relative overflow-hidden touch-target-large text-center"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
-          <ShoppingCart className="w-4 h-4 relative z-10 group-hover/btn:animate-bounce" />
-          <span className="relative z-10 text-responsive-sm">Add to Cart</span>
+          <ShoppingCart className="w-4 h-4 relative z-10 group-hover/btn:animate-bounce flex-shrink-0" />
+          <span className="relative z-10 text-sm sm:text-base">Add to Cart</span>
           <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
         </a>
       </div>
