@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nested Filter Test</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .filter-container {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            max-width: 800px;
+        }
+        .nested-filter {
+            display: flex;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            overflow: hidden;
+            min-height: 300px;
+        }
+        .left-panel {
+            width: 50%;
+            border-right: 1px solid #e5e7eb;
+            background: white;
+        }
+        .right-panel {
+            width: 50%;
+            background: white;
+        }
+        .panel-header {
+            padding: 8px 12px;
+            background: #f9fafb;
+            border-bottom: 1px solid #e5e7eb;
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            color: #6b7280;
+        }
+        .category-item {
+            padding: 8px 12px;
+            cursor: pointer;
+            border-bottom: 1px solid #f3f4f6;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+        }
+        .category-item:hover {
+            background: #eff6ff;
+            color: #1d4ed8;
+        }
+        .category-item.active {
+            background: #eff6ff;
+            color: #1d4ed8;
+        }
+        .category-item.selected {
+            background: #dbeafe;
+            color: #1d4ed8;
+            font-weight: 500;
+        }
+        .subcategory-panel {
+            display: flex;
+            height: 100%;
+        }
+        .subcategory-left {
+            width: 50%;
+            border-right: 1px solid #e5e7eb;
+        }
+        .subcategory-right {
+            width: 50%;
+        }
+        .empty-state {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100%;
+            color: #9ca3af;
+            font-size: 12px;
+            text-align: center;
+            padding: 16px;
+        }
+        .checkbox {
+            width: 16px;
+            height: 16px;
+            border: 2px solid #d1d5db;
+            border-radius: 4px;
+            margin-right: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .checkbox.checked {
+            background: #1e40af;
+            border-color: #1e40af;
+            color: white;
+        }
+        .toggle-btn {
+            background: none;
+            border: none;
+            color: #2563eb;
+            font-size: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+        .toggle-btn:hover {
+            color: #1d4ed8;
+        }
+    </style>
+</head>
+<body>
+    <div class="filter-container">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+            <h3 style="margin: 0; font-size: 14px; font-weight: 500;">Categories</h3>
+            <button class="toggle-btn" onclick="toggleView()">
+                <span id="toggle-text">List View</span>
+            </button>
+        </div>
+        
+        <div id="nested-view" class="nested-filter">
+            <!-- Left panel: Categories -->
+            <div class="left-panel">
+                <div class="panel-header">Categories</div>
+                <div id="categories-list">
+                    <div class="category-item" onmouseenter="showSubcategories('Lighting')" onclick="toggleCategory('Lighting')">
+                        <div style="display: flex; align-items: center; flex: 1;">
+                            <div class="checkbox" id="cat-lighting"><span style="font-size: 10px;">✓</span></div>
+                            <span>Lighting</span>
+                        </div>
+                        <span style="color: #9ca3af;">›</span>
+                    </div>
+                    <div class="category-item" onmouseenter="showSubcategories('Switches')" onclick="toggleCategory('Switches')">
+                        <div style="display: flex; align-items: center; flex: 1;">
+                            <div class="checkbox" id="cat-switches"><span style="font-size: 10px;">✓</span></div>
+                            <span>Switches</span>
+                        </div>
+                        <span style="color: #9ca3af;">›</span>
+                    </div>
+                    <div class="category-item" onmouseenter="showSubcategories('Cables')" onclick="toggleCategory('Cables')">
+                        <div style="display: flex; align-items: center; flex: 1;">
+                            <div class="checkbox" id="cat-cables"><span style="font-size: 10px;">✓</span></div>
+                            <span>Cables</span>
+                        </div>
+                        <span style="color: #9ca3af;">›</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Right panel: Subcategories -->
+            <div class="right-panel">
+                <div id="subcategory-content" class="empty-state">
+                    Hover over a category to see subcategories
+                </div>
+            </div>
+        </div>
+
+        <div id="list-view" style="display: none;">
+            <div style="margin-bottom: 16px; padding-bottom: 16px; border-bottom: 1px solid #f3f4f6;">
+                <h4 style="margin: 0 0 8px 0; font-size: 12px; font-weight: 600; text-transform: uppercase; color: #6b7280;">Categories (3)</h4>
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <label style="display: flex; align-items: center; cursor: pointer;">
+                        <div class="checkbox"><span style="font-size: 10px;">✓</span></div>
+                        <span style="font-size: 12px;">Lighting</span>
+                    </label>
+                    <label style="display: flex; align-items: center; cursor: pointer;">
+                        <div class="checkbox"><span style="font-size: 10px;">✓</span></div>
+                        <span style="font-size: 12px;">Switches</span>
+                    </label>
+                    <label style="display: flex; align-items: center; cursor: pointer;">
+                        <div class="checkbox"><span style="font-size: 10px;">✓</span></div>
+                        <span style="font-size: 12px;">Cables</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let isNestedView = true;
+        let selectedCategories = new Set();
+        let activeCategory = null;
+        
+        const categoryData = {
+            'Lighting': {
+                'LED Lights': ['Bulbs', 'Strips', 'Panels'],
+                'Tube Lights': ['T8', 'T5', 'T12'],
+                'Decorative': ['Chandeliers', 'Pendant', 'Wall Lights']
+            },
+            'Switches': {
+                'Wall Switches': ['Single', 'Double', 'Triple'],
+                'Smart Switches': ['WiFi', 'Bluetooth', 'Zigbee'],
+                'Industrial': ['Heavy Duty', 'Weatherproof']
+            },
+            'Cables': {
+                'Power Cables': ['PVC', 'XLPE', 'Armored'],
+                'Data Cables': ['Cat5e', 'Cat6', 'Fiber'],
+                'Specialty': ['Fire Resistant', 'Marine Grade']
+            }
+        };
+
+        function toggleView() {
+            isNestedView = !isNestedView;
+            const nestedView = document.getElementById('nested-view');
+            const listView = document.getElementById('list-view');
+            const toggleText = document.getElementById('toggle-text');
+            
+            if (isNestedView) {
+                nestedView.style.display = 'flex';
+                listView.style.display = 'none';
+                toggleText.textContent = 'List View';
+            } else {
+                nestedView.style.display = 'none';
+                listView.style.display = 'block';
+                toggleText.textContent = 'Nested View';
+            }
+        }
+
+        function toggleCategory(category) {
+            const checkbox = document.getElementById(`cat-${category.toLowerCase()}`);
+            if (selectedCategories.has(category)) {
+                selectedCategories.delete(category);
+                checkbox.classList.remove('checked');
+            } else {
+                selectedCategories.add(category);
+                checkbox.classList.add('checked');
+            }
+        }
+
+        function showSubcategories(category) {
+            // Remove active class from all categories
+            document.querySelectorAll('.category-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            
+            // Add active class to current category
+            event.target.closest('.category-item').classList.add('active');
+            
+            activeCategory = category;
+            const subcategoryContent = document.getElementById('subcategory-content');
+            const subcategories = categoryData[category];
+            
+            if (!subcategories) {
+                subcategoryContent.innerHTML = '<div class="empty-state">No subcategories available</div>';
+                return;
+            }
+            
+            subcategoryContent.innerHTML = `
+                <div style="height: 100%;">
+                    <div class="panel-header">${category} Subcategories</div>
+                    <div class="subcategory-panel">
+                        <div class="subcategory-left">
+                            <div style="max-height: 220px; overflow-y: auto;">
+                                ${Object.keys(subcategories).map(sub => `
+                                    <div class="category-item" onmouseenter="showSubSubcategories('${sub}')" onclick="toggleSubcategory('${sub}')" style="font-size: 12px;">
+                                        <div style="display: flex; align-items: center; flex: 1;">
+                                            <div class="checkbox" id="sub-${sub.replace(/\s+/g, '-').toLowerCase()}"><span style="font-size: 8px;">✓</span></div>
+                                            <span>${sub}</span>
+                                        </div>
+                                        ${subcategories[sub].length > 0 ? '<span style="color: #9ca3af;">›</span>' : ''}
+                                    </div>
+                                `).join('')}
+                            </div>
+                        </div>
+                        <div class="subcategory-right">
+                            <div id="subsubcategory-content" class="empty-state">
+                                Select a subcategory
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function showSubSubcategories(subcategory) {
+            const subSubContent = document.getElementById('subsubcategory-content');
+            const subSubs = categoryData[activeCategory][subcategory];
+            
+            if (!subSubs || subSubs.length === 0) {
+                subSubContent.innerHTML = '<div class="empty-state">No sub-subcategories</div>';
+                return;
+            }
+            
+            subSubContent.innerHTML = `
+                <div style="max-height: 220px; overflow-y: auto;">
+                    ${subSubs.map(subSub => `
+                        <div class="category-item" onclick="toggleSubSubcategory('${subSub}')" style="font-size: 12px;">
+                            <div style="display: flex; align-items: center;">
+                                <div class="checkbox" id="subsub-${subSub.replace(/\s+/g, '-').toLowerCase()}"><span style="font-size: 8px;">✓</span></div>
+                                <span>${subSub}</span>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+
+        function toggleSubcategory(subcategory) {
+            const checkbox = document.getElementById(`sub-${subcategory.replace(/\s+/g, '-').toLowerCase()}`);
+            if (checkbox) {
+                checkbox.classList.toggle('checked');
+            }
+        }
+
+        function toggleSubSubcategory(subSubcategory) {
+            const checkbox = document.getElementById(`subsub-${subSubcategory.replace(/\s+/g, '-').toLowerCase()}`);
+            if (checkbox) {
+                checkbox.classList.toggle('checked');
+            }
+        }
+    </script>
+</body>
+</html>

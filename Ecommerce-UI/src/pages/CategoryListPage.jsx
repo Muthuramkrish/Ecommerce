@@ -996,6 +996,7 @@ const CategoryListPage = ({
                     clearAllFilters={clearAllFilters}
                     activeFiltersCount={activeFiltersCount}
                     subcategorySectionRef={subcategorySectionRef}
+                    products={products}
                   />
                 </div>
               </div>
@@ -1055,6 +1056,7 @@ const CategoryListPage = ({
                   clearAllFilters={clearAllFilters}
                   activeFiltersCount={activeFiltersCount}
                   subcategorySectionRef={subcategorySectionRef}
+                  products={products}
                 />
               </div>
             </div>
@@ -1426,7 +1428,8 @@ const FilterPanel = ({
   warranties,
   clearAllFilters,
   activeFiltersCount,
-  subcategorySectionRef
+  subcategorySectionRef,
+  products
 }) => {
   const [showAllBrands, setShowAllBrands] = React.useState(false);
   const [showAllProductTypes, setShowAllProductTypes] = React.useState(false);
@@ -1439,6 +1442,11 @@ const FilterPanel = ({
   const [showAllCertifications, setShowAllCertifications] = React.useState(false);
   const [showAllWarranties, setShowAllWarranties] = React.useState(false);
 
+  // Nested category navigation state
+  const [activeCategory, setActiveCategory] = React.useState(null);
+  const [activeSubcategory, setActiveSubcategory] = React.useState(null);
+  const [useNestedView, setUseNestedView] = React.useState(true);
+
   const filteredBrands = brands.filter(b => b.toLowerCase().includes(brandQuery.toLowerCase()));
   const visibleBrands = showAllBrands ? filteredBrands : filteredBrands.slice(0, 5);
   const visibleProductTypes = showAllProductTypes ? productTypes : productTypes.slice(0, 5);
@@ -1450,6 +1458,44 @@ const FilterPanel = ({
   const visibleMaterials = showAllMaterials ? materials : materials.slice(0, 5);
   const visibleCertifications = showAllCertifications ? certifications : certifications.slice(0, 5);
   const visibleWarranties = showAllWarranties ? warranties : warranties.slice(0, 5);
+
+  // Build nested category structure from products
+  const buildCategoryTree = React.useMemo(() => {
+    const categoryMap = new Map();
+    
+    products.forEach(product => {
+      const anchor = product.raw?.anchor || {};
+      const categoryName = anchor.category;
+      const subcategoryName = anchor.subcategory;
+      const subSubcategoryName = anchor.subSubcategory;
+      
+      if (!categoryName || typeof categoryName !== 'string' || categoryName.trim() === '') {
+        return;
+      }
+      
+      if (!categoryMap.has(categoryName)) {
+        categoryMap.set(categoryName, new Map());
+      }
+      
+      const subMap = categoryMap.get(categoryName);
+      if (subcategoryName) {
+        if (!subMap.has(subcategoryName)) {
+          subMap.set(subcategoryName, new Set());
+        }
+        if (subSubcategoryName) {
+          subMap.get(subcategoryName).add(subSubcategoryName);
+        }
+      }
+    });
+    
+    return Array.from(categoryMap.entries()).map(([category, subMap]) => ({
+      name: category,
+      children: Array.from(subMap.entries()).map(([subcategory, subSubs]) => ({
+        name: subcategory,
+        children: Array.from(subSubs).map(subSub => ({ name: subSub }))
+      }))
+    }));
+  }, [products]);
 
   return (
     <div className="space-y-6">
@@ -1579,96 +1625,246 @@ const FilterPanel = ({
         </div>
       )}
 
-      {/* Category Filter */}
-      {categories.length > 1 && (
+      {/* Nested Category Navigation Filter */}
+      {buildCategoryTree.length > 0 && (
         <div className="border-b border-gray-200 pb-6">
-          <h3 className="text-sm font-medium text-gray-900 mb-3">Categories ({categories.length})</h3>
-          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
-            {categories.map((category) => (
-              <label key={category} className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={selectedCategories.includes(category)}
-                  onChange={() => handleCategoryToggle(category)}
-                  className="sr-only"
-                />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedCategories.includes(category)
-                  ? 'bg-blue-900 border-blue-900'
-                  : 'border-gray-300'
-                  }`}>
-                  {selectedCategories.includes(category) && (
-                    <Check className="w-3 h-3 text-white" />
-                  )}
-                </div>
-                <span className="text-sm text-gray-700">{category}</span>
-              </label>
-            ))}
-          </div>
-        </div>
-      )}
-
-      {/* Subcategory Filter */}
-      {subcategories.length > 1 && (
-        <div ref={subcategorySectionRef} className="border-b border-gray-200 pb-6">
-          <h3 className="text-sm font-medium text-gray-900 mb-3">Subcategory ({subcategories.length})</h3>
-          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
-            {visibleSubcategories.map((subcategory) => (
-              <label key={subcategory} className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={selectedSubcategories.includes(subcategory)}
-                  onChange={() => handleSubcategoryToggle(subcategory)}
-                  className="sr-only"
-                />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedSubcategories.includes(subcategory)
-                  ? 'bg-blue-900 border-blue-900'
-                  : 'border-gray-300'
-                  }`}>
-                  {selectedSubcategories.includes(subcategory) && (
-                    <Check className="w-3 h-3 text-white" />
-                  )}
-                </div>
-                <span className="text-sm text-gray-700">{subcategory}</span>
-              </label>
-            ))}
-          </div>
-          {subcategories.length > 5 && (
-            <button onClick={() => setShowAllSubcategories(!showAllSubcategories)} className="mt-3 text-xs text-blue-700 hover:text-blue-900 font-medium">
-              {showAllSubcategories ? 'Show less' : 'Show more'}
+          <div className="flex items-center justify-between mb-3">
+            <h3 className="text-sm font-medium text-gray-900">Categories</h3>
+            <button
+              onClick={() => setUseNestedView(!useNestedView)}
+              className="text-xs text-blue-600 hover:text-blue-800 font-medium"
+            >
+              {useNestedView ? 'List View' : 'Nested View'}
             </button>
-          )}
-        </div>
-      )}
+          </div>
+          {useNestedView ? (
+            <div className="flex bg-gray-50 rounded-lg overflow-hidden border border-gray-200 min-h-[300px]">
+            {/* Left panel: Categories */}
+            <div className="w-1/2 border-r border-gray-200 bg-white">
+              <div className="p-2 bg-gray-50 border-b border-gray-200">
+                <span className="text-xs font-semibold uppercase tracking-wider text-gray-500">Categories</span>
+              </div>
+              <div className="max-h-[250px] overflow-y-auto">
+                {buildCategoryTree.map((cat) => (
+                  <button
+                    key={cat.name}
+                    onMouseEnter={() => {
+                      setActiveCategory(cat.name);
+                      setActiveSubcategory(null);
+                    }}
+                    onClick={() => handleCategoryToggle(cat.name)}
+                    className={`w-full flex items-center justify-between px-3 py-2 text-sm text-left hover:bg-blue-50 transition-colors ${
+                      activeCategory === cat.name ? 'bg-blue-50 text-blue-900' : ''
+                    } ${selectedCategories.includes(cat.name) ? 'bg-blue-100 text-blue-900 font-medium' : ''}`}
+                    title={cat.name}
+                  >
+                    <div className="flex items-center space-x-2 flex-1 min-w-0">
+                      <div className={`w-4 h-4 border-2 rounded flex items-center justify-center flex-shrink-0 ${
+                        selectedCategories.includes(cat.name) ? 'bg-blue-900 border-blue-900' : 'border-gray-300'
+                      }`}>
+                        {selectedCategories.includes(cat.name) && (
+                          <Check className="w-2.5 h-2.5 text-white" />
+                        )}
+                      </div>
+                      <span className="truncate">{cat.name}</span>
+                    </div>
+                    <span className="text-gray-400 flex-shrink-0">›</span>
+                  </button>
+                ))}
+              </div>
+            </div>
 
-      {/* Sub-subcategory Filter */}
-      {subSubcategories.length > 1 && (
-        <div className="border-b border-gray-200 pb-6">
-          <h3 className="text-sm font-medium text-gray-900 mb-3">Sub-subcategory ({subSubcategories.length})</h3>
-          <div className="space-y-3 max-h-48 overflow-y-auto pr-1">
-            {visibleSubSubcategories.map((subSubcategory) => (
-              <label key={subSubcategory} className="flex items-center cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={selectedSubSubcategories.includes(subSubcategory)}
-                  onChange={() => handleSubSubcategoryToggle(subSubcategory)}
-                  className="sr-only"
-                />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedSubSubcategories.includes(subSubcategory)
-                  ? 'bg-blue-900 border-blue-900'
-                  : 'border-gray-300'
-                  }`}>
-                  {selectedSubSubcategories.includes(subSubcategory) && (
-                    <Check className="w-3 h-3 text-white" />
+            {/* Right panel: Subcategories and Sub-subcategories */}
+            <div className="w-1/2 bg-white">
+              {!activeCategory ? (
+                <div className="h-full flex items-center justify-center text-xs text-gray-400 p-4 text-center">
+                  Hover over a category to see subcategories
+                </div>
+              ) : (
+                <div className="h-full">
+                  {(() => {
+                    const cat = buildCategoryTree.find(c => c.name === activeCategory);
+                    const subs = cat && Array.isArray(cat.children) ? cat.children : [];
+                    return (
+                      <div className="h-full flex flex-col">
+                        <div className="p-2 bg-gray-50 border-b border-gray-200">
+                          <span className="text-xs font-semibold uppercase tracking-wider text-gray-500">
+                            {activeCategory} Subcategories
+                          </span>
+                        </div>
+                        <div className="flex-1 flex">
+                          {/* Subcategories */}
+                          <div className="w-1/2 border-r border-gray-200">
+                            <div className="max-h-[220px] overflow-y-auto">
+                              {subs.map((sub) => (
+                                <button
+                                  key={sub.name}
+                                  onMouseEnter={() => setActiveSubcategory(sub.name)}
+                                  onClick={() => handleSubcategoryToggle(sub.name)}
+                                  className={`w-full flex items-center justify-between px-2 py-1.5 text-xs text-left hover:bg-gray-50 transition-colors ${
+                                    activeSubcategory === sub.name ? 'bg-gray-50' : ''
+                                  } ${selectedSubcategories.includes(sub.name) ? 'bg-blue-50 text-blue-900 font-medium' : ''}`}
+                                  title={sub.name}
+                                >
+                                  <div className="flex items-center space-x-1.5 flex-1 min-w-0">
+                                    <div className={`w-3 h-3 border-2 rounded flex items-center justify-center flex-shrink-0 ${
+                                      selectedSubcategories.includes(sub.name) ? 'bg-blue-900 border-blue-900' : 'border-gray-300'
+                                    }`}>
+                                      {selectedSubcategories.includes(sub.name) && (
+                                        <Check className="w-2 h-2 text-white" />
+                                      )}
+                                    </div>
+                                    <span className="truncate">{sub.name}</span>
+                                  </div>
+                                  {sub.children && sub.children.length > 0 && (
+                                    <span className="text-gray-400 flex-shrink-0">›</span>
+                                  )}
+                                </button>
+                              ))}
+                            </div>
+                          </div>
+
+                          {/* Sub-subcategories */}
+                          <div className="w-1/2">
+                            {(() => {
+                              const sub = subs.find(s => s.name === activeSubcategory) || subs[0];
+                              const subSubs = sub && Array.isArray(sub.children) ? sub.children : [];
+                              return (
+                                <div className="max-h-[220px] overflow-y-auto">
+                                  {subSubs.length > 0 ? (
+                                    subSubs.map((ss) => (
+                                      <button
+                                        key={ss.name}
+                                        onClick={() => handleSubSubcategoryToggle(ss.name)}
+                                        className={`w-full flex items-center space-x-1.5 px-2 py-1.5 text-xs text-left hover:bg-gray-50 transition-colors ${
+                                          selectedSubSubcategories.includes(ss.name) ? 'bg-blue-50 text-blue-900 font-medium' : ''
+                                        }`}
+                                        title={ss.name}
+                                      >
+                                        <div className={`w-3 h-3 border-2 rounded flex items-center justify-center flex-shrink-0 ${
+                                          selectedSubSubcategories.includes(ss.name) ? 'bg-blue-900 border-blue-900' : 'border-gray-300'
+                                        }`}>
+                                          {selectedSubSubcategories.includes(ss.name) && (
+                                            <Check className="w-2 h-2 text-white" />
+                                          )}
+                                        </div>
+                                        <span className="truncate">{ss.name}</span>
+                                      </button>
+                                    ))
+                                  ) : (
+                                    <div className="h-full flex items-center justify-center text-xs text-gray-400 p-2 text-center">
+                                      {activeSubcategory ? 'No sub-subcategories' : 'Select a subcategory'}
+                                    </div>
+                                  )}
+                                </div>
+                              );
+                            })()}
+                          </div>
+                        </div>
+                      </div>
+                    );
+                  })()}
+                </div>
+              )}
+            </div>
+            </div>
+          ) : (
+            /* Traditional List View */
+            <div className="space-y-4">
+              {/* Categories */}
+              {categories.length > 1 && (
+                <div className="pb-4 border-b border-gray-100">
+                  <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Categories ({categories.length})</h4>
+                  <div className="space-y-2 max-h-32 overflow-y-auto">
+                    {categories.map((category) => (
+                      <label key={category} className="flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={selectedCategories.includes(category)}
+                          onChange={() => handleCategoryToggle(category)}
+                          className="sr-only"
+                        />
+                        <div className={`w-4 h-4 border-2 rounded flex items-center justify-center mr-2 ${selectedCategories.includes(category)
+                          ? 'bg-blue-900 border-blue-900'
+                          : 'border-gray-300'
+                          }`}>
+                          {selectedCategories.includes(category) && (
+                            <Check className="w-2.5 h-2.5 text-white" />
+                          )}
+                        </div>
+                        <span className="text-xs text-gray-700">{category}</span>
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Subcategories */}
+              {subcategories.length > 1 && (
+                <div className="pb-4 border-b border-gray-100">
+                  <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Subcategories ({subcategories.length})</h4>
+                  <div className="space-y-2 max-h-32 overflow-y-auto">
+                    {visibleSubcategories.map((subcategory) => (
+                      <label key={subcategory} className="flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={selectedSubcategories.includes(subcategory)}
+                          onChange={() => handleSubcategoryToggle(subcategory)}
+                          className="sr-only"
+                        />
+                        <div className={`w-4 h-4 border-2 rounded flex items-center justify-center mr-2 ${selectedSubcategories.includes(subcategory)
+                          ? 'bg-blue-900 border-blue-900'
+                          : 'border-gray-300'
+                          }`}>
+                          {selectedSubcategories.includes(subcategory) && (
+                            <Check className="w-2.5 h-2.5 text-white" />
+                          )}
+                        </div>
+                        <span className="text-xs text-gray-700">{subcategory}</span>
+                      </label>
+                    ))}
+                  </div>
+                  {subcategories.length > 5 && (
+                    <button onClick={() => setShowAllSubcategories(!showAllSubcategories)} className="mt-2 text-xs text-blue-700 hover:text-blue-900 font-medium">
+                      {showAllSubcategories ? 'Show less' : 'Show more'}
+                    </button>
                   )}
                 </div>
-                <span className="text-sm text-gray-700">{subSubcategory}</span>
-              </label>
-            ))}
-          </div>
-          {subSubcategories.length > 5 && (
-            <button onClick={() => setShowAllSubSubcategories(!showAllSubSubcategories)} className="mt-3 text-xs text-blue-700 hover:text-blue-900 font-medium">
-              {showAllSubSubcategories ? 'Show less' : 'Show more'}
-            </button>
+              )}
+
+              {/* Sub-subcategories */}
+              {subSubcategories.length > 1 && (
+                <div>
+                  <h4 className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2">Sub-subcategories ({subSubcategories.length})</h4>
+                  <div className="space-y-2 max-h-32 overflow-y-auto">
+                    {visibleSubSubcategories.map((subSubcategory) => (
+                      <label key={subSubcategory} className="flex items-center cursor-pointer">
+                        <input
+                          type="checkbox"
+                          checked={selectedSubSubcategories.includes(subSubcategory)}
+                          onChange={() => handleSubSubcategoryToggle(subSubcategory)}
+                          className="sr-only"
+                        />
+                        <div className={`w-4 h-4 border-2 rounded flex items-center justify-center mr-2 ${selectedSubSubcategories.includes(subSubcategory)
+                          ? 'bg-blue-900 border-blue-900'
+                          : 'border-gray-300'
+                          }`}>
+                          {selectedSubSubcategories.includes(subSubcategory) && (
+                            <Check className="w-2.5 h-2.5 text-white" />
+                          )}
+                        </div>
+                        <span className="text-xs text-gray-700">{subSubcategory}</span>
+                      </label>
+                    ))}
+                  </div>
+                  {subSubcategories.length > 5 && (
+                    <button onClick={() => setShowAllSubSubcategories(!showAllSubSubcategories)} className="mt-2 text-xs text-blue-700 hover:text-blue-900 font-medium">
+                      {showAllSubSubcategories ? 'Show less' : 'Show more'}
+                    </button>
+                  )}
+                </div>
+              )}
+            </div>
           )}
         </div>
       )}
