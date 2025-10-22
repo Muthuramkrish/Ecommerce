@@ -9,13 +9,13 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
 
   return (
     <div
-      className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 overflow-hidden group cursor-pointer h-full flex flex-col relative"
+      className="bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 hover:scale-105 overflow-hidden group cursor-pointer h-full flex flex-col relative touch-target"
       onClick={() => onOpenDetails?.(product)}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
       {/* Image Container with Enhanced Animations */}
-      <div className="relative overflow-hidden h-48">
+      <div className="relative overflow-hidden h-40 sm:h-44 md:h-48 lg:h-52">
         <img
           src={product['image-url']}
           alt={product['product-title']}
@@ -31,7 +31,7 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
         
         {/* Discount Badge with Animation */}
         {discount > 0 && (
-          <div className="absolute top-3 left-3 bg-gradient-to-r from-red-500 to-red-600 text-white px-3 py-1 rounded-full text-xs font-bold shadow-lg animate-bounce">
+          <div className="absolute top-2 sm:top-3 left-2 sm:left-3 bg-gradient-to-r from-red-500 to-red-600 text-white px-2 sm:px-3 py-1 rounded-full text-xs font-bold shadow-lg animate-bounce">
             <span className="flex items-center space-x-1">
               <Zap className="w-3 h-3" />
               <span>{discount}% OFF</span>
@@ -41,7 +41,7 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
         
         {/* Special Offer Badge */}
         {((product.raw && (product.raw?.characteristics?.offers || product.raw?.marketing?.promotionText))) && (
-          <div className="absolute bottom-3 left-3 right-3 bg-gradient-to-r from-blue-900/95 to-indigo-900/95 text-white px-3 py-2 rounded-lg text-[10px] font-semibold truncate backdrop-blur-sm border border-blue-400/30">
+          <div className="absolute bottom-2 sm:bottom-3 left-2 sm:left-3 right-2 sm:right-3 bg-gradient-to-r from-blue-900/95 to-indigo-900/95 text-white px-2 sm:px-3 py-1.5 sm:py-2 rounded-lg text-[10px] sm:text-xs font-semibold truncate backdrop-blur-sm border border-blue-400/30">
             <span className="flex items-center space-x-1">
               <Star className="w-3 h-3 text-yellow-400" />
               <span>{product.raw?.marketing?.promotionText || 'Special Offer'}</span>
@@ -57,7 +57,7 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
             e.stopPropagation();
             onAddToWishlist?.(product);
           }}
-          className={`absolute top-3 right-3 p-2.5 rounded-full shadow-lg transition-all duration-500 transform ${
+          className={`absolute top-2 sm:top-3 right-2 sm:right-3 touch-target rounded-full shadow-lg transition-all duration-500 transform ${
             isFavorite
               ? 'bg-red-500 text-white scale-110 animate-pulse'
               : 'bg-white/90 backdrop-blur-sm text-gray-600 opacity-0 group-hover:opacity-100 hover:bg-red-50 hover:text-red-500 hover:scale-110'
@@ -86,13 +86,13 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
       </div>
 
       {/* Content with Enhanced Styling */}
-      <div className="p-5 flex flex-col flex-1">
-        <h3 className="font-bold text-gray-800 mb-2 line-clamp-2 text-sm group-hover:text-blue-600 transition-colors duration-300">
+      <div className="p-responsive-sm flex flex-col flex-1">
+        <h3 className="font-bold text-gray-800 mb-2 line-clamp-2 text-responsive-sm group-hover:text-blue-600 transition-colors duration-300">
           {product['product-title']}
         </h3>
 
         {product.category && (
-          <p className="text-xs text-gray-500 mb-3 font-medium bg-gray-100 px-2 py-1 rounded-full inline-block w-fit">
+          <p className="text-responsive-xs text-gray-500 mb-3 font-medium bg-gray-100 px-2 py-1 rounded-full inline-block w-fit">
             {product.category}
           </p>
         )}
@@ -100,17 +100,17 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
         {/* Price with Enhanced Styling */}
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center space-x-2">
-            <span className="text-xl font-bold text-blue-900 group-hover:text-blue-600 transition-colors duration-300">
+            <span className="text-responsive-lg font-bold text-blue-900 group-hover:text-blue-600 transition-colors duration-300">
               ₹{newPrice.toLocaleString()}
             </span>
             {oldPrice > newPrice && (
-              <span className="text-sm text-gray-500 line-through">
+              <span className="text-responsive-sm text-gray-500 line-through">
                 ₹{oldPrice.toLocaleString()}
               </span>
             )}
           </div>
           {oldPrice > newPrice && (
-            <div className="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded-full">
+            <div className="text-responsive-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded-full">
               Save ₹{(oldPrice - newPrice).toLocaleString()}
             </div>
           )}
@@ -124,11 +124,11 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
             e.stopPropagation();
             onAddToCart?.(product);
           }}
-          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-4 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 flex items-center justify-center space-x-2 font-semibold inline-block mt-auto group/btn relative overflow-hidden"
+          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-2.5 sm:py-3 px-4 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 flex items-center justify-center space-x-2 font-semibold inline-block mt-auto group/btn relative overflow-hidden touch-target-large"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
           <ShoppingCart className="w-4 h-4 relative z-10 group-hover/btn:animate-bounce" />
-          <span className="relative z-10">Add to Cart</span>
+          <span className="relative z-10 text-responsive-sm">Add to Cart</span>
           <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
         </a>
       </div>

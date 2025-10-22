@@ -99,21 +99,21 @@ const Header = ({
 
   return (
     <header className="fixed top-0 left-0 right-0 bg-blue-900 text-white z-50 shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-16 md:h-20">
+      <div className="container-responsive-wide">
+        <div className="flex items-center justify-between h-16 sm:h-18 md:h-20 lg:h-22 xl:h-24">
           {/* Logo */}
-          <div className="flex-shrink-0 flex items-center space-x-2 relative">
-            <button onClick={onLogoClick} className="flex items-center">
-              <img src={vLogo} alt="V Logo" className="h-8 md:h-10 w-auto" />
+          <div className="flex-shrink-0 flex items-center space-responsive-sm relative">
+            <button onClick={onLogoClick} className="flex items-center touch-target">
+              <img src={vLogo} alt="V Logo" className="h-8 sm:h-9 md:h-10 lg:h-11 xl:h-12 w-auto" />
             </button>
 
             {/* Desktop Category Menu Button */}
             <button
               onClick={() => setIsLeftMenuOpen(!isLeftMenuOpen)}
-              className="left-menu-toggle hidden md:block p-2 hover:bg-blue-800 rounded-full transition-colors relative mt-3"
+              className="left-menu-toggle hidden md:block touch-target hover:bg-blue-800 rounded-full transition-colors relative"
               title="Categories"
             >
-              <Menu className="w-6 h-6" />
+              <Menu className="w-5 h-5 md:w-6 md:h-6 lg:w-7 lg:h-7" />
               {isLeftMenuOpen && (
                 <span className="absolute left-1/2 -bottom-1 h-2 w-2 bg-white rotate-45 border-l border-t border-gray-100"></span>
               )}
@@ -122,7 +122,7 @@ const Header = ({
             {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="mobile-menu-toggle md:hidden p-2 hover:bg-blue-800 rounded-full transition-colors relative mt-3"
+              className="mobile-menu-toggle md:hidden touch-target hover:bg-blue-800 rounded-full transition-colors relative"
               title="Menu"
             >
               {isMobileMenuOpen ? (
@@ -141,9 +141,9 @@ const Header = ({
                   setActiveSubcategory(null);
                 }}
               >
-                <div className="flex w-[95vw] max-w-[1200px] min-h-[320px] max-h-[80vh] overflow-hidden">
+                <div className="flex w-[95vw] max-w-[1400px] min-h-[320px] max-h-[80vh] overflow-hidden">
                   {/* Left rail: top links + categories */}
-                  <div className="w-64 md:w-72 border-r border-gray-100 p-3 bg-white">
+                  <div className="w-64 md:w-72 lg:w-80 xl:w-96 border-r border-gray-100 p-responsive-sm bg-white">
                     <div className="px-3 pb-1 text-xs font-semibold uppercase tracking-wider text-gray-400">
                       Category
                     </div>
@@ -297,25 +297,25 @@ const Header = ({
           </div>
 
           {/* Search Bar - Desktop */}
-          <div className="hidden md:flex flex-1 max-w-xl mx-8">
+          <div className="hidden md:flex flex-1 max-w-xl lg:max-w-2xl xl:max-w-3xl mx-4 lg:mx-8">
             <div className="relative w-full">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
                 placeholder="Search for products, brands, categories..."
-                className="w-full px-4 py-3 pl-12 text-gray-900 bg-white rounded-full border-0 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                className="w-full px-4 py-2.5 md:py-3 lg:py-3.5 pl-10 md:pl-12 text-responsive-base text-gray-900 bg-white rounded-full border-0 focus:ring-2 focus:ring-blue-500 focus:outline-none transition-all duration-200"
               />
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+              <Search className="absolute left-3 md:left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4 md:w-5 md:h-5" />
             </div>
           </div>
 
           {/* Navigation Icons */}
-          <div className="flex items-center space-x-1 md:space-x-4">
+          <div className="flex items-center space-responsive-sm">
             {/* Bulk Order Button - Desktop Only */}
             <button
               onClick={onBulkOrderClick}
-              className="hidden md:flex px-3 md:px-4 py-1.5 md:py-2 bg-white text-blue-900 rounded-full font-semibold hover:bg-blue-50 transition-colors items-center space-x-1 md:space-x-2 text-sm md:text-base"
+              className="hidden md:flex px-3 md:px-4 lg:px-5 py-1.5 md:py-2 lg:py-2.5 bg-white text-blue-900 rounded-full font-semibold hover:bg-blue-50 transition-colors items-center space-x-1 md:space-x-2 text-responsive-sm touch-target"
             >
               <span>Bulk Order</span>
             </button>
@@ -323,7 +323,7 @@ const Header = ({
             {/* Mobile Search Icon - Only visible on mobile */}
             <button
               onClick={() => setIsMobileSearchOpen(!isMobileSearchOpen)}
-              className="p-1.5 md:hidden hover:bg-blue-800 rounded-full transition-colors"
+              className="md:hidden touch-target hover:bg-blue-800 rounded-full transition-colors"
               aria-label="Search"
             >
               <Search className="w-5 h-5" />
@@ -426,14 +426,14 @@ const Header = ({
 
         {/* Mobile Search */}
         {isMobileSearchOpen && (
-          <div className="md:hidden pb-3">
+          <div className="md:hidden pb-3 px-4 sm:px-6">
             <div className="relative">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => onSearchChange(e.target.value)}
                 placeholder="Search products..."
-                className="w-full px-4 py-2.5 pl-10 text-gray-900 bg-white rounded-full border-0 focus:ring-2 focus:ring-blue-500 focus:outline-none text-sm"
+                className="w-full px-4 py-3 pl-10 text-gray-900 bg-white rounded-full border-0 focus:ring-2 focus:ring-blue-500 focus:outline-none text-responsive-sm"
               />
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
             </div>
