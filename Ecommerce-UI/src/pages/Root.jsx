@@ -1351,6 +1351,13 @@ function Root() {
             onAddToWishlist={handleAddToWishlist}
             favorites={favorites}
             cartItems={cartItems}
+            onNavigate={(path, type, value) => {
+              if (path && path.startsWith('#')) {
+                setHash(path);
+              } else if (type && value) {
+                handleNavigateTaxonomy(type, value);
+              }
+            }}
           />
         ) : showCategoryList ? (
           <CategoryListPage
@@ -1374,6 +1381,13 @@ function Root() {
             onOpenDetails={handleOpenProductDetailsPage}
             favorites={favorites}
             initialFilters={initialCategoryFilters}
+            onNavigate={(path, type, value) => {
+              if (path && path.startsWith('#')) {
+                setHash(path);
+              } else if (type && value) {
+                handleNavigateTaxonomy(type, value);
+              }
+            }}
           />
         ) : (
           <>

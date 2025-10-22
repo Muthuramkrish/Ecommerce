@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { ArrowLeft, Grid, List, Filter, X, Check, ShoppingCart } from 'lucide-react';
 import LoadingSpinner from '../components/LoadingSpinner';
+import Breadcrumb, { buildBreadcrumbItems, buildFilterBreadcrumbs } from '../components/Breadcrumb';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useReducedMotion, getAnimationClasses } from '../hooks/useReducedMotion';
 
@@ -11,7 +12,8 @@ const CategoryListPage = ({
   onAddToWishlist,
   onOpenDetails,
   favorites = [],
-  initialFilters
+  initialFilters,
+  onNavigate
 }) => {
   const [viewMode, setViewMode] = React.useState('grid');
   const [sortBy, setSortBy] = React.useState('name');
@@ -22,6 +24,7 @@ const CategoryListPage = ({
 
   // Scroll animations
   const [headerSectionRef, isHeaderVisible] = useScrollAnimation();
+  const [breadcrumbSectionRef, isBreadcrumbVisible] = useScrollAnimation();
   const [filterSectionRef, isFilterVisible] = useScrollAnimation();
   const [productsSectionRef, isProductsVisible] = useScrollAnimation();
   
@@ -827,6 +830,52 @@ const CategoryListPage = ({
       .join(' ');
   };
 
+  // Build breadcrumb items based on current context and filters
+  const breadcrumbItems = React.useMemo(() => {
+    const appliedFilters = {
+      brand: selectedBrands,
+      productType: selectedProductTypes,
+      category: selectedCategories,
+      subcategory: selectedSubcategories,
+      subSubcategory: selectedSubSubcategories
+    };
+
+    // Determine the current navigation context
+    let currentCategory = category;
+    let currentSubcategory = null;
+    let currentSubSubcategory = null;
+
+    // If we have initial filters, use them to determine context
+    if (initialFilters) {
+      if (initialFilters.subcategory && initialFilters.subcategory.length > 0) {
+        currentSubcategory = initialFilters.subcategory[0];
+      }
+      if (initialFilters.subSubcategory && initialFilters.subSubcategory.length > 0) {
+        currentSubSubcategory = initialFilters.subSubcategory[0];
+      }
+    }
+
+    return buildBreadcrumbItems({
+      category: currentCategory,
+      subcategory: currentSubcategory,
+      subSubcategory: currentSubSubcategory,
+      appliedFilters: appliedFilters,
+      currentPage: 'category'
+    });
+  }, [category, selectedBrands, selectedProductTypes, selectedCategories, selectedSubcategories, selectedSubSubcategories, initialFilters]);
+
+  // Handle breadcrumb navigation
+  const handleBreadcrumbNavigation = (path, type, value) => {
+    if (onNavigate) {
+      onNavigate(path, type, value);
+    } else {
+      // Fallback to hash navigation
+      if (path && window.location) {
+        window.location.hash = path;
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
       {/* Header */}
@@ -930,6 +979,26 @@ const CategoryListPage = ({
 
         </div>
       </div>
+
+      {/* Breadcrumb Navigation */}
+      {breadcrumbItems.length > 0 && (
+        <div 
+          ref={breadcrumbSectionRef}
+          className={`bg-white/80 backdrop-blur-sm border-b border-gray-100 transition-all duration-1000 ${
+            isBreadcrumbVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-4'
+          }`}
+        >
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3">
+            <Breadcrumb
+              items={breadcrumbItems}
+              onNavigate={handleBreadcrumbNavigation}
+              className="text-sm"
+              showHome={true}
+              separator="chevron"
+            />
+          </div>
+        </div>
+      )}
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">

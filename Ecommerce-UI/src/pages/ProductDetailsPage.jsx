@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { Star, Heart, ShoppingCart, ArrowLeft, Minus, Plus } from 'lucide-react';
+import Breadcrumb, { buildProductBreadcrumbs } from '../components/Breadcrumb';
 import { useScrollAnimation } from '../hooks/useScrollAnimation';
 import { useReducedMotion, getAnimationClasses } from '../hooks/useReducedMotion';
 
@@ -9,7 +10,8 @@ const ProductDetailsPage = ({
   onAddToCart,
   onAddToWishlist,
   favorites,
-  cartItems
+  cartItems,
+  onNavigate
 }) => {
   // Scroll to top when component mounts
   useEffect(() => {
@@ -186,6 +188,25 @@ const ProductDetailsPage = ({
     }
   };
 
+  // Build breadcrumb items from product anchor data
+  const breadcrumbItems = React.useMemo(() => {
+    return buildProductBreadcrumbs(anchor);
+  }, [anchor]);
+
+  // Handle breadcrumb navigation
+  const handleBreadcrumbNavigation = (path, type, value) => {
+    if (onNavigate) {
+      onNavigate(path, type, value);
+    } else if (type && value) {
+      navigateTo(type, value);
+    } else {
+      // Fallback to hash navigation
+      if (path && window.location) {
+        window.location.hash = path;
+      }
+    }
+  };
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-50 via-white to-blue-50">
       {/* Header */}
@@ -241,44 +262,22 @@ const ProductDetailsPage = ({
           </div>
         </div>
       </div>
-      {/* Appropriate Products (anchors) just below the header */}
-      {(anchor.subcategory || anchor.subSubcategory || anchor.brand || anchor.productType) && (
+      {/* Breadcrumb Navigation */}
+      {breadcrumbItems.length > 0 && (
         <div 
           ref={breadcrumbSectionRef}
-          className={`max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 transition-all duration-1000 ${
+          className={`bg-white/80 backdrop-blur-sm border-b border-gray-100 transition-all duration-1000 ${
             isBreadcrumbVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
           }`}
         >
-          <div className="text-sm text-gray-700 flex flex-wrap items-center bg-white/50 backdrop-blur-sm rounded-xl px-4 py-3 border border-gray-200/50 shadow-sm hover:shadow-md transition-all duration-500 animate-fade-in-up">
-            {anchor.subcategory && (
-              <>
-                <button className="text-blue-600 hover:text-blue-800 hover:underline transition-all duration-500 hover:scale-110 font-medium bg-blue-50/50 hover:bg-blue-100/80 px-3 py-1 rounded-lg hover:shadow-md" onClick={() => navigateTo('subcategory', anchor.subcategory)}>
-                  {anchor.subcategory}
-                </button>
-                {(anchor.subSubcategory || anchor.brand || anchor.productType) && <span className="mx-2 text-gray-400">&gt;</span>}
-              </>
-            )}
-            {anchor.subSubcategory && (
-              <>
-                <button className="text-blue-600 hover:text-blue-800 hover:underline transition-all duration-500 hover:scale-110 font-medium bg-blue-50/50 hover:bg-blue-100/80 px-3 py-1 rounded-lg hover:shadow-md" onClick={() => navigateTo('sub-subcategory', anchor.subSubcategory)}>
-                  {anchor.subSubcategory}
-                </button>
-                {(anchor.brand || anchor.productType) && <span className="mx-2">&gt;</span>}
-              </>
-            )}
-            {anchor.brand && (
-              <>
-                <button className="text-blue-600 hover:text-blue-800 hover:underline transition-all duration-500 hover:scale-110 font-medium bg-blue-50/50 hover:bg-blue-100/80 px-3 py-1 rounded-lg hover:shadow-md" onClick={() => navigateTo('brand', anchor.brand)}>
-                  {anchor.brand}
-                </button>
-                {anchor.productType && <span className="mx-2">&gt;</span>}
-              </>
-            )}
-            {anchor.productType && (
-              <button className="text-blue-600 hover:text-blue-800 hover:underline transition-all duration-500 hover:scale-110 font-medium bg-blue-50/50 hover:bg-blue-100/80 px-3 py-1 rounded-lg hover:shadow-md" onClick={() => navigateTo('product-type', anchor.productType)}>
-                {anchor.productType}
-              </button>
-            )}
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <Breadcrumb
+              items={breadcrumbItems}
+              onNavigate={handleBreadcrumbNavigation}
+              className="text-sm"
+              showHome={true}
+              separator="chevron"
+            />
           </div>
         </div>
       )}
