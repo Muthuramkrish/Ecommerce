@@ -124,7 +124,7 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
             e.stopPropagation();
             onAddToCart?.(product);
           }}
-          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-4 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 flex items-center justify-center space-x-2 font-semibold inline-block mt-auto group/btn relative overflow-hidden"
+          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-4 rounded-xl hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-semibold text-sm mt-auto hover:scale-105 hover:shadow-xl relative z-10 group/btn overflow-hidden flex items-center justify-center space-x-2"
         >
           <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover/btn:opacity-100 transition-opacity duration-300"></div>
           <ShoppingCart className="w-4 h-4 relative z-10 group-hover/btn:animate-bounce" />

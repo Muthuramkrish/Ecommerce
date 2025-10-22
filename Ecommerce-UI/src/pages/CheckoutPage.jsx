@@ -233,10 +233,10 @@ const CheckoutPage = ({ items, onOrderComplete, onBack }) => {
             <div className="flex items-center justify-between h-16">
               <button
                 onClick={onBack}
-                className="flex items-center text-gray-600 hover:text-gray-900 transition-colors text-sm md:text-base"
+                className="flex items-center text-gray-600 hover:text-gray-900 transition-all duration-500 text-sm md:text-base hover:scale-110 group bg-white/50 backdrop-blur-sm rounded-xl px-4 py-2 hover:bg-white/80 hover:shadow-lg border border-gray-200/50 hover:border-gray-300"
               >
-                <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 mr-2" />
-                <span className="hidden sm:inline">Back</span>
+                <ArrowLeft className="w-4 h-4 md:w-5 md:h-5 mr-2 group-hover:-translate-x-1 group-hover:scale-110 transition-all duration-300" />
+                <span className="hidden sm:inline font-medium">Back</span>
               </button>
               <h1 className="text-lg font-semibold text-gray-900 text-center flex-1">Checkout</h1>
             </div>
@@ -470,17 +470,21 @@ const CheckoutPage = ({ items, onOrderComplete, onBack }) => {
                     <span className="w-5 h-5 mr-2 text-center text-lg">📱</span>
                     <span className="font-medium">UPI Payment</span>
                   </label> */}
-                  <label className="flex items-center p-4 border border-gray-300 rounded-lg cursor-pointer hover:bg-gray-50 transition-colors">
+                  <label className="flex items-center p-6 border border-gray-300 rounded-2xl cursor-pointer hover:bg-blue-50 transition-all duration-500 hover:scale-105 hover:shadow-lg group">
                     <input
                       type="radio"
                       name="paymentMethod"
                       value="cod"
                       checked={formData.paymentMethod === 'cod'}
                       onChange={handleInputChange}
-                      className="mr-3 text-blue-600"
+                      className="mr-4 w-5 h-5 text-blue-600"
                     />
-                    <span className="w-5 h-5 mr-2 text-center text-lg">💰</span>
-                    <span className="font-medium">Cash on Delivery</span>
+                    <div className="flex items-center">
+                      <div className="w-10 h-10 bg-gradient-to-r from-green-100 to-emerald-100 rounded-full flex items-center justify-center mr-4 group-hover:scale-110 transition-all duration-300">
+                        <span className="text-2xl">💰</span>
+                      </div>
+                      <span className="font-bold text-lg">Cash on Delivery</span>
+                    </div>
                   </label>
                 </div>
               </div>
@@ -488,17 +492,18 @@ const CheckoutPage = ({ items, onOrderComplete, onBack }) => {
               <button
                 type="submit"
                 disabled={isProcessing}
-                className="w-full bg-blue-900 text-white py-4 px-6 rounded-lg hover:bg-blue-800 transition-colors font-semibold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center text-lg"
+                className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-4 px-6 rounded-2xl hover:from-blue-700 hover:to-blue-800 transition-all duration-500 font-bold disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center text-lg hover:scale-105 hover:shadow-2xl group relative overflow-hidden"
               >
                 {isProcessing ? (
                   <>
-                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                    Processing Order...
+                    <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-3"></div>
+                    <span className="relative z-10">Processing Order...</span>
                   </>
                 ) : (
                   <>
-                    <Shield className="w-5 h-5 mr-2" />
-                    Place Order - ₹{roundedTotal.toLocaleString()}
+                    <Shield className="w-5 h-5 mr-3 relative z-10 group-hover:animate-bounce" />
+                    <span className="relative z-10">Place Order - ₹{roundedTotal.toLocaleString()}</span>
+                    <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/30 to-transparent"></div>
                   </>
                 )}
               </button>
