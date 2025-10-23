@@ -853,9 +853,16 @@ const CategoryListPage = ({
                 <h1 className="text-xl md:text-2xl font-bold bg-gradient-to-r from-gray-900 to-blue-600 bg-clip-text text-transparent">
                   {formatCategoryTitle(category)}
                 </h1>
-                <p className="text-sm md:text-base text-gray-600 mt-0.5 md:mt-1">
-                  <span className="font-semibold text-blue-600">{sortedProducts.length}</span> products available
-                </p>
+                <div className="flex items-center gap-2 mt-1">
+                  <p className="text-sm md:text-base text-gray-600">
+                    <span className="font-semibold text-blue-600">{sortedProducts.length}</span> products available
+                  </p>
+                  {chips.length > 0 && (
+                    <span className="inline-flex items-center bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">
+                      {chips.length} filter{chips.length !== 1 ? 's' : ''} applied
+                    </span>
+                  )}
+                </div>
               </div>
             </div>
 
@@ -866,12 +873,16 @@ const CategoryListPage = ({
               {/* Mobile Filter Button */}
               <button
                 onClick={() => setShowFilters(!showFilters)}
-                className="lg:hidden flex items-center space-x-2 bg-gradient-to-r from-blue-900 to-blue-800 text-white px-3 py-2 rounded-lg hover:from-blue-800 hover:to-blue-700 transition-all duration-300 text-sm hover:scale-105 hover:shadow-lg group"
+                className={`lg:hidden flex items-center space-x-2 px-3 py-2 rounded-lg transition-all duration-300 text-sm hover:scale-105 hover:shadow-lg group ${
+                  activeFiltersCount > 0 
+                    ? 'bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-md' 
+                    : 'bg-gradient-to-r from-blue-900 to-blue-800 text-white hover:from-blue-800 hover:to-blue-700'
+                }`}
               >
                 <Filter className="w-4 h-4 group-hover:rotate-12 transition-transform duration-300" />
                 <span>Filters</span>
                 {activeFiltersCount > 0 && (
-                  <span className="bg-white text-blue-900 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center animate-bounce">
+                  <span className="bg-white text-blue-900 text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center animate-pulse">
                     {activeFiltersCount}
                   </span>
                 )}
@@ -907,24 +918,43 @@ const CategoryListPage = ({
             </div>
           </div>
 
-          {/* Applied Filter Chips */}
+          {/* Applied Filter Chips - Enhanced with better visibility */}
           {chips.length > 0 && (
-            <div className={`mt-4 flex flex-wrap gap-2 transition-all duration-700 delay-300 ${
+            <div className={`mt-6 transition-all duration-700 delay-300 ${
               isHeaderVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
             }`}>
-              {chips.map((chip, idx) => (
-                <span 
-                  key={idx} 
-                  className="inline-flex items-center bg-gradient-to-r from-blue-50 to-blue-100 text-blue-900 px-3 py-1 rounded-full text-sm border border-blue-200 shadow-sm hover:shadow-md transition-all duration-300 animate-fade-in-up"
-                  style={{ animationDelay: `${idx * 50}ms` }}
-                >
-                  {chip.label}
-                  <button onClick={chip.onRemove} className="ml-2 hover:text-blue-700 hover:scale-110 transition-all duration-200 group" aria-label={`Remove ${chip.type}`}>
-                    <X className="w-4 h-4 group-hover:rotate-90 transition-transform duration-200" />
+              <div className="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-100 shadow-sm">
+                <div className="flex items-center justify-between mb-3">
+                  <h3 className="text-sm font-semibold text-blue-900 flex items-center">
+                    <Filter className="w-4 h-4 mr-2" />
+                    Applied Filters ({chips.length})
+                  </h3>
+                  <button 
+                    onClick={clearAllFilters} 
+                    className="text-xs text-blue-600 hover:text-blue-800 font-medium px-2 py-1 rounded-md hover:bg-blue-100 transition-all duration-200"
+                  >
+                    Clear All
                   </button>
-                </span>
-              ))}
-              <button onClick={clearAllFilters} className="text-sm text-gray-600 hover:text-blue-600 underline ml-1 hover:scale-105 transition-all duration-200 font-medium">Clear all</button>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {chips.map((chip, idx) => (
+                    <span 
+                      key={idx} 
+                      className="inline-flex items-center bg-white text-blue-900 px-3 py-1.5 rounded-full text-sm border border-blue-200 shadow-sm hover:shadow-md transition-all duration-300 animate-fade-in-up group"
+                      style={{ animationDelay: `${idx * 50}ms` }}
+                    >
+                      <span className="font-medium">{chip.label}</span>
+                      <button 
+                        onClick={chip.onRemove} 
+                        className="ml-2 hover:text-red-600 hover:scale-110 transition-all duration-200 p-0.5 rounded-full hover:bg-red-50" 
+                        aria-label={`Remove ${chip.type} filter`}
+                      >
+                        <X className="w-3 h-3 group-hover:rotate-90 transition-transform duration-200" />
+                      </button>
+                    </span>
+                  ))}
+                </div>
+              </div>
             </div>
           )}
 
@@ -1069,33 +1099,63 @@ const CategoryListPage = ({
           >
             {totalResults === 0 ? (
               <div className="text-center py-16">
-                <div className="text-gray-400 mb-4">
-                  <Filter className="w-16 h-16 mx-auto" />
+                <div className="bg-gray-50 rounded-full w-24 h-24 flex items-center justify-center mx-auto mb-6">
+                  <Filter className="w-12 h-12 text-gray-400" />
                 </div>
-                <h3 className="text-lg font-medium text-gray-900 mb-2">No products found</h3>
-                <p className="text-gray-600 mb-4">Try adjusting your filters or search terms.</p>
-                <button
-                  onClick={clearAllFilters}
-                  className="bg-blue-900 text-white px-6 py-2 rounded-lg hover:bg-blue-800 transition-colors"
-                >
-                  Clear All Filters
-                </button>
+                <h3 className="text-xl font-semibold text-gray-900 mb-3">No products match your filters</h3>
+                <p className="text-gray-600 mb-6 max-w-md mx-auto">
+                  {chips.length > 0 
+                    ? `We couldn't find any products matching your ${chips.length} selected filter${chips.length !== 1 ? 's' : ''}. Try removing some filters to see more results.`
+                    : 'No products are available in this category at the moment.'
+                  }
+                </p>
+                {chips.length > 0 && (
+                  <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                    <button
+                      onClick={clearAllFilters}
+                      className="bg-blue-900 text-white px-6 py-3 rounded-lg hover:bg-blue-800 transition-all duration-300 font-medium hover:scale-105"
+                    >
+                      Clear All Filters
+                    </button>
+                    <button
+                      onClick={() => window.history.back()}
+                      className="bg-gray-100 text-gray-700 px-6 py-3 rounded-lg hover:bg-gray-200 transition-all duration-300 font-medium hover:scale-105"
+                    >
+                      Go Back
+                    </button>
+                  </div>
+                )}
               </div>
             ) : (
               <>
                 {/* Result meta and pagination top */}
-                <div className={`flex items-center justify-between mb-4 text-sm text-gray-600 transition-all duration-700 ${
+                <div className={`flex items-center justify-between mb-6 text-sm text-gray-600 transition-all duration-700 ${
                   isProductsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'
                 }`}>
-                  <div>
-                    Showing <span className="font-medium text-gray-900">{currentStart + 1}</span> – <span className="font-medium text-gray-900">{currentEnd}</span> of <span className="font-medium text-gray-900">{totalResults}</span> results
+                  <div className="flex items-center gap-3">
+                    <div>
+                      Showing <span className="font-medium text-gray-900">{currentStart + 1}</span> – <span className="font-medium text-gray-900">{currentEnd}</span> of <span className="font-medium text-gray-900">{totalResults}</span> results
+                    </div>
+                    {chips.length > 0 && (
+                      <div className="flex items-center gap-2">
+                        <div className="w-1 h-4 bg-blue-300 rounded-full"></div>
+                        <span className="text-blue-600 font-medium text-xs">
+                          {chips.length} filter{chips.length !== 1 ? 's' : ''} active
+                        </span>
+                      </div>
+                    )}
                   </div>
                   <Pagination currentPage={currentPage} totalPages={totalPages} onChange={setCurrentPage} />
                 </div>
 
                 {isFiltering ? (
-                  <div className="flex justify-center items-center py-12">
-                    <LoadingSpinner size="lg" color="blue" showText={true} text="Filtering products..." />
+                  <div className="flex flex-col justify-center items-center py-16">
+                    <LoadingSpinner size="lg" color="blue" showText={true} text="Applying filters..." />
+                    {chips.length > 0 && (
+                      <p className="text-sm text-gray-500 mt-3">
+                        Processing {chips.length} filter{chips.length !== 1 ? 's' : ''}...
+                      </p>
+                    )}
                   </div>
                 ) : (
                   <div
@@ -1455,11 +1515,18 @@ const FilterPanel = ({
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
+        <div className="flex items-center gap-2">
+          <h2 className="text-lg font-semibold text-gray-900">Filters</h2>
+          {activeFiltersCount > 0 && (
+            <span className="inline-flex items-center bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-bold">
+              {activeFiltersCount}
+            </span>
+          )}
+        </div>
         {activeFiltersCount > 0 && (
           <button
             onClick={clearAllFilters}
-            className="text-sm text-blue-600 hover:text-blue-800 font-medium"
+            className="text-sm text-blue-600 hover:text-blue-800 font-medium hover:bg-blue-50 px-2 py-1 rounded transition-all duration-200"
           >
             Clear All
           </button>
