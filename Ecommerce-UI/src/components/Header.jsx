@@ -165,10 +165,10 @@ const Header = ({
                               onNavigateTaxonomy &&
                                 onNavigateTaxonomy("category", cat.name);
                             }}
-                            className={`w-full flex items-center justify-between px-3 py-2 text-base hover:bg-blue-50 ${
+                            className={`w-full flex items-center justify-between px-3 py-2 text-base hover:bg-blue-50 transition-all duration-200 ${
                               activeCategory === cat.name
-                                ? "bg-blue-50 text-blue-900"
-                                : ""
+                                ? "bg-blue-50 text-blue-900 border-l-4 border-blue-500"
+                                : "hover:border-l-4 hover:border-blue-200"
                             }`}
                             title={cat.name}
                           >
@@ -220,10 +220,10 @@ const Header = ({
                                               sub.name
                                             );
                                         }}
-                                        className={`w-full flex items-center justify-between px-3 py-2 text-base rounded-lg hover:bg-gray-50 ${
+                                        className={`w-full flex items-center justify-between px-3 py-2 text-base rounded-lg hover:bg-gray-50 transition-all duration-200 ${
                                           activeSubcategory === sub.name
-                                            ? "bg-gray-50"
-                                            : ""
+                                            ? "bg-gray-50 border-l-2 border-blue-400"
+                                            : "hover:border-l-2 hover:border-gray-300"
                                         }`}
                                         title={sub.name}
                                       >
@@ -268,7 +268,7 @@ const Header = ({
                                                     ss.name
                                                   );
                                               }}
-                                              className="text-left text-base px-2 py-1.5 rounded hover:bg-gray-50 truncate"
+                                              className="text-left text-base px-2 py-1.5 rounded hover:bg-gray-50 truncate transition-all duration-200 hover:bg-blue-50 hover:text-blue-700 hover:scale-105"
                                               title={ss.name}
                                             >
                                               {ss.name}
@@ -633,7 +633,7 @@ const Header = ({
                                           category.name
                                         );
                                     }}
-                                    className="w-full px-4 py-2 text-left text-base font-medium text-blue-600 hover:bg-blue-50 transition-colors border-b border-gray-200 truncate"
+                                    className="w-full px-4 py-2 text-left text-base font-medium text-blue-600 hover:bg-blue-50 transition-all duration-200 border-b border-gray-200 truncate hover:scale-105"
                                   >
                                     View All {category.name}
                                   </button>
@@ -687,7 +687,7 @@ const Header = ({
                                                     subcategory.name
                                                   );
                                               }}
-                                              className="w-full text-left px-6 py-2 text-base font-medium text-blue-600 hover:bg-blue-50 transition-colors border-b border-gray-200 truncate"
+                                              className="w-full text-left px-6 py-2 text-base font-medium text-blue-600 hover:bg-blue-50 transition-all duration-200 border-b border-gray-200 truncate hover:scale-105"
                                             >
                                               View All {subcategory.name}
                                             </button>
@@ -704,7 +704,7 @@ const Header = ({
                                                         subSubcategory.name
                                                       );
                                                   }}
-                                                  className="w-full text-left px-6 py-2 text-base text-gray-600 hover:bg-gray-200 transition-colors truncate"
+                                                  className="w-full text-left px-6 py-2 text-base text-gray-600 hover:bg-gray-200 transition-all duration-200 truncate hover:text-blue-600 hover:scale-105"
                                                 >
                                                   {subSubcategory.name}
                                                 </button>

@@ -366,7 +366,66 @@ const CategoryListPage = ({
     }
   }, [brands, productTypes, categories, subcategories, subSubcategories, powerRanges, colors, sizes, materials, certifications, warranties, selectedBrands, selectedProductTypes, selectedCategories, selectedSubcategories, selectedSubSubcategories, selectedPowerRanges, selectedColors, selectedSizes, selectedMaterials, selectedCertifications, selectedWarranties]);
 
-  // Apply filters
+  // State for pending filters (before apply)
+  const [pendingFilters, setPendingFilters] = React.useState({
+    priceRange: [minPrice, maxPrice],
+    selectedBrands: [],
+    selectedProductTypes: [],
+    selectedCategories: [],
+    selectedSubcategories: [],
+    selectedSubSubcategories: [],
+    selectedPowerRanges: [],
+    selectedColors: [],
+    selectedSizes: [],
+    selectedMaterials: [],
+    selectedCertifications: [],
+    selectedWarranties: [],
+    showOnlyDiscounted: false,
+    selectedDiscountBucket: 0,
+    showOnlyInStock: false
+  });
+
+  // Apply filters function
+  const applyFilters = () => {
+    setPriceRange(pendingFilters.priceRange);
+    setSelectedBrands(pendingFilters.selectedBrands);
+    setSelectedProductTypes(pendingFilters.selectedProductTypes);
+    setSelectedCategories(pendingFilters.selectedCategories);
+    setSelectedSubcategories(pendingFilters.selectedSubcategories);
+    setSelectedSubSubcategories(pendingFilters.selectedSubSubcategories);
+    setSelectedPowerRanges(pendingFilters.selectedPowerRanges);
+    setSelectedColors(pendingFilters.selectedColors);
+    setSelectedSizes(pendingFilters.selectedSizes);
+    setSelectedMaterials(pendingFilters.selectedMaterials);
+    setSelectedCertifications(pendingFilters.selectedCertifications);
+    setSelectedWarranties(pendingFilters.selectedWarranties);
+    setShowOnlyDiscounted(pendingFilters.showOnlyDiscounted);
+    setSelectedDiscountBucket(pendingFilters.selectedDiscountBucket);
+    setShowOnlyInStock(pendingFilters.showOnlyInStock);
+  };
+
+  // Initialize pending filters when component mounts or initial filters change
+  React.useEffect(() => {
+    setPendingFilters({
+      priceRange: [minPrice, maxPrice],
+      selectedBrands: initialFilters?.brand || [],
+      selectedProductTypes: initialFilters?.productType || [],
+      selectedCategories: initialFilters?.category || [],
+      selectedSubcategories: initialFilters?.subcategory || [],
+      selectedSubSubcategories: initialFilters?.subSubcategory || [],
+      selectedPowerRanges: [],
+      selectedColors: [],
+      selectedSizes: [],
+      selectedMaterials: [],
+      selectedCertifications: [],
+      selectedWarranties: [],
+      showOnlyDiscounted: false,
+      selectedDiscountBucket: 0,
+      showOnlyInStock: false
+    });
+  }, [initialFilters, minPrice, maxPrice]);
+
+  // Apply filters to products
   React.useEffect(() => {
     setIsFiltering(true);
     // Add a small delay to show the loading state
@@ -721,6 +780,26 @@ const CategoryListPage = ({
     setShowOnlyDiscounted(false);
     setSelectedDiscountBucket(0);
     setShowOnlyInStock(false);
+    
+    // Also clear pending filters
+    setPendingFilters({
+      priceRange: [minPrice, maxPrice],
+      selectedBrands: [],
+      selectedProductTypes: [],
+      selectedCategories: [],
+      selectedSubcategories: [],
+      selectedSubSubcategories: [],
+      selectedPowerRanges: [],
+      selectedColors: [],
+      selectedSizes: [],
+      selectedMaterials: [],
+      selectedCertifications: [],
+      selectedWarranties: [],
+      showOnlyDiscounted: false,
+      selectedDiscountBucket: 0,
+      showOnlyInStock: false
+    });
+    
     scrollToTop();
   };
 
@@ -996,6 +1075,9 @@ const CategoryListPage = ({
                     clearAllFilters={clearAllFilters}
                     activeFiltersCount={activeFiltersCount}
                     subcategorySectionRef={subcategorySectionRef}
+                    pendingFilters={pendingFilters}
+                    setPendingFilters={setPendingFilters}
+                    applyFilters={applyFilters}
                   />
                 </div>
               </div>
@@ -1055,6 +1137,9 @@ const CategoryListPage = ({
                   clearAllFilters={clearAllFilters}
                   activeFiltersCount={activeFiltersCount}
                   subcategorySectionRef={subcategorySectionRef}
+                  pendingFilters={pendingFilters}
+                  setPendingFilters={setPendingFilters}
+                  applyFilters={applyFilters}
                 />
               </div>
             </div>
@@ -1426,7 +1511,10 @@ const FilterPanel = ({
   warranties,
   clearAllFilters,
   activeFiltersCount,
-  subcategorySectionRef
+  subcategorySectionRef,
+  pendingFilters,
+  setPendingFilters,
+  applyFilters
 }) => {
   const [showAllBrands, setShowAllBrands] = React.useState(false);
   const [showAllProductTypes, setShowAllProductTypes] = React.useState(false);
@@ -1478,8 +1566,8 @@ const FilterPanel = ({
               .map((threshold) => (
                 <button
                   key={threshold}
-                  onClick={() => setPriceRange([minPrice, threshold])}
-                  className={`text-xs px-2.5 py-1 rounded-full border ${priceRange[0] === minPrice && priceRange[1] === threshold
+                  onClick={() => setPendingFilters(prev => ({ ...prev, priceRange: [minPrice, threshold] }))}
+                  className={`text-xs px-2.5 py-1 rounded-full border ${pendingFilters.priceRange[0] === minPrice && pendingFilters.priceRange[1] === threshold
                     ? 'bg-blue-900 text-white border-blue-900'
                     : 'bg-gray-100 hover:bg-gray-200 text-gray-800 border-gray-200'
                     }`}
@@ -1489,8 +1577,8 @@ const FilterPanel = ({
               ))}
             {/* Any */}
             <button
-              onClick={() => setPriceRange([minPrice, maxPrice])}
-              className={`text-xs px-2.5 py-1 rounded-full border ${priceRange[0] === minPrice && priceRange[1] === maxPrice
+              onClick={() => setPendingFilters(prev => ({ ...prev, priceRange: [minPrice, maxPrice] }))}
+              className={`text-xs px-2.5 py-1 rounded-full border ${pendingFilters.priceRange[0] === minPrice && pendingFilters.priceRange[1] === maxPrice
                 ? 'bg-blue-900 text-white border-blue-900'
                 : 'bg-gray-100 hover:bg-gray-200 text-gray-800 border-gray-200'
                 }`}
@@ -1519,15 +1607,20 @@ const FilterPanel = ({
             <label key={brand} className="flex items-center cursor-pointer">
               <input
                 type="checkbox"
-                checked={selectedBrands.includes(brand)}
-                onChange={() => handleBrandToggle(brand)}
+                checked={pendingFilters.selectedBrands.includes(brand)}
+                onChange={() => {
+                  const newBrands = pendingFilters.selectedBrands.includes(brand)
+                    ? pendingFilters.selectedBrands.filter(b => b !== brand)
+                    : [...pendingFilters.selectedBrands, brand];
+                  setPendingFilters(prev => ({ ...prev, selectedBrands: newBrands }));
+                }}
                 className="sr-only"
               />
-              <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedBrands.includes(brand)
+              <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${pendingFilters.selectedBrands.includes(brand)
                 ? 'bg-blue-900 border-blue-900'
                 : 'border-gray-300'
                 }`}>
-                {selectedBrands.includes(brand) && (
+                {pendingFilters.selectedBrands.includes(brand) && (
                   <Check className="w-3 h-3 text-white" />
                 )}
               </div>
@@ -1555,15 +1648,20 @@ const FilterPanel = ({
               <label key={productType} className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
-                  checked={selectedProductTypes.includes(productType)}
-                  onChange={() => handleProductTypeToggle(productType)}
+                  checked={pendingFilters.selectedProductTypes.includes(productType)}
+                  onChange={() => {
+                    const newProductTypes = pendingFilters.selectedProductTypes.includes(productType)
+                      ? pendingFilters.selectedProductTypes.filter(pt => pt !== productType)
+                      : [...pendingFilters.selectedProductTypes, productType];
+                    setPendingFilters(prev => ({ ...prev, selectedProductTypes: newProductTypes }));
+                  }}
                   className="sr-only"
                 />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedProductTypes.includes(productType)
+                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${pendingFilters.selectedProductTypes.includes(productType)
                   ? 'bg-blue-900 border-blue-900'
                   : 'border-gray-300'
                   }`}>
-                  {selectedProductTypes.includes(productType) && (
+                  {pendingFilters.selectedProductTypes.includes(productType) && (
                     <Check className="w-3 h-3 text-white" />
                   )}
                 </div>
@@ -1588,15 +1686,20 @@ const FilterPanel = ({
               <label key={category} className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
-                  checked={selectedCategories.includes(category)}
-                  onChange={() => handleCategoryToggle(category)}
+                  checked={pendingFilters.selectedCategories.includes(category)}
+                  onChange={() => {
+                    const newCategories = pendingFilters.selectedCategories.includes(category)
+                      ? pendingFilters.selectedCategories.filter(cat => cat !== category)
+                      : [...pendingFilters.selectedCategories, category];
+                    setPendingFilters(prev => ({ ...prev, selectedCategories: newCategories }));
+                  }}
                   className="sr-only"
                 />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedCategories.includes(category)
+                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${pendingFilters.selectedCategories.includes(category)
                   ? 'bg-blue-900 border-blue-900'
                   : 'border-gray-300'
                   }`}>
-                  {selectedCategories.includes(category) && (
+                  {pendingFilters.selectedCategories.includes(category) && (
                     <Check className="w-3 h-3 text-white" />
                   )}
                 </div>
@@ -1616,15 +1719,20 @@ const FilterPanel = ({
               <label key={subcategory} className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
-                  checked={selectedSubcategories.includes(subcategory)}
-                  onChange={() => handleSubcategoryToggle(subcategory)}
+                  checked={pendingFilters.selectedSubcategories.includes(subcategory)}
+                  onChange={() => {
+                    const newSubcategories = pendingFilters.selectedSubcategories.includes(subcategory)
+                      ? pendingFilters.selectedSubcategories.filter(sc => sc !== subcategory)
+                      : [...pendingFilters.selectedSubcategories, subcategory];
+                    setPendingFilters(prev => ({ ...prev, selectedSubcategories: newSubcategories }));
+                  }}
                   className="sr-only"
                 />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedSubcategories.includes(subcategory)
+                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${pendingFilters.selectedSubcategories.includes(subcategory)
                   ? 'bg-blue-900 border-blue-900'
                   : 'border-gray-300'
                   }`}>
-                  {selectedSubcategories.includes(subcategory) && (
+                  {pendingFilters.selectedSubcategories.includes(subcategory) && (
                     <Check className="w-3 h-3 text-white" />
                   )}
                 </div>
@@ -1649,15 +1757,20 @@ const FilterPanel = ({
               <label key={subSubcategory} className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
-                  checked={selectedSubSubcategories.includes(subSubcategory)}
-                  onChange={() => handleSubSubcategoryToggle(subSubcategory)}
+                  checked={pendingFilters.selectedSubSubcategories.includes(subSubcategory)}
+                  onChange={() => {
+                    const newSubSubcategories = pendingFilters.selectedSubSubcategories.includes(subSubcategory)
+                      ? pendingFilters.selectedSubSubcategories.filter(ssc => ssc !== subSubcategory)
+                      : [...pendingFilters.selectedSubSubcategories, subSubcategory];
+                    setPendingFilters(prev => ({ ...prev, selectedSubSubcategories: newSubSubcategories }));
+                  }}
                   className="sr-only"
                 />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedSubSubcategories.includes(subSubcategory)
+                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${pendingFilters.selectedSubSubcategories.includes(subSubcategory)
                   ? 'bg-blue-900 border-blue-900'
                   : 'border-gray-300'
                   }`}>
-                  {selectedSubSubcategories.includes(subSubcategory) && (
+                  {pendingFilters.selectedSubSubcategories.includes(subSubcategory) && (
                     <Check className="w-3 h-3 text-white" />
                   )}
                 </div>
@@ -1682,15 +1795,20 @@ const FilterPanel = ({
               <label key={powerRange} className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
-                  checked={selectedPowerRanges.includes(powerRange)}
-                  onChange={() => handlePowerRangeToggle(powerRange)}
+                  checked={pendingFilters.selectedPowerRanges.includes(powerRange)}
+                  onChange={() => {
+                    const newPowerRanges = pendingFilters.selectedPowerRanges.includes(powerRange)
+                      ? pendingFilters.selectedPowerRanges.filter(pr => pr !== powerRange)
+                      : [...pendingFilters.selectedPowerRanges, powerRange];
+                    setPendingFilters(prev => ({ ...prev, selectedPowerRanges: newPowerRanges }));
+                  }}
                   className="sr-only"
                 />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedPowerRanges.includes(powerRange)
+                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${pendingFilters.selectedPowerRanges.includes(powerRange)
                   ? 'bg-blue-900 border-blue-900'
                   : 'border-gray-300'
                   }`}>
-                  {selectedPowerRanges.includes(powerRange) && (
+                  {pendingFilters.selectedPowerRanges.includes(powerRange) && (
                     <Check className="w-3 h-3 text-white" />
                   )}
                 </div>
@@ -1715,15 +1833,20 @@ const FilterPanel = ({
               <label key={color} className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
-                  checked={selectedColors.includes(color)}
-                  onChange={() => handleColorToggle(color)}
+                  checked={pendingFilters.selectedColors.includes(color)}
+                  onChange={() => {
+                    const newColors = pendingFilters.selectedColors.includes(color)
+                      ? pendingFilters.selectedColors.filter(c => c !== color)
+                      : [...pendingFilters.selectedColors, color];
+                    setPendingFilters(prev => ({ ...prev, selectedColors: newColors }));
+                  }}
                   className="sr-only"
                 />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedColors.includes(color)
+                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${pendingFilters.selectedColors.includes(color)
                   ? 'bg-blue-900 border-blue-900'
                   : 'border-gray-300'
                   }`}>
-                  {selectedColors.includes(color) && (
+                  {pendingFilters.selectedColors.includes(color) && (
                     <Check className="w-3 h-3 text-white" />
                   )}
                 </div>
@@ -1748,15 +1871,20 @@ const FilterPanel = ({
               <label key={size} className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
-                  checked={selectedSizes.includes(size)}
-                  onChange={() => handleSizeToggle(size)}
+                  checked={pendingFilters.selectedSizes.includes(size)}
+                  onChange={() => {
+                    const newSizes = pendingFilters.selectedSizes.includes(size)
+                      ? pendingFilters.selectedSizes.filter(s => s !== size)
+                      : [...pendingFilters.selectedSizes, size];
+                    setPendingFilters(prev => ({ ...prev, selectedSizes: newSizes }));
+                  }}
                   className="sr-only"
                 />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedSizes.includes(size)
+                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${pendingFilters.selectedSizes.includes(size)
                   ? 'bg-blue-900 border-blue-900'
                   : 'border-gray-300'
                   }`}>
-                  {selectedSizes.includes(size) && (
+                  {pendingFilters.selectedSizes.includes(size) && (
                     <Check className="w-3 h-3 text-white" />
                   )}
                 </div>
@@ -1781,15 +1909,20 @@ const FilterPanel = ({
               <label key={material} className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
-                  checked={selectedMaterials.includes(material)}
-                  onChange={() => handleMaterialToggle(material)}
+                  checked={pendingFilters.selectedMaterials.includes(material)}
+                  onChange={() => {
+                    const newMaterials = pendingFilters.selectedMaterials.includes(material)
+                      ? pendingFilters.selectedMaterials.filter(m => m !== material)
+                      : [...pendingFilters.selectedMaterials, material];
+                    setPendingFilters(prev => ({ ...prev, selectedMaterials: newMaterials }));
+                  }}
                   className="sr-only"
                 />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedMaterials.includes(material)
+                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${pendingFilters.selectedMaterials.includes(material)
                   ? 'bg-blue-900 border-blue-900'
                   : 'border-gray-300'
                   }`}>
-                  {selectedMaterials.includes(material) && (
+                  {pendingFilters.selectedMaterials.includes(material) && (
                     <Check className="w-3 h-3 text-white" />
                   )}
                 </div>
@@ -1814,15 +1947,20 @@ const FilterPanel = ({
               <label key={certification} className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
-                  checked={selectedCertifications.includes(certification)}
-                  onChange={() => handleCertificationToggle(certification)}
+                  checked={pendingFilters.selectedCertifications.includes(certification)}
+                  onChange={() => {
+                    const newCertifications = pendingFilters.selectedCertifications.includes(certification)
+                      ? pendingFilters.selectedCertifications.filter(c => c !== certification)
+                      : [...pendingFilters.selectedCertifications, certification];
+                    setPendingFilters(prev => ({ ...prev, selectedCertifications: newCertifications }));
+                  }}
                   className="sr-only"
                 />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedCertifications.includes(certification)
+                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${pendingFilters.selectedCertifications.includes(certification)
                   ? 'bg-blue-900 border-blue-900'
                   : 'border-gray-300'
                   }`}>
-                  {selectedCertifications.includes(certification) && (
+                  {pendingFilters.selectedCertifications.includes(certification) && (
                     <Check className="w-3 h-3 text-white" />
                   )}
                 </div>
@@ -1847,15 +1985,20 @@ const FilterPanel = ({
               <label key={warranty} className="flex items-center cursor-pointer">
                 <input
                   type="checkbox"
-                  checked={selectedWarranties.includes(warranty)}
-                  onChange={() => handleWarrantyToggle(warranty)}
+                  checked={pendingFilters.selectedWarranties.includes(warranty)}
+                  onChange={() => {
+                    const newWarranties = pendingFilters.selectedWarranties.includes(warranty)
+                      ? pendingFilters.selectedWarranties.filter(w => w !== warranty)
+                      : [...pendingFilters.selectedWarranties, warranty];
+                    setPendingFilters(prev => ({ ...prev, selectedWarranties: newWarranties }));
+                  }}
                   className="sr-only"
                 />
-                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${selectedWarranties.includes(warranty)
+                <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${pendingFilters.selectedWarranties.includes(warranty)
                   ? 'bg-blue-900 border-blue-900'
                   : 'border-gray-300'
                   }`}>
-                  {selectedWarranties.includes(warranty) && (
+                  {pendingFilters.selectedWarranties.includes(warranty) && (
                     <Check className="w-3 h-3 text-white" />
                   )}
                 </div>
@@ -1882,13 +2025,13 @@ const FilterPanel = ({
               <input
                 type="radio"
                 name="discountBucket"
-                checked={selectedDiscountBucket === d}
-                onChange={() => setSelectedDiscountBucket(d)}
+                checked={pendingFilters.selectedDiscountBucket === d}
+                onChange={() => setPendingFilters(prev => ({ ...prev, selectedDiscountBucket: d }))}
                 className="sr-only"
               />
-              <div className={`w-5 h-5 border-2 rounded-full flex items-center justify-center mr-3 ${selectedDiscountBucket === d ? 'bg-blue-900 border-blue-900' : 'border-gray-300'
+              <div className={`w-5 h-5 border-2 rounded-full flex items-center justify-center mr-3 ${pendingFilters.selectedDiscountBucket === d ? 'bg-blue-900 border-blue-900' : 'border-gray-300'
                 }`}>
-                {selectedDiscountBucket === d && <Check className="w-3 h-3 text-white" />}
+                {pendingFilters.selectedDiscountBucket === d && <Check className="w-3 h-3 text-white" />}
               </div>
               <span className="text-gray-700">{d === 0 ? 'Any' : `${d}% or more`}</span>
             </label>
@@ -1901,13 +2044,13 @@ const FilterPanel = ({
         <label className="flex items-center cursor-pointer">
           <input
             type="checkbox"
-            checked={showOnlyDiscounted}
-            onChange={(e) => setShowOnlyDiscounted(e.target.checked)}
+            checked={pendingFilters.showOnlyDiscounted}
+            onChange={(e) => setPendingFilters(prev => ({ ...prev, showOnlyDiscounted: e.target.checked }))}
             className="sr-only"
           />
-          <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${showOnlyDiscounted ? 'bg-blue-900 border-blue-900' : 'border-gray-300'
+          <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${pendingFilters.showOnlyDiscounted ? 'bg-blue-900 border-blue-900' : 'border-gray-300'
             }`}>
-            {showOnlyDiscounted && <Check className="w-3 h-3 text-white" />}
+            {pendingFilters.showOnlyDiscounted && <Check className="w-3 h-3 text-white" />}
           </div>
           <span className="text-sm text-gray-700">On Sale Only</span>
         </label>
@@ -1915,16 +2058,29 @@ const FilterPanel = ({
         <label className="flex items-center cursor-pointer">
           <input
             type="checkbox"
-            checked={showOnlyInStock}
-            onChange={(e) => setShowOnlyInStock(e.target.checked)}
+            checked={pendingFilters.showOnlyInStock}
+            onChange={(e) => setPendingFilters(prev => ({ ...prev, showOnlyInStock: e.target.checked }))}
             className="sr-only"
           />
-          <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${showOnlyInStock ? 'bg-blue-900 border-blue-900' : 'border-gray-300'
+          <div className={`w-5 h-5 border-2 rounded flex items-center justify-center mr-3 ${pendingFilters.showOnlyInStock ? 'bg-blue-900 border-blue-900' : 'border-gray-300'
             }`}>
-            {showOnlyInStock && <Check className="w-3 h-3 text-white" />}
+            {pendingFilters.showOnlyInStock && <Check className="w-3 h-3 text-white" />}
           </div>
           <span className="text-sm text-gray-700">In Stock Only</span>
         </label>
+      </div>
+
+      {/* Apply Filters Button */}
+      <div className="mt-6 pt-6 border-t border-gray-200">
+        <button
+          onClick={applyFilters}
+          className="w-full bg-gradient-to-r from-blue-600 to-blue-700 text-white py-3 px-4 rounded-lg hover:from-blue-700 hover:to-blue-800 transition-all duration-300 font-semibold text-sm hover:scale-105 hover:shadow-xl group relative overflow-hidden flex items-center justify-center space-x-2"
+        >
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-500 to-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+          <Filter className="w-4 h-4 relative z-10 group-hover:animate-bounce" />
+          <span className="relative z-10">Apply Filters</span>
+          <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-700 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
+        </button>
       </div>
     </div>
   );
