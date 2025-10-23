@@ -499,7 +499,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
                       isCategoriesVisible 
                         ? 'opacity-100 translate-y-0 scale-100' 
                         : 'opacity-0 translate-y-8 scale-95'
-                    }`}
+                    } hover:ring-2 hover:ring-blue-300 hover:ring-opacity-50`}
                     style={{
                       transitionDelay: `${index * 150}ms`
                     }}
@@ -526,7 +526,12 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
                       <p className="text-base text-gray-600 font-medium mb-2">
                         {category.productCount} products
                       </p>
-                      <div className="w-12 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                      <div className="flex items-center justify-center gap-2 mt-3">
+                        <div className="w-12 h-1 bg-gradient-to-r from-blue-500 to-purple-500 mx-auto rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <span className="text-xs text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity duration-300 font-medium">
+                          View Products
+                        </span>
+                      </div>
                     </div>
                   </a>
                 ))}
@@ -556,7 +561,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
                       isCategoriesVisible 
                         ? 'opacity-100 translate-y-0 scale-100' 
                         : 'opacity-0 translate-y-6 scale-95'
-                    }`}
+                    } hover:ring-2 hover:ring-blue-300 hover:ring-opacity-50`}
                     style={{
                       transitionDelay: `${index * 100}ms`
                     }}
@@ -573,7 +578,7 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
                       <h3 className="font-semibold text-gray-900 mb-1 text-sm leading-tight group-hover:text-blue-900 transition-colors">
                         {category.name}
                       </h3>
-                      <p className="text-xs text-gray-500 font-medium">
+                      <p className="text-xs text-gray-500 font-medium group-hover:text-blue-600 transition-colors">
                         {category.productCount} products
                       </p>
                     </div>
