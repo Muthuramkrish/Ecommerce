@@ -67,7 +67,7 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
         </a>
         
         {/* Quick View Button */}
-        <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500 flex items-center justify-center">
+        {/* <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-all duration-500 flex items-center justify-center">
           <button
             onClick={(e) => {
               e.preventDefault();
@@ -79,7 +79,7 @@ const ProductCard = ({ product, onAddToCart, onAddToWishlist, isFavorite = false
             <Eye className="w-4 h-4" />
             <span>Quick View</span>
           </button>
-        </div>
+        </div> */}
         
         {/* Shimmer Effect */}
         <div className="absolute inset-0 -translate-x-full group-hover:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent"></div>
