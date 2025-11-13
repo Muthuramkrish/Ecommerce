@@ -1,6 +1,5 @@
 import React from 'react';
 import { Users, Award, Clock, Shield, Zap, Target, Eye, Heart } from 'lucide-react';
-
 const About = () => {
   return (
     <div>
@@ -47,7 +46,6 @@ const About = () => {
           </div>
         </div>
       </section>
-
       {/* Company Story Section */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -80,12 +78,10 @@ const About = () => {
                   className="w-full h-96 object-cover"
                 />
               </div>
-             
             </div>
           </div>
         </div>
       </section>
-
       {/* Mission, Vision, Values */}
       <section className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -93,7 +89,6 @@ const About = () => {
             <h2 className="text-3xl font-bold text-gray-900 mb-4">Our Foundation</h2>
             <div className="w-24 h-1 bg-yellow-400 mx-auto"></div>
           </div>
-
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Mission */}
             <div className="bg-white rounded-3xl shadow-lg p-8 text-center hover:shadow-2xl transition-all duration-500 hover:scale-105 group border border-gray-100/50">
@@ -107,7 +102,6 @@ const About = () => {
                 for their homes and businesses.
               </p>
             </div>
-
             {/* Vision */}
             <div className="bg-white rounded-3xl shadow-lg p-8 text-center hover:shadow-2xl transition-all duration-500 hover:scale-105 group border border-gray-100/50">
               <div className="w-16 h-16 bg-gradient-to-r from-purple-100 to-pink-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
@@ -120,7 +114,6 @@ const About = () => {
                 interaction and product we deliver.
               </p>
             </div>
-
             {/* Values */}
             <div className="bg-white rounded-3xl shadow-lg p-8 text-center hover:shadow-2xl transition-all duration-500 hover:scale-105 group border border-gray-100/50">
               <div className="w-16 h-16 bg-gradient-to-r from-red-100 to-pink-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500 shadow-lg">
@@ -136,7 +129,6 @@ const About = () => {
           </div>
         </div>
       </section>
-
       {/* Why Choose Us */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -199,9 +191,6 @@ const About = () => {
           </div>
         </div>
       </section>
-
-     
-
       {/* Call to Action */}
       <section className="py-16 bg-gradient-to-r from-blue-600 to-purple-600 text-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -224,5 +213,4 @@ const About = () => {
     </div>
   );
 };
-
 export default About;

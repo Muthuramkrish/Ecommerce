@@ -1,5 +1,5 @@
 identifiers_productId,identifiers_sku,identifiers_slug,identifiers_barcode,characteristics_title,characteristics_description,characteristics_images_primary,characteristics_images_offers,characteristics_specifications,characteristics_weight_value,characteristics_weight_unit,characteristics_dimensions_diameter,characteristics_dimensions_height,characteristics_dimensions_unit,anchor_category,anchor_subcategory,anchor_subSubcategory,anchor_brand,anchor_manufacturer,anchor_productType,classification_variants,classification_attributes_material,classification_attributes_certification,classification_attributes_warrantyPeriod,classification_attributes_countryOfOrigin,pricing_basePrice,pricing_comparePrice,pricing_costPrice,pricing_currency,pricing_taxRate,pricing_discounts,inventory_totalQuantity,inventory_availableQuantity,inventory_reservedQuantity,inventory_lowStockThreshold,inventory_bulkQuantityTiers,inventory_trackInventory,inventory_allowBackorder,marketing_tags,marketing_metaTitle,marketing_metaDescription,marketing_keywords,marketing_isActive,marketing_isFeatured,marketing_isBestseller,marketing_featuredOrder,marketing_promotionText,characteristics_dimensions_length,characteristics_dimensions_width,classification_attributes_shape,classification_attributes_baseType
-VK-ELEC-LT-001,LP-24W-005,havells-led-panel-24w-round-warmwhite,8.90E+12,24W Havells LED Panel Light - Round Warm White,"Bright and energy-efficient 24W round LED panel light with warm white glow. Ideal for living rooms, bedrooms, and hospitality spaces with soothing illumination.","https://i0.wp.com/electricbasket.in/wp-content/uploads/2024/09/Crompton-Aura-Ceiling-Fan-1200mm-Dusky-Brown-73.webp?fit=1200%2C1200&ssl=1
+VK-ELEC-LT-001,LP-24W-WW,havells-led-panel-24w-round-warmwhite,8901030875790,24W Havells LED Panel Light - Round Warm White,"Bright and energy-efficient 24W round LED panel light with warm white glow. Ideal for living rooms, bedrooms, and hospitality spaces with soothing illumination.","https://i0.wp.com/electricbasket.in/wp-content/uploads/2024/09/Crompton-Aura-Ceiling-Fan-1200mm-Dusky-Brown-73.webp?fit=1200%2C1200&ssl=1
 
 https://havells.com/media/catalog/product/cache/844a913d283fe95e56e39582c5f2767b/l/u/luxe_deep_recess_5.jpg",https://pimwp.s3-accelerate.amazonaws.com/2021/10/92768-HavellsDentsu.jpg,"group': 'Electrical'
 'name': 'Wattage'
@@ -19,12 +19,25 @@ https://havells.com/media/catalog/product/cache/844a913d283fe95e56e39582c5f2767b
 'group': 'Lighting'
 'name': 'Color Temperature'
 'value': '3000'
-'unit': 'K'",320,grams,300,40,mm,Electrical,Lighting,Round LED Panels,Havells,Havells India Ltd,Lighting Fixture,"type': 'shape'
-'name': 'Round - Warm White'
-'sku': 'LP-24W-RD-WW'
-'price': 975
-'inventory': 95
-'images': 'https://havells.com/media/catalog/product/cache/844a913d283fe95e56e39582c5f2767b/l/u/luxe_deep_recess_5.jpg'",Polycarbonate + Aluminium,"ISI
+'unit': 'K'",320,grams,300,40,mm,Electrical,Lighting,Round LED Panels,Havells,Havells India Ltd,Lighting Fixture,"type': 'wattage'
+'name': '24W'
+'productId': 'VK-ELEC-LT-001'
+'sku': 'LP-24W-WW'
+
+'type': 'wattage'
+'name': '18W'
+'productId': 'VK-ELEC-LT-005'
+'sku': 'LP-18W-CW'
+
+'type': 'wattage'
+'name': '9W'
+'productId': 'VK-ELEC-LT-006'
+'sku': 'LP-9W-CD'
+
+'type': 'wattage'
+'name': '12W'
+'productId': 'VK-ELEC-LT-007'
+'sku': 'LP-12W-RD'",Polycarbonate + Aluminium,"ISI
 BIS
 CE
 RoHS",2 years,India,975,1150,780,INR,18,"type': 'bulk'
@@ -58,7 +71,7 @@ living room lighting",24W Havells LED Panel Round Warm White | Home & Hospitalit
 warm white LED
 home lighting
 hospitality lighting",TRUE,TRUE,TRUE,5,Save 12% this month only,,,,
-VK-ELEC-LT-002,FOCUS-LED-3W-WHT,led-focus-light-3w-white,8.90E+12,3W LED Focus Light - White,"Compact 3W LED focus light with cool white output. Ideal for highlighting décor, artwork, and accent lighting in homes and showrooms.","https://m.media-amazon.com/images/I/617rX4vkxzL._UF1000,1000_QL80_.jpg
+VK-ELEC-LT-002,FOCUS-LED-3W-WHT,led-focus-light-3w-white,8901030893001,3W LED Focus Light - White,"Compact 3W LED focus light with cool white output. Ideal for highlighting dÃ©cor, artwork, and accent lighting in homes and showrooms.","https://m.media-amazon.com/images/I/617rX4vkxzL._UF1000,1000_QL80_.jpg
 
 https://rukminim2.flixcart.com/image/704/844/kxkqavk0/ceiling-lamp/q/j/v/1-12-10-0-5-3-watt-warm-white-adjustable-180-led-spot-wall-track-original-imagayfxzbjzafgh.jpeg?q=90&crop=false
 
@@ -80,12 +93,20 @@ https://5.imimg.com/data5/SELLER/Default/2023/2/GQ/FF/YT/18941606/wall-light-500
 'group': 'Lighting'
 'name': 'Color Temperature'
 'value': '6500K'
-'unit': ''",120,grams,,60,mm,Electrical,Lighting,Focus Lights,Philips,Philips Lighting India Ltd,Fixture,"type': 'color'
-'name': 'White'
+'unit': ''",120,grams,,60,mm,Electrical,Lighting,Focus Lights,Philips,Philips Lighting India Ltd,Fixture,"type': 'wattage'
+'name': '3W'
+'productId': 'VK-ELEC-LT-002'
 'sku': 'FOCUS-LED-3W-WHT'
-'price': 249
-'inventory': 200
-'images': 'https://rukminim2.flixcart.com/image/704/844/kxkqavk0/ceiling-lamp/q/j/v/1-12-10-0-5-3-watt-warm-white-adjustable-180-led-spot-wall-track-original-imagayfxzbjzafgh.jpeg?q=90&crop=false'",Aluminium,"ISI
+
+'type': 'wattage'
+'name': '5W'
+'productId': 'VK-ELEC-LT-003'
+'sku': 'FOCUS-LED-5W-BLK'
+
+'type': 'wattage'
+'name': '7W'
+'productId': 'VK-ELEC-LT-004'
+'sku': 'FOCUS-LED-7W-WW'",Aluminium,"ISI
 CE
 RoHS",1 year,India,249,299,180,INR,18,"type': 'percentage'
 'value': 10
@@ -102,12 +123,12 @@ RoHS",1 year,India,249,299,180,INR,18,"type': 'percentage'
 spotlight
 indoor lighting
 accent light
-3w led",3W LED Focus Light White | Philips | Accent Lighting,"Buy 3W LED Focus Light in White. Energy-efficient, cool white light, ISI certified. Best for décor and showroom lighting.","focus light
+3w led",3W LED Focus Light White | Philips | Accent Lighting,"Buy 3W LED Focus Light in White. Energy-efficient, cool white light, ISI certified. Best for dÃ©cor and showroom lighting.","focus light
 led spotlight
 philips focus light
 3w led lamp
 accent light",TRUE,TRUE,FALSE,1,10% Off for Limited Time,80,80,,
-VK-ELEC-LT-003,FOCUS-LED-5W-BLK,led-focus-light-5w-black,8.90E+12,5W LED Focus Light - Black,"Durable 5W LED focus light with black finish. Provides bright illumination for accent lighting, showrooms, and modern interiors.","https://m.media-amazon.com/images/I/71Z4KxRDWqL.jpg
+VK-ELEC-LT-003,FOCUS-LED-5W-BLK,led-focus-light-5w-black,8901030893002,5W LED Focus Light - Black,"Durable 5W LED focus light with black finish. Provides bright illumination for accent lighting, showrooms, and modern interiors.","https://m.media-amazon.com/images/I/71Z4KxRDWqL.jpg
 
 https://m.media-amazon.com/images/I/61xzCwP3CEL.jpg
 
@@ -129,12 +150,20 @@ https://m.media-amazon.com/images/I/31j4dBcqooL._SS200_.jpg",,"group': 'Electric
 'group': 'Lighting'
 'name': 'Color Temperature'
 'value': '4000K'
-'unit': ''",150,grams,,65,mm,Electrical,Lighting,Focus Lights,Havells,Havells India Ltd,Fixture,"type': 'color'
-'name': 'Black'
+'unit': ''",150,grams,,65,mm,Electrical,Lighting,Focus Lights,Havells,Havells India Ltd,Fixture,"type': 'wattage'
+'name': '3W'
+'productId': 'VK-ELEC-LT-002'
+'sku': 'FOCUS-LED-3W-WHT'
+
+'type': 'wattage'
+'name': '5W'
+'productId': 'VK-ELEC-LT-003'
 'sku': 'FOCUS-LED-5W-BLK'
-'price': 349
-'inventory': 150
-'images': 'https://m.media-amazon.com/images/I/71Z4KxRDWqL.jpg'",Aluminium,"ISI
+
+'type': 'wattage'
+'name': '7W'
+'productId': 'VK-ELEC-LT-004'
+'sku': 'FOCUS-LED-7W-WW'",Aluminium,"ISI
 CE
 RoHS",2 years,India,349,399,250,INR,18,"type': 'flat'
 'value': 30
@@ -151,11 +180,11 @@ RoHS",2 years,India,349,399,250,INR,18,"type': 'flat'
 spotlight
 5w led
 black focus light
-accent lighting",5W LED Focus Light Black | Havells | Indoor Accent Light,"Buy 5W LED Focus Light in Black. Elegant design, 4000K natural light, ISI certified. Perfect for décor and showroom lighting.","led spotlight
+accent lighting",5W LED Focus Light Black | Havells | Indoor Accent Light,"Buy 5W LED Focus Light in Black. Elegant design, 4000K natural light, ISI certified. Perfect for dÃ©cor and showroom lighting.","led spotlight
 havells focus light
 5w led focus
-black spotlight",TRUE,TRUE,TRUE,2,?30 Off - August Offer,85,85,,
-VK-ELEC-LT-004,FOCUS-LED-7W-WW,led-focus-light-7w-warm-white,8.90E+12,7W LED Focus Light - Warm White,"Premium 7W LED focus light with warm white illumination. Ideal for home interiors, restaurants, and retail displays for cozy ambiance.","https://m.media-amazon.com/images/I/51yT6dH1VCL._UF894,1000_QL80_.jpg
+black spotlight",TRUE,TRUE,TRUE,2,â‚¹30 Off - August Offer,85,85,,
+VK-ELEC-LT-004,FOCUS-LED-7W-WW,led-focus-light-7w-warm-white,8901030893003,7W LED Focus Light - Warm White,"Premium 7W LED focus light with warm white illumination. Ideal for home interiors, restaurants, and retail displays for cozy ambiance.","https://m.media-amazon.com/images/I/51yT6dH1VCL._UF894,1000_QL80_.jpg
 
 https://m.media-amazon.com/images/I/61KDTcg965L._UF350,350_QL80_.jpg
 
@@ -177,12 +206,20 @@ https://m.media-amazon.com/images/I/61mE6SJgIhL._UF350,350_QL80_.jpg",,"group': 
 'group': 'Lighting'
 'name': 'Color Temperature'
 'value': '3000K'
-'unit': ''",170,grams,,70,mm,Electrical,Lighting,Focus Lights,Philips,Philips Lighting India Ltd,Fixture,"type': 'color'
-'name': 'Warm White'
-'sku': 'FOCUS-LED-7W-WW'
-'price': 399
-'inventory': 180
-'images': 'https://m.media-amazon.com/images/I/61KDTcg965L._UF350,350_QL80_.jpg'",Aluminium + Polycarbonate,"ISI
+'unit': ''",170,grams,,70,mm,Electrical,Lighting,Focus Lights,Philips,Philips Lighting India Ltd,Fixture,"type': 'wattage'
+'name': '3W'
+'productId': 'VK-ELEC-LT-002'
+'sku': 'FOCUS-LED-3W-WHT'
+
+'type': 'wattage'
+'name': '5W'
+'productId': 'VK-ELEC-LT-003'
+'sku': 'FOCUS-LED-5W-BLK'
+
+'type': 'wattage'
+'name': '7W'
+'productId': 'VK-ELEC-LT-004'
+'sku': 'FOCUS-LED-7W-WW'",Aluminium + Polycarbonate,"ISI
 CE
 RoHS",2 years,India,399,449,270,INR,18,"type': 'percentage'
 'value': 10
@@ -203,7 +240,7 @@ home lighting",7W LED Focus Light Warm White | Philips | Indoor Accent Light,"Sh
 philips spotlight
 7w led warm white
 accent lighting focus light",TRUE,FALSE,FALSE,3,10% Off - Limited Time Offer,90,90,,
-VK-ELEC-LT-005,LED-HAVELLS-18W-PL,havells-led-panel-light-18w,8.90E+12,"Havells LED Panel Light - 18W Round, Cool White","Havells 18W round LED panel light with slim design and high brightness. Ideal for false ceilings, offices, living rooms, and commercial spaces. Provides glare-free, uniform illumination with energy efficiency.","https://i.pinimg.com/736x/35/fd/f8/35fdf81583c902aa0f5a2ae77f9ec6a7.jpg
+VK-ELEC-LT-005,LP-18W-CW,havells-led-panel-light-18w,8901234567986,"Havells LED Panel Light - 18W Round, Cool White","Havells 18W round LED panel light with slim design and high brightness. Ideal for false ceilings, offices, living rooms, and commercial spaces. Provides glare-free, uniform illumination with energy efficiency.","https://i.pinimg.com/736x/35/fd/f8/35fdf81583c902aa0f5a2ae77f9ec6a7.jpg
 
 https://i.pinimg.com/1200x/83/40/7b/83407bb339228efd2d0a4fae6bd4c8f6.jpg
 
@@ -241,25 +278,24 @@ https://i.pinimg.com/1200x/61/de/bc/61debc9cbe5473dd96e6c7a13a5f7ce4.jpg",,"grou
 'name': 'Cutout Size'
 'value': '155'
 'unit': 'mm'",0.35,kg,,35,mm,Electrical,Lighting,LED Panel Lights,Havells,Havells India Ltd.,Lighting Appliance,"type': 'wattage'
-'name': '12W Round'
-'sku': 'LED-HAVELLS-12W-PL'
-'price': 499
-'inventory': 150
-'images': 'https://i.pinimg.com/736x/35/fd/f8/35fdf81583c902aa0f5a2ae77f9ec6a7.jpg'
+'name': '24W'
+'productId': 'VK-ELEC-LT-001'
+'sku': 'LP-24W-WW'
 
 'type': 'wattage'
-'name': '18W Round'
-'sku': 'LED-HAVELLS-18W-PL'
-'price': 699
-'inventory': 220
-'images': 'https://i.pinimg.com/1200x/83/40/7b/83407bb339228efd2d0a4fae6bd4c8f6.jpg'
+'name': '18W'
+'productId': 'VK-ELEC-LT-005'
+'sku': 'LP-18W-CW'
 
 'type': 'wattage'
-'name': '24W Square'
-'sku': 'LED-HAVELLS-24W-PL'
-'price': 899
-'inventory': 100
-'images': 'https://i.pinimg.com/1200x/61/de/bc/61debc9cbe5473dd96e6c7a13a5f7ce4.jpg'",Polycarbonate with Aluminum Heat Sink,"ISI Certified
+'name': '9W'
+'productId': 'VK-ELEC-LT-006'
+'sku': 'LP-9W-CD'
+
+'type': 'wattage'
+'name': '12W'
+'productId': 'VK-ELEC-LT-007'
+'sku': 'LP-12W-RD'",Polycarbonate with Aluminum Heat Sink,"ISI Certified
 BIS Approved
 RoHS Compliant",2 Years,India,699,899,450,INR,12,"type': 'festive'
 'value': 20
@@ -282,8 +318,8 @@ havells lighting
 ceiling lightslim led",Havells 18W LED Panel Light | Slim Round | Cool White,"Buy Havells 18W slim round LED panel light for bright and energy-efficient illumination. Perfect for false ceilings, homes, and offices.","havells led panel light
 18w round panel
 slim ceiling light
-cool white panel",TRUE,TRUE,TRUE,8,Festive Lighting Sale – Save 20%,180,180,,
-VK-ELEC-LT-006,HVL-PL-9W-CD,havells-led-panel-light-9w-cool-daylight,8.90E+12,Havells LED Panel Light - 9W Cool Daylight,"Energy-efficient Havells 9W LED panel light with cool daylight illumination. Slim round design with glare-free lighting, ideal for homes and offices.","https://m.media-amazon.com/images/I/21nnzEzr5VL.jpg
+cool white panel",TRUE,TRUE,TRUE,8,Festive Lighting Sale â€“ Save 20%,180,180,,
+VK-ELEC-LT-006,LP-9W-CD,havells-led-panel-light-9w-cool-daylight,8901234567001,Havells LED Panel Light - 9W Cool Daylight,"Energy-efficient Havells 9W LED panel light with cool daylight illumination. Slim round design with glare-free lighting, ideal for homes and offices.","https://m.media-amazon.com/images/I/21nnzEzr5VL.jpg
 
 https://5.imimg.com/data5/LD/FX/MY-8330064/square-led-panel-500x500.jpg
 
@@ -306,17 +342,30 @@ https://5.imimg.com/data5/ZG/YK/DU/SELLER-40501238/8w-led-panel-light-500x500.jp
 'name': 'Luminous Flux'
 'value': '900'
 'unit': 'lm'",180,grams,,22,mm,Electrical,Lighting,Panel Lights,Havells,Havells India Ltd,Lighting,"type': 'wattage'
-'name': '9W Cool Daylight'
-'sku': 'HVL-PL-9W-CD'
-'price': 420
-'inventory': 120
-'images': 'https://m.media-amazon.com/images/I/21nnzEzr5VL.jpg'",Polycarbonate + Metal Frame,"ISI
+'name': '24W'
+'productId': 'VK-ELEC-LT-001'
+'sku': 'LP-24W-WW'
+
+'type': 'wattage'
+'name': '18W'
+'productId': 'VK-ELEC-LT-005'
+'sku': 'LP-18W-CW'
+
+'type': 'wattage'
+'name': '9W'
+'productId': 'VK-ELEC-LT-006'
+'sku': 'LP-9W-CD'
+
+'type': 'wattage'
+'name': '12W'
+'productId': 'VK-ELEC-LT-007'
+'sku': 'LP-12W-RD'",Polycarbonate + Metal Frame,"ISI
 BIS",2 Years,India,420,500,350,INR,18,,150,120,30,15,,TRUE,FALSE,"havells
 led panel light
 9w panel light",Havells LED Panel Light 9W Cool Daylight,"Buy Havells 9W LED panel light - Cool Daylight. Energy-efficient, slim round design, ideal for modern interiors.","havells 9w led panel
 cool daylight led panel
-round led panel",TRUE,TRUE,,,Special Offer – Save 15%,150,150,Round,
-VK-ELEC-LT-007,PL-LED-12W-RND-RGBDISCO,havells-led-panel-light-12w-round-rgb-disco,8.90E+12,Havells LED Panel Light 12W Round - RGB Disco,"Slim 12W round LED panel light with RGB disco illumination. Energy-efficient, long-lasting, and perfect for modern ceilings in homes, parties, and offices.","https://havells.com/media/catalog/product/cache/844a913d283fe95e56e39582c5f2767b/o/c/octane_gl_led_panel_round_7.jpg
+round led panel",TRUE,TRUE,,,Special Offer â€“ Save 15%,150,150,Round,
+VK-ELEC-LT-007,LP-12W-RD,havells-led-panel-light-12w-round-rgb-disco,8901764563201,Havells LED Panel Light 12W Round - RGB Disco,"Slim 12W round LED panel light with RGB disco illumination. Energy-efficient, long-lasting, and perfect for modern ceilings in homes, parties, and offices.","https://havells.com/media/catalog/product/cache/844a913d283fe95e56e39582c5f2767b/o/c/octane_gl_led_panel_round_7.jpg
 
 https://m.media-amazon.com/images/I/61vDkHSiW0L.jpg
 
@@ -338,12 +387,25 @@ https://m.media-amazon.com/images/I/5155wSmb8jL._UF894,1000_QL80_.jpg",,"group':
 'group': 'Physical'
 'name': 'Shape'
 'value': 'Round'
-'unit': ''",210,grams,,25,mm,Electrical,Lighting,Panel Lights,Havells,Havells India Ltd,Lighting Fixture,"type': 'shape'
-'name': 'Round - RGB Disco'
-'sku': 'PL-LED-12W-RND-RGBDISCO'
-'price': 499
-'inventory': 120
-'images': 'https://m.media-amazon.com/images/I/5155wSmb8jL._UF894,1000_QL80_.jpg'",Polycarbonate + Aluminum,"ISI
+'unit': ''",210,grams,,25,mm,Electrical,Lighting,Panel Lights,Havells,Havells India Ltd,Lighting Fixture,"type': 'wattage'
+'name': '24W'
+'productId': 'VK-ELEC-LT-001'
+'sku': 'LP-24W-WW'
+
+'type': 'wattage'
+'name': '18W'
+'productId': 'VK-ELEC-LT-005'
+'sku': 'LP-18W-CW'
+
+'type': 'wattage'
+'name': '9W'
+'productId': 'VK-ELEC-LT-006'
+'sku': 'LP-9W-CD'
+
+'type': 'wattage'
+'name': '12W'
+'productId': 'VK-ELEC-LT-007'
+'sku': 'LP-12W-RD'",Polycarbonate + Aluminum,"ISI
 BEE
 RoHS",2 years,India,499,650,375,INR,18,"type': 'percentage'
 'value': 10
@@ -369,7 +431,7 @@ RGB Disco Light",Havells LED Panel Light 12W Round RGB Disco | Slim Design | 2 Y
 havells ceiling light
 led slim panel
 rgb disco panel light",TRUE,TRUE,TRUE,1,10% Off This Month,170,170,,
-VK-ELEC-LT-008,BLB-PHILIPS-9W,philips-led-bulb-9w,8.90E+12,"Philips LED Bulb - 9W, Cool Daylight","Philips 9W LED bulb with bright cool daylight (6500K) illumination. Energy-efficient, long-lasting, and eco-friendly replacement for traditional CFL/incandescent bulbs.","https://i.pinimg.com/1200x/b4/49/b8/b449b899293318ead106de4d4fbf844f.jpg
+VK-ELEC-LT-008,PH-LED-9W-CL,philips-led-bulb-9w-cool-daylight,8901234567932,"Philips LED Bulb - 9W, Cool Daylight","Philips 9W LED bulb with bright cool daylight (6500K) illumination. Energy-efficient, long-lasting, and eco-friendly replacement for traditional CFL/incandescent bulbs.","https://i.pinimg.com/1200x/b4/49/b8/b449b899293318ead106de4d4fbf844f.jpg
 
 https://i.pinimg.com/736x/17/d1/68/17d168dacfa92c73c02d0bdf68e89b6e.jpg
 
@@ -397,25 +459,24 @@ https://i.pinimg.com/736x/17/d1/68/17d168dacfa92c73c02d0bdf68e89b6e.jpg",,"group
 'name': 'Base Type'
 'value': 'B22 (Pin Type)'
 'unit': ''",0.12,kg,,100,mm,Electrical,Lighting,LED Bulbs,Philips,Signify Innovations India Ltd.,Lighting Appliance,"type': 'wattage'
-'name': '7W'
-'sku': 'BLB-PHILIPS-7W'
-'price': 119
-'inventory': 120
-'images': 'https://i.pinimg.com/1200x/b4/49/b8/b449b899293318ead106de4d4fbf844f.jpg'
-
-'type': 'wattage'
 'name': '9W'
-'sku': 'BLB-PHILIPS-9W'
-'price': 149
-'inventory': 200
-'images': 'https://i.pinimg.com/736x/17/d1/68/17d168dacfa92c73c02d0bdf68e89b6e.jpg'
+'productId': 'VK-ELEC-LT-008'
+'sku': 'PH-LED-9W-CL'
 
 'type': 'wattage'
 'name': '12W'
-'sku': 'BLB-PHILIPS-12W'
-'price': 199
-'inventory': 100
-'images': 'https://i.pinimg.com/736x/17/d1/68/17d168dacfa92c73c02d0bdf68e89b6e.jpg'",Polycarbonate Body with Aluminum Heat Sink,"ISI Certified
+'productId': 'VK-ELEC-LT-009'
+'sku': 'PH-LED-12W-WW'
+
+'type': 'wattage'
+'name': '15W'
+'productId': 'VK-ELEC-LT-010'
+'sku': 'FOCUS-LED-15W-DW'
+
+'type': 'wattage'
+'name': '20W'
+'productId': 'VK-ELEC-LT-011'
+'sku': 'FOCUS-LED-20W-CD'",Polycarbonate Body with Aluminum Heat Sink,"ISI Certified
 BIS Approved
 RoHS Compliant",2 Years,India,149,199,90,INR,12,"type': 'seasonal'
 'value': 15
@@ -438,8 +499,8 @@ philips lighting
 energy saving bulb",Philips LED Bulb 9W | Cool Daylight | Energy Efficient,"Philips 9W LED Bulb with 900 lumens brightness. Long-lasting, eco-friendly, energy-saving LED light for homes and offices.","philips led bulb
 9w bulb
 energy saving light
-cool daylight bulb",TRUE,TRUE,TRUE,5,Diwali Lighting Sale – 15% Off,55,55,,
-VK-ELEC-LT-009,PH-LED-12W-WW,philips-led-bulb-12w-warm-white,8.90E+12,Philips LED Bulb 12W - Warm White,"Bright and energy-efficient 12W LED bulb with warm white light (yellowish tone). Ideal for living rooms, bedrooms, and ambient lighting with a cozy effect.","https://www.jiomart.com/images/product/original/rvmc8rqqtb/philips-12w-e27-led-bulb-pack-of-1-929001176214-product-images-orvmc8rqqtb-p606727504-0-202312141712.jpg?im=Resize=(420,420)
+cool daylight bulb",TRUE,TRUE,TRUE,5,Diwali Lighting Sale â€“ 15% Off,55,55,,
+VK-ELEC-LT-009,PH-LED-12W-WW,philips-led-bulb-12w-warm-white,8901030889002,Philips LED Bulb 12W - Warm White,"Bright and energy-efficient 12W LED bulb with warm white light (yellowish tone). Ideal for living rooms, bedrooms, and ambient lighting with a cozy effect.","https://www.jiomart.com/images/product/original/rvmc8rqqtb/philips-12w-e27-led-bulb-pack-of-1-929001176214-product-images-orvmc8rqqtb-p606727504-0-202312141712.jpg?im=Resize=(420,420)
 
 https://rukminim2.flixcart.com/image/704/844/xif0q/bulb/f/a/k/929003675001-5-philips-original-imagsfbyhwr3ghsg.jpeg?q=90&crop=false
 
@@ -462,11 +523,24 @@ https://in.shop.lighting.philips.com/cdn/shop/files/PhilipsAceSaverLEDBulb3.png?
 'name': 'Lumens'
 'value': '1200'
 'unit': 'lm'",95,grams,,115,mm,Electrical,Lighting,LED Bulbs,Philips,Signify Innovations India Ltd,Lighting,"type': 'wattage'
-'name': '12W Warm White'
+'name': '9W'
+'productId': 'VK-ELEC-LT-008'
+'sku': 'PH-LED-9W-CL'
+
+'type': 'wattage'
+'name': '12W'
+'productId': 'VK-ELEC-LT-009'
 'sku': 'PH-LED-12W-WW'
-'price': 160
-'inventory': 400
-'images': 'https://www.jiomart.com/images/product/original/rvmc8rqqtb/philips-12w-e27-led-bulb-pack-of-1-929001176214-product-images-orvmc8rqqtb-p606727504-0-202312141712.jpg?im=Resize=(420,420)'",Polycarbonate,"ISI
+
+'type': 'wattage'
+'name': '15W'
+'productId': 'VK-ELEC-LT-010'
+'sku': 'FOCUS-LED-15W-DW'
+
+'type': 'wattage'
+'name': '20W'
+'productId': 'VK-ELEC-LT-011'
+'sku': 'FOCUS-LED-20W-CD'",Polycarbonate,"ISI
 BIS
 CE",1 year,India,160,190,120,INR,18,"type': 'bulk'
 'value': 10
@@ -497,8 +571,8 @@ warm white
 lighting",Philips 12W LED Bulb Warm White | Energy Efficient Lighting,"Buy Philips 12W LED bulb in warm white. Bright, long-lasting, and energy-saving bulb with a cozy yellowish glow for homes.","philips led bulb
 12w bulb
 warm white led
-energy saving bulb",TRUE,FALSE,TRUE,2,15% Off – Limited Time,65,65,,B22
-VK-ELEC-LT-010,PH-LED-15W-DW,philips-led-bulb-15w-daylight-white,8.90E+12,Philips LED Bulb 15W - Daylight White,"Powerful and long-lasting 15W LED bulb that delivers bright daylight white illumination. Perfect for offices, study rooms, and areas needing strong visibility.","https://rukminim2.flixcart.com/image/704/844/xif0q/bulb/x/z/m/1-929003668801-1-philips-original-imagz5s3fkffwzv5.jpeg?q=90&crop=false
+energy saving bulb",TRUE,FALSE,TRUE,2,15% Off â€“ Limited Time,65,65,,B22
+VK-ELEC-LT-010,PH-LED-15W-DW,philips-led-bulb-15w-daylight-white,8901030889003,Philips LED Bulb 15W - Daylight White,"Powerful and long-lasting 15W LED bulb that delivers bright daylight white illumination. Perfect for offices, study rooms, and areas needing strong visibility.","https://rukminim2.flixcart.com/image/704/844/xif0q/bulb/x/z/m/1-929003668801-1-philips-original-imagz5s3fkffwzv5.jpeg?q=90&crop=false
 
 https://5.imimg.com/data5/SELLER/Default/2024/12/472302891/LV/JI/QL/191580638/whatsapp-image-2024-12-10-at-11-44-55-am-1-500x500.jpeg
 
@@ -521,11 +595,24 @@ https://5.imimg.com/data5/SELLER/Default/2022/4/FM/SP/HU/50532274/7w-philips-led
 'name': 'Lumens'
 'value': '1500'
 'unit': 'lm'",110,grams,,120,mm,Electrical,Lighting,LED Bulbs,Philips,Signify Innovations India Ltd,Lighting,"type': 'wattage'
-'name': '15W Daylight White'
-'sku': 'PH-LED-15W-DW'
-'price': 200
-'inventory': 300
-'images': 'https://rukminim2.flixcart.com/image/704/844/xif0q/bulb/x/z/m/1-929003668801-1-philips-original-imagz5s3fkffwzv5.jpeg?q=90&crop=false'",Polycarbonate,"ISI
+'name': '9W'
+'productId': 'VK-ELEC-LT-008'
+'sku': 'PH-LED-9W-CL'
+
+'type': 'wattage'
+'name': '12W'
+'productId': 'VK-ELEC-LT-009'
+'sku': 'PH-LED-12W-WW'
+
+'type': 'wattage'
+'name': '15W'
+'productId': 'VK-ELEC-LT-010'
+'sku': 'FOCUS-LED-15W-DW'
+
+'type': 'wattage'
+'name': '20W'
+'productId': 'VK-ELEC-LT-011'
+'sku': 'FOCUS-LED-20W-CD'",Polycarbonate,"ISI
 BIS
 CE",2 years,India,200,240,160,INR,18,"type': 'bulk'
 'value': 10
@@ -556,8 +643,8 @@ daylight white
 bright lighting",Philips 15W LED Bulb Daylight White | Bright Energy-Efficient Lighting,"Get Philips 15W LED bulb in daylight white. Provides bright, powerful illumination for offices, study rooms, and high-visibility areas.","philips led bulb
 15w bulb
 daylight white led
-bright led bulb",TRUE,TRUE,TRUE,3,12% Off – Back to School Offer,70,70,,B22
-VK-ELEC-LT-011,PH-LED-20W-CD,philips-led-bulb-20w-cool-daylight,8.90E+12,Philips LED Bulb 20W - Cool Daylight,"High-power 20W LED bulb that provides bright cool daylight illumination. Ideal for large living rooms, commercial spaces, and study areas requiring strong visibility.","https://m.media-amazon.com/images/I/71oqj7hAefL.jpg
+bright led bulb",TRUE,TRUE,TRUE,3,12% Off â€“ Back to School Offer,70,70,,B22
+VK-ELEC-LT-011,PH-LED-20W-CD,philips-led-bulb-20w-cool-daylight,8901030889004,Philips LED Bulb 20W - Cool Daylight,"High-power 20W LED bulb that provides bright cool daylight illumination. Ideal for large living rooms, commercial spaces, and study areas requiring strong visibility.","https://m.media-amazon.com/images/I/71oqj7hAefL.jpg
 
 https://m.media-amazon.com/images/I/51Fa-ObfnuL.jpg
 
@@ -580,11 +667,24 @@ https://5.imimg.com/data5/ECOM/Default/2023/10/354538427/TD/WK/UA/2663306/philip
 'name': 'Lumens'
 'value': '2000'
 'unit': 'lm'",150,grams,,135,mm,Electrical,Lighting,LED Bulbs,Philips,Signify Innovations India Ltd,Lighting,"type': 'wattage'
-'name': '20W Cool Daylight'
-'sku': 'PH-LED-20W-CD'
-'price': 260
-'inventory': 220
-'images': 'https://m.media-amazon.com/images/I/71oqj7hAefL.jpg'",Polycarbonate,"ISI
+'name': '9W'
+'productId': 'VK-ELEC-LT-008'
+'sku': 'PH-LED-9W-CL'
+
+'type': 'wattage'
+'name': '12W'
+'productId': 'VK-ELEC-LT-009'
+'sku': 'PH-LED-12W-WW'
+
+'type': 'wattage'
+'name': '15W'
+'productId': 'VK-ELEC-LT-010'
+'sku': 'FOCUS-LED-15W-DW'
+
+'type': 'wattage'
+'name': '20W'
+'productId': 'VK-ELEC-LT-011'
+'sku': 'FOCUS-LED-20W-CD'",Polycarbonate,"ISI
 BIS
 CE",2 years,India,260,300,200,INR,18,"type': 'bulk'
 'value': 10
@@ -615,8 +715,8 @@ cool daylight
 energy efficient",Philips 20W LED Bulb Cool Daylight | Bright Long-Lasting Lighting,"Buy Philips 20W LED bulb with cool daylight white color. Perfect for large living rooms, commercial and study spaces needing high brightness.","philips led bulb
 20w led bulb
 cool daylight bulb
-bright philips bulb",TRUE,TRUE,FALSE,4,15% Off – Festival Offer,75,75,,B22
-VK-ELEC-LT-012,PHL-TL-16W-NW,philips-led-tube-light-16w-natural-white,8.90E+12,Philips LED Tube Light - 16W Natural White,"Energy-efficient 16W LED tube light from Philips in natural white color. Long lifespan, easy installation, and suitable for residential and commercial lighting.","https://m.media-amazon.com/images/I/41Fd+tsPqJL.jpg
+bright philips bulb",TRUE,TRUE,FALSE,4,15% Off â€“ Festival Offer,75,75,,B22
+VK-ELEC-LT-012,PH-TL-16W-NW,philips-led-tube-light-16w-natural-white,8901234567001,Philips LED Tube Light - 16W Natural White,"Energy-efficient 16W LED tube light from Philips in natural white color. Long lifespan, easy installation, and suitable for residential and commercial lighting.","https://m.media-amazon.com/images/I/41Fd+tsPqJL.jpg
 
 https://5.imimg.com/data5/MW/SN/MY-37054313/philips-warm-white-led-tube-light.jpg
 
@@ -638,12 +738,25 @@ https://in.shop.lighting.philips.com/cdn/shop/files/PhilipsAstraLineLEDTubelight
 'group': 'Technical'
 'name': 'Color Temperature'
 'value': '4000'
-'unit': 'K'",200,grams,,28,mm,Electrical,Lighting,LED Tube Lights,Philips,Philips India Ltd,Component,"type': 'colorTemperature'
-'name': 'Natural White'
-'sku': 'PHL-TL-16W-NW'
-'price': 250
-'inventory': 100
-'images': 'https://m.media-amazon.com/images/I/41Fd+tsPqJL.jpg'",Polycarbonate,"ISI
+'unit': 'K'",200,grams,,28,mm,Electrical,Lighting,LED Tube Lights,Philips,Philips India Ltd,Component,"type': 'wattage'
+'name': '16W'
+'productId': 'VK-ELEC-LT-012'
+'sku': 'PH-TL-16W-NW'
+
+'type': 'wattage'
+'name': '18W'
+'productId': 'VK-ELEC-LT-013'
+'sku': 'PH-TL-18W-WW'
+
+'type': 'wattage'
+'name': '20W'
+'productId': 'VK-ELEC-LT-014'
+'sku': 'PH-TL-20W-CW'
+
+'type': 'wattage'
+'name': '22W'
+'productId': 'VK-ELEC-LT-015'
+'sku': 'PH-TL-22W-CW'",Polycarbonate,"ISI
 BIS",1 year,India,250,300,200,INR,18,"type': 'bulk'
 'value': 10
 'minQuantity': 50
@@ -674,7 +787,7 @@ philips",Philips 16W LED Tube Light Natural White | Energy Efficient,"Buy Philip
 16w tube light
 philips led
 natural white lighting",TRUE,TRUE,TRUE,1,15% Off This Month,600,28,,
-VK-ELEC-LT-013,PHL-TL-18W-WW,philips-led-tube-light-18w-warm-white,8.90E+12,Philips LED Tube Light - 18W Warm White,"Soft and comfortable 18W LED tube light from Philips in warm white color. Perfect for homes, hotels, and indoor spaces, offering energy efficiency and long lifespan.","https://cdn.bltdirect.com/images/Philips-165W-T5-LED-Tube-HF-High-Efficiency-Master-1150mm-Daylight-28-Watt-Alternative-1-500x500.jpg
+VK-ELEC-LT-013,PH-TL-18W-WW,philips-led-tube-light-18w-warm-white,8901234567003,Philips LED Tube Light - 18W Warm White,"Soft and comfortable 18W LED tube light from Philips in warm white color. Perfect for homes, hotels, and indoor spaces, offering energy efficiency and long lifespan.","https://cdn.bltdirect.com/images/Philips-165W-T5-LED-Tube-HF-High-Efficiency-Master-1150mm-Daylight-28-Watt-Alternative-1-500x500.jpg
 
 https://www.any-lamp.co.uk/media/catalog/product/cache/7ae67e0322c4f23a0a755864858fc8ed/a/s/asddasdad.webp",,"group': 'Electrical'
 'name': 'Power'
@@ -694,12 +807,25 @@ https://www.any-lamp.co.uk/media/catalog/product/cache/7ae67e0322c4f23a0a7558648
 'group': 'Technical'
 'name': 'Color Temperature'
 'value': '3000'
-'unit': 'K'",250,grams,,28,mm,Electrical,Lighting,LED Tube Lights,Philips,Philips India Ltd,Component,"type': 'colorTemperature'
-'name': 'Warm White'
-'sku': 'PHL-TL-18W-WW'
-'price': 270
-'inventory': 180
-'images': 'https://5.imimg.com/data5/SELLER/Default/2023/4/298662417/YD/WW/DE/32233340/ecofit-led-tube-18w-2100lm.jpg'",Polycarbonate,"ISI
+'unit': 'K'",250,grams,,28,mm,Electrical,Lighting,LED Tube Lights,Philips,Philips India Ltd,Component,"type': 'wattage'
+'name': '16W'
+'productId': 'VK-ELEC-LT-012'
+'sku': 'PH-TL-16W-NW'
+
+'type': 'wattage'
+'name': '18W'
+'productId': 'VK-ELEC-LT-013'
+'sku': 'PH-TL-18W-WW'
+
+'type': 'wattage'
+'name': '20W'
+'productId': 'VK-ELEC-LT-014'
+'sku': 'PH-TL-20W-CW'
+
+'type': 'wattage'
+'name': '22W'
+'productId': 'VK-ELEC-LT-015'
+'sku': 'PH-TL-22W-CW'",Polycarbonate,"ISI
 BIS",1 year,India,270,320,220,INR,18,"type': 'bulk'
 'value': 10
 'minQuantity': 50
@@ -730,7 +856,7 @@ philips",Philips 18W LED Tube Light Warm White | Energy Efficient,"Buy Philips 1
 18w tube light
 philips led
 warm white lighting",TRUE,TRUE,TRUE,3,15% Off This Month,900,28,,
-VK-ELEC-LT-014,LED-PHILIPS-20W-TUBE,philips-led-tube-light-20w,8.90E+12,"Philips LED Tube Light - 20W Batten, Cool White","Philips 20W LED batten tube light with glare-free bright light and energy efficiency. Slim design suitable for homes, offices, and commercial spaces. Ensures uniform light distribution with long life LED technology.","https://5.imimg.com/data5/SELLER/Default/2021/12/KR/BA/OZ/11555977/philips-slimline-led-batten-20w-1000x1000.jpg
+VK-ELEC-LT-014,PH-TL-20WB-CW,philips-led-tube-light-20w,8901234567999,"Philips LED Tube Light - 20W Batten, Cool White","Philips 20W LED batten tube light with glare-free bright light and energy efficiency. Slim design suitable for homes, offices, and commercial spaces. Ensures uniform light distribution with long life LED technology.","https://5.imimg.com/data5/SELLER/Default/2021/12/KR/BA/OZ/11555977/philips-slimline-led-batten-20w-1000x1000.jpg
 
 https://5.imimg.com/data5/FT/VE/TJ/SELLER-47548193/philips-slim-line-20w-led-batten-6500k-cool-day-light--1000x1000.png
 
@@ -768,25 +894,24 @@ https://m.media-amazon.com/images/I/41v0PheDigL._SL1080_.jpg",,"group': 'Perform
 'name': 'Length'
 'value': '1200'
 'unit': 'mm'",0.45,kg,,25,mm,Electrical,Lighting,LED Tube Lights,Philips,Signify Innovations India Ltd.,Lighting Appliance,"type': 'wattage'
-'name': '10W LED Batten'
-'sku': 'LED-PHILIPS-10W-TUBE'
-'price': 349
-'inventory': 120
-'images': 'https://5.imimg.com/data5/SELLER/Default/2021/12/KR/BA/OZ/11555977/philips-slimline-led-batten-20w-1000x1000.jpg'
+'name': '16W'
+'productId': 'VK-ELEC-LT-012'
+'sku': 'PH-TL-16W-NW'
 
 'type': 'wattage'
-'name': '20W LED Batten'
-'sku': 'LED-PHILIPS-20W-TUBE'
-'price': 549
-'inventory': 200
-'images': 'https://5.imimg.com/data5/FT/VE/TJ/SELLER-47548193/philips-slim-line-20w-led-batten-6500k-cool-day-light--1000x1000.png'
+'name': '18W'
+'productId': 'VK-ELEC-LT-013'
+'sku': 'PH-TL-18W-WW'
 
 'type': 'wattage'
-'name': '24W LED Batten'
-'sku': 'LED-PHILIPS-24W-TUBE'
-'price': 699
-'inventory': 90
-'images': 'https://m.media-amazon.com/images/I/41v0PheDigL._SL1080_.jpg'",Polycarbonate Housing with Aluminum Heat Sink,"ISI Certified
+'name': '20W'
+'productId': 'VK-ELEC-LT-014'
+'sku': 'PH-TL-20W-CW'
+
+'type': 'wattage'
+'name': '22W'
+'productId': 'VK-ELEC-LT-015'
+'sku': 'PH-TL-22W-CW'",Polycarbonate Housing with Aluminum Heat Sink,"ISI Certified
 BIS Approved
 RoHS Compliant",2 Years,India,549,699,350,INR,12,"type': 'festive'
 'value': 15
@@ -810,8 +935,8 @@ slim tube light
 cool white",Philips 20W LED Tube Light | Batten | Cool White | Energy Efficient,"Shop Philips 20W LED tube batten light for bright, uniform, and energy-efficient lighting. Perfect for homes, offices, and commercial use.","philips led tube
 20w batten light
 tube light led
-philips lighting",TRUE,TRUE,TRUE,9,Festive Lighting Offer – Save 15%,1200,35,,
-VK-ELEC-LT-015,PHL-TL-22W-CW,philips-led-tube-light-22w-cool-white,8.90E+12,Philips LED Tube Light - 22W Cool White,"Bright 22W LED tube light from Philips in cool white color. High efficiency, long lifespan, and ideal for offices and commercial spaces.","https://www.orangevolt.in/cdn/shop/files/Philips_StarLine_Pro.png?v=1739307140
+philips lighting",TRUE,TRUE,TRUE,9,Festive Lighting Offer â€“ Save 15%,1200,35,,
+VK-ELEC-LT-015,PH-TL-22W-CW,philips-led-tube-light-22w-cool-white,8901234567002,Philips LED Tube Light - 22W Cool White,"Bright 22W LED tube light from Philips in cool white color. High efficiency, long lifespan, and ideal for offices and commercial spaces.","https://www.orangevolt.in/cdn/shop/files/Philips_StarLine_Pro.png?v=1739307140
 
 https://www.orangevolt.in/cdn/shop/files/22wStarlineProLEDBattenCDL.png?v=1739307149",,"group': 'Electrical'
 'name': 'Power'
@@ -831,12 +956,25 @@ https://www.orangevolt.in/cdn/shop/files/22wStarlineProLEDBattenCDL.png?v=173930
 'group': 'Technical'
 'name': 'Color Temperature'
 'value': '6500'
-'unit': 'K'",320,grams,,28,mm,Electrical,Lighting,LED Tube Lights,Philips,Philips India Ltd,Component,"type': 'colorTemperature'
-'name': 'Cool White'
-'sku': 'PHL-TL-22W-CW'
-'price': 300
-'inventory': 150
-'images': 'https://www.orangevolt.in/cdn/shop/files/22wStarlineProLEDBattenCDL.png?v=1739307149'",Polycarbonate,"ISI
+'unit': 'K'",320,grams,,28,mm,Electrical,Lighting,LED Tube Lights,Philips,Philips India Ltd,Component,"type': 'wattage'
+'name': '16W'
+'productId': 'VK-ELEC-LT-012'
+'sku': 'PH-TL-16W-NW'
+
+'type': 'wattage'
+'name': '18W'
+'productId': 'VK-ELEC-LT-013'
+'sku': 'PH-TL-18W-WW'
+
+'type': 'wattage'
+'name': '20W'
+'productId': 'VK-ELEC-LT-014'
+'sku': 'PH-TL-20W-CW'
+
+'type': 'wattage'
+'name': '22W'
+'productId': 'VK-ELEC-LT-015'
+'sku': 'PH-TL-22W-CW'",Polycarbonate,"ISI
 BIS",1 year,India,300,350,240,INR,18,"type': 'bulk'
 'value': 10
 'minQuantity': 50

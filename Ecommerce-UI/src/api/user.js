@@ -18,8 +18,45 @@ const getAuthToken = () => {
 
 // Helper function to check if user is authenticated
 export const isAuthenticated = () => {
-  const token = getAuthToken();
-  return !!token;
+  try {
+    const user = localStorage.getItem('currentUser');
+    if (!user) return false;
+    
+    const parsedUser = JSON.parse(user);
+    
+    // Check if token exists
+    if (!parsedUser.token) return false;
+    
+    // Validate token format (JWT must have 3 parts)
+    const token = parsedUser.token;
+    const parts = token.split('.');
+    if (parts.length !== 3) {
+      localStorage.removeItem('currentUser');
+      return false;
+    }
+    
+    try {
+      const payload = JSON.parse(atob(parts[1]));
+      const currentTime = Date.now() / 1000;
+      
+      // If token has expiration, check it
+      if (payload.exp && payload.exp < currentTime) {
+        // Token expired, clean up
+        localStorage.removeItem('currentUser');
+        return false;
+      }
+    } catch (e) {
+      // If we can't parse the token payload, it might still be valid
+      // (some tokens don't have standard JWT format)
+      console.warn('Could not parse token payload, but token exists');
+    }
+    
+    return true;
+  } catch (error) {
+    console.error('Error checking authentication:', error);
+    localStorage.removeItem('currentUser');
+    return false;
+  }
 };
 
 // Helper function to get current user info
@@ -88,6 +125,7 @@ export const signUpUser = async (data = {}) => {
 
   if (!response.ok) {
     const errorData = await response.json();
+    console.error('Signup error details:', errorData);
     throw new Error(errorData.message || `Signup failed: ${response.status}`);
   }
 
@@ -207,6 +245,54 @@ export const syncCart = async (cartItems) => {
 };
 
 // ================================
+// ADDRESS MANAGEMENT API CALLS
+// ================================
+
+// Get All Addresses
+export const getAddresses = async () => {
+  return await apiCall(`${API_BASE_URL}/api/user/addresses`);
+};
+
+// Save Address (Create or Update)
+export const saveAddress = async (address) => {
+  return await apiCall(`${API_BASE_URL}/api/user/addresses`, {
+    method: 'POST',
+    body: JSON.stringify({ address })
+  });
+};
+
+// Delete Address
+export const deleteAddress = async (addressId) => {
+  return await apiCall(`${API_BASE_URL}/api/user/addresses/${addressId}`, {
+    method: 'DELETE'
+  });
+};
+
+// ================================
+// COMPANY ADDRESS MANAGEMENT API CALLS
+// ================================
+
+// Get All Company Addresses
+export const getCompanyAddresses = async () => {
+  return await apiCall(`${API_BASE_URL}/api/user/company-addresses`);
+};
+
+// Save Company Address (Create or Update)
+export const saveCompanyAddress = async (addressData) => {
+  return await apiCall(`${API_BASE_URL}/api/user/company-addresses`, {
+    method: 'POST',
+    body: JSON.stringify({ address: addressData }) 
+  });
+};
+
+// Delete Company Address
+export const deleteCompanyAddress = async (addressId) => {
+  return await apiCall(`${API_BASE_URL}/api/user/company-addresses/${addressId}`, {
+    method: 'DELETE'
+  });
+};
+
+// ================================
 // CHECKOUT/ORDER API CALLS
 // ================================
 
@@ -240,6 +326,30 @@ export const updateOrderStatus = async (orderId, status, trackingId = null) => {
   });
 };
 
+// Cancel Order
+export const cancelOrder = async (orderId, cancellationReason = '') => {
+  return await apiCall(`${API_BASE_URL}/api/user/orders/${orderId}/cancel`, {
+    method: 'PUT',
+    body: JSON.stringify({ cancellationReason })
+  });
+};
+
+// Return Order
+export const returnOrder = async (orderId, returnReason = '') => {
+  return await apiCall(`${API_BASE_URL}/api/user/orders/${orderId}/return`, {
+    method: 'PUT',
+    body: JSON.stringify({ returnReason })
+  });
+};
+
+// Update Order Shipping Information
+export const updateOrderShipping = async (orderId, shippingData) => {
+  return await apiCall(`${API_BASE_URL}/api/user/orders/${orderId}/shipping`, {
+    method: 'PUT',
+    body: JSON.stringify(shippingData)
+  });
+};
+
 // ================================
 // BULK ORDER API CALLS
 // ================================
@@ -267,5 +377,21 @@ export const updateBulkOrderStatus = async (bulkOrderId, updateData) => {
   return await apiCall(`${API_BASE_URL}/api/user/bulk-orders/${bulkOrderId}/status`, {
     method: 'PUT',
     body: JSON.stringify(updateData)
+  });
+};
+
+// Cancel Bulk Order
+export const cancelBulkOrder = async (bulkOrderId, cancellationReason = '') => {
+  return await apiCall(`${API_BASE_URL}/api/user/bulk-orders/${bulkOrderId}/cancel`, {
+    method: 'PUT',
+    body: JSON.stringify({ cancellationReason })
+  });
+};
+
+// Update Bulk Order Company Information
+export const updateBulkOrderCompanyInfo = async (bulkOrderId, companyAddressId) => {
+  return await apiCall(`${API_BASE_URL}/api/user/bulk-orders/${bulkOrderId}/company-info`, {
+    method: 'PUT',
+    body: JSON.stringify({ companyAddressId })
   });
 };

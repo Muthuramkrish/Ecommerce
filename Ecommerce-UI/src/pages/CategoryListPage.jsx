@@ -59,6 +59,9 @@ const CategoryListPage = ({
   const [showOnlyInStock, setShowOnlyInStock] = React.useState(false);
   const [filteredProducts, setFilteredProducts] = React.useState(products);
   const [isFiltering, setIsFiltering] = useState(false);
+  // Suppress one-time cleanup after route-driven filter updates to avoid
+  // removing freshly applied sub-subcategory before products re-filter
+  const suppressCleanupRef = React.useRef(false);
 
   // Sync selected filters when route-provided initialFilters or category changes
   React.useEffect(() => {
@@ -68,6 +71,10 @@ const CategoryListPage = ({
       setSelectedCategories(initialFilters.category || []);
       setSelectedSubcategories(initialFilters.subcategory || []);
       setSelectedSubSubcategories(initialFilters.subSubcategory || []);
+      // On route-provided filter change, reset filteredProducts to full
+      // product list and suppress cleanup once so new options remain valid
+      setFilteredProducts(products);
+      suppressCleanupRef.current = true;
     } else {
       setSelectedBrands([]);
       setSelectedProductTypes([]);
@@ -251,6 +258,34 @@ const CategoryListPage = ({
     return [...new Set(warranties)].sort();
   };
 
+  // Resolve parent subcategory for a given sub-subcategory from full product list
+  const getParentSubcategoryFor = (subSubcategory) => {
+    const target = String(subSubcategory || '').toLowerCase();
+    const match = (products || []).find((p) => {
+      const a = p?.raw?.anchor || p?.anchor || {};
+      return String(a?.subSubcategory || '').toLowerCase() === target;
+    });
+    if (!match) return '';
+    const a = match?.raw?.anchor || match?.anchor || {};
+    return a?.subcategory || '';
+  };
+
+  // Keep parent subcategory selected whenever a sub-subcategory is selected
+  React.useEffect(() => {
+    if (!Array.isArray(selectedSubSubcategories) || selectedSubSubcategories.length === 0) return;
+    const parents = Array.from(new Set(selectedSubSubcategories
+      .map((ssc) => getParentSubcategoryFor(ssc))
+      .filter(Boolean)));
+    if (parents.length === 0) return;
+    setSelectedSubcategories((prev) => {
+      const missing = parents.filter((p) => !prev.includes(p));
+      if (missing.length === 0) return prev;
+      // Avoid immediate cleanup from pruning during this sync
+      suppressCleanupRef.current = true;
+      return [...prev, ...missing];
+    });
+  }, [selectedSubSubcategories, products]);
+
   // Use available options based on current filtered products
   const brands = getAvailableBrands();
   const productTypes = getAvailableProductTypes();
@@ -266,6 +301,11 @@ const CategoryListPage = ({
 
   // Silently clean up selected filters that are no longer available
   React.useEffect(() => {
+    // Skip one cycle of cleanup right after applying new route filters
+    if (suppressCleanupRef.current) {
+      suppressCleanupRef.current = false;
+      return;
+    }
     // Remove brands that are no longer available
     if (selectedBrands.length > 0) {
       const availableBrands = brands;
@@ -293,10 +333,17 @@ const CategoryListPage = ({
       }
     }
 
-    // Remove subcategories that are no longer available
+    // Remove subcategories that are no longer available, but NEVER remove
+    // any parent subcategory that corresponds to a currently selected
+    // sub-subcategory.
     if (selectedSubcategories.length > 0) {
       const availableSubcategories = subcategories;
-      const validSubcategories = selectedSubcategories.filter(subcat => availableSubcategories.includes(subcat));
+      const protectedParents = new Set(
+        (selectedSubSubcategories || []).map(ssc => getParentSubcategoryFor(ssc)).filter(Boolean)
+      );
+      const validSubcategories = selectedSubcategories.filter(subcat =>
+        availableSubcategories.includes(subcat) || protectedParents.has(subcat)
+      );
       if (validSubcategories.length !== selectedSubcategories.length) {
         setSelectedSubcategories(validSubcategories);
       }
@@ -633,6 +680,8 @@ const CategoryListPage = ({
   };
 
   const handleSubcategoryToggle = (subcategory) => {
+    // Prevent one-cycle cleanup from pruning parent category chip
+    suppressCleanupRef.current = true;
     setSelectedSubcategories(prev =>
       prev.includes(subcategory)
         ? prev.filter(sc => sc !== subcategory)
@@ -642,11 +691,22 @@ const CategoryListPage = ({
   };
 
   const handleSubSubcategoryToggle = (subSubcategory) => {
-    setSelectedSubSubcategories(prev =>
-      prev.includes(subSubcategory)
-        ? prev.filter(ssc => ssc !== subSubcategory)
-        : [...prev, subSubcategory]
-    );
+    // Prevent one-cycle cleanup from removing related subcategory/category chips
+    suppressCleanupRef.current = true;
+    setSelectedSubSubcategories(prev => {
+      const isSelected = prev.includes(subSubcategory);
+      const next = isSelected ? prev.filter(ssc => ssc !== subSubcategory) : [...prev, subSubcategory];
+      // If toggling ON, ensure parent subcategory chip is present
+      if (!isSelected) {
+        const parent = getParentSubcategoryFor(subSubcategory);
+        if (parent) {
+          setSelectedSubcategories((prevSubs) => (
+            prevSubs.includes(parent) ? prevSubs : [...prevSubs, parent]
+          ));
+        }
+      }
+      return next;
+    });
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
     scrollToTop();
   };
@@ -722,6 +782,11 @@ const CategoryListPage = ({
     setSelectedDiscountBucket(0);
     setShowOnlyInStock(false);
     scrollToTop();
+    // Clear persisted sub-subcategory selection for this subcategory
+    try {
+      const key = `lastSubSubcategory:${(category || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`;
+      localStorage.removeItem(key);
+    } catch (e) {}
   };
 
   // Applied filter chips
@@ -759,8 +824,22 @@ const CategoryListPage = ({
   selectedSubSubcategories.forEach(ssc => chips.push({
     type: 'subSubcategory',
     label: ssc,
-    onRemove: () => setSelectedSubSubcategories(prev => prev.filter(x => x !== ssc))
+    onRemove: () => {
+      // Avoid one-cycle cleanup removing other active taxonomy chips
+      suppressCleanupRef.current = true;
+      setSelectedSubSubcategories(prev => prev.filter(x => x !== ssc));
+    }
   }));
+
+  // When all sub-subcategory chips are removed, clear persisted value
+  React.useEffect(() => {
+    if (selectedSubSubcategories.length === 0) {
+      try {
+        const key = `lastSubSubcategory:${(category || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '')}`;
+        localStorage.removeItem(key);
+      } catch (e) {}
+    }
+  }, [selectedSubSubcategories, category]);
   selectedPowerRanges.forEach(pr => chips.push({
     type: 'powerRange',
     label: pr,

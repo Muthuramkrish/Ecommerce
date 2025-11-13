@@ -10,6 +10,8 @@ import {
   Home,
   Info,
   Phone,
+  MapPin,
+  Building,
 } from "lucide-react";
 import vLogo from "../assets/v1.png";
 
@@ -25,14 +27,16 @@ const Header = ({
   onFavoritesClick,
   onOrdersClick,
   onBulkOrdersClick,
+  onAddressesClick,
+  onCompanyAddressesClick,
   isLoggedIn,
   currentUser,
   onHomeClick,
   onBulkOrderClick,
   onAboutClick,
   onContactClick,
-  menuTree,
   onNavigateTaxonomy,
+  menuTree,
 }) => {
   // const [searchQuery, setSearchQuery] = useState('');
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
@@ -43,7 +47,6 @@ const Header = ({
   const [activeCategory, setActiveCategory] = useState(null);
   const [activeSubcategory, setActiveSubcategory] = useState(null);
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
-
   // Local helper to build URL-safe anchors
   const slugify = (text) => {
     return String(text || "")
@@ -205,20 +208,19 @@ const Header = ({
                                   {subs.map((sub) => (
                                     <div key={sub.name}>
                                       <a
-                                        href={`#subcategory/${encodeURIComponent(
-                                          slugify(sub.name)
-                                        )}`}
+                                        href={`#subcategory/${encodeURIComponent(slugify(sub.name))}`}
                                         onMouseEnter={() =>
                                           setActiveSubcategory(sub.name)
                                         }
                                         onClick={(e) => {
                                           e.preventDefault();
                                           setIsLeftMenuOpen(false);
-                                          onNavigateTaxonomy &&
+                                          if (onNavigateTaxonomy) {
                                             onNavigateTaxonomy(
                                               "subcategory",
                                               sub.name
                                             );
+                                          }
                                         }}
                                         className={`w-full flex items-center justify-between px-3 py-2 text-base rounded-lg hover:bg-gray-50 ${
                                           activeSubcategory === sub.name
@@ -256,17 +258,18 @@ const Header = ({
                                           {subSubs.map((ss) => (
                                             <a
                                               key={ss.name}
-                                              href={`#sub-subcategory/${encodeURIComponent(
-                                                slugify(ss.name)
-                                              )}`}
+                                              href={`#subcategory/${encodeURIComponent(slugify(sub.name))}/filter/sub-subcategory/${encodeURIComponent(slugify(ss.name))}`}
                                               onClick={(e) => {
                                                 e.preventDefault();
                                                 setIsLeftMenuOpen(false);
-                                                onNavigateTaxonomy &&
+                                                if (onNavigateTaxonomy) {
+                                                  // Ensure sub-subcategory filter is applied on navigation
                                                   onNavigateTaxonomy(
-                                                    "sub-subcategory",
+                                                    "subcategory",
+                                                    sub.name,
                                                     ss.name
                                                   );
+                                                }
                                               }}
                                               className="text-left text-base px-2 py-1.5 rounded hover:bg-gray-50 truncate"
                                               title={ss.name}
@@ -369,6 +372,24 @@ const Header = ({
                       className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
                     >
                       My Bulk Orders
+                    </button>
+                    <button
+                      onClick={() => {
+                        setIsUserMenuOpen(false);
+                        onAddressesClick && onAddressesClick();
+                      }}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                    >
+                      My Addresses
+                    </button>
+                    <button
+                      onClick={() => {
+                        setIsUserMenuOpen(false);
+                        onCompanyAddressesClick && onCompanyAddressesClick();
+                      }}
+                      className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 transition-colors"
+                    >
+                      My Company Addresses
                     </button>
                     <button
                       onClick={() => {
@@ -585,6 +606,35 @@ const Header = ({
                       <span className="font-medium">My Bulk Orders</span>
                     </button>
                   )}
+                  {isLoggedIn && (
+                    <button
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        setTimeout(() => {
+                          onAddressesClick && onAddressesClick();
+                        }, 100);
+                      }}
+                      className="w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-gray-50 transition-colors"
+                    >
+                      <MapPin className="w-5 h-5 text-gray-500" />
+                      <span className="font-medium">My Addresses</span>
+                    </button>
+                  )}
+
+                  {isLoggedIn && (
+                    <button
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        setTimeout(() => {
+                          onCompanyAddressesClick && onCompanyAddressesClick();
+                        }, 100);
+                      }}
+                      className="w-full flex items-center space-x-3 px-4 py-3 text-left hover:bg-gray-50 transition-colors"
+                    >
+                      <Building className="w-5 h-5 text-gray-500" />
+                      <span className="font-medium">My Company Addresses</span>
+                    </button>
+                  )}
 
                   {/* Categories Section */}
                   {menuTree && menuTree.length > 0 && (
@@ -700,7 +750,8 @@ const Header = ({
                                                     setIsMobileMenuOpen(false);
                                                     onNavigateTaxonomy &&
                                                       onNavigateTaxonomy(
-                                                        "sub-subcategory",
+                                                        "subcategory",
+                                                        subcategory.name,
                                                         subSubcategory.name
                                                       );
                                                   }}

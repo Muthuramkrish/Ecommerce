@@ -1,0 +1,1617 @@
+identifiers_productId,identifiers_sku,identifiers_slug,identifiers_barcode,characteristics_title,characteristics_description,characteristics_images_primary,characteristics_images_offers,characteristics_specifications,characteristics_weight_value,characteristics_weight_unit,characteristics_dimensions_length,characteristics_dimensions_width,characteristics_dimensions_height,characteristics_dimensions_unit,anchor_category,anchor_subcategory,anchor_subSubcategory,anchor_brand,anchor_manufacturer,anchor_productType,classification_variants,classification_attributes_material,classification_attributes_certification,classification_attributes_warrantyPeriod,classification_attributes_countryOfOrigin,pricing_basePrice,pricing_comparePrice,pricing_costPrice,pricing_currency,pricing_taxRate,inventory_totalQuantity,inventory_availableQuantity,inventory_reservedQuantity,inventory_lowStockThreshold,inventory_trackInventory,inventory_allowBackorder,marketing_tags,marketing_metaTitle,marketing_metaDescription,marketing_keywords,marketing_isActive,marketing_isFeatured,marketing_isBestseller,marketing_featuredOrder,marketing_promotionText,pricing_discounts,inventory_bulkQuantityTiers
+VK-ELEC-SW-001,SW-MOD-10A-001,modular-switch-10amp-ivory,9876543210101,10A Modular Switch - Ivory,Durable 10 Amp modular switch in classic ivory finish. Compact design suitable for household and office applications.,"https://i.pinimg.com/1200x/8a/24/39/8a243941345a54bcea6acd49a57a8ab6.jpg
+
+https://i.pinimg.com/736x/46/75/67/4675678cf2a86a108410a9574da7cd23.jpg 
+
+https://i.pinimg.com/736x/a8/0d/32/a80d32d1fb96c23775f1c508f1181518.jpg",,"group': 'Electrical'
+'name': 'Current Rating'
+'value': '10'
+'unit': 'A'
+
+'group': 'Electrical'
+'name': 'Voltage Rating'
+'value': '240'
+'unit': 'V'
+
+'group': 'Physical'
+'name': 'Module Size'
+'value': '1'
+'unit': 'module'",40,grams,70,70,40,mm,Electrical,Switches,Modular Switches,Anchor,Panasonic Life Solutions,Component,"type': 'color'
+'name': 'Ivory'
+'productId': 'VK-ELEC-SW-001'
+'sku': 'SW-MOD-10A-001'
+
+'type': 'color'
+'name': 'White'
+'productId': 'VK-ELEC-SW-002'
+'sku': 'SW-MOD-10A-002'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-001'
+'sku': 'SW-MOD-10A-001'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-002'
+'sku': 'SW-MOD-10A-002'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-003'
+'sku': 'SW-MOD-16A-001'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-004'
+'sku': 'SW-MOD-16A-002'
+
+'type': 'power'
+'name': '20A'
+'productId': 'VK-ELEC-SW-005'
+'sku': 'SW-MOD-20A-001'
+
+'type': 'power'
+'name': '20A'
+'productId': 'VK-ELEC-SW-006'
+'sku': 'SW-MOD-20A-002'",Polycarbonate,ISI,1 year,India,160,200,120,INR,18,380,360,20,30,TRUE,FALSE,"switch
+modular
+10amp
+ivory",10A Modular Switch Ivory | Anchor,Reliable 10A modular switch with ivory finish. Perfect for homes and offices.,"10 amp switch
+modular switch ivory
+anchor switch",TRUE,FALSE,FALSE,0,Limited Stock Offer,,
+VK-ELEC-SW-002,SW-MOD-10A-002,modular-switch-10amp-white,9876543210102,10A Modular Switch - White,Durable 10 Amp modular switch in classic white finish. Compact design suitable for household and office applications.,"https://i.pinimg.com/1200x/8a/24/39/8a243941345a54bcea6acd49a57a8ab6.jpg
+
+https://i.pinimg.com/736x/46/75/67/4675678cf2a86a108410a9574da7cd23.jpg 
+
+https://i.pinimg.com/736x/a8/0d/32/a80d32d1fb96c23775f1c508f1181518.jpg",,"group': 'Electrical'
+'name': 'Current Rating'
+'value': '10'
+'unit': 'A'
+
+'group': 'Electrical'
+'name': 'Voltage Rating'
+'value': '240'
+'unit': 'V'
+
+'group': 'Physical'
+'name': 'Module Size'
+'value': '1'
+'unit': 'module'",40,grams,70,70,40,mm,Electrical,Switches,Modular Switches,Anchor,Panasonic Life Solutions,Component,"type': 'color'
+'name': 'Ivory'
+'productId': 'VK-ELEC-SW-001'
+'sku': 'SW-MOD-10A-001'
+
+'type': 'color'
+'name': 'White'
+'productId': 'VK-ELEC-SW-002'
+'sku': 'SW-MOD-10A-002'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-001'
+'sku': 'SW-MOD-10A-001'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-002'
+'sku': 'SW-MOD-10A-002'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-003'
+'sku': 'SW-MOD-16A-001'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-004'
+'sku': 'SW-MOD-16A-002'
+
+'type': 'power'
+'name': '20A'
+'productId': 'VK-ELEC-SW-005'
+'sku': 'SW-MOD-20A-001'
+
+'type': 'power'
+'name': '20A'
+'productId': 'VK-ELEC-SW-006'
+'sku': 'SW-MOD-20A-002'",Polycarbonate,ISI,1 year,India,160,200,120,INR,18,380,360,20,30,TRUE,FALSE,"switch
+modular
+10amp
+white",10A Modular Switch White | Anchor,Reliable 10A modular switch with ivory finish. Perfect for homes and offices.,"10 amp switch
+modular switch ivory
+anchor switch",TRUE,FALSE,FALSE,0,Limited Stock Offer,,
+VK-ELEC-SW-003,SW-MOD-16A-001,modular-switch-16amp-white,9876543210103,16A Modular Switch - White,"Premium quality 16 Amp modular switch with elegant white finish. Features easy installation, durable construction, and modern design suitable for residential and commercial applications.","https://i.pinimg.com/736x/46/75/67/4675678cf2a86a108410a9574da7cd23.jpg
+
+https://i.pinimg.com/1200x/8a/24/39/8a243941345a54bcea6acd49a57a8ab6.jpg
+
+https://i.pinimg.com/736x/a8/0d/32/a80d32d1fb96c23775f1c508f1181518.jpg",,"group': 'Electrical'
+'name': 'Current Rating'
+'value': '16'
+'unit': 'A'
+
+'group': 'Electrical'
+'name': 'Voltage Rating'
+'value': '250'
+'unit': 'V'
+
+'group': 'Physical'
+'name': 'Module Size'
+'value': '2'
+'unit': 'module'
+
+'group': 'Technical'
+'name': 'Contact Material'
+'value': 'Silver Alloy'
+'unit': ''",45,grams,71,71,44,mm,Electrical,Switches,Modular Switches,Havells,Havells India Ltd,Component,"type': 'color'
+'name': 'White'
+'productId': 'VK-ELEC-SW-003'
+'sku': 'SW-MOD-16A-001'
+
+'type': 'color'
+'name': 'Black'
+'productId': 'VK-ELEC-SW-004'
+'sku': 'SW-MOD-16A-002'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-001'
+'sku': 'SW-MOD-10A-001'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-002'
+'sku': 'SW-MOD-10A-002'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-003'
+'sku': 'SW-MOD-16A-001'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-004'
+'sku': 'SW-MOD-16A-002'
+
+'type': 'power'
+'name': '20A'
+'productId': 'VK-ELEC-SW-005'
+'sku': 'SW-MOD-20A-001'
+
+'type': 'power'
+'name': '20A'
+'productId': 'VK-ELEC-SW-006'
+'sku': 'SW-MOD-20A-002'",Polycarbonate,"ISI
+BIS
+CE",2 years,India,285,350,225,INR,18,275,15,260,25,TRUE,FALSE,"switch
+modular
+16amp
+residential
+commercial",16A Modular Switch White | Premium Quality | Havells,"Buy premium 16A modular switch in white finish. ISI certified, 2-year warranty. Perfect for homes and offices. Best prices guaranteed.","modular switch
+16 amp switch
+electrical switch
+havells switch
+white switch",TRUE,TRUE,TRUE,1,15% Off This Month,"type': 'bulk'
+'value': 10
+'minQuantity': 50
+'validFrom': '2024-01-01T00:00:00Z'
+'validTo': '2024-12-31T23:59:59Z'
+'isActive': True
+
+'type': 'percentage'
+'value': 15
+'minQuantity': 1
+'validFrom': '2024-08-01T00:00:00Z'
+'validTo': '2024-08-31T23:59:59Z'
+'isActive': True","minQuantity': 10
+'maxQuantity': 49
+'discountPercentage': 5
+
+'minQuantity': 50
+'maxQuantity': 99
+'discountPercentage': 10
+
+'minQuantity': 100
+'maxQuantity': 999
+'discountPercentage': 15"
+VK-ELEC-SW-004,SW-MOD-16A-002,modular-switch-16amp-black,9876543210104,16A Modular Switch - Black,"Premium quality 16 Amp modular switch with elegant black finish. Features easy installation, durable construction, and modern design suitable for residential and commercial applications.","https://i.pinimg.com/736x/46/75/67/4675678cf2a86a108410a9574da7cd23.jpg
+
+https://i.pinimg.com/1200x/8a/24/39/8a243941345a54bcea6acd49a57a8ab6.jpg
+
+https://i.pinimg.com/736x/a8/0d/32/a80d32d1fb96c23775f1c508f1181518.jpg",,"group': 'Electrical'
+'name': 'Current Rating'
+'value': '16'
+'unit': 'A'
+
+'group': 'Electrical'
+'name': 'Voltage Rating'
+'value': '250'
+'unit': 'V'
+
+'group': 'Physical'
+'name': 'Module Size'
+'value': '2'
+'unit': 'module'
+
+'group': 'Technical'
+'name': 'Contact Material'
+'value': 'Silver Alloy'
+'unit': ''",45,grams,71,71,44,mm,Electrical,Switches,Modular Switches,Havells,Havells India Ltd,Component,"type': 'color'
+'name': 'White'
+'productId': 'VK-ELEC-SW-003'
+'sku': 'SW-MOD-16A-001'
+
+'type': 'color'
+'name': 'Black'
+'productId': 'VK-ELEC-SW-004'
+'sku': 'SW-MOD-16A-002'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-001'
+'sku': 'SW-MOD-10A-001'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-002'
+'sku': 'SW-MOD-10A-002'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-003'
+'sku': 'SW-MOD-16A-001'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-004'
+'sku': 'SW-MOD-16A-002'
+
+'type': 'power'
+'name': '20A'
+'productId': 'VK-ELEC-SW-005'
+'sku': 'SW-MOD-20A-001'
+
+'type': 'power'
+'name': '20A'
+'productId': 'VK-ELEC-SW-006'
+'sku': 'SW-MOD-20A-002'",Polycarbonate,"ISI
+BIS
+CE",2 years,India,285,350,225,INR,18,275,15,260,25,TRUE,FALSE,"switch
+modular
+16amp
+residential
+commercial",16A Modular Switch Black | Premium Quality | Havells,"Buy premium 16A modular switch in black finish. ISI certified, 2-year warranty. Perfect for homes and offices. Best prices guaranteed.","modular switch
+16 amp switch
+electrical switch
+havells switch
+black switch",TRUE,TRUE,TRUE,1,15% Off This Month,"type': 'bulk'
+'value': 10
+'minQuantity': 50
+'validFrom': '2024-01-01T00:00:00Z'
+'validTo': '2024-12-31T23:59:59Z'
+'isActive': True
+
+'type': 'percentage'
+'value': 15
+'minQuantity': 1
+'validFrom': '2024-08-01T00:00:00Z'
+'validTo': '2024-08-31T23:59:59Z'
+'isActive': True","minQuantity': 10
+'maxQuantity': 49
+'discountPercentage': 5
+
+'minQuantity': 50
+'maxQuantity': 99
+'discountPercentage': 10
+
+'minQuantity': 100
+'maxQuantity': 999
+'discountPercentage': 15"
+VK-ELEC-SW-005,SW-MOD-20A-001,modular-switch-20amp-black,9876543210105,20A Modular Switch - Black,Heavy-duty 20 Amp modular switch in stylish matte black finish. Ideal for air conditioners and heavy appliances.,"https://i.pinimg.com/736x/a8/0d/32/a80d32d1fb96c23775f1c508f1181518.jpg
+
+https://i.pinimg.com/736x/46/75/67/4675678cf2a86a108410a9574da7cd23.jpg
+
+https://i.pinimg.com/1200x/8a/24/39/8a243941345a54bcea6acd49a57a8ab6.jpg",,"group': 'Electrical'
+'name': 'Current Rating'
+'value': '20'
+'unit': 'A'
+
+'group': 'Electrical'
+'name': 'Voltage Rating'
+'value': '250'
+'unit': 'V'
+
+'group': 'Physical'
+'name': 'Module Size'
+'value': '2'
+'unit': 'module'",60,grams,72,72,45,mm,Electrical,Switches,Modular Switches,GM Modular,GM Electricals,Component,"type': 'color'
+'name': 'Black'
+'productId': 'VK-ELEC-SW-005'
+'sku': 'SW-MOD-20A-001'
+
+'type': 'color'
+'name': 'White'
+'productId': 'VK-ELEC-SW-006'
+'sku': 'SW-MOD-20A-002'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-001'
+'sku': 'SW-MOD-10A-001'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-002'
+'sku': 'SW-MOD-10A-002'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-003'
+'sku': 'SW-MOD-16A-001'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-004'
+'sku': 'SW-MOD-16A-002'
+
+'type': 'power'
+'name': '20A'
+'productId': 'VK-ELEC-SW-005'
+'sku': 'SW-MOD-20A-001'
+
+'type': 'power'
+'name': '20A'
+'productId': 'VK-ELEC-SW-006'
+'sku': 'SW-MOD-20A-002'",Polycarbonate,"ISI
+CE",2 years,India,360,420,280,INR,18,190,190,0,20,TRUE,TRUE,"switch
+20amp
+black
+heavy-duty",20A Modular Switch Black | GM Modular,Buy heavy-duty 20A modular switch in matte black. Ideal for air conditioners and heavy appliances.,"20 amp switch
+gm modular switch
+black switch",TRUE,FALSE,TRUE,0,New Arrival,,
+VK-ELEC-SW-006,SW-MOD-20A-002,modular-switch-20amp-white,9876543210106,20A Modular Switch - White,Heavy-duty 20 Amp modular switch in stylish matte white finish. Ideal for air conditioners and heavy appliances.,"https://i.pinimg.com/736x/a8/0d/32/a80d32d1fb96c23775f1c508f1181518.jpg
+
+https://i.pinimg.com/736x/46/75/67/4675678cf2a86a108410a9574da7cd23.jpg
+
+https://i.pinimg.com/1200x/8a/24/39/8a243941345a54bcea6acd49a57a8ab6.jpg",,"group': 'Electrical'
+'name': 'Current Rating'
+'value': '20'
+'unit': 'A'
+
+'group': 'Electrical'
+'name': 'Voltage Rating'
+'value': '250'
+'unit': 'V'
+
+'group': 'Physical'
+'name': 'Module Size'
+'value': '2'
+'unit': 'module'",60,grams,72,72,45,mm,Electrical,Switches,Modular Switches,GM Modular,GM Electricals,Component,"type': 'color'
+'name': 'Black'
+'productId': 'VK-ELEC-SW-005'
+'sku': 'SW-MOD-20A-001'
+
+'type': 'color'
+'name': 'White'
+'productId': 'VK-ELEC-SW-006'
+'sku': 'SW-MOD-20A-002'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-001'
+'sku': 'SW-MOD-10A-001'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-002'
+'sku': 'SW-MOD-10A-002'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-003'
+'sku': 'SW-MOD-16A-001'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-004'
+'sku': 'SW-MOD-16A-002'
+
+'type': 'power'
+'name': '20A'
+'productId': 'VK-ELEC-SW-005'
+'sku': 'SW-MOD-20A-001'
+
+'type': 'power'
+'name': '20A'
+'productId': 'VK-ELEC-SW-006'
+'sku': 'SW-MOD-20A-002'",Polycarbonate,"ISI
+CE",2 years,India,360,420,280,INR,18,190,190,0,20,TRUE,TRUE,"switch
+20amp
+white
+heavy-duty",20A Modular Switch White | GM Modular,Buy heavy-duty 20A modular switch in matte white. Ideal for air conditioners and heavy appliances.,"20 amp switch
+gm modular switch
+white switch",TRUE,FALSE,TRUE,0,New Arrival,,
+VK-ELEC-SW-007,SW-1WAY-10A-001,one-way-switch-10amp-white,9876543210107,10A One-Way Switch - White,"Durable 10 Amp one-way modular switch, designed for medium-load appliances such as geysers, irons, and small motor devices. Smooth operation with long service life.","https://m.media-amazon.com/images/I/51Hj0KaYEmL.jpg
+
+https://i0.wp.com/electricbasket.in/wp-content/uploads/2023/07/Havells-Crabtree-Athenao-Classic-16A-One-Way-Switch-With-Indicator-White.webp?fit=1200%2C1200&ssl=1
+
+https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1iY163ZBNpCsTuNX35D8zaT28fCyl0Mq9qA&s",,"group': 'Electrical'
+'name': 'Current Rating'
+'value': '10'
+'unit': 'A'
+
+'group': 'Electrical'
+'name': 'Voltage Rating'
+'value': '240'
+'unit': 'V'
+
+'group': 'Physical'
+'name': 'Module Size'
+'value': '1'
+'unit': 'module'
+
+'group': 'Technical'
+'name': 'Contact Material'
+'value': 'Silver Alloy'
+'unit': ''",38,grams,65,25,38,mm,Electrical,Switches,One-Way Switches,Legrand,Legrand India Pvt Ltd,Component,"type': 'color'
+'name': 'White'
+'productId': 'VK-ELEC-SW-007'
+'sku': 'SW-1WAY-10A-001'
+
+'type': 'color'
+'name': 'Black'
+'productId': 'VK-ELEC-SW-008'
+'sku': 'SW-1WAY-10A-002'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-007'
+'sku': 'SW-1WAY-10A-001'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-008'
+'sku': 'SW-1WAY-10A-002'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-009'
+'sku': 'SW-1WAY-16A-001'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-010'
+'sku': 'SW-1WAY-16A-002'
+
+'type': 'power'
+'name': '6A'
+'productId': 'VK-ELEC-SW-011'
+'sku': 'SW-1WAY-06A-001'
+
+'type': 'power'
+'name': '6A'
+'productId': 'VK-ELEC-SW-012'
+'sku': 'SW-1WAY-06A-002'",Polycarbonate with Fire Retardant,"ISI
+RoHS",2 years,India,120,150,85,INR,18,750,120,630,40,TRUE,FALSE,"switch
+one way
+10amp
+geyser switch
+medium load",10A One-Way Switch | Legrand Modular,"Buy Legrand 10A one-way modular switch, ideal for medium-load appliances. ISI & RoHS certified with 2-year warranty.","10 amp switch
+one way modular switch
+Legrand switch
+electrical switch",TRUE,TRUE,FALSE,1,15% Festive Discount on Legrand Switches,"type': 'bulk'
+'value': 7
+'minQuantity': 20
+'validFrom': '2024-01-01T00:00:00Z'
+'validTo': '2024-12-31T23:59:59Z'
+'isActive': True
+
+'type': 'percentage'
+'value': 15
+'minQuantity': 1
+'validFrom': '2024-10-01T00:00:00Z'
+'validTo': '2024-10-31T23:59:59Z'
+'isActive': True","minQuantity': 20
+'maxQuantity': 99
+'discountPercentage': 7
+
+'minQuantity': 100
+'maxQuantity': 499
+'discountPercentage': 12
+
+'minQuantity': 500
+'maxQuantity': 999
+'discountPercentage': 18"
+VK-ELEC-SW-008,SW-1WAY-10A-002,one-way-switch-10amp-black,9876543210108,10A One-Way Switch - Black,"Durable 10 Amp one-way modular switch, designed for medium-load appliances such as geysers, irons, and small motor devices. Smooth operation with long service life.","https://m.media-amazon.com/images/I/51Hj0KaYEmL.jpg
+
+https://i0.wp.com/electricbasket.in/wp-content/uploads/2023/07/Havells-Crabtree-Athenao-Classic-16A-One-Way-Switch-With-Indicator-White.webp?fit=1200%2C1200&ssl=1
+
+https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR1iY163ZBNpCsTuNX35D8zaT28fCyl0Mq9qA&s",,"group': 'Electrical'
+'name': 'Current Rating'
+'value': '10'
+'unit': 'A'
+
+'group': 'Electrical'
+'name': 'Voltage Rating'
+'value': '240'
+'unit': 'V'
+
+'group': 'Physical'
+'name': 'Module Size'
+'value': '1'
+'unit': 'module'
+
+'group': 'Technical'
+'name': 'Contact Material'
+'value': 'Silver Alloy'
+'unit': ''",38,grams,65,25,38,mm,Electrical,Switches,One-Way Switches,Legrand,Legrand India Pvt Ltd,Component,"type': 'color'
+'name': 'White'
+'productId': 'VK-ELEC-SW-007'
+'sku': 'SW-1WAY-10A-001'
+
+'type': 'color'
+'name': 'Black'
+'productId': 'VK-ELEC-SW-008'
+'sku': 'SW-1WAY-10A-002'
+
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-007'
+'sku': 'SW-1WAY-10A-001'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-008'
+'sku': 'SW-1WAY-10A-002'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-009'
+'sku': 'SW-1WAY-16A-001'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-010'
+'sku': 'SW-1WAY-16A-002'
+
+'type': 'power'
+'name': '6A'
+'productId': 'VK-ELEC-SW-011'
+'sku': 'SW-1WAY-06A-001'
+
+'type': 'power'
+'name': '6A'
+'productId': 'VK-ELEC-SW-012'
+'sku': 'SW-1WAY-06A-002'",Polycarbonate with Fire Retardant,"ISI
+RoHS",2 years,India,120,150,85,INR,18,750,120,630,40,TRUE,FALSE,"switch
+one way
+10amp
+geyser switch
+medium load",10A One-Way Switch | Legrand Modular,"Buy Legrand 10A one-way modular switch, ideal for medium-load appliances. ISI & RoHS certified with 2-year warranty.","10 amp switch
+one way modular switch
+Legrand switch
+electrical switch",TRUE,TRUE,FALSE,1,15% Festive Discount on Legrand Switches,"type': 'bulk'
+'value': 7
+'minQuantity': 20
+'validFrom': '2024-01-01T00:00:00Z'
+'validTo': '2024-12-31T23:59:59Z'
+'isActive': True
+
+'type': 'percentage'
+'value': 15
+'minQuantity': 1
+'validFrom': '2024-10-01T00:00:00Z'
+'validTo': '2024-10-31T23:59:59Z'
+'isActive': True","minQuantity': 20
+'maxQuantity': 99
+'discountPercentage': 7
+
+'minQuantity': 100
+'maxQuantity': 499
+'discountPercentage': 12
+
+'minQuantity': 500
+'maxQuantity': 999
+'discountPercentage': 18"
+VK-ELEC-SW-009,SW-1WAY-16A-001,one-way-switch-16amp-white,9876543210109,16A One-Way Switch - White,"High-performance 16 Amp one-way modular switch suitable for heavy appliances like geysers, air conditioners, and microwaves. Fire-retardant body with smooth operation.","https://m.media-amazon.com/images/I/61DODhlftzL._UF1000,1000_QL80_.jpg
+
+https://5.imimg.com/data5/QD/DS/MY-18879959/one-way-switch.jpg
+
+https://5.imimg.com/data5/SELLER/Default/2023/1/EG/XR/JP/2411756/one-way-modular-switch-500x500.jpg",https://cdn.eleczo.com/media/wysiwyg/ebbmedia/16_Amp_Switch_Desk_Banner.webp,"group': 'Electrical'
+'name': 'Current Rating'
+'value': '16'
+'unit': 'A'
+
+'group': 'Electrical'
+'name': 'Voltage Rating'
+'value': '240'
+'unit': 'V'
+
+'group': 'Physical'
+'name': 'Module Size'
+'value': '2'
+'unit': 'module'
+
+'group': 'Technical'
+'name': 'Contact Material'
+'value': 'Silver Nickel Alloy'
+'unit': ''",58,grams,75,35,42,mm,Electrical,Switches,One-Way Switches,Havells,Havells India Ltd,Component,"type': 'color'
+'name': 'White'
+'productId': 'VK-ELEC-SW-009'
+'sku': 'SW-1WAY-16A-001'
+
+'type': 'color'
+'name': 'Ivory'
+'productId': 'VK-ELEC-SW-010'
+'sku': 'SW-1WAY-16A-002'
+
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-007'
+'sku': 'SW-1WAY-10A-001'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-008'
+'sku': 'SW-1WAY-10A-002'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-009'
+'sku': 'SW-1WAY-16A-001'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-010'
+'sku': 'SW-1WAY-16A-002'
+
+'type': 'power'
+'name': '6A'
+'productId': 'VK-ELEC-SW-011'
+'sku': 'SW-1WAY-06A-001'
+
+'type': 'power'
+'name': '6A'
+'productId': 'VK-ELEC-SW-012'
+'sku': 'SW-1WAY-06A-002'",Polycarbonate with Fire Retardant,"ISI
+RoHS",2 years,India,180,220,140,INR,18,480,80,400,30,TRUE,FALSE,"switch
+one way
+16amp
+heavy duty switch
+geyser switch
+ac switch",16A One-Way Switch | Havells Modular,"Buy Havells 16A one-way modular switch, perfect for heavy appliances like geysers, ACs, and microwaves. ISI certified, 2-year warranty.","16 amp switch
+heavy duty switch
+Havells switch
+one way modular switch",TRUE,TRUE,TRUE,2,20% Off on Heavy Duty Switches this month,"type': 'bulk'
+'value': 10
+'minQuantity': 10
+'validFrom': '2024-01-01T00:00:00Z'
+'validTo': '2024-12-31T23:59:59Z'
+'isActive': True
+
+'type': 'percentage'
+'value': 20
+'minQuantity': 1
+'validFrom': '2024-12-01T00:00:00Z'
+'validTo': '2024-12-31T23:59:59Z'
+'isActive': True","minQuantity': 10
+'maxQuantity': 49
+'discountPercentage': 10
+
+'minQuantity': 50
+'maxQuantity': 199
+'discountPercentage': 15
+
+'minQuantity': 200
+'maxQuantity': 499
+'discountPercentage': 22"
+VK-ELEC-SW-0010,SW-1WAY-16A-002,one-way-switch-16amp-ivory,9876543210110,16A One-Way Switch - Ivory,"High-performance 16 Amp one-way modular switch suitable for heavy appliances like geysers, air conditioners, and microwaves. Fire-retardant body with smooth operation.","https://m.media-amazon.com/images/I/61DODhlftzL._UF1000,1000_QL80_.jpg
+
+https://5.imimg.com/data5/QD/DS/MY-18879959/one-way-switch.jpg
+
+https://5.imimg.com/data5/SELLER/Default/2023/1/EG/XR/JP/2411756/one-way-modular-switch-500x500.jpg",https://cdn.eleczo.com/media/wysiwyg/ebbmedia/16_Amp_Switch_Desk_Banner.webp,"group': 'Electrical'
+'name': 'Current Rating'
+'value': '16'
+'unit': 'A'
+
+'group': 'Electrical'
+'name': 'Voltage Rating'
+'value': '240'
+'unit': 'V'
+
+'group': 'Physical'
+'name': 'Module Size'
+'value': '2'
+'unit': 'module'
+
+'group': 'Technical'
+'name': 'Contact Material'
+'value': 'Silver Nickel Alloy'
+'unit': ''",58,grams,75,35,42,mm,Electrical,Switches,One-Way Switches,Havells,Havells India Ltd,Component,"type': 'color'
+'name': 'White'
+'productId': 'VK-ELEC-SW-009'
+'sku': 'SW-1WAY-16A-001'
+
+'type': 'color'
+'name': 'Ivory'
+'productId': 'VK-ELEC-SW-010'
+'sku': 'SW-1WAY-16A-002'
+
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-007'
+'sku': 'SW-1WAY-10A-001'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-008'
+'sku': 'SW-1WAY-10A-002'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-009'
+'sku': 'SW-1WAY-16A-001'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-010'
+'sku': 'SW-1WAY-16A-002'
+
+'type': 'power'
+'name': '6A'
+'productId': 'VK-ELEC-SW-011'
+'sku': 'SW-1WAY-06A-001'
+
+'type': 'power'
+'name': '6A'
+'productId': 'VK-ELEC-SW-012'
+'sku': 'SW-1WAY-06A-002'",Polycarbonate with Fire Retardant,"ISI
+RoHS",2 years,India,180,220,140,INR,18,480,80,400,30,TRUE,FALSE,"switch
+one way
+16amp
+heavy duty switch
+geyser switch
+ac switch",16A One-Way Switch | Havells Modular,"Buy Havells 16A one-way modular switch, perfect for heavy appliances like geysers, ACs, and microwaves. ISI certified, 2-year warranty.","16 amp switch
+heavy duty switch
+Havells switch
+one way modular switch",TRUE,TRUE,TRUE,2,20% Off on Heavy Duty Switches this month,"type': 'bulk'
+'value': 10
+'minQuantity': 10
+'validFrom': '2024-01-01T00:00:00Z'
+'validTo': '2024-12-31T23:59:59Z'
+'isActive': True
+
+'type': 'percentage'
+'value': 20
+'minQuantity': 1
+'validFrom': '2024-12-01T00:00:00Z'
+'validTo': '2024-12-31T23:59:59Z'
+'isActive': True","minQuantity': 10
+'maxQuantity': 49
+'discountPercentage': 10
+
+'minQuantity': 50
+'maxQuantity': 199
+'discountPercentage': 15
+
+'minQuantity': 200
+'maxQuantity': 499
+'discountPercentage': 22"
+VK-ELEC-SW-011,SW-1WAY-06A-001,one-way-switch-6amp-white,9876543210111,6A One-Way Switch - White,"Durable 6 Amp one-way (single-pole) switch designed for reliable control of lights and small appliances. Elegant white finish, easy installation, and suitable for residential and commercial use.","https://hosper.in/wp-content/uploads/2024/05/6-A-1-way-switch.jpg
+
+https://havells.com/media/catalog/product/cache/844a913d283fe95e56e39582c5f2767b/import/REO-Switches/AHESXXW061.jpg
+
+https://m.media-amazon.com/images/I/21rUTyULl+L._UF1000,1000_QL80_.jpg",,"group': 'Electrical'
+'name': 'Current Rating'
+'value': '6'
+'unit': 'A'
+
+'group': 'Electrical'
+'name': 'Voltage Rating'
+'value': '240'
+'unit': 'V'
+
+'group': 'Physical'
+'name': 'Switch Type'
+'value': 'One-Way (Single-Pole)'
+'unit': ''
+
+'group': 'Technical'
+'name': 'Contact Material'
+'value': 'Phosphor Bronze'
+'unit': ''",35,grams,70,70,42,mm,Electrical,Switches,One-Way Switches,Anchor,Anchor Electricals Pvt Ltd,Component,"type': 'color'
+'name': 'White'
+'productId': 'VK-ELEC-SW-011'
+'sku': 'SW-1WAY-06A-001'
+
+'type': 'color'
+'name': 'Black'
+'productId': 'VK-ELEC-SW-012'
+'sku': 'SW-1WAY-06A-002'
+
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-007'
+'sku': 'SW-1WAY-10A-001'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-008'
+'sku': 'SW-1WAY-10A-002'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-009'
+'sku': 'SW-1WAY-16A-001'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-010'
+'sku': 'SW-1WAY-16A-002'
+
+'type': 'power'
+'name': '6A'
+'productId': 'VK-ELEC-SW-011'
+'sku': 'SW-1WAY-06A-001'
+
+'type': 'power'
+'name': '6A'
+'productId': 'VK-ELEC-SW-012'
+'sku': 'SW-1WAY-06A-002'",Polycarbonate,"ISI
+BIS",2 years,India,95,120,70,INR,18,410,50,360,30,TRUE,FALSE,"switch
+one-way switch
+6amp
+residential
+commercial
+anchor",6A One-Way Switch | Anchor | Durable & Elegant,"Buy premium quality 6A one-way (single-pole) switch by Anchor. ISI certified, durable design, 2-year warranty. Best for homes, shops & offices.","one way switch
+6a switch
+anchor switch
+single pole switch
+electrical switch",TRUE,FALSE,FALSE,0,10% Off Limited Time,"type': 'bulk'
+'value': 8
+'minQuantity': 100
+'validFrom': '2024-01-01T00:00:00Z'
+'validTo': '2024-12-31T23:59:59Z'
+'isActive': True
+
+'type': 'percentage'
+'value': 10
+'minQuantity': 1
+'validFrom': '2024-08-01T00:00:00Z'
+'validTo': '2024-08-31T23:59:59Z'
+'isActive': True","minQuantity': 25
+'maxQuantity': 99
+'discountPercentage': 5
+
+'minQuantity': 100
+'maxQuantity': 499
+'discountPercentage': 8
+
+'minQuantity': 500
+'maxQuantity': 2000
+'discountPercentage': 12"
+VK-ELEC-SW-012,SW-1WAY-06A-002,one-way-switch-6amp-black,9876543210112,6A One-Way Switch - Black,"Durable 6 Amp one-way (single-pole) switch designed for reliable control of lights and small appliances. Elegant white finish, easy installation, and suitable for residential and commercial use.","https://hosper.in/wp-content/uploads/2024/05/6-A-1-way-switch.jpg
+
+https://havells.com/media/catalog/product/cache/844a913d283fe95e56e39582c5f2767b/import/REO-Switches/AHESXXW061.jpg
+
+https://m.media-amazon.com/images/I/21rUTyULl+L._UF1000,1000_QL80_.jpg",,"group': 'Electrical'
+'name': 'Current Rating'
+'value': '6'
+'unit': 'A'
+
+'group': 'Electrical'
+'name': 'Voltage Rating'
+'value': '240'
+'unit': 'V'
+
+'group': 'Physical'
+'name': 'Switch Type'
+'value': 'One-Way (Single-Pole)'
+'unit': ''
+
+'group': 'Technical'
+'name': 'Contact Material'
+'value': 'Phosphor Bronze'
+'unit': ''",35,grams,70,70,42,mm,Electrical,Switches,One-Way Switches,Anchor,Anchor Electricals Pvt Ltd,Component,"type': 'color'
+'name': 'White'
+'productId': 'VK-ELEC-SW-011'
+'sku': 'SW-1WAY-06A-001'
+
+'type': 'color'
+'name': 'Black'
+'productId': 'VK-ELEC-SW-012'
+'sku': 'SW-1WAY-06A-002'
+
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-007'
+'sku': 'SW-1WAY-10A-001'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-008'
+'sku': 'SW-1WAY-10A-002'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-009'
+'sku': 'SW-1WAY-16A-001'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-010'
+'sku': 'SW-1WAY-16A-002'
+
+'type': 'power'
+'name': '6A'
+'productId': 'VK-ELEC-SW-011'
+'sku': 'SW-1WAY-06A-001'
+
+'type': 'power'
+'name': '6A'
+'productId': 'VK-ELEC-SW-012'
+'sku': 'SW-1WAY-06A-002'",Polycarbonate,"ISI
+BIS",2 years,India,95,120,70,INR,18,410,50,360,30,TRUE,FALSE,"switch
+one-way switch
+6amp
+residential
+commercial
+anchor",6A One-Way Switch | Anchor | Durable & Elegant,"Buy premium quality 6A one-way (single-pole) switch by Anchor. ISI certified, durable design, 2-year warranty. Best for homes, shops & offices.","one way switch
+6a switch
+anchor switch
+single pole switch
+electrical switch",TRUE,FALSE,FALSE,0,10% Off Limited Time,"type': 'bulk'
+'value': 8
+'minQuantity': 100
+'validFrom': '2024-01-01T00:00:00Z'
+'validTo': '2024-12-31T23:59:59Z'
+'isActive': True
+
+'type': 'percentage'
+'value': 10
+'minQuantity': 1
+'validFrom': '2024-08-01T00:00:00Z'
+'validTo': '2024-08-31T23:59:59Z'
+'isActive': True","minQuantity': 25
+'maxQuantity': 99
+'discountPercentage': 5
+
+'minQuantity': 100
+'maxQuantity': 499
+'discountPercentage': 8
+
+'minQuantity': 500
+'maxQuantity': 2000
+'discountPercentage': 12"
+VK-ELEC-SW-013,SW-SMART-4G-002,smart-wifi-touch-switch-4gang-black,8901030877892,4-Gang Smart Wi-Fi Touch Switch - Black,"Smart 4-gang Wi-Fi enabled glass touch switch with app, voice, and manual control. Works with Alexa, Google Assistant, and supports scene automation for lights and appliances.","https://m.media-amazon.com/images/I/51ukjjZpTzL.jpg
+
+https://www.iotics.io/cdn/shop/files/Front_4a91ee74-f1cc-48d7-9d37-1235d8cd662d.jpg?v=1742818881
+
+https://m.media-amazon.com/images/I/61xbUV8001S._AC_UF1000,1000_QL80_.jpg",https://avmodular.com/wp-content/uploads/2022/10/3.1-AV-Home-Page-Aqva-Sleekwood-Web-Banner-2700-x-1400-px-scaled.jpg,"group': 'Electrical'
+'name': 'Current Rating'
+'value': '6'
+'unit': 'A (per gang)'
+
+'group': 'Electrical'
+'name': 'Voltage Rating'
+'value': '230'
+'unit': 'V'
+
+'group': 'Connectivity'
+'name': 'Wi-Fi Frequency'
+'value': '2.4'
+'unit': 'GHz'
+
+'group': 'Technical'
+'name': 'Control Options'
+'value': 'App, Voice, Touch'
+'unit': ''",120,grams,90,90,40,mm,Electrical,Switches,Smart Switches,Havells,Havells Smart Devices,Component,"type': 'Control'
+'name': 'Touch'
+'productId': 'VK-ELEC-SW-013'
+'sku': 'SW-SMART-4G-002'
+
+'type': 'Control'
+'name': 'Touch'
+'productId': 'VK-ELEC-SW-014'
+'sku': 'SW-SMART-16A-001'
+
+'type': 'Control'
+'name': 'Manual'
+'productId': 'VK-ELEC-SW-015'
+'sku': 'SW-SMART-10A-001'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-014'
+'sku': 'SW-SMART-16A-001'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-015'
+'sku': 'SW-SMART-10A-001'
+
+'type': 'power'
+'name': '6A'
+'productId': 'VK-ELEC-SW-013'
+'sku': 'SW-SMART-4G-002'",Tempered Glass + Polycarbonate,"ISI
+BIS
+CE
+RoHS",2 years,India,2199,2599,1800,INR,18,120,30,90,15,TRUE,FALSE,"smart switch
+wifi touch switch
+4 gang switch
+havells smart
+voice control",4-Gang Smart Wi-Fi Touch Switch | Havells,"Buy Havells 4-Gang smart Wi-Fi touch switch with Alexa & Google support. Modern glass design, voice + app control. 2-year warranty.","smart 4 gang switch
+wifi touch switch
+havells smart home
+alexa smart switch
+google home switch",TRUE,TRUE,FALSE,3,Smart Living Upgrade – Save 15%,"type': 'percentage'
+'value': 15
+'minQuantity': 1
+'validFrom': '2024-08-01T00:00:00Z'
+'validTo': '2024-08-31T23:59:59Z'
+'isActive': True","minQuantity': 10
+'maxQuantity': 49
+'discountPercentage': 5
+
+'minQuantity': 50
+'maxQuantity': 100
+'discountPercentage': 10"
+VK-ELEC-SW-014,SW-SMART-16A-001,smart-wifi-switch-16amp-black,8901030877892,16A Smart Wi-Fi Switch - Black,"High-power 16 Amp Wi-Fi smart switch for heavy appliances like ACs, geysers, and heaters. Supports app control, scheduling, and voice assistants (Alexa, Google). Built-in energy monitoring.","https://cdn.moglix.com/p/LUDhWIv11HZAj-xxlarge.jpg
+
+https://www.sonoff.in/web/image/product.product/740/image_512?unique=ee93157
+
+https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRlUqXpg7GAZnYrDTXjwPfBDxSnjlErCYu3sQ&s",,"group': 'Electrical'
+'name': 'Current Rating'
+'value': '16'
+'unit': 'A'
+
+'group': 'Electrical'
+'name': 'Voltage Rating'
+'value': '230'
+'unit': 'V'
+
+'group': 'Connectivity'
+'name': 'Wi-Fi Frequency'
+'value': '2.4'
+'unit': 'GHz'
+
+'group': 'Technical'
+'name': 'Control Options'
+'value': 'App, Voice, Touch'
+'unit': ''",110,grams,95,95,45,mm,Electrical,Switches,Smart Switches,Havells,Havells India Ltd.,Component,"type': 'Control'
+'name': 'Touch'
+'productId': 'VK-ELEC-SW-013'
+'sku': 'SW-SMART-4G-002'
+
+'type': 'Control'
+'name': 'Touch'
+'productId': 'VK-ELEC-SW-014'
+'sku': 'SW-SMART-16A-001'
+
+'type': 'Control'
+'name': 'Manual'
+'productId': 'VK-ELEC-SW-015'
+'sku': 'SW-SMART-10A-001'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-014'
+'sku': 'SW-SMART-16A-001'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-015'
+'sku': 'SW-SMART-10A-001'
+
+'type': 'power'
+'name': '6A'
+'productId': 'VK-ELEC-SW-013'
+'sku': 'SW-SMART-4G-002'",Fire-retardant Polycarbonate,"ISI
+BIS
+CE
+RoHS",2 years,India,1799,2099,1350,INR,18,120,30,90,15,TRUE,FALSE,"smart switch
+wifi switch
+heavy load switch
+havells
+energy monitoring",16A Smart Wi-Fi Switch | Havells | App + Voice Control,"Buy Havells 16A smart Wi-Fi switch with Alexa & Google support. Perfect for geysers, ACs, and heavy appliances. Energy monitoring & 2-year warranty.","havells smart switch
+16A wifi switch
+heavy duty smart switch
+geyser smart switch",TRUE,TRUE,FALSE,3,Limited Offer: 15% Off on Heavy Load Smart Switches,"type': 'percentage'
+'value': 15
+'minQuantity': 1
+'validFrom': '2024-09-01T00:00:00Z'
+'validTo': '2024-09-30T23:59:59Z'
+'isActive': True","minQuantity': 10
+'maxQuantity': 24
+'discountPercentage': 6
+
+'minQuantity': 25
+'maxQuantity': 100
+'discountPercentage': 10"
+VK-ELEC-SW-015,SW-SMART-10A-001,smart-wifi-switch-10amp-white,8901030877891,10A Smart Wi-Fi Switch - White,"Smart 10 Amp Wi-Fi enabled switch with mobile app and voice assistant control. Supports Alexa, Google Assistant, and manual touch operation. Ideal for smart homes and offices.","https://5.imimg.com/data5/SELLER/Default/2023/1/SM/XZ/GO/86225228/10a-smart-wifi-circuit-breaker-switch-universal-diy-module.jpg
+
+https://m.media-amazon.com/images/I/41TY7l16XIL._UF1000,1000_QL80_.jpg
+
+https://cdn.commmerce.com/uploads/jain-enterprises/productImages/full/166375347058451.jpg",,"group': 'Electrical'
+'name': 'Current Rating'
+'value': '10'
+'unit': 'A'
+
+'group': 'Electrical'
+'name': 'Voltage Rating'
+'value': '230'
+'unit': 'V'
+
+'group': 'Connectivity'
+'name': 'Wi-Fi Frequency'
+'value': '2.4'
+'unit': 'GHz'
+
+'group': 'Technical'
+'name': 'Control Options'
+'value': 'App, Voice, Manual'
+'unit': ''",65,grams,85,85,40,mm,Electrical,Switches,Smart Switches,Philips,Philips Smart Solutions,Component,"type': 'Control'
+'name': 'Touch'
+'productId': 'VK-ELEC-SW-013'
+'sku': 'SW-SMART-4G-002'
+
+'type': 'Control'
+'name': 'Touch'
+'productId': 'VK-ELEC-SW-014'
+'sku': 'SW-SMART-16A-001'
+
+'type': 'Control'
+'name': 'Manual'
+'productId': 'VK-ELEC-SW-015'
+'sku': 'SW-SMART-10A-001'
+
+'type': 'power'
+'name': '16A'
+'productId': 'VK-ELEC-SW-014'
+'sku': 'SW-SMART-16A-001'
+
+'type': 'power'
+'name': '10A'
+'productId': 'VK-ELEC-SW-015'
+'sku': 'SW-SMART-10A-001'
+
+'type': 'power'
+'name': '6A'
+'productId': 'VK-ELEC-SW-013'
+'sku': 'SW-SMART-4G-002'",Polycarbonate,"ISI
+BIS
+CE
+RoHS",3 years,India,1299,1599,950,INR,18,260,30,230,20,TRUE,FALSE,"smart switch
+wifi switch
+home automation
+voice control
+philips",10A Smart Wi-Fi Switch | App + Voice Control | Philips,Shop Philips 10A smart Wi-Fi switch with Alexa & Google support. Control lights & devices via app or voice. 3-year warranty. Free shipping available.,"smart switch
+wifi smart switch
+philips smart home
+alexa switch
+google home switch",TRUE,TRUE,TRUE,2,20% Off Smart Home Month,"type': 'bulk'
+'value': 8
+'minQuantity': 25
+'validFrom': '2024-01-01T00:00:00Z'
+'validTo': '2024-12-31T23:59:59Z'
+'isActive': True
+
+'type': 'percentage'
+'value': 20
+'minQuantity': 1
+'validFrom': '2024-08-01T00:00:00Z'
+'validTo': '2024-08-31T23:59:59Z'
+'isActive': True","minQuantity': 10
+'maxQuantity': 24
+'discountPercentage': 5
+
+'minQuantity': 25
+'maxQuantity': 99
+'discountPercentage': 8
+
+'minQuantity': 100
+'maxQuantity': 500
+'discountPercentage': 12"
+VK-ELEC-SW-016,SW-DP-SW-001,double-pole-switch-20A,8.90E+12,Double Pole Switch 20A,Heavy-duty double pole switch for high-load appliances like geysers and ACs.,"https://electgo.com/media/catalog/product/k/b/kb31d20ne_2_we_g2_0_ssdc6t2wtecpntsc.png?optimize=high&fit=bounds&height=700&width=700&canvas=700:700
+ 
+https://eshop-sa.se.com/media/catalog/product/cache/50de10eebe7c0cd78c6077348866f0aa/k/b/kb31d20ne_3.jpg",,"group': 'Electrical'
+ 'name': 'Current Rating'
+ 'value': '20'
+ 'unit': 'A'
+ 
+ 'group': 'Electrical'
+ 'name': 'Voltage'
+ 'value': '240'
+ 'unit': 'V'
+ 
+ 'group': 'Design'
+ 'name': 'Color'
+ 'value': 'White'
+ 'unit': ''
+ 
+ 'group': 'Design'
+ 'name': 'Material'
+ 'value': 'Polycarbonate with Brass Contacts'
+ 'unit': ''",,,100,90,45,mm,Electrical,Switches,Double Pole Switches,Legrand,Legrand India Pvt. Ltd.,Component,,Polycarbonate with Brass,CE|ISI,3 years,India,299,349,,INR,18,220,180,,,TRUE,,double pole switch legrand,Legrand Double Pole Switch,Strong and safe double pole switch ideal for heavy appliances.,dp switch geyser AC heavy duty,TRUE,TRUE,FALSE,1,Special launch discount available!,,
+VK-ELEC-SW-017,SW-2W-FAN-001,two-way-fan-switch-white,8.90E+12,2-Way Fan Switch - White,Durable two-way fan switch for ceiling fans with smooth operation and long life.,"https://m.media-amazon.com/images/I/71i5g+Q6WpL.jpg
+ 
+https://m.media-amazon.com/images/I/81eI-mHOvxL._UF350,350_QL80_.jpg",,"group': 'Electrical'
+ 'name': 'Current Rating'
+ 'value': '10'
+ 'unit': 'A'
+ 
+ 'group': 'Electrical'
+ 'name': 'Voltage'
+ 'value': '240'
+ 'unit': 'V'
+ 
+ 'group': 'Design'
+ 'name': 'Color'
+ 'value': 'White'
+ 'unit': ''
+ 
+ 'group': 'Design'
+ 'name': 'Material'
+ 'value': 'Polycarbonate'
+ 'unit': ''",,,92,86,42,mm,Electrical,Switches,Two Way Switches,GM,GM Modular,Component,"type': 'color'
+'name': 'White'
+'sku': 'SW-2W-FAN-001'
+'productId': 'VK-ELEC-SW-017'
+
+'type': 'color'
+'name': 'Black'
+'sku': 'SW-MOD-2WAY-003'
+'productId': 'VK-ELEC-SW-018'
+
+'type': 'color'
+'name': 'White'
+'sku': 'SW-MOD-2WAY-002'
+'productId': 'VK-ELEC-SW-019'
+
+'type': 'color'
+'name': 'Ivory'
+'sku': 'SW-MOD-2WAY-001'
+'productId': 'VK-ELEC-SW-020'",Polycarbonate,ISI,2 years,India,189,229,,INR,18,320,260,,,TRUE,,two way fan switch GM,GM Two-Way Fan Switch,High-quality two-way fan switch with elegant design and smooth operation.,fan switch two way GM,TRUE,FALSE,FALSE,,,,
+VK-ELEC-SW-018,SW-MOD-2WAY-003,modular-switch-2way-black,8901030875652,2-Way Modular Switch - Black,"Stylish 2-Way modular switch with a sleek black finish. Designed for dual-control functionality, modern interiors, and long-lasting durability. Suitable for both homes and offices.","https://d3vpmhw8imxmio.cloudfront.net/product-variants/1000003328/EDITING/1000003328_1-650x650.webp
+
+https://5.imimg.com/data5/CX/II/MV/SELLER-3449652/sumo-black-6-amp-2-way-modular-switch.jpg
+
+https://d3vpmhw8imxmio.cloudfront.net/product-variants/1000003194/EDITING/1000003194_1-650x650.webp",,"group': 'Electrical'
+'name': 'Current Rating'
+'value': '10'
+'unit': 'A'
+
+'group': 'Electrical'
+'name': 'Voltage Rating'
+'value': '240'
+'unit': 'V'
+
+'group': 'Physical'
+'name': 'Module Size'
+'value': '1'
+'unit': 'module'
+
+'group': 'Technical'
+'name': 'Contact Material'
+'value': 'Silver Alloy'
+'unit': ''",42,grams,71,71,38,mm,Electrical,Switches,Modular Switches,Havells,Havells India Ltd,Component,"type': 'color'
+'name': 'White'
+'sku': 'SW-2W-FAN-001'
+'productId': 'VK-ELEC-SW-017'
+
+'type': 'color'
+'name': 'Black'
+'sku': 'SW-MOD-2WAY-003'
+'productId': 'VK-ELEC-SW-018'
+
+'type': 'color'
+'name': 'White'
+'sku': 'SW-MOD-2WAY-002'
+'productId': 'VK-ELEC-SW-019'
+
+'type': 'color'
+'name': 'Ivory'
+'sku': 'SW-MOD-2WAY-001'
+'productId': 'VK-ELEC-SW-020'",Polycarbonate,"ISI
+BIS
+CE",2 years,India,200,260,160,INR,18,80,20,60,20,TRUE,FALSE,"switch
+modular
+2way
+black
+residential
+commercial",2-Way Modular Switch Black | Havells | Sleek & Durable,"Buy premium 2-Way modular switch in black finish. ISI certified, 2-year warranty. Stylish and durable for modern interiors.","2 way switch
+black modular switch
+electrical switch
+havells 2 way
+black switch",TRUE,FALSE,FALSE,4,10% Off This Month,"type': 'bulk'
+'value': 8
+'minQuantity': 50
+'validFrom': '2024-01-01T00:00:00Z'
+'validTo': '2024-12-31T23:59:59Z'
+'isActive': True
+
+'type': 'percentage'
+'value': 10
+'minQuantity': 1
+'validFrom': '2024-08-01T00:00:00Z'
+'validTo': '2024-08-31T23:59:59Z'
+'isActive': True","minQuantity': 10
+'maxQuantity': 49
+'discountPercentage': 5
+
+'minQuantity': 50
+'maxQuantity': 99
+'discountPercentage': 8
+
+'minQuantity': 100
+'maxQuantity': 999
+'discountPercentage': 12"
+VK-ELEC-SW-019,SW-MOD-2WAY-002,modular-switch-2way-ivory,8901030875651,2-Way Modular Switch - Ivory,"High-quality 2-Way modular switch in elegant ivory finish. Designed for dual-control convenience, durability, and modern aesthetics. Suitable for both residential and commercial use.","https://mahinelectricals.com/wp-content/uploads/2024/05/kundan-6a-2-way-switch-kc-kevis-1.jpg
+
+https://5.imimg.com/data5/SELLER/Default/2020/8/TP/AE/QS/5801826/2-way-electrical-switch-500x500.jpg
+
+https://5.imimg.com/data5/ON/PN/MY-27371891/two-way-electrical-switch-500x500.jpg",,"group': 'Electrical'
+'name': 'Current Rating'
+'value': '10'
+'unit': 'A'
+
+'group': 'Electrical'
+'name': 'Voltage Rating'
+'value': '240'
+'unit': 'V'
+
+'group': 'Physical'
+'name': 'Module Size'
+'value': '1'
+'unit': 'module'
+
+'group': 'Technical'
+'name': 'Contact Material'
+'value': 'Silver Alloy'
+'unit': ''",40,grams,71,71,38,mm,Electrical,Switches,Modular Switches,Havells,Havells India Ltd,Component,"type': 'color'
+'name': 'White'
+'sku': 'SW-2W-FAN-001'
+'productId': 'VK-ELEC-SW-017'
+
+'type': 'color'
+'name': 'Black'
+'sku': 'SW-MOD-2WAY-003'
+'productId': 'VK-ELEC-SW-018'
+
+'type': 'color'
+'name': 'White'
+'sku': 'SW-MOD-2WAY-002'
+'productId': 'VK-ELEC-SW-019'
+
+'type': 'color'
+'name': 'Ivory'
+'sku': 'SW-MOD-2WAY-001'
+'productId': 'VK-ELEC-SW-020'",Polycarbonate,"ISI
+BIS
+CE",2 years,India,190,240,150,INR,18,120,30,90,25,TRUE,FALSE,"switch
+modular
+2way
+ivory
+residential
+commercial",2-Way Modular Switch Ivory | Havells | Elegant Design,"Buy premium 2-Way modular switch in ivory finish. ISI certified, 2-year warranty. Durable and stylish choice for homes and offices.","2 way switch
+ivory switch
+modular switch
+electrical switch
+havells 2 way",TRUE,FALSE,FALSE,3,10% Off This Month,"type': 'bulk'
+'value': 8
+'minQuantity': 50
+'validFrom': '2024-01-01T00:00:00Z'
+'validTo': '2024-12-31T23:59:59Z'
+'isActive': True
+
+'type': 'percentage'
+'value': 10
+'minQuantity': 1
+'validFrom': '2024-08-01T00:00:00Z'
+'validTo': '2024-08-31T23:59:59Z'
+'isActive': True","minQuantity': 10
+'maxQuantity': 49
+'discountPercentage': 5
+
+'minQuantity': 50
+'maxQuantity': 99
+'discountPercentage': 8
+
+'minQuantity': 100
+'maxQuantity': 999
+'discountPercentage': 12"
+VK-ELEC-SW-020,SW-MOD-2WAY-001,modular-switch-2way-white,8901030875650,2-Way Modular Switch - White,"Premium quality 2-Way modular switch designed for convenient dual-control operation. Elegant white finish with durable construction, suitable for residential and commercial spaces.","https://assets.bldnxt.in/catalog/product/cache/1/image/a77c1558d860704591e3027d1ebed402/k/a/kali611241_legr050007_5b96956828807.jpg
+
+https://5.imimg.com/data5/SELLER/Default/2022/8/RI/GO/UP/21028978/20-ampere-legrand-arteor-one-way-modular-switch-500x500.png
+
+https://5.imimg.com/data5/XV/CQ/UN/SELLER-10495071/legrand-switches-500x500.jpg",,"group': 'Electrical'
+'name': 'Current Rating'
+'value': '10'
+'unit': 'A'
+
+'group': 'Electrical'
+'name': 'Voltage Rating'
+'value': '240'
+'unit': 'V'
+
+'group': 'Physical'
+'name': 'Module Size'
+'value': '1'
+'unit': 'module'
+
+'group': 'Technical'
+'name': 'Contact Material'
+'value': 'Silver Alloy'
+'unit': ''",40,grams,71,71,38,mm,Electrical,Switches,Modular Switches,Havells,Havells India Ltd,Component,"type': 'color'
+'name': 'White'
+'sku': 'SW-2W-FAN-001'
+'productId': 'VK-ELEC-SW-017'
+
+'type': 'color'
+'name': 'Black'
+'sku': 'SW-MOD-2WAY-003'
+'productId': 'VK-ELEC-SW-018'
+
+'type': 'color'
+'name': 'White'
+'sku': 'SW-MOD-2WAY-002'
+'productId': 'VK-ELEC-SW-019'
+
+'type': 'color'
+'name': 'Ivory'
+'sku': 'SW-MOD-2WAY-001'
+'productId': 'VK-ELEC-SW-020'",Polycarbonate,"ISI
+BIS
+CE",2 years,India,190,240,150,INR,18,200,50,150,30,TRUE,FALSE,"switch
+modular
+2way
+residential
+commercial",2-Way Modular Switch White | Havells | Premium Quality,"Buy premium 2-Way modular switch in white finish. ISI certified, 2-year warranty. Ideal for dual-control operation in homes and offices.","2 way switch
+modular switch
+electrical switch
+havells 2 way
+white switch",TRUE,TRUE,FALSE,2,10% Off This Month,"type': 'bulk'
+'value': 8
+'minQuantity': 50
+'validFrom': '2024-01-01T00:00:00Z'
+'validTo': '2024-12-31T23:59:59Z'
+'isActive': True
+
+'type': 'percentage'
+'value': 10
+'minQuantity': 1
+'validFrom': '2024-08-01T00:00:00Z'
+'validTo': '2024-08-31T23:59:59Z'
+'isActive': True","minQuantity': 10
+'maxQuantity': 49
+'discountPercentage': 5
+
+'minQuantity': 50
+'maxQuantity': 99
+'discountPercentage': 8
+
+'minQuantity': 100
+'maxQuantity': 999
+'discountPercentage': 12"
+VK-ELEC-SW-021,SW-PB-HEAVY-001,push-button-switch-heavy-duty,8902030877903,Heavy Duty Modular Push Button Switch,"High-performance modular push button switch suitable for bells, control panels, and heavy-duty applications.","https://5.imimg.com/data5/WA_9696/Default/2025/6/515534612/BI/VL/TB/241332550/push-button-500x500.jpeg
+
+https://5.imimg.com/data5/SELLER/Default/2024/6/428397592/XY/CM/DW/42199873/push-button-switches-500x500.jpg
+
+https://m.media-amazon.com/images/I/51I873o0hVS._UF894,1000_QL80_.jpg",,"group': 'Electrical'
+'name': 'Current Rating'
+'value': '10'
+'unit': 'A'
+
+'group': 'Electrical'
+'name': 'Voltage'
+'value': '230'
+'unit': 'V'
+
+'group': 'Design'
+'name': 'Type'
+'value': 'Heavy Duty Modular'
+'unit': ''
+
+'group': 'Design'
+'name': 'Material'
+'value': 'Polycarbonate + Brass Contacts'
+'unit': ''",,,90,90,42,mm,Electrical,Switches,Push Button Switches,Legrand,Legrand India Pvt. Ltd.,Component,"type': 'Category'
+'name': 'Push Button'
+'sku': 'SW-PB-HEAVY-001'
+'productId': 'VK-ELEC-SW-021'
+
+'type': 'Category'
+'name': 'Push Button'
+'sku': 'SW-PB-BELL-001'
+'productId': 'VK-ELEC-SW-022'
+
+'type': 'Category'
+'name': 'Push Button'
+'sku': 'SW-PB-LED-001'
+'productId': 'VK-ELEC-SW-023'",,"ISI
+CE
+RoHS",2 years,,249,299,,INR,18,210,160,,,TRUE,,"push button
+heavy duty
+legrand",Legrand Heavy Duty Modular Push Button Switch,Legrand modular push button switch designed for durability and heavy-duty applications.,,,,,,,,
+VK-ELEC-SW-022,SW-PB-BELL-001,push-button-bell-switch-white,8902030877901,Push Button Bell Switch - White,Classic push button bell switch for doorbell applications. Smooth operation and long durability.,"https://m.media-amazon.com/images/I/511x-8bn-+L._SL1500_.jpg
+
+https://i0.wp.com/electricbasket.in/wp-content/uploads/2023/09/Reo-Elegant-6A-Mega-Bell-Push-Switch-With-Indicator-White-2.webp?fit=1200%2C1200&ssl=1
+
+https://shiningbulb.com/wp-content/uploads/463103-ShiningBulbcom.jpg",,"group': 'Electrical'
+'name': 'Current Rating'
+'value': '6'
+'unit': 'A'
+
+'group': 'Electrical'
+'name': 'Voltage'
+'value': '230'
+'unit': 'V'
+
+'group': 'Design'
+'name': 'Color'
+'value': 'White'
+'unit': ''
+
+'group': 'Design'
+'name': 'Material'
+'value': 'Polycarbonate'
+'unit': ''",,,86,86,40,mm,Electrical,Switches,Push Button Switches,Anchor,Anchor by Panasonic,Component,"type': 'Category'
+'name': 'Push Button'
+'sku': 'SW-PB-HEAVY-001'
+'productId': 'VK-ELEC-SW-021'
+
+'type': 'Category'
+'name': 'Push Button'
+'sku': 'SW-PB-BELL-001'
+'productId': 'VK-ELEC-SW-022'
+
+'type': 'Category'
+'name': 'Push Button'
+'sku': 'SW-PB-LED-001'
+'productId': 'VK-ELEC-SW-023'",,ISI,1 year,,149,199,,INR,18,350,280,,,TRUE,,"push button
+bell switch
+anchor",Anchor Push Button Bell Switch,Durable push button bell switch with smooth click operation. Available in White & Ivory.,,,,,,,,
+VK-ELEC-SW-023,SW-PB-LED-001,push-button-switch-led-indicator,8.90E+12,Push Button Switch with LED Indicator,Push button switch with inbuilt LED indicator for easy visibility. Suitable for bell or control panel use.,"https://m.media-amazon.com/images/I/417T20qw10L.jpg
+ 
+ https://m.media-amazon.com/images/I/412LYWnCuzL._UF350,350_QL80_.jpg', 
+ 
+ https://probots.co.in/pub/media/catalog/product/cache/dae07e5368c25ed1643ed23ff1b30de1/p/r/promaxpushbuttonswitchwithgreenindicationlightround.jpeg",,"group': 'Electrical'
+ 'name': 'Current Rating'
+ 'value': '6'
+ 'unit': 'A'
+ 
+ 'group': 'Electrical'
+ 'name': 'Voltage'
+ 'value': '230'
+ 'unit': 'V'
+ 
+ 'group': 'Design'
+ 'name': 'LED Indicator'
+ 'value': 'Yes'
+ 'unit': ''
+ 
+ 'group': 'Design'
+ 'name': 'Material'
+ 'value': 'Polycarbonate'
+ 'unit': ''",,,86,86,40,mm,Electrical,Switches,Push Button Switches,Havells,Havells India Ltd.,Component,"type': 'Category'
+'name': 'Push Button'
+'sku': 'SW-PB-HEAVY-001'
+'productId': 'VK-ELEC-SW-021'
+
+'type': 'Category'
+'name': 'Push Button'
+'sku': 'SW-PB-BELL-001'
+'productId': 'VK-ELEC-SW-022'
+
+'type': 'Category'
+'name': 'Push Button'
+'sku': 'SW-PB-LED-001'
+'productId': 'VK-ELEC-SW-023'",,"CE
+ ISI",2 years,,199,249,,INR,18,340,260,,,TRUE,,"push button switch
+ LED indicator
+ Havells",Havells Push Button Switch with LED Indicator,Push button switch with built-in LED indicator for visibility. Suitable for residential and industrial use.,,,,,,,,

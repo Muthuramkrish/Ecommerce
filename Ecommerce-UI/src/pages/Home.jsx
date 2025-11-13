@@ -8,8 +8,9 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
   // Hero component state
   const [currentSlide, setCurrentSlide] = useState(0);
   
-  // Categories component state
-  const scrollContainer = useRef(null);
+  // Categories component state - separate refs for desktop and mobile
+  const scrollContainerDesktop = useRef(null);
+  const scrollContainerMobile = useRef(null);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
 
@@ -138,23 +139,51 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
     }
   }, [finalSlides.length, currentSlide]);
 
-  // Categories scroll functionality
-  const checkScrollButtons = () => {
-    if (scrollContainer.current) {
-      const { scrollLeft, scrollWidth, clientWidth } = scrollContainer.current;
-      setCanScrollLeft(scrollLeft > 0);
-      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 1);
+  // Categories scroll functionality - FIXED
+  const checkScrollButtons = useCallback(() => {
+    const isMobile = window.innerWidth < 768;
+    const container = isMobile ? scrollContainerMobile.current : scrollContainerDesktop.current;
+    
+    if (container) {
+      const { scrollLeft, scrollWidth, clientWidth } = container;
+      setCanScrollLeft(scrollLeft > 5);
+      setCanScrollRight(scrollLeft < scrollWidth - clientWidth - 5);
     }
-  };
+  }, []);
 
   useEffect(() => {
-    checkScrollButtons();
-    const container = scrollContainer.current;
-    if (container) {
-      container.addEventListener('scroll', checkScrollButtons);
-      return () => container.removeEventListener('scroll', checkScrollButtons);
+    // Initial check
+    const timer = setTimeout(() => {
+      checkScrollButtons();
+    }, 100);
+    
+    const handleResize = () => {
+      checkScrollButtons();
+    };
+    
+    window.addEventListener('resize', handleResize);
+    
+    const desktopContainer = scrollContainerDesktop.current;
+    const mobileContainer = scrollContainerMobile.current;
+    
+    if (desktopContainer) {
+      desktopContainer.addEventListener('scroll', checkScrollButtons);
     }
-  }, [defaultCategories]);
+    if (mobileContainer) {
+      mobileContainer.addEventListener('scroll', checkScrollButtons);
+    }
+    
+    return () => {
+      clearTimeout(timer);
+      window.removeEventListener('resize', handleResize);
+      if (desktopContainer) {
+        desktopContainer.removeEventListener('scroll', checkScrollButtons);
+      }
+      if (mobileContainer) {
+        mobileContainer.removeEventListener('scroll', checkScrollButtons);
+      }
+    };
+  }, [defaultCategories, checkScrollButtons]);
 
   // Hero navigation functions
   const nextSlide = () => {
@@ -169,28 +198,38 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
     setCurrentSlide(index);
   };
 
-  // Categories scroll functions
-  const scrollLeft = () => {
-    if (scrollContainer.current) {
-      const isMobile = window.innerWidth < 768;
-      const scrollAmount = isMobile ? -200 : -280; // Mobile: 200px, Desktop: 280px
-      scrollContainer.current.scrollBy({
-        left: scrollAmount,
+  // Categories scroll functions - FIXED
+  const scrollLeft = useCallback(() => {
+    const isMobile = window.innerWidth < 768;
+    const container = isMobile ? scrollContainerMobile.current : scrollContainerDesktop.current;
+    
+    if (container) {
+      const scrollAmount = isMobile ? 220 : 320;
+      container.scrollBy({
+        left: -scrollAmount,
         behavior: 'smooth'
       });
+      
+      // Update buttons after scroll
+      setTimeout(() => checkScrollButtons(), 400);
     }
-  };
+  }, [checkScrollButtons]);
 
-  const scrollRight = () => {
-    if (scrollContainer.current) {
-      const isMobile = window.innerWidth < 768;
-      const scrollAmount = isMobile ? 200 : 280; // Mobile: 200px, Desktop: 280px
-      scrollContainer.current.scrollBy({
+  const scrollRight = useCallback(() => {
+    const isMobile = window.innerWidth < 768;
+    const container = isMobile ? scrollContainerMobile.current : scrollContainerDesktop.current;
+    
+    if (container) {
+      const scrollAmount = isMobile ? 220 : 320;
+      container.scrollBy({
         left: scrollAmount,
         behavior: 'smooth'
       });
+      
+      // Update buttons after scroll
+      setTimeout(() => checkScrollButtons(), 400);
     }
-  };
+  }, [checkScrollButtons]);
 
   // Handle category selection - use the prop if available, otherwise log (memoized)
   const handleCategorySelect = useCallback((categoryName) => {
@@ -453,38 +492,51 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
             </p>
           </div>
 
-          <div className="relative">
-            {/* Left Arrow */}
-            {canScrollLeft && (
+          <div className="relative group/container">
+            {/* Left Arrow - Only if > 4 categories */}
+            {defaultCategories.length > 4 && (
               <button
                 onClick={scrollLeft}
-                className="absolute left-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-2xl rounded-full p-3 md:p-4 hover:bg-blue-50 transition-all duration-300 border border-blue-100 hover:scale-110 group"
+                disabled={!canScrollLeft}
+                className={`absolute left-0 md:left-2 top-1/2 -translate-y-1/2 z-20 bg-gradient-to-r from-blue-600 to-blue-700 shadow-2xl rounded-full p-3 md:p-4 transition-all duration-300 border border-blue-500 group/btn ${
+                  canScrollLeft 
+                    ? 'opacity-100 hover:scale-110 hover:from-blue-700 hover:to-blue-800 cursor-pointer' 
+                    : 'opacity-30 cursor-not-allowed'
+                } md:opacity-0 md:group-hover/container:opacity-100`}
                 aria-label="Scroll left"
               >
-                <ChevronLeft className="w-6 h-6 md:w-7 md:h-7 text-blue-600 group-hover:-translate-x-0.5 transition-transform" />
+                <ChevronLeft className={`w-5 h-5 md:w-6 md:h-6 text-white transition-transform ${
+                  canScrollLeft ? 'group-hover/btn:-translate-x-0.5' : ''
+                }`} />
               </button>
             )}
 
-            {/* Right Arrow */}
-            {canScrollRight && (
+            {/* Right Arrow - Only if > 4 categories */}
+            {defaultCategories.length > 4 && (
               <button
                 onClick={scrollRight}
-                className="absolute right-0 top-1/2 -translate-y-1/2 z-20 bg-white shadow-2xl rounded-full p-3 md:p-4 hover:bg-blue-50 transition-all duration-300 border border-blue-100 hover:scale-110 group"
+                disabled={!canScrollRight}
+                className={`absolute right-0 md:right-2 top-1/2 -translate-y-1/2 z-20 bg-gradient-to-r from-blue-600 to-blue-700 shadow-2xl rounded-full p-3 md:p-4 transition-all duration-300 border border-blue-500 group/btn ${
+                  canScrollRight 
+                    ? 'opacity-100 hover:scale-110 hover:from-blue-700 hover:to-blue-800 cursor-pointer' 
+                    : 'opacity-30 cursor-not-allowed'
+                } md:opacity-0 md:group-hover/container:opacity-100`}
                 aria-label="Scroll right"
               >
-                <ChevronRight className="w-6 h-6 md:w-7 md:h-7 text-blue-600 group-hover:translate-x-0.5 transition-transform" />
+                <ChevronRight className={`w-5 h-5 md:w-6 md:h-6 text-white transition-transform ${
+                  canScrollRight ? 'group-hover/btn:translate-x-0.5' : ''
+                }`} />
               </button>
             )}
-
+            
             {/* Desktop: Horizontal Scrollable Container */}
             <div className="hidden md:block">
               <div
-                ref={scrollContainer}
+                ref={scrollContainerDesktop}
                 className="flex overflow-x-auto scrollbar-hide gap-6 px-12 py-4"
                 style={{
                   scrollbarWidth: 'none',
                   msOverflowStyle: 'none',
-                  WebkitScrollbar: 'none',
                 }}
               >
                 {defaultCategories.map((category, index) => (
@@ -536,12 +588,11 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
             {/* Mobile: Horizontal Scrollable Container */}
             <div className="md:hidden">
               <div
-                ref={scrollContainer}
+                ref={scrollContainerMobile}
                 className="flex overflow-x-auto scrollbar-hide gap-4 px-4 py-4"
                 style={{
                   scrollbarWidth: 'none',
                   msOverflowStyle: 'none',
-                  WebkitScrollbar: 'none',
                 }}
               >
                 {defaultCategories.map((category, index) => (
@@ -637,100 +688,22 @@ const Home = ({ products = [], allProducts = [], onAddToCart, onAddToWishlist, o
           </div>
         </section>
       )}
-
-      {/* Professional Statistics Section */}
-      {/* <section 
-        ref={statsSectionRef}
-        className={`py-16 md:py-20 bg-gradient-to-r from-blue-900 via-blue-800 to-indigo-900 relative overflow-hidden transition-all duration-1000 ${
-          isStatsVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}
-      >
-        <div className="absolute inset-0 opacity-30">
-          <div className="w-full h-full" style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
-            backgroundSize: '60px 60px'
-          }}></div>
-        </div>
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">
-              Trusted by Thousands of Customers
-            </h2>
-            <p className="text-xl text-blue-100 max-w-2xl mx-auto">
-              Join our growing community of satisfied customers across India
-            </p>
-          </div>
-          
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-yellow-400 mb-2">50K+</div>
-              <div className="text-blue-100 text-lg font-medium">Happy Customers</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-yellow-400 mb-2">10K+</div>
-              <div className="text-blue-100 text-lg font-medium">Products Sold</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-yellow-400 mb-2">500+</div>
-              <div className="text-blue-100 text-lg font-medium">Product Range</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl md:text-5xl font-bold text-yellow-400 mb-2">99%</div>
-              <div className="text-blue-100 text-lg font-medium">Satisfaction Rate</div>
-            </div>
-          </div>
-        </div>
-      </section> */}
-
-      {/* Professional CTA Section */}
-      {/* <section 
-        ref={ctaSectionRef}
-        className={`py-16 md:py-20 bg-gradient-to-br from-gray-50 to-white transition-all duration-1000 ${
-          isCtaVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-        }`}
-      >
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 border border-gray-100">
-            <div className="inline-block p-3 bg-blue-100 rounded-full mb-6">
-              <svg className="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
-              Ready to Power Your Projects?
-            </h2>
-            <p className="text-xl text-gray-600 mb-8 leading-relaxed">
-              Discover our complete range of professional-grade electrical products. 
-              From residential to industrial applications, we have everything you need.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <button
-                onClick={() => {
-                  const el = document.getElementById('categories');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="px-8 py-4 bg-gradient-to-r from-blue-600 to-blue-700 text-white rounded-xl font-bold text-lg hover:shadow-xl hover:scale-105 transition-all duration-300 flex items-center justify-center space-x-2"
-              >
-                <span>Browse Categories</span>
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
-                </svg>
-              </button>
-              <button
-                onClick={() => {
-                  const el = document.getElementById('products');
-                  if (el) el.scrollIntoView({ behavior: 'smooth' });
-                }}
-                className="px-8 py-4 bg-white text-blue-600 rounded-xl font-bold text-lg hover:shadow-xl hover:scale-105 transition-all duration-300 border-2 border-blue-600 hover:bg-blue-50"
-              >
-                View Featured Products
-              </button>
-            </div>
-          </div>
-        </div>
-      </section> */}
     </div>
   );
 };
 
 export default Home;
+
+// import React from "react";
+
+// const HomePage = () => {
+//   return (
+//     <div className="min-h-screen flex items-center justify-center bg-gray-50">
+//       <h1 className="text-3xl font-bold text-blue-900">
+//         Welcome to Your E-Commerce Store 🛒
+//       </h1>
+//     </div>
+//   );
+// };
+
+// export default HomePage;

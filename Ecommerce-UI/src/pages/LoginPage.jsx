@@ -9,6 +9,7 @@ import {
   ArrowLeft,
 } from "lucide-react";
 import { signUpUser, signInUser } from "../api/user";
+import { adminLogin } from "../api/admin"; // Import admin login
 import sideImage from "../assets/login.png";
 
 const initialForm = {
@@ -30,6 +31,7 @@ const LoginPage = ({ onLoginSuccess }) => {
   const signUpPwdRef = useRef(null);
   const [showSignUpChecklist, setShowSignUpChecklist] = useState(false);
   const [signUpPwdFocused, setSignUpPwdFocused] = useState(false);
+  const [isLoggingIn, setIsLoggingIn] = useState(false);
 
   const isValidEmail = (email) => {
     const value = String(email || "").trim();
@@ -138,7 +140,7 @@ const LoginPage = ({ onLoginSuccess }) => {
   const handleSignIn = async (e) => {
     e.preventDefault();
     const { email, password } = form.signIn;
-
+  
     if (!email.trim() || !password.trim()) {
       setSignInMsg({ msg: "Email and password are required.", error: true });
       return;
@@ -147,41 +149,148 @@ const LoginPage = ({ onLoginSuccess }) => {
       setSignInMsg({ msg: "Please enter a valid email address.", error: true });
       return;
     }
-
+  
+    setIsLoggingIn(true);
+  
     try {
+      // Try regular user login first
       const res = await signInUser({ email, password });
-
+  
+      // Handle backend login messages
+      if (!res.success) {
+        if (res.type === "email_not_found") {
+          setSignInMsg({ 
+            msg: "This email isn't registered yet. Please create an account to continue.", 
+            error: true 
+          });
+        } else if (res.type === "wrong_password") {
+          setSignInMsg({ 
+            msg: "Incorrect password. Please try again.", 
+            error: true 
+          });
+        } else {
+          setSignInMsg({ msg: res.message || "Login failed. Please try again.", error: true });
+        }
+        setIsLoggingIn(false);
+        return;
+      }
+  
+      // Store token if exists
       if (res.token) {
         setAuthToken(res.token);
       }
-
+  
       const userInfo = {
         fullName: res.user?.fullName || email,
         email: res.user?.email || email,
         token: res.token,
+        role: res.user?.role || res.role || "user",
       };
-      // Note: localStorage is already set in signInUser API function
-
-      setCurrentUser(userInfo);
-      setSignInMsg({ msg: "Login successful! Welcome back.", error: false });
-
-      setTimeout(() => {
-        if (onLoginSuccess) {
-          onLoginSuccess({
-            ...userInfo,
-            favorites: res.favorites || [],
-            cart: res.cart || [],
-          });
+  
+      // Admin check
+      if (userInfo.role === "admin") {
+        localStorage.setItem("currentUser", JSON.stringify(userInfo));
+        localStorage.setItem("currentAdmin", JSON.stringify(userInfo));
+  
+        setCurrentUser(userInfo);
+        setSignInMsg({
+          msg: "Admin login successful! Redirecting to dashboard...",
+          error: false,
+        });
+  
+        setTimeout(() => {
+          if (onLoginSuccess) {
+            onLoginSuccess({
+              ...userInfo,
+              favorites: res.favorites || [],
+              cart: res.cart || [],
+            });
+          }
+        }, 1500);
+      } else {
+        // Normal user login
+        setCurrentUser(userInfo);
+        setSignInMsg({
+          msg: "Login successful! Welcome back.",
+          error: false,
+        });
+  
+        setTimeout(() => {
+          if (onLoginSuccess) {
+            onLoginSuccess({
+              ...userInfo,
+              favorites: res.favorites || [],
+              cart: res.cart || [],
+            });
+          }
+        }, 2000);
+      }
+  
+      setIsLoggingIn(false);
+    } catch (userErr) {
+      console.log("User login error:", userErr);
+      
+      // Check the error response for specific type
+      const errorData = userErr?.response?.data;
+      const errorStatus = userErr?.response?.status;
+      
+      // Try admin login fallback only if it's not an email_not_found error
+      if (errorData?.type !== "email_not_found") {
+        try {
+          console.log("Trying admin login fallback...");
+          const adminRes = await adminLogin({ email, password });
+  
+          if (adminRes.admin && adminRes.token) {
+            const adminInfo = {
+              fullName: adminRes.admin.fullName || adminRes.admin.name || email,
+              email: adminRes.admin.email || email,
+              token: adminRes.token,
+              role: "admin",
+            };
+  
+            localStorage.setItem("currentUser", JSON.stringify(adminInfo));
+            localStorage.setItem("currentAdmin", JSON.stringify(adminInfo));
+  
+            setCurrentUser(adminInfo);
+            setSignInMsg({
+              msg: "Admin login successful! Redirecting to dashboard...",
+              error: false,
+            });
+  
+            setTimeout(() => {
+              if (onLoginSuccess) {
+                onLoginSuccess({
+                  ...adminInfo,
+                  favorites: [],
+                  cart: [],
+                });
+              }
+            }, 1500);
+            
+            setIsLoggingIn(false);
+            return; // Successfully logged in as admin
+          }
+        } catch (adminErr) {
+          console.log("Admin login also failed");
         }
-      }, 2000);
-    } catch (err) {
-      setSignInMsg({
-        msg: err?.message || "Invalid email or password. Please try again.",
-        error: true,
-      });
+      }
+  
+      // Handle error messages based on response
+      let message = "Unable to sign in. Please check your credentials and try again.";
+      
+      if (errorData?.type === "email_not_found" || errorStatus === 404) {
+        message = "This email isn't registered. Please sign up to create an account.";
+      } else if (errorData?.type === "wrong_password" || errorStatus === 401) {
+        message = "Incorrect password. Please try again.";
+      } else if (errorData?.message) {
+        message = errorData.message;
+      }
+  
+      setSignInMsg({ msg: message, error: true });
+      setIsLoggingIn(false);
     }
   };
-
+  
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-gradient-to-br from-slate-100 via-blue-50 to-slate-100 p-2 sm:p-4 lg:p-6 overflow-hidden">
       <div className="hidden md:flex items-center justify-center rounded-3xl p-4">
@@ -257,7 +366,8 @@ const LoginPage = ({ onLoginSuccess }) => {
                   required
                   autoComplete="username"
                   ref={signInEmailRef}
-                  className="w-full px-3 py-1.5 text-sm lg:text-sm border border-slate-300 rounded-lg focus:outline-none focus:border focus:border-blue-500 transition-all"
+                  disabled={isLoggingIn}
+                  className="w-full px-3 py-1.5 text-sm lg:text-sm border border-slate-300 rounded-lg focus:outline-none focus:border focus:border-blue-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                 />
 
                 <div className="relative w-full">
@@ -270,12 +380,14 @@ const LoginPage = ({ onLoginSuccess }) => {
                     required
                     autoComplete="current-password"
                     ref={signInPwdRef}
-                    className="w-full px-3 py-1.5 pr-10 text-sm lg:text-sm border border-slate-300 rounded-lg focus:outline-none focus:border focus:border-blue-500 transition-all"
+                    disabled={isLoggingIn}
+                    className="w-full px-3 py-1.5 pr-10 text-sm lg:text-sm border border-slate-300 rounded-lg focus:outline-none focus:border focus:border-blue-500 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
                   />
                   <button
                     type="button"
                     onClick={() => setShowSignInPwd((v) => !v)}
-                    className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors"
+                    disabled={isLoggingIn}
+                    className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600 transition-colors disabled:opacity-50"
                   >
                     {showSignInPwd ? <EyeOff size={16} /> : <Eye size={16} />}
                   </button>
@@ -304,16 +416,27 @@ const LoginPage = ({ onLoginSuccess }) => {
                 <button
                   type="button"
                   onClick={handleSignIn}
-                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 text-sm lg:text-sm rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg"
+                  disabled={isLoggingIn}
+                  className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 text-sm lg:text-sm rounded-lg transition-colors duration-200 shadow-md hover:shadow-lg disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
                 >
-                  Sign In
+                  {isLoggingIn ? (
+                    <>
+                      <svg className="animate-spin -ml-1 mr-2 h-4 w-4 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Signing In...
+                    </>
+                  ) : (
+                    'Sign In'
+                  )}
                 </button>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Sign Up Form */}
+        {/* Sign Up Form - Keep existing code */}
         <div
           className={`absolute top-0 right-0 w-full md:w-1/2 h-full flex items-center justify-center p-4 sm:p-6 lg:p-8 transition-all duration-700 ease-in-out z-10 ${
             active
